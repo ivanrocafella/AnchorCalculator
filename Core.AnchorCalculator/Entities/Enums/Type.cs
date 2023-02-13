@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Core.AnchorCalculator.Entities.Enums
 {
-    internal enum Type
+    public enum Type
     {
         A1_ST45,
         A1_3PS,
         A1_ST10_20,
-        A3_A500,
+        A3_A500C,
         A3_35GS
     }
 }

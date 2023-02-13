@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.AnchorCalculator.Entities.Enums;
 
 namespace Core.AnchorCalculator.Entities
 {
-    internal class Material : Entity
+    public class Material : Entity
     {
         public int Size { get; set; }
-        public string? Type { get; set; }
-        public string? Name { get; }
+        public virtual int TypeId
+        {
+            get => (int)Type;
+            set => Type = (Enums.Type)value;
+        }
+        [EnumDataType(typeof(Enums.Type))]
+        public Enums.Type Type { get; set; }
 
-        public Material(int size, string? type)
-            => Name = $"Круг {size} {type}";
+        public ICollection<Anchor>? Anchors { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.AnchorCalculator.Entities
 {
-    internal abstract class Entity : IEquatable<Entity>
+    public abstract class Entity : IEquatable<Entity>
     {
         public int Id { get; set; }
         public bool Equals(Entity? other)

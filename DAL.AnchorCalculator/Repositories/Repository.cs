@@ -47,34 +47,17 @@ namespace DAL.AnchorCalculator.Repositories
 
         public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate) => DbSet.Where(predicate);
 
-        public IQueryable<TEntity> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public IQueryable<TEntity> GetAll() => DbSet;
 
-        public TEntity GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+#pragma warning disable CS8603 // Возможно, возврат ссылки, допускающей значение NULL.
+        public TEntity GetById(int id) => DbSet.Find(id);
 
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public void Remove(int id) => DbSet.Remove(DbSet.Find(id));
 
-        public void RemoveByEntity(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void RemoveByEntity(TEntity entity) => DbSet.Remove(entity);
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
-        {
-            throw new NotImplementedException();
-        }
+        public void RemoveRange(IEnumerable<TEntity> entities) => DbSet.RemoveRange(entities);
 
-        public void Update(TEntity obj)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(TEntity obj) => DbSet.Update(obj);
     }
 }

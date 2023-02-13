@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 
 namespace Core.AnchorCalculator.Entities
 {
-    internal class Anchor : Entity
+    public class Anchor : Entity
     {
         public int LengthAnchor { get; set; }
-        public int DiameterAnchor { get; }
-        public double WeightAnchor { get; }
-        public double PriceAnchor { get; }
+        public int DiameterAnchor { get; set; }
+        public double WeightAnchor { get; set; }
+        public double PriceAnchor { get; set; }
         public int LengthBend { get; set; }
-        public int RadiusBend { get; }
+        public int RadiusBend { get; set; }
         public int LengthThread { get; set; }
         public int DiameterThread { get; set; }
-        public double StepThread { get; }
-        public double PriceTotalAnchor { get; }
-        public int Quantity { get; }
+        public double StepThread { get; set; }
+        public double PriceTotalAnchor { get; set; }
+        public int Quantity { get; set; }
+        public DateTime DateCreate { get; set; }
+
+        public int MaterialId { get; set; }
+        public Material Material { get; set; }
 
     }
 }
