@@ -19,6 +19,12 @@ namespace Core.AnchorCalculator.Entities
         [EnumDataType(typeof(Enums.Type))]
         public Enums.Type Type { get; set; }
 
+
         public ICollection<Anchor>? Anchors { get; set; }
+
+        public Material()
+        {
+            Anchors = new HashSet<Anchor>();
+        }
     }
 }
