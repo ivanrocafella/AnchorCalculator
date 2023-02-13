@@ -14,8 +14,8 @@ namespace DAL.AnchorCalculator
         {
         }
 
-        public DbSet<Anchor> Anchors { get; set; } = null!;
-        public DbSet<Material> Materials { get; set; } = null!;
+        public DbSet<Anchor> Anchors { get; set; }
+        public DbSet<Material> Materials { get; set; }
 
     }
 }
