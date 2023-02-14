@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.AnchorCalculator.Entities
 {
-    public class User : IdentityUser<int>
+    public class User : IdentityUser
     {
         public ICollection<Anchor> Anchors { get; set; }
 

@@ -4,6 +4,7 @@ using DAL.AnchorCalculator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.AnchorCalculator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214082842_addNewInitial")]
+    partial class addNewInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,46 +33,47 @@ namespace DAL.AnchorCalculator.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("BendLength")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BendRadius")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateCreate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Diameter")
+                    b.Property<int>("DiameterAnchor")
                         .HasColumnType("int");
 
-                    b.Property<int>("Length")
+                    b.Property<int>("DiameterThread")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LengthAnchor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LengthBend")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LengthThread")
                         .HasColumnType("int");
 
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("PriceAnchor")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceTotalAnchor")
                         .HasColumnType("float");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("ThreadDiameter")
+                    b.Property<int>("RadiusBend")
                         .HasColumnType("int");
 
-                    b.Property<int>("ThreadLength")
-                        .HasColumnType("int");
-
-                    b.Property<double>("ThreadStep")
+                    b.Property<double>("StepThread")
                         .HasColumnType("float");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("Weight")
+                    b.Property<double>("WeightAnchor")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -311,7 +315,9 @@ namespace DAL.AnchorCalculator.Migrations
 
                     b.HasOne("Core.AnchorCalculator.Entities.User", "User")
                         .WithMany("Anchors")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Material");
 

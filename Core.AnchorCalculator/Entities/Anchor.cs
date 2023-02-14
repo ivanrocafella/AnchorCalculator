@@ -8,23 +8,25 @@ namespace Core.AnchorCalculator.Entities
 {
     public class Anchor : Entity
     {
-        public int LengthAnchor { get; set; }
-        public int DiameterAnchor { get; set; }
-        public double WeightAnchor { get; set; }
-        public double PriceAnchor { get; set; }
-        public int LengthBend { get; set; }
-        public int RadiusBend { get; set; }
-        public int LengthThread { get; set; }
-        public int DiameterThread { get; set; }
-        public double StepThread { get; set; }
-        public double PriceTotalAnchor { get; set; }
+        public int Length { get; set; }
+        public int Diameter { get; set; }
+        public double Weight{ get; set; }
+        public double Price { get; set; }
+        /// <summary>
+        /// Get or set anchhor's billet 
+        /// </summary>
+        public int BendLength { get; set; }
+        public int BendRadius { get; set; }
+        public int ThreadLength { get; set; }
+        public int ThreadDiameter { get; set; }
+        public double ThreadStep { get; set; }
+        public double Amount { get; set; }
         public int Quantity { get; set; }
         public DateTime DateCreate { get; set; }
 
         public int MaterialId { get; set; }
         public Material Material { get; set; }
-        public int UserId { get; set; }
+        public string? UserId { get; set; }
         public User User { get; set; }
-
     }
 }
