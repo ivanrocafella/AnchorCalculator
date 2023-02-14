@@ -16,6 +16,7 @@ namespace DAL.AnchorCalculator
 
         public DbSet<Anchor> Anchors { get; set; }
         public DbSet<Material> Materials { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

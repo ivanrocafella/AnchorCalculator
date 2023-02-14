@@ -4,6 +4,7 @@ using DAL.AnchorCalculator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.AnchorCalculator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214052924_AddedUser")]
+    partial class AddedUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,17 +69,12 @@ namespace DAL.AnchorCalculator.Migrations
                     b.Property<double>("StepThread")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<double>("WeightAnchor")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MaterialId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Anchors");
                 });
@@ -166,23 +164,10 @@ namespace DAL.AnchorCalculator.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.AnchorCalculator.Entities.User", "User")
-                        .WithMany("Anchors")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Material");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Core.AnchorCalculator.Entities.Material", b =>
-                {
-                    b.Navigation("Anchors");
-                });
-
-            modelBuilder.Entity("Core.AnchorCalculator.Entities.User", b =>
                 {
                     b.Navigation("Anchors");
                 });
