@@ -1,19 +1,25 @@
 
 using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
+using DAL.AnchorCalculator.Cotracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using UI.AnchorCalculator.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
+
 // Add services to the container.
 builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<MaterialService>();
 
 var app = builder.Build();
 

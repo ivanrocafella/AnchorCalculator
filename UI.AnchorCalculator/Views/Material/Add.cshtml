@@ -1,0 +1,30 @@
+﻿@model UI.AnchorCalculator.ViewModels.MaterialViewModel
+
+<form method="post" asp-controller="Material" asp-action="Add">
+  <div asp-validation-summary="ModelOnly"></div>
+  <div class="row mb-3">
+    <label asp-for="Name" class="col-sm-2 col-form-label">Название</label>
+    <div class="col-sm-10">
+      <select asp-for="Name" class="form-select" aria-label="Default select example">
+         <option selected></option>
+         <option value="Арматура">Арматура</option>
+         <option value="Круг">Круг</option>
+         <option value="Катанка">Катанка</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Размер</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="size" step="0.5" min="6" max="100">
+    </div>
+  </div>
+   <div class="row mb-3">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Размер</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="size" step="0.5" min="6" max="100">
+    </div>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>

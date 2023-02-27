@@ -10,6 +10,7 @@ namespace Core.AnchorCalculator.Entities
 {
     public class Material : Entity
     {
+        public string? Name { get; set; }
         public int Size { get; set; }
         public virtual int TypeId
         {
@@ -18,6 +19,7 @@ namespace Core.AnchorCalculator.Entities
         }
         [EnumDataType(typeof(Enums.Type))]
         public Enums.Type Type { get; set; }
+        public double PricePerMetr { get; set; }
 
 
         public ICollection<Anchor>? Anchors { get; set; }

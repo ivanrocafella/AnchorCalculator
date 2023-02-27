@@ -8,10 +8,7 @@ namespace Core.AnchorCalculator.Entities.Enums
 {
     public enum Type
     {
-        A1_ST45,
-        A1_3PS,
-        A1_ST10_20,
-        A3_A500C,
-        A3_35GS
+        A_I, // A-I
+        A_III  // A-III
     }
 }
