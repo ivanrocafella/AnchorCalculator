@@ -20,7 +20,8 @@ namespace UI.AnchorCalculator.Controllers
         // GET: MaterialController
         public ActionResult Index()
         {
-            return View();
+            List<Material> materials = _MService.GetAllMaterials().Result;
+            return View(materials);
         }
 
         // GET: MaterialController/Details/5
@@ -32,57 +33,55 @@ namespace UI.AnchorCalculator.Controllers
         // GET: MaterialController/Add
         public ActionResult Add()
         {
-            return View();
+            MaterialViewModel materialViewModel = _MService.GetMaterialViewModel();
+            return View(materialViewModel);
         }
 
         // POST: MaterialController/Add
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(MaterialViewModel viewModel)
+        public async Task<ActionResult> Add(MaterialViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                Material material = _MService.AddMaterial(viewModel).Result;
-                return Json(new { success = true, materialJS = material });
+                await _MService.AddMaterial(viewModel);
+                return RedirectToAction("Index");
             }
-            return Json(new { success = false });
+            else
+                return View(viewModel);          
         }   
 
         // GET: MaterialController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            MaterialViewModelForEdit modelForEdit = _MService.GetMaterialViewModelForEdit(id).Result;
+            return View(modelForEdit);
         }
 
-        // POST: MaterialController/Edit/5
+        // POST: MaterialController/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(MaterialViewModelForEdit modelForEdit)
         {
             try
             {
+                await _MService.EditMaterial(modelForEdit);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(modelForEdit);
             }
-        }
-
-        // GET: MaterialController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: MaterialController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                await _MService.DeleteById(id);
+                return Ok();
             }
             catch
             {

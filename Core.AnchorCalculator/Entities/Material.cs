@@ -11,7 +11,7 @@ namespace Core.AnchorCalculator.Entities
     public class Material : Entity
     {
         public string? Name { get; set; }
-        public int Size { get; set; }
+        public double Size { get; set; }
         public virtual int TypeId
         {
             get => (int)Type;

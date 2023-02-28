@@ -1,10 +1,11 @@
-﻿@model UI.AnchorCalculator.ViewModels.MaterialViewModel
+﻿@model UI.AnchorCalculator.ViewModels.MaterialViewModelForEdit
 
-<form method="post" asp-controller="Material" asp-action="Add">
+<form method="post" asp-controller="Material" asp-action="Edit">
   <div class="row mb-3">
     <label asp-for="Name" class="col-sm-2 col-form-label">Название</label>
     <div class="col-sm-10">
       <select asp-for="Name" class="form-select" aria-label="Default select example">
+          <option selected value="@Model.Name">@Model.Name</option>
           @foreach (var item in Model.Names)
           {
               <option value="@item">@item</option>
@@ -23,6 +24,7 @@
     <label asp-for="TypeId" class="col-sm-2 col-form-label">Тип профиля</label>
     <div class="col-sm-10">
       <select asp-for="TypeId" class="form-select" aria-label="Default select example">
+          <option selected value="@Model.(int)Type">@Model.Type</option>
           @foreach (var item in Model.Types)
           {
               <option value="@Array.IndexOf(Model.Types, item)">@item</option>
@@ -37,7 +39,8 @@
       <span asp-validation-for="PricePerMetr" class="text-danger"></span>
     </div>
   </div> 
-  <button type="submit" class="btn btn-primary">Добавить</button>
+  <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
+  <button type="submit" class="btn btn-primary">Редактировать</button>
 </form>
 
 
