@@ -1,0 +1,221 @@
+﻿@model UI.AnchorCalculator.ViewModels.AnchorViewModel
+
+
+<div class="card mb-3" style="max-width: 1040px;">
+  <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+           <form id="CalculateForm">
+             <div class="row mb-3">
+               <label asp-for="MaterialId" class="col-sm-2 col-form-label">Материал</label>
+               <div class="col-sm-10">
+                 <select id="selectBox" class="form-select" aria-label="Default select example" onchange="changeFuncDiamAnchor();">
+                     @foreach (var item in Model.Materials)
+                     {
+                         <option id="material_@item.Id" value="@item.Id">@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
+                     }
+                 </select>
+               </div>
+             </div>
+             <div class="row mb-3">
+               <label asp-for="Diameter" class="col-sm-2 col-form-label">Диаметр анкера</label>
+               <div class="col-sm-10">
+                 <input asp-for="Diameter" type="number" class="form-control" id="Diametr" step="1" disabled>
+                 <span asp-validation-for="Diameter" class="text-danger"></span>
+               </div>
+             </div> 
+             <div class="row mb-3">
+               <label asp-for="Length" class="col-sm-2 col-form-label">Длина анкера</label>
+               <div class="col-sm-10">
+                 <input asp-for="Length" type="number" class="form-control" id="Length" step="1" min="0">
+                 <span asp-validation-for="Length" class="text-danger"></span>
+               </div>
+             </div>
+              <div class="row mb-3">
+               <label asp-for="ThreadDiameter" class="col-sm-2 col-form-label">Диаметр резьбы</label>
+               <div class="col-sm-10">
+                 <input asp-for="ThreadDiameter" type="number" class="form-control" id="ThreadDiameter" step="1" onchange="changeFuncThreadStep();" min="0">
+                 <span asp-validation-for="ThreadDiameter" class="text-danger"></span>
+               </div>
+             </div> 
+              <div class="row mb-3">
+               <label asp-for="ThreadStep" class="col-sm-2 col-form-label">Шаг резьбы</label>
+               <div class="col-sm-10">
+                 <input asp-for="ThreadStep" type="number" class="form-control" id="ThreadStep" step="0.5" disabled>
+                 <span asp-validation-for="ThreadStep" class="text-danger"></span>
+               </div>
+             </div> 
+              <div class="row mb-3">
+               <label asp-for="Quantity" class="col-sm-2 col-form-label">Кол-во</label>
+               <div class="col-sm-10">
+                 <input asp-for="Quantity" type="number" class="form-control" id="ThreadStep" step="1" min="0">
+                 <span asp-validation-for="Quantity" class="text-danger"></span>
+               </div>
+             </div> 
+             <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckChecked">С загибом</label>
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onclick="showSubForm()">               
+             </div>
+             <div id="subForm" class="row mb-3" style="display:none">
+                <div class="row mb-3">
+                         <label asp-for="BendLength" class="col-sm-2 col-form-label">Длина загиба</label>
+                    <div class="col-sm-10">
+                         <input asp-for="BendLength" type="number" class="form-control" id="BendLength" step="1" min="0">
+                         <span asp-validation-for="BendLength" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                         <label asp-for="BendRadius" class="col-sm-2 col-form-label">Радиус загиба</label>
+                    <div class="col-sm-10">
+                         <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" disabled>
+                         <span asp-validation-for="BendRadius" class="text-danger"></span>
+                    </div>
+                </div>               
+             </div> 
+             <button type="submit" class="btn btn-primary">Расчитать</button>
+           </form>
+        </p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="..." class="img-fluid rounded-start" alt="...">
+    </div>
+  </div>
+</div>
+
+
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+        
+
+
+    <script>
+
+        let calculateForm = document.getElementById("CalculateForm");
+
+        calculateForm.addEventListener("submit", function formSubmit(event){
+            event.preventDefault();
+            console.log(`Form Submitted! Timestamp`);            
+            var formContent = $('#CalculateForm')[0];
+            var formData = new FormData()
+            formData.append("MaterialId", $("#MaterialId").val());
+            formData.append("ThreadDiameter", $("#ThreadDiameter").val());
+            console.log(formData)
+            $.ajax(
+            {
+                url: '@Url.Action("GetAnchorJsonResult", "Anchor")',
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                data: formData,          
+                success: function (response)
+                {
+                    console.log(response.anchorJS)
+                }
+            }
+            )
+        }        
+        )
+
+
+
+
+
+         function changeFuncDiamAnchor() {
+          var selectBox = document.getElementById("selectBox");
+          var selectedValue = selectBox.options[selectBox.selectedIndex].value;             
+           $.ajax(
+                  {
+                      url: '@Url.Action("GetMaterialJsonResult", "Material")',
+                      type: 'GET',
+                      data: { 'id': selectedValue },
+                      success: function (response) {
+                      console.log(response.success);
+                      console.log(response.materialJS.size);
+                      if(response.success) {
+                          console.log(response.success)
+                          var DiametrInput = document.getElementById("Diametr");
+                          DiametrInput.value = response.materialJS.size;
+                      }}})}      
+           
+
+            function showSubForm() {
+                 var checkBox = document.getElementById("flexSwitchCheckChecked");
+                 var subForm = document.getElementById("subForm");
+                 if (checkBox.checked == true){
+                   subForm.style.display = "block";
+                 } else {
+                    subForm.style.display = "none";
+                 }
+               }      
+
+
+            function changeFuncThreadStep()
+            {                     
+            console.log("DOM fully loaded and parsed");
+            var inputThreadDiameter = document.getElementById("ThreadDiameter");
+            var valueThreadDiameter = inputThreadDiameter.value;
+            var inputThreadStep = document.getElementById("ThreadStep");
+            var valueThreadStep;
+            if (valueThreadDiameter > 0 && valueThreadDiameter <= 6) 
+            {
+                         valueThreadStep =  1;
+            }
+            else if(valueThreadDiameter > 6 && valueThreadDiameter <= 8)
+            {
+                         valueThreadStep =  1.25;
+            }
+                       else if(valueThreadDiameter > 8 && valueThreadDiameter <= 10)
+            {
+                         valueThreadStep =  1.5;
+            }
+                        else if(valueThreadDiameter > 10 && valueThreadDiameter <= 12)
+            {
+                         valueThreadStep =  1.75;
+            }
+                        else if(valueThreadDiameter > 12 && valueThreadDiameter <= 16)
+            {
+                         valueThreadStep =  2;
+            }
+                         else if(valueThreadDiameter > 16 && valueThreadDiameter <= 22)
+            {
+                         valueThreadStep =  2.5;
+            }
+                          else if(valueThreadDiameter > 22 && valueThreadDiameter <= 27)
+            {
+                         valueThreadStep =  3;
+            }
+                          else if(valueThreadDiameter > 27 && valueThreadDiameter <= 30)
+            {
+                         valueThreadStep =  3.5;
+            }
+                          else if(valueThreadDiameter > 30 && valueThreadDiameter <= 36)
+            {
+                         valueThreadStep =  4;
+            }
+                          else if(valueThreadDiameter > 36 && valueThreadDiameter <= 42)
+            {
+                         valueThreadStep =  4.5;
+            }
+                          else if(valueThreadDiameter > 42 && valueThreadDiameter <= 48)
+            {
+                         valueThreadStep =  5;
+            }
+            else
+            {
+               valueThreadStep = 0;
+            }
+            inputThreadStep.value = valueThreadStep
+              
+               }
+
+
+
+    </script>
+}
+

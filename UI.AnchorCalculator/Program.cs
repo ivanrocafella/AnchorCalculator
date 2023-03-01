@@ -20,6 +20,8 @@ builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<MaterialService>();
+builder.Services.AddTransient<AnchorService>();
+
 
 var app = builder.Build();
 
@@ -41,6 +43,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Anchor}/{action=Index}/{id?}");
 
 app.Run();
