@@ -25,6 +25,6 @@ namespace UI.AnchorCalculator.ViewModels
         public double BatchWeight { get; set; }
         public double BilletLength { get; set; }
         public int MaterialId { get; set; }
-        public List<Material> Materials { get; set; }
+        public List<Material>? Materials { get; set; }
     }
 }

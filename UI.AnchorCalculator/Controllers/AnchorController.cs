@@ -1,4 +1,5 @@
 ﻿using Core.AnchorCalculator.Entities;
+using GrapeCity.Documents.Svg;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UI.AnchorCalculator.Services;
@@ -8,12 +9,17 @@ namespace UI.AnchorCalculator.Controllers
 {
     public class AnchorController : Controller
     {
+        private IWebHostEnvironment _appEnvironment;
         private readonly AnchorService _AService;
+        private readonly SvgMakingService _SvgService;
 
-        public AnchorController(AnchorService aService)
+        public AnchorController(IWebHostEnvironment appEnvironment, AnchorService aService, SvgMakingService svgService)
         {
+            _appEnvironment = appEnvironment;
             _AService = aService;
+            _SvgService = svgService;
         }
+
 
 
         // GET: AnchorController
@@ -26,12 +32,13 @@ namespace UI.AnchorCalculator.Controllers
 
         // GET: AnchorController
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult GetAnchorJsonResult(AnchorViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 Anchor Anchor = _AService.GetAnchor(viewModel);
+                _SvgService.GetSvg(Anchor, _appEnvironment.WebRootPath);
                 return Json(new { success = true, anchorJS = Anchor });
             }
             return Json(new { succes = false });

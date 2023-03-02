@@ -5,13 +5,14 @@
   <div class="row g-0">
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
+        <h5 class="card-title">Форма для заполнения</h5>
         <p class="card-text">
            <form id="CalculateForm">
              <div class="row mb-3">
                <label asp-for="MaterialId" class="col-sm-2 col-form-label">Материал</label>
                <div class="col-sm-10">
                  <select id="selectBox" class="form-select" aria-label="Default select example" onchange="changeFuncDiamAnchor();">
+                     <option selected>Ничего не выбрано</option>
                      @foreach (var item in Model.Materials)
                      {
                          <option id="material_@item.Id" value="@item.Id">@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
@@ -22,7 +23,7 @@
              <div class="row mb-3">
                <label asp-for="Diameter" class="col-sm-2 col-form-label">Диаметр анкера</label>
                <div class="col-sm-10">
-                 <input asp-for="Diameter" type="number" class="form-control" id="Diametr" step="1" disabled>
+                 <input asp-for="Diameter" type="number" class="form-control" id="Diameter" step="1" readonly>
                  <span asp-validation-for="Diameter" class="text-danger"></span>
                </div>
              </div> 
@@ -40,10 +41,17 @@
                  <span asp-validation-for="ThreadDiameter" class="text-danger"></span>
                </div>
              </div> 
+             <div class="row mb-3">
+               <label asp-for="ThreadLength" class="col-sm-2 col-form-label">Длина резьбы</label>
+               <div class="col-sm-10">
+                 <input asp-for="ThreadLength" type="number" class="form-control" id="ThreadLength" step="1"  min="0">
+                 <span asp-validation-for="ThreadLength" class="text-danger"></span>
+               </div>
+             </div> 
               <div class="row mb-3">
                <label asp-for="ThreadStep" class="col-sm-2 col-form-label">Шаг резьбы</label>
                <div class="col-sm-10">
-                 <input asp-for="ThreadStep" type="number" class="form-control" id="ThreadStep" step="0.5" disabled>
+                 <input asp-for="ThreadStep" type="number" class="form-control" id="ThreadStep" step="0.5" readonly>
                  <span asp-validation-for="ThreadStep" class="text-danger"></span>
                </div>
              </div> 
@@ -69,7 +77,7 @@
                 <div class="row mb-3">
                          <label asp-for="BendRadius" class="col-sm-2 col-form-label">Радиус загиба</label>
                     <div class="col-sm-10">
-                         <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" disabled>
+                         <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" value="32" readonly>
                          <span asp-validation-for="BendRadius" class="text-danger"></span>
                     </div>
                 </div>               
@@ -77,14 +85,17 @@
              <button type="submit" class="btn btn-primary">Расчитать</button>
            </form>
         </p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
     </div>
     <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
-    </div>
+            <img id="picSvg" src="/images/anchor_example.jpg" class="d-block mx-auto" alt="...">
+        </div>
   </div>
 </div>
+      
+
+
+
 
 
 
@@ -96,39 +107,34 @@
 
     <script>
 
-        let calculateForm = document.getElementById("CalculateForm");
+
+        var calculateForm = document.getElementById("CalculateForm");
 
         calculateForm.addEventListener("submit", function formSubmit(event){
             event.preventDefault();
             console.log(`Form Submitted! Timestamp`);            
-            var formContent = $('#CalculateForm')[0];
-            var formData = new FormData()
-            formData.append("MaterialId", $("#MaterialId").val());
-            formData.append("ThreadDiameter", $("#ThreadDiameter").val());
+            var formData = new FormData(calculateForm)
             console.log(formData)
             $.ajax(
             {
                 url: '@Url.Action("GetAnchorJsonResult", "Anchor")',
-                type: 'GET',
+                type: 'POST',
                 contentType: false,
                 processData: false,
                 data: formData,          
                 success: function (response)
                 {
-                    console.log(response.anchorJS)
+                    console.log(response.anchorJS)                   
+                    document.getElementById("picSvg").src = response.anchorJS.svgPath;
                 }
             }
             )
         }        
         )
 
-
-
-
-
          function changeFuncDiamAnchor() {
           var selectBox = document.getElementById("selectBox");
-          var selectedValue = selectBox.options[selectBox.selectedIndex].value;             
+          var selectedValue = selectBox.options[selectBox.selectedIndex].value;
            $.ajax(
                   {
                       url: '@Url.Action("GetMaterialJsonResult", "Material")',
@@ -139,7 +145,7 @@
                       console.log(response.materialJS.size);
                       if(response.success) {
                           console.log(response.success)
-                          var DiametrInput = document.getElementById("Diametr");
+                          var DiametrInput = document.getElementById("Diameter");
                           DiametrInput.value = response.materialJS.size;
                       }}})}      
            
@@ -151,6 +157,8 @@
                    subForm.style.display = "block";
                  } else {
                     subForm.style.display = "none";
+                    document.getElementById("BendLength").value = 0;
+                    document.getElementById("BendRadius").value = 0;
                  }
                }      
 

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GrapeCity.Documents.Imaging" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -17,6 +18,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.AnchorCalculator\Core.AnchorCalculator.csproj" />
     <ProjectReference Include="..\DAL.AnchorCalculator\DAL.AnchorCalculator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\SVGfiles\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

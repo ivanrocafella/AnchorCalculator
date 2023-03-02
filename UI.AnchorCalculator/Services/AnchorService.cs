@@ -34,6 +34,7 @@ namespace UI.AnchorCalculator.Services
                 Diameter = viewModel.Diameter,
                 ThreadDiameter = viewModel.ThreadDiameter,
                 Length = viewModel.Length,
+                ThreadLength = viewModel.ThreadLength,
                 BendLength = viewModel.BendLength,
                 BendRadius = viewModel.BendRadius,
                 ThreadStep = viewModel.ThreadStep,

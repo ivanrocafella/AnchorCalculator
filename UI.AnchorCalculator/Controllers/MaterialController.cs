@@ -93,12 +93,17 @@ namespace UI.AnchorCalculator.Controllers
         [HttpGet]
         public async Task<JsonResult> GetMaterialJsonResult(int id)
         {
+            Material material = new Material();
             if (id > 0)
             {
-                Material material = await _MService.GetMaterialById(id);
+                material = await _MService.GetMaterialById(id);
                 return Json(new { success = true, materialJS = material });
             }
-            return Json(new { succes = false });
+            else
+            {
+                material.Size = 0;
+                return Json(new { success = true, materialJS = material });
+            }      
         }
     }
 }
