@@ -1,11 +1,17 @@
 ﻿using Core.AnchorCalculator.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace UI.AnchorCalculator.ViewModels
 {
     public class AnchorViewModel
     {
+
+        [Range(1,Int32.MaxValue,ErrorMessage = "Длина должна быть не меньше 1")]
+        [Display(Name = "Длина")]
         public int Length { get; set; }
-        public int Diameter { get; set; }
+        [Range(1, Int32.MaxValue, ErrorMessage = "Выберите материал")]
+        [Display(Name = "Диаметр")]
+        public float Diameter { get; set; }
         public double Weight { get; set; }
         public double Price { get; set; }
         /// <summary>
@@ -24,6 +30,7 @@ namespace UI.AnchorCalculator.ViewModels
         public string? Material { get; set; }
         public double BatchWeight { get; set; }
         public double BilletLength { get; set; }
+        [Display(Name = "Материал")]
         public int MaterialId { get; set; }
         public List<Material>? Materials { get; set; }
     }

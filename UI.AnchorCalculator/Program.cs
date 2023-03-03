@@ -20,6 +20,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<MaterialService>();
 builder.Services.AddTransient<AnchorService>();
 builder.Services.AddTransient<SvgMakingService>();
+builder.Services.AddTransient<CalculateService>();
 
 
 var app = builder.Build();

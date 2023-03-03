@@ -7,12 +7,10 @@ namespace UI.AnchorCalculator.Services
     public class AnchorService
     {
         private readonly MaterialService MService;
-        private readonly ApplicationDbContext applicationDbContext;
 
-        public AnchorService(MaterialService mService, ApplicationDbContext applicationDbContext)
+        public AnchorService(MaterialService mService)
         {
             MService = mService;
-            this.applicationDbContext = applicationDbContext;
         }
 
         //Method for getting AnchorViewModel

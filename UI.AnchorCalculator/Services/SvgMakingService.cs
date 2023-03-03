@@ -1,6 +1,7 @@
 ﻿using Core.AnchorCalculator.Entities;
 using GrapeCity.Documents.Svg;
 using System.Drawing;
+using System.Text;
 
 namespace UI.AnchorCalculator.Services
 {
@@ -12,14 +13,14 @@ namespace UI.AnchorCalculator.Services
         {
             float ThreadStep = (float)anchor.ThreadStep; // parse to float double threadstep
             X_InitCoord += anchor.BendLength; // X origin
-            int lengthMax = 1500; // max length of anchor
+            int lengthMax = 800; // max length of anchor
             int gap = 20; // gap in out of max length  of anchor
             int outPartHorSize = 30; // length output part of horizontal size
             int outPartRadSize = 40; // length of shelf of radius size
 
             var svgDoc = new GcSvgDocument();
-            svgDoc.RootSvg.Width = new SvgLength(lengthMax * 1.5f, SvgLengthUnits.Pixels);
-            svgDoc.RootSvg.Height = new SvgLength(lengthMax * 1.5f, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Width = new SvgLength(500, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Height = new SvgLength(500, SvgLengthUnits.Pixels);
 
             List<SvgElement> svgElements = new(); // Make list to fill with objects SvgRectElement
 
@@ -794,7 +795,7 @@ namespace UI.AnchorCalculator.Services
                 svgElements.Add(lineSerifTopSizeLengthOfAnchor);
             }
 
-          // GetDescriptionAnchor(anchor, paramsCanvas, svgElements); // Add description of Anchor
+          // GetDescriptionAnchor(anchor, paramsCanvas, svgElements); 
 
             for (int i = 0; i < svgElements.Count; i++)
                 svgDoc.RootSvg.Children.Insert(i, svgElements[i]);
@@ -802,19 +803,23 @@ namespace UI.AnchorCalculator.Services
             SvgViewBox view = new();
             view.MinX = 0;
             view.MinY = 0;
-            view.Width = 5000;
-            view.Height = 5000;
+            view.Width = 1000;
+            view.Height = 1300;
 
             svgDoc.RootSvg.ViewBox = view;
 
-            var root = svgDoc.RootSvg.XmlSpace;
+            StringBuilder stringBuilder = new();
+            svgDoc.Save(stringBuilder);
+            string xml = stringBuilder.ToString();
+            string svgElem = xml.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
+            anchor.SvgElement = svgElem;
 
-            string nameFolder = "SVGfiles";
-            string pathToFolder = Path.Combine(Path.Combine(pathRootDir, nameFolder));
-            string fileName = "Anchor.svg";
-            string fullPath = Path.Combine(pathToFolder, fileName);
-            svgDoc.Save(fullPath);
-            anchor.SvgPath = $"/{nameFolder}/{fileName}";
+           // string nameFolder = "SVGfiles";
+           // string pathToFolder = Path.Combine(Path.Combine(pathRootDir, nameFolder));
+           // string fileName = "Anchor.svg";
+           // string fullPath = Path.Combine(pathToFolder, fileName);
+           // svgDoc.Save(fullPath);
+           // anchor.SvgPath = $"/{nameFolder}/{fileName}";
         }
 
         //Method for making text

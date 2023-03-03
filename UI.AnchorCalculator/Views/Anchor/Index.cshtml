@@ -1,7 +1,15 @@
 ﻿@model UI.AnchorCalculator.ViewModels.AnchorViewModel
 
+<style>
+    .container {
+            margin-left: 1%;
+        }
+</style>
 
-<div class="card mb-3" style="max-width: 1040px;">
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card mb-3" align="left" style="max-width: 600px; float:left">
   <div class="row g-0">
     <div class="col-md-8">
       <div class="card-body">
@@ -9,55 +17,55 @@
         <p class="card-text">
            <form id="CalculateForm">
              <div class="row mb-3">
-               <label asp-for="MaterialId" class="col-sm-2 col-form-label">Материал</label>
-               <div class="col-sm-10">
-                 <select id="selectBox" class="form-select" aria-label="Default select example" onchange="changeFuncDiamAnchor();">
-                     <option selected>Ничего не выбрано</option>
+               <label asp-for="MaterialId" class="col-sm-4 col-form-label"></label>
+               <div class="col-sm-8">
+                 <select id="selectBox" asp-for="MaterialId" class="form-select" aria-label="Default select example" onchange="changeFuncDiamAnchor();">
+                     <option>Ничего не выбрано</option>
                      @foreach (var item in Model.Materials)
                      {
                          <option id="material_@item.Id" value="@item.Id">@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
                      }
-                 </select>
+                 </select>                
                </div>
              </div>
              <div class="row mb-3">
-               <label asp-for="Diameter" class="col-sm-2 col-form-label">Диаметр анкера</label>
-               <div class="col-sm-10">
-                 <input asp-for="Diameter" type="number" class="form-control" id="Diameter" step="1" readonly>
+               <label asp-for="Diameter" class="col-sm-4 col-form-label"></label>
+               <div class="col-sm-8">
+                 <input asp-for="Diameter" type="number" class="form-control" id="Diameter" readonly>
                  <span asp-validation-for="Diameter" class="text-danger"></span>
                </div>
              </div> 
              <div class="row mb-3">
-               <label asp-for="Length" class="col-sm-2 col-form-label">Длина анкера</label>
-               <div class="col-sm-10">
-                 <input asp-for="Length" type="number" class="form-control" id="Length" step="1" min="0">
+               <label asp-for="Length" class="col-sm-4 col-form-label"></label>
+               <div class="col-sm-8">
+                 <input asp-for="Length" type="number" class="form-control" id="Length" step="1">
                  <span asp-validation-for="Length" class="text-danger"></span>
                </div>
              </div>
               <div class="row mb-3">
-               <label asp-for="ThreadDiameter" class="col-sm-2 col-form-label">Диаметр резьбы</label>
-               <div class="col-sm-10">
+               <label asp-for="ThreadDiameter" class="col-sm-4 col-form-label">Диаметр резьбы</label>
+               <div class="col-sm-8">
                  <input asp-for="ThreadDiameter" type="number" class="form-control" id="ThreadDiameter" step="1" onchange="changeFuncThreadStep();" min="0">
                  <span asp-validation-for="ThreadDiameter" class="text-danger"></span>
                </div>
              </div> 
              <div class="row mb-3">
-               <label asp-for="ThreadLength" class="col-sm-2 col-form-label">Длина резьбы</label>
-               <div class="col-sm-10">
+               <label asp-for="ThreadLength" class="col-sm-4 col-form-label">Длина резьбы</label>
+               <div class="col-sm-8">
                  <input asp-for="ThreadLength" type="number" class="form-control" id="ThreadLength" step="1"  min="0">
                  <span asp-validation-for="ThreadLength" class="text-danger"></span>
                </div>
              </div> 
               <div class="row mb-3">
-               <label asp-for="ThreadStep" class="col-sm-2 col-form-label">Шаг резьбы</label>
-               <div class="col-sm-10">
-                 <input asp-for="ThreadStep" type="number" class="form-control" id="ThreadStep" step="0.5" readonly>
+               <label asp-for="ThreadStep" class="col-sm-4 col-form-label">Шаг резьбы</label>
+               <div class="col-sm-8">
+                 <input asp-for="ThreadStep" type="number" class="form-control" id="ThreadStep" step="0.25" readonly>
                  <span asp-validation-for="ThreadStep" class="text-danger"></span>
                </div>
              </div> 
               <div class="row mb-3">
-               <label asp-for="Quantity" class="col-sm-2 col-form-label">Кол-во</label>
-               <div class="col-sm-10">
+               <label asp-for="Quantity" class="col-sm-4 col-form-label">Кол-во</label>
+               <div class="col-sm-8">
                  <input asp-for="Quantity" type="number" class="form-control" id="ThreadStep" step="1" min="0">
                  <span asp-validation-for="Quantity" class="text-danger"></span>
                </div>
@@ -68,15 +76,15 @@
              </div>
              <div id="subForm" class="row mb-3" style="display:none">
                 <div class="row mb-3">
-                         <label asp-for="BendLength" class="col-sm-2 col-form-label">Длина загиба</label>
-                    <div class="col-sm-10">
+                         <label asp-for="BendLength" class="col-sm-4 col-form-label">Длина загиба</label>
+                    <div class="col-sm-8">
                          <input asp-for="BendLength" type="number" class="form-control" id="BendLength" step="1" min="0">
                          <span asp-validation-for="BendLength" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
-                         <label asp-for="BendRadius" class="col-sm-2 col-form-label">Радиус загиба</label>
-                    <div class="col-sm-10">
+                         <label asp-for="BendRadius" class="col-sm-4 col-form-label">Радиус загиба</label>
+                    <div class="col-sm-8">
                          <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" value="32" readonly>
                          <span asp-validation-for="BendRadius" class="text-danger"></span>
                     </div>
@@ -88,10 +96,29 @@
       </div>
     </div>
     <div class="col-md-4">
-            <img id="picSvg" src="/images/anchor_example.jpg" class="d-block mx-auto" alt="...">
+            <img src="/images/anchor_example.jpg" class="d-block mx-auto" alt="...">
         </div>
   </div>
 </div>
+    </div>
+    <div class="col-sm-6" id="descriptAnchor" style="display:none" >
+        <div class="card mb-3"  style="max-width: 600px;">
+       <div class="row g-0">
+    <div class="col-md-6">
+      <div class="card-body" id="PriceWeight">
+        <h5 class="card-title">Результаты расчёта</h5>
+        <p class="card-text"></p>
+      </div>
+    </div>
+    <div class="col-md-6" id="containSvg">
+        </div>
+  </div>
+</div>
+    </div>
+</div>
+
+
+
       
 
 
@@ -124,8 +151,21 @@
                 data: formData,          
                 success: function (response)
                 {
-                    console.log(response.anchorJS)                   
-                    document.getElementById("picSvg").src = response.anchorJS.svgPath;
+                    if(response.success)
+                    {
+                        console.log(response.anchorJS)                   
+                        //document.getElementById("picSvg").src = response.anchorJS.svgPath;
+                        document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
+                        document.getElementById("descriptAnchor").style.display = "flex";
+                       // let text = 
+                        let PriceWeight = document.getElementById("PriceWeight");
+                        PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' + 
+                                                                                              '<p class="card-text">Цена: ' + response.anchorJS.price + ' сом</p>' +
+                                                                                              '<p class="card-text">Общая стоимость: ' + response.anchorJS.amount + ' сом</p>' + 
+                                                                                              '<p class="card-text">Длина заготовки: ' + response.anchorJS.billetLength + ' мм</p>' + 
+                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight + ' кг</p>' + 
+                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight + ' кг</p>';
+                    }                   
                 }
             }
             )
@@ -158,7 +198,7 @@
                  } else {
                     subForm.style.display = "none";
                     document.getElementById("BendLength").value = 0;
-                    document.getElementById("BendRadius").value = 0;
+                   // document.getElementById("BendRadius").value = 0;
                  }
                }      
 

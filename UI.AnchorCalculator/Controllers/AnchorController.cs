@@ -9,18 +9,18 @@ namespace UI.AnchorCalculator.Controllers
 {
     public class AnchorController : Controller
     {
-        private IWebHostEnvironment _appEnvironment;
+        private readonly IWebHostEnvironment _appEnvironment;
         private readonly AnchorService _AService;
         private readonly SvgMakingService _SvgService;
+        private readonly CalculateService _CService;
 
-        public AnchorController(IWebHostEnvironment appEnvironment, AnchorService aService, SvgMakingService svgService)
+        public AnchorController(IWebHostEnvironment appEnvironment, AnchorService aService, SvgMakingService svgService, CalculateService cService)
         {
             _appEnvironment = appEnvironment;
             _AService = aService;
             _SvgService = svgService;
+            _CService = cService;
         }
-
-
 
         // GET: AnchorController
         public ActionResult Index()
@@ -39,6 +39,7 @@ namespace UI.AnchorCalculator.Controllers
             {
                 Anchor Anchor = _AService.GetAnchor(viewModel);
                 _SvgService.GetSvg(Anchor, _appEnvironment.WebRootPath);
+                _CService.Calculate(Anchor);
                 return Json(new { success = true, anchorJS = Anchor });
             }
             return Json(new { succes = false });
