@@ -4,16 +4,14 @@ namespace UI.AnchorCalculator.ViewModels
 {
     public class MaterialViewModel
     {
-        [Required(ErrorMessage = "Название обязательно для заполнения")]
         [Display(Name = "Название")]
         public string? Name { get; set; }
-        [Required(ErrorMessage = "Размер обязателен для заполнения")]
+        [Range(6, Double.MaxValue, ErrorMessage = "Размер должен быть не меньше 6")]
         [Display(Name = "Размер")]
         public double Size { get; set; }
-        [Required(ErrorMessage = "Тип сечения обязателен для заполнения")]
         [Display(Name = "Тип сечения")]
         public int TypeId { get; set; }
-        [Required(ErrorMessage = "Цена за метр обязательна для заполнения")]
+        [Range(0.1, Double.MaxValue, ErrorMessage = "Укажите цену за метр")]
         [Display(Name = "Цена за метр")]
         public double PricePerMetr { get; set; }
 

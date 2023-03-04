@@ -47,7 +47,7 @@ namespace UI.AnchorCalculator.Services
             MaterialViewModel materialViewModel = new()
             {
                 Types = Enum.GetValues(typeof(Core.AnchorCalculator.Entities.Enums.Type)),
-                Names = new string[] {"Арматура", "Круг", "Катанка" }
+                Names = new string[] { "Арматура", "Круг", "Катанка" }
             };
             return materialViewModel;
         }
@@ -71,7 +71,7 @@ namespace UI.AnchorCalculator.Services
                 TypeId = material.TypeId,
                 PricePerMetr = material.PricePerMetr,
                 Types = materialViewModel.Types,
-                Names = materialViewModel.Names,
+                Names = materialViewModel.Names.Where(e => e != material.Name).ToArray(),
                 Type = material.Type
             };
             return viewModelForEdit;

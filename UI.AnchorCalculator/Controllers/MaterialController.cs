@@ -39,7 +39,6 @@ namespace UI.AnchorCalculator.Controllers
 
         // POST: MaterialController/Add
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Add(MaterialViewModel viewModel)
         {
             if (ModelState.IsValid)

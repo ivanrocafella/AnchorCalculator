@@ -22,6 +22,8 @@ namespace UI.AnchorCalculator.Controllers
             _CService = cService;
         }
 
+
+
         // GET: AnchorController
         public ActionResult Index()
         {
@@ -41,6 +43,10 @@ namespace UI.AnchorCalculator.Controllers
                 _SvgService.GetSvg(Anchor, _appEnvironment.WebRootPath);
                 _CService.Calculate(Anchor);
                 return Json(new { success = true, anchorJS = Anchor });
+            }
+            else if (ModelState.Root.Children[8].Errors.Count > 0)
+            {
+                return Json(new { success = false, errorMessage = ModelState.Root.Children[8].Errors[0].ErrorMessage});
             }
             return Json(new { succes = false });
         }

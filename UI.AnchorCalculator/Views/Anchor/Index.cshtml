@@ -17,6 +17,7 @@
         <p class="card-text">
            <form id="CalculateForm">
              <div class="row mb-3">
+                 <div class="validation" asp-validation-summary="ModelOnly"/>
                <label asp-for="MaterialId" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
                  <select id="selectBox" asp-for="MaterialId" class="form-select" aria-label="Default select example" onchange="changeFuncDiamAnchor();">
@@ -43,14 +44,14 @@
                </div>
              </div>
               <div class="row mb-3">
-               <label asp-for="ThreadDiameter" class="col-sm-4 col-form-label">Диаметр резьбы</label>
+               <label asp-for="ThreadDiameter" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
-                 <input asp-for="ThreadDiameter" type="number" class="form-control" id="ThreadDiameter" step="1" onchange="changeFuncThreadStep();" min="0">
-                 <span asp-validation-for="ThreadDiameter" class="text-danger"></span>
+                 <input asp-for="ThreadDiameter" type="number" class="form-control" id="ThreadDiameter" step="1" onchange="changeFuncThreadStep();">
+                 <span id="ThreadDiameterValid" class="text-danger"></span>
                </div>
              </div> 
              <div class="row mb-3">
-               <label asp-for="ThreadLength" class="col-sm-4 col-form-label">Длина резьбы</label>
+               <label asp-for="ThreadLength" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
                  <input asp-for="ThreadLength" type="number" class="form-control" id="ThreadLength" step="1"  min="0">
                  <span asp-validation-for="ThreadLength" class="text-danger"></span>
@@ -64,7 +65,7 @@
                </div>
              </div> 
               <div class="row mb-3">
-               <label asp-for="Quantity" class="col-sm-4 col-form-label">Кол-во</label>
+               <label asp-for="Quantity" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
                  <input asp-for="Quantity" type="number" class="form-control" id="ThreadStep" step="1" min="0">
                  <span asp-validation-for="Quantity" class="text-danger"></span>
@@ -134,7 +135,6 @@
 
     <script>
 
-
         var calculateForm = document.getElementById("CalculateForm");
 
         calculateForm.addEventListener("submit", function formSubmit(event){
@@ -151,13 +151,13 @@
                 data: formData,          
                 success: function (response)
                 {
+                    var ThreadDiameterValid = document.getElementById("ThreadDiameterValid");
                     if(response.success)
                     {
+                        ThreadDiameterValid.innerHTML = "";
                         console.log(response.anchorJS)                   
-                        //document.getElementById("picSvg").src = response.anchorJS.svgPath;
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("descriptAnchor").style.display = "flex";
-                       // let text = 
                         let PriceWeight = document.getElementById("PriceWeight");
                         PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' + 
                                                                                               '<p class="card-text">Цена: ' + response.anchorJS.price + ' сом</p>' +
@@ -165,7 +165,11 @@
                                                                                               '<p class="card-text">Длина заготовки: ' + response.anchorJS.billetLength + ' мм</p>' + 
                                                                                               '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight + ' кг</p>' + 
                                                                                               '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight + ' кг</p>';
-                    }                   
+                       
+                    } else { 
+                        ThreadDiameterValid.innerHTML = response.errorMessage;
+                        console.log(response.errorMessage);
+                    }                  
                 }
             }
             )
@@ -261,8 +265,6 @@
             inputThreadStep.value = valueThreadStep
               
                }
-
-
 
     </script>
 }
