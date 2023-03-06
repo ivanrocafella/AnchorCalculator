@@ -6,19 +6,22 @@ namespace UI.AnchorCalculator.Services
 {
     public class AnchorService
     {
+        private readonly ApplicationDbContext applicationDbContext;
         private readonly MaterialService MService;
 
-        public AnchorService(MaterialService mService)
+        public AnchorService(ApplicationDbContext applicationDbContext, MaterialService mService)
         {
+            this.applicationDbContext = applicationDbContext;
             MService = mService;
         }
+
 
         //Method for getting AnchorViewModel
         public AnchorViewModel GetAnchorViewModel()
         {
-            AnchorViewModel anchorViewModel = new AnchorViewModel()
+            AnchorViewModel anchorViewModel = new()
             {
-                Materials = MService.GetAllMaterials().Result
+                Materials = MService.GetAllMaterials().Result.OrderBy(x => x.Name).ThenBy(x => x.Size).ToList()
             };    
             return anchorViewModel;
         }
@@ -39,6 +42,32 @@ namespace UI.AnchorCalculator.Services
                 Quantity = viewModel.Quantity
             };
             return anchor;
+        }
+
+        //Method for adding new Anchor to the database
+        public async Task AddAnchor(AnchorViewModel viewModel)
+        {
+           Anchor anchor = new()
+           {
+               Length = viewModel.Length,
+               Diameter = viewModel.Diameter,
+               Weight = viewModel.Weight,
+               Price = viewModel.Price,
+               BendLength = viewModel.BendLength,
+               BendRadius = viewModel.BendRadius,
+               ThreadLength = viewModel.ThreadLength,
+               ThreadDiameter = viewModel.ThreadDiameter,
+               ThreadStep = viewModel.ThreadStep,
+               Amount = viewModel.Amount,
+               Quantity = viewModel.Quantity,
+               DateCreate = DateTime.Now,
+               SvgElement = viewModel.SvgElement,
+               BatchWeight = viewModel.BatchWeight,
+               BilletLength = viewModel.BilletLength,
+               MaterialId = viewModel.MaterialId,
+           };
+           await applicationDbContext.Anchors.AddAsync(anchor);
+           await applicationDbContext.SaveChangesAsync();
         }
     }
 }

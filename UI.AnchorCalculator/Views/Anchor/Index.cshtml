@@ -58,7 +58,7 @@
                </div>
              </div> 
               <div class="row mb-3">
-               <label asp-for="ThreadStep" class="col-sm-4 col-form-label">Шаг резьбы</label>
+               <label asp-for="ThreadStep" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
                  <input asp-for="ThreadStep" type="number" class="form-control" id="ThreadStep" step="0.25" readonly>
                  <span asp-validation-for="ThreadStep" class="text-danger"></span>
@@ -77,21 +77,21 @@
              </div>
              <div id="subForm" class="row mb-3" style="display:none">
                 <div class="row mb-3">
-                         <label asp-for="BendLength" class="col-sm-4 col-form-label">Длина загиба</label>
+                         <label asp-for="BendLength" class="col-sm-4 col-form-label"></label>
                     <div class="col-sm-8">
                          <input asp-for="BendLength" type="number" class="form-control" id="BendLength" step="1" min="0">
                          <span asp-validation-for="BendLength" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
-                         <label asp-for="BendRadius" class="col-sm-4 col-form-label">Радиус загиба</label>
+                         <label asp-for="BendRadius" class="col-sm-4 col-form-label"></label>
                     <div class="col-sm-8">
                          <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" value="32" readonly>
                          <span asp-validation-for="BendRadius" class="text-danger"></span>
                     </div>
                 </div>               
              </div> 
-             <button type="submit" class="btn btn-primary">Расчитать</button>
+             <button type="submit" class="btn btn-primary mt-2">Расчитать</button>
            </form>
         </p>
       </div>
@@ -130,9 +130,6 @@
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
-        
-
-
     <script>
 
         var calculateForm = document.getElementById("CalculateForm");
@@ -164,7 +161,22 @@
                                                                                               '<p class="card-text">Общая стоимость: ' + response.anchorJS.amount + ' сом</p>' + 
                                                                                               '<p class="card-text">Длина заготовки: ' + response.anchorJS.billetLength + ' мм</p>' + 
                                                                                               '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight + ' кг</p>' + 
-                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight + ' кг</p>';
+                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight + ' кг</p>' +
+                                                                                              '<input id="materialIdtoDB" type="hidden" value="'+ response.anchorJS.materialId +'">' + 
+                                                                                              '<input id="diametertoDB" type="hidden" value="'+ response.anchorJS.diameter +'">' +
+                                                                                              '<input id="lengthtoDB" type="hidden" value="'+ response.anchorJS.length +'">' +
+                                                                                              '<input id="threadDiametertoDB" type="hidden" value="'+ response.anchorJS.threadDiameter +'">' +
+                                                                                              '<input id="threadLengthtoDB" type="hidden" value="'+ response.anchorJS.threadLength +'">' +
+                                                                                              '<input id="threadSteptoDB" type="hidden" value="'+ response.anchorJS.threadStep +'">' +
+                                                                                              '<input id="quantitytoDB" type="hidden" value="'+ response.anchorJS.quantity +'">' +
+                                                                                              '<input id="bendLengthtoDB" type="hidden" value="'+ response.anchorJS.bendLength +'">' +
+                                                                                              '<input id="bendRadiustoDB" type="hidden" value="'+ response.anchorJS.bendRadius +'">' + 
+                                                                                              '<input id="pricetoDB" type="hidden" value="'+ response.anchorJS.price +'">' +
+                                                                                              '<input id="amounttoDB" type="hidden" value="'+ response.anchorJS.amount +'">' +
+                                                                                              '<input id="billetLengthtoDB" type="hidden" value="'+ response.anchorJS.billetLength +'">' +
+                                                                                              '<input id="weighttoDB" type="hidden" value="'+ response.anchorJS.weight +'">' +
+                                                                                              '<input id="batchWeighttoDB" type="hidden" value="'+ response.anchorJS.batchWeight +'">' + 
+                                                                                              '<button class="btn btn-primary mt-2" onclick="Add();">Сохранить</button>';
                        
                     } else { 
                         ThreadDiameterValid.innerHTML = response.errorMessage;
@@ -191,6 +203,15 @@
                           console.log(response.success)
                           var DiametrInput = document.getElementById("Diameter");
                           DiametrInput.value = response.materialJS.size;
+                          var BendRadius = document.getElementById("BendRadius");
+                          if(response.materialJS.typeId == 0)
+                          {                            
+                            BendRadius.value = 37;
+                          }
+                          else
+                          {
+                            BendRadius.value = 58;
+                          }
                       }}})}      
            
 
@@ -264,6 +285,33 @@
             }
             inputThreadStep.value = valueThreadStep
               
+               }
+
+               function Add(){
+               var MaterialIdtoDB = document.getElementById(materialIdtoDB).value;
+                 console.log(MaterialIdtoDB)
+                // var diametertoDB = document.getElementById(diametertoDB)
+                // var lengthtoDB = document.getElementById(lengthtoDB)
+                // var threadDiametertoDB = document.getElementById(threadDiametertoDB)
+                // var threadLengthtoDB = document.getElementById(threadLengthtoDB)
+                // var threadSteptoDB = document.getElementById(threadSteptoDB)
+                // var quantitytoDB = document.getElementById(quantitytoDB)
+                // var bendLengthtoDB = document.getElementById(bendLengthtoDB)
+                // var bendRadiustoDB = document.getElementById(bendRadiustoDB)
+                // var pricetoDB = document.getElementById(pricetoDB)
+                // var amounttoDB = document.getElementById(amounttoDB)
+                // var billetLengthtoDB = document.getElementById(billetLengthtoDB)
+                // var weighttoDB = document.getElementById(weighttoDB)
+                // var batchWeighttoDB = document.getElementById(batchWeighttoDB)
+                 $.ajax(
+               {
+                   url: '@Url.Action("Add","Anchor")',
+                   type: 'POST',
+                   data: {
+                       'materialIdtoDB': MaterialIdtoDB
+                   }
+               }
+           )     
                }
 
     </script>

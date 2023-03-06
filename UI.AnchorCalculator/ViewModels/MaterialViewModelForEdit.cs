@@ -12,9 +12,9 @@ namespace UI.AnchorCalculator.ViewModels
         public double Size { get; set; }
         [Display(Name = "Тип сечения")]
         public int TypeId { get; set; }
+        public Core.AnchorCalculator.Entities.Enums.Type Type { get; set; }
         [Range(0.1, Double.MaxValue, ErrorMessage = "Укажите цену за метр")]
         [Display(Name = "Цена за метр")]
-        public Core.AnchorCalculator.Entities.Enums.Type Type { get; set; }
         public double PricePerMetr { get; set; }
 
         public Array? Types { get; set; }

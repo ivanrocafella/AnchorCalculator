@@ -64,19 +64,12 @@ namespace UI.AnchorCalculator.Controllers
             return View();
         }
 
-        // POST: AnchorController/Create
+        // POST: AnchorController/Add
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Add(AnchorViewModel viewModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _AService.AddAnchor(viewModel);
+            return Ok();
         }
 
         // GET: AnchorController/Edit/5

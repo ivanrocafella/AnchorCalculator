@@ -63,7 +63,7 @@ namespace UI.AnchorCalculator.Services
         {
             Material material = await GetMaterialById(id);
             MaterialViewModel materialViewModel = GetMaterialViewModel();
-            MaterialViewModelForEdit viewModelForEdit = new MaterialViewModelForEdit()
+            MaterialViewModelForEdit viewModelForEdit = new()
             {
                 Id = material.Id,
                 Name = material.Name,

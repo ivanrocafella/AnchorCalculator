@@ -8,33 +8,36 @@ namespace UI.AnchorCalculator.ViewModels
     {
 
         [Range(1,Int32.MaxValue,ErrorMessage = "Укажите длину")]
-        [Display(Name = "Длина")]
+        [Display(Name = "Длина, мм")]
         public int Length { get; set; }
         [Range(1, Int32.MaxValue, ErrorMessage = "Выберите материал")]
-        [Display(Name = "Диаметр")]
+        [Display(Name = "Диаметр, мм")]
         public float Diameter { get; set; }
         public double Weight { get; set; }
         public double Price { get; set; }
         /// <summary>
         /// Get or set anchhor's billet 
         /// </summary>
+        [Display(Name = "Длина загиба, мм")]
         public int BendLength { get; set; }
+        [Display(Name = "Радиус загиба, мм")]
         public int BendRadius { get; set; }
-        [Range(1, Int32.MaxValue, ErrorMessage = "Укажите длину резьбы")]
-        [Display(Name = "Длина резьбы")]
+        [Range(1, 100, ErrorMessage = "Длина резьбы должна быть от 1 до 100")]
+        [Display(Name = "Длина резьбы, мм")]
         public int ThreadLength { get; set; }
         [Range(1, Int32.MaxValue, ErrorMessage = "Укажите диаметр резьбы")]
-        [Display(Name = "Диаметр резьбы")]
+        [Display(Name = "Диаметр резьбы, мм")]
         public int ThreadDiameter { get; set; }
+        [Display(Name = "Шаг резьбы, мм")]
         public double ThreadStep { get; set; }
         public double Amount { get; set; }
         [Range(1, Int32.MaxValue, ErrorMessage = "Укажите кол-во")]
-        [Display(Name = "Кол-во")]
+        [Display(Name = "Кол-во, шт")]
         public int Quantity { get; set; }
-        public string? TypeProfile { get; set; }
+        public int TypeProfileId { get; set; }
         public DateTime DateCreate { get; set; }
-        public string? SvgPath { get; set; }
         public string? Material { get; set; }
+        public string? SvgElement { get; set; }
         public double BatchWeight { get; set; }
         public double BilletLength { get; set; }
         [Display(Name = "Материал")]
