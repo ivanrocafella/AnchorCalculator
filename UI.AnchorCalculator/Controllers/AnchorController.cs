@@ -44,11 +44,13 @@ namespace UI.AnchorCalculator.Controllers
                 _CService.Calculate(Anchor);
                 return Json(new { success = true, anchorJS = Anchor });
             }
-            else if (ModelState.Root.Children[8].Errors.Count > 0)
+            else
             {
-                return Json(new { success = false, errorMessage = ModelState.Root.Children[8].Errors[0].ErrorMessage});
-            }
-            return Json(new { succes = false });
+                if (ModelState.Root.Children[8].Errors.Count > 0)
+                    return Json(new { success = false, errorMessage = ModelState.Root.Children[8].Errors[0].ErrorMessage });
+                else
+                    return Json(new { succes = false });
+            }    
         }
 
 
@@ -68,8 +70,13 @@ namespace UI.AnchorCalculator.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(AnchorViewModel viewModel)
         {
-            await _AService.AddAnchor(viewModel);
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                await _AService.AddAnchor(viewModel);
+                return Json(new { success = true });
+            }
+            else
+                return Json(new { success = false });           
         }
 
         // GET: AnchorController/Edit/5
@@ -113,5 +120,13 @@ namespace UI.AnchorCalculator.Controllers
                 return View();
             }
         }
+
+        // Validation 
+
+      //  [AcceptVerbs("GET", "POST")]
+      //  public bool CheckThreadLength(string ThreadLength) => int.Parse(ThreadLength) >= 50 && int.Parse(ThreadLength) <= 100;
+      //
+      //  [AcceptVerbs("GET", "POST")]
+      //  public bool CheckBendLength(string BendLength) => int.Parse(BendLength) >= 100 && int.Parse(BendLength) <= 500;
     }
 }

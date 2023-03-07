@@ -53,7 +53,7 @@
              <div class="row mb-3">
                <label asp-for="ThreadLength" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
-                 <input asp-for="ThreadLength" type="number" class="form-control" id="ThreadLength" step="1"  min="0">
+                 <input asp-for="ThreadLength" type="text" class="form-control" id="ThreadLength">
                  <span asp-validation-for="ThreadLength" class="text-danger"></span>
                </div>
              </div> 
@@ -79,7 +79,7 @@
                 <div class="row mb-3">
                          <label asp-for="BendLength" class="col-sm-4 col-form-label"></label>
                     <div class="col-sm-8">
-                         <input asp-for="BendLength" type="number" class="form-control" id="BendLength" step="1" min="0">
+                         <input asp-for="BendLength" type="text" class="form-control" id="BendLength">
                          <span asp-validation-for="BendLength" class="text-danger"></span>
                     </div>
                 </div>
@@ -135,8 +135,7 @@
         var calculateForm = document.getElementById("CalculateForm");
 
         calculateForm.addEventListener("submit", function formSubmit(event){
-            event.preventDefault();
-            console.log(`Form Submitted! Timestamp`);            
+            event.preventDefault();          
             var formData = new FormData(calculateForm)
             console.log(formData)
             $.ajax(
@@ -176,11 +175,13 @@
                                                                                               '<input id="billetLengthtoDB" type="hidden" value="'+ response.anchorJS.billetLength +'">' +
                                                                                               '<input id="weighttoDB" type="hidden" value="'+ response.anchorJS.weight +'">' +
                                                                                               '<input id="batchWeighttoDB" type="hidden" value="'+ response.anchorJS.batchWeight +'">' + 
-                                                                                              '<button class="btn btn-primary mt-2" onclick="Add();">Сохранить</button>';
-                       
-                    } else { 
-                        ThreadDiameterValid.innerHTML = response.errorMessage;
-                        console.log(response.errorMessage);
+                                                                                              '<button class="btn btn-primary mt-2" onclick="Add();">Сохранить</button>'; 
+                    } else {
+                        if(typeof response.errorMessage !== "undefined")
+                        {
+                         ThreadDiameterValid.innerHTML = response.errorMessage;
+                         console.log(response.errorMessage);
+                        }       
                     }                  
                 }
             }
@@ -212,25 +213,30 @@
                           {
                             BendRadius.value = 58;
                           }
-                      }}})}      
-           
+                      }}})}     
+          
+
+               document.addEventListener("DOMContentLoaded", function(event) {
+                   $("#BendLength").inputmask("999", {"placeholder": ""});
+                   $("#ThreadLength").inputmask("999", {"placeholder": ""});
+                     });
+       
 
             function showSubForm() {
                  var checkBox = document.getElementById("flexSwitchCheckChecked");
                  var subForm = document.getElementById("subForm");
                  if (checkBox.checked == true){
                    subForm.style.display = "block";
+                   document.getElementById("BendLength").disabled = false;
                  } else {
                     subForm.style.display = "none";
-                    document.getElementById("BendLength").value = 0;
-                   // document.getElementById("BendRadius").value = 0;
+                    document.getElementById("BendLength").setAttribute("disabled", true);
                  }
                }      
 
 
             function changeFuncThreadStep()
             {                     
-            console.log("DOM fully loaded and parsed");
             var inputThreadDiameter = document.getElementById("ThreadDiameter");
             var valueThreadDiameter = inputThreadDiameter.value;
             var inputThreadStep = document.getElementById("ThreadStep");
@@ -287,32 +293,64 @@
               
                }
 
-               function Add(){
-               var MaterialIdtoDB = document.getElementById(materialIdtoDB).value;
-                 console.log(MaterialIdtoDB)
-                // var diametertoDB = document.getElementById(diametertoDB)
-                // var lengthtoDB = document.getElementById(lengthtoDB)
-                // var threadDiametertoDB = document.getElementById(threadDiametertoDB)
-                // var threadLengthtoDB = document.getElementById(threadLengthtoDB)
-                // var threadSteptoDB = document.getElementById(threadSteptoDB)
-                // var quantitytoDB = document.getElementById(quantitytoDB)
-                // var bendLengthtoDB = document.getElementById(bendLengthtoDB)
-                // var bendRadiustoDB = document.getElementById(bendRadiustoDB)
-                // var pricetoDB = document.getElementById(pricetoDB)
-                // var amounttoDB = document.getElementById(amounttoDB)
-                // var billetLengthtoDB = document.getElementById(billetLengthtoDB)
-                // var weighttoDB = document.getElementById(weighttoDB)
-                // var batchWeighttoDB = document.getElementById(batchWeighttoDB)
-                 $.ajax(
-               {
-                   url: '@Url.Action("Add","Anchor")',
-                   type: 'POST',
-                   data: {
-                       'materialIdtoDB': MaterialIdtoDB
-                   }
-               }
-           )     
-               }
+             function Add(){
+             var materialIdtoDB = document.getElementById("materialIdtoDB").value
+            // var diametertoDB = document.getElementById("diametertoDB").value;
+            // var lengthtoDB = document.getElementById("lengthtoDB").value
+            // var threadDiametertoDB = document.getElementById("threadDiametertoDB").value
+            // var threadLengthtoDB = document.getElementById("threadLengthtoDB").value
+            // var threadSteptoDB = document.getElementById("threadSteptoDB").value
+            // var quantitytoDB = document.getElementById("quantitytoDB").value
+            // var bendLengthtoDB = document.getElementById("bendLengthtoDB").value
+            // var bendRadiustoDB = document.getElementById("bendRadiustoDB").value
+            // var pricetoDB = document.getElementById("pricetoDB").value
+            // var amounttoDB = document.getElementById("amounttoDB").value
+            // var billetLengthtoDB = document.getElementById("billetLengthtoDB").value
+            // var weighttoDB = document.getElementById("weighttoDB").value
+            // var batchWeighttoDB = document.getElementById("batchWeighttoDB").value
+            $.ajax(
+                    {
+                        url: '@Url.Action("Add","Anchor")',
+                        type: 'POST',
+                        data: {
+                             'materialId': materialIdtoDB   
+                        },
+                        success: function(response)
+                        {
+                            if(response.success)
+                            {
+                                
+                            }
+                            else
+                            {
+                                console.log(response.success)
+                            }
+                        }
+                    }
+            )
+          //     $.ajax(
+          //   {
+          //       url: 'Url.Action("Add","Anchor")',
+          //       type: 'POST',
+          //       data: {
+          //           'materialId': materialIdtoDB
+          //           'diameter': diametertoDB
+          //         //  'length': lengthtoDB
+          //         //  'threadDiameter': threadDiametertoDB
+          //         //  'threadLength': threadLengthtoDB
+          //         //  'threadStep': threadSteptoDB
+          //         //  'quantity': quantitytoDB
+          //         //  'bendLength': bendLengthtoDB
+          //         //  'bendRadius': bendRadiustoDB
+          //         //  'price': pricetoDB
+          //         //  'amount': amounttoDB
+          //         //  'billetLength': billetLengthtoDB
+          //         //  'weight': weighttoDB
+          //         //  'batchWeight': batchWeighttoDB
+          //             }               
+          //   }
+          //   )     
+             }
 
     </script>
 }

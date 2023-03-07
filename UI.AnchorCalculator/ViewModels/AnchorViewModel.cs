@@ -7,7 +7,7 @@ namespace UI.AnchorCalculator.ViewModels
     public class AnchorViewModel : IValidatableObject
     {
 
-        [Range(1,Int32.MaxValue,ErrorMessage = "Укажите длину")]
+        [Range(200,6000,ErrorMessage = "Укажите длину от 200 до 6000")]
         [Display(Name = "Длина, мм")]
         public int Length { get; set; }
         [Range(1, Int32.MaxValue, ErrorMessage = "Выберите материал")]
@@ -18,11 +18,16 @@ namespace UI.AnchorCalculator.ViewModels
         /// <summary>
         /// Get or set anchhor's billet 
         /// </summary>
+        // [Remote("CheckBendLength", "Anchor", ErrorMessage = "Длина загиба должна быть от 100 до 500")]
+        [Range(0, 500, ErrorMessage = "Длина загиба должна быть не более 500")]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Длина загиба, мм")]
         public int BendLength { get; set; }
         [Display(Name = "Радиус загиба, мм")]
         public int BendRadius { get; set; }
-        [Range(1, 100, ErrorMessage = "Длина резьбы должна быть от 1 до 100")]
+      //  [Remote("CheckThreadLength", "Anchor", ErrorMessage = "Длина резьбы должна быть от 50 до 100")]
+        [Range(50, 100, ErrorMessage = "Укажите длину от 50 до 100")]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Длина резьбы, мм")]
         public int ThreadLength { get; set; }
         [Range(1, Int32.MaxValue, ErrorMessage = "Укажите диаметр резьбы")]

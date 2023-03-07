@@ -94,15 +94,10 @@ namespace UI.AnchorCalculator.Controllers
         {
             Material material = new();
             if (id > 0)
-            {
-                material = await _MService.GetMaterialById(id);
-                return Json(new { success = true, materialJS = material });
-            }
+                material = await _MService.GetMaterialById(id);                
             else
-            {
                 material.Size = 0;
-                return Json(new { success = true, materialJS = material });
-            }      
+            return Json(new { success = true, materialJS = material });
         }
     }
 }
