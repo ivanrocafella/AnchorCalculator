@@ -1093,8 +1093,8 @@ namespace UI.AnchorCalculator.Services
             SvgViewBox view = new();
             view.MinX = 0;
             view.MinY = 0;
-            view.Width = 1000;
-            view.Height = 1300;
+            view.Width = 900;
+            view.Height = 1100;
 
             svgDoc.RootSvg.ViewBox = view;
 
