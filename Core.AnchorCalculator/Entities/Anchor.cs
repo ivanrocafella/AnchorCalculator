@@ -23,7 +23,6 @@ namespace Core.AnchorCalculator.Entities
         public double Amount { get; set; }
         public int Quantity { get; set; }
         public DateTime DateCreate { get; set; }
-        public string? SvgPath { get; set; }
         public string? SvgElement { get; set; }
         public double BatchWeight { get; set; }
         public double BilletLength { get; set; }

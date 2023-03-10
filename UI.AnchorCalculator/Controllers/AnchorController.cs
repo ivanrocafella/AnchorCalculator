@@ -2,6 +2,7 @@
 using GrapeCity.Documents.Svg;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UI.AnchorCalculator.Services;
 using UI.AnchorCalculator.ViewModels;
 
@@ -29,6 +30,25 @@ namespace UI.AnchorCalculator.Controllers
         {
             AnchorViewModel viewModel = _AService.GetAnchorViewModel();
             return View(viewModel);
+        }
+
+
+        // GET: AnchorController
+        public ActionResult Anchors()
+        {
+            List<Anchor> anchors = _AService.GetAll().ToListAsync().Result;
+            return View(anchors);
+        }
+
+        // GET: AnchorController
+        public JsonResult GetListAnchorJsonResult()
+        {
+            var anchorsSvg = _AService.GetAll().Select(e => e.SvgElement).ToListAsync().Result;
+            var anchorsId = _AService.GetAll().Select(e => e.Id).ToListAsync().Result;
+            if (anchorsSvg.Count>0)
+                return Json(new { success = true, anchorsSvg = anchorsSvg, id = anchorsId[0] });
+            else
+                return Json(new { success = false });
         }
 
 

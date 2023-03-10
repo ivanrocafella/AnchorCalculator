@@ -66,9 +66,6 @@ namespace DAL.AnchorCalculator.Migrations
                     b.Property<string>("SvgElement")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SvgPath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ThreadDiameter")
                         .HasColumnType("int");
 

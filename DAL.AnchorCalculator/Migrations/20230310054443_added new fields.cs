@@ -5,11 +5,16 @@
 namespace DAL.AnchorCalculator.Migrations
 {
     /// <inheritdoc />
-    public partial class Updatefields : Migration
+    public partial class addednewfields : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "SvgPath",
+                table: "Anchors",
+                newName: "SvgElement");
+
             migrationBuilder.AlterColumn<float>(
                 name: "Diameter",
                 table: "Anchors",
@@ -17,20 +22,15 @@ namespace DAL.AnchorCalculator.Migrations
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int");
-
-            migrationBuilder.AddColumn<string>(
-                name: "SvgElement",
-                table: "Anchors",
-                type: "nvarchar(max)",
-                nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.RenameColumn(
                 name: "SvgElement",
-                table: "Anchors");
+                table: "Anchors",
+                newName: "SvgPath");
 
             migrationBuilder.AlterColumn<int>(
                 name: "Diameter",

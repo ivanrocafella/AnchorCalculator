@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.AnchorCalculator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230306091318_Update fields")]
-    partial class Updatefields
+    [Migration("20230310054443_added new fields")]
+    partial class addednewfields
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,9 +67,6 @@ namespace DAL.AnchorCalculator.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SvgElement")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SvgPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ThreadDiameter")

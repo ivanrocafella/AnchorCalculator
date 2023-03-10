@@ -1,5 +1,6 @@
 ﻿using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
+using Microsoft.EntityFrameworkCore;
 using UI.AnchorCalculator.ViewModels;
 
 namespace UI.AnchorCalculator.Services
@@ -43,6 +44,9 @@ namespace UI.AnchorCalculator.Services
             };
             return anchor;
         }
+
+        //Method for getting All anchors
+        public IQueryable<Anchor> GetAll() => applicationDbContext.Anchors.OrderBy(x => x.Id);
 
         //Method for adding new Anchor to the database
         public async Task AddAnchor(AnchorViewModel viewModel)

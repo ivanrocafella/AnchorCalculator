@@ -97,7 +97,7 @@
       </div>
     </div>
     <div class="col-md-4">
-            <img src="/images/anchor_example.jpg" class="d-block mx-auto" alt="...">
+            <img src="/images/anchor.png" class="d-block mx-auto mt-5" alt="...">
         </div>
   </div>
 </div>
@@ -330,26 +330,41 @@
                }
 
              function Add(){
-             var materialIdtoDB = document.getElementById("materialIdtoDB").value
-            // var diametertoDB = document.getElementById("diametertoDB").value;
-            // var lengthtoDB = document.getElementById("lengthtoDB").value
-            // var threadDiametertoDB = document.getElementById("threadDiametertoDB").value
-            // var threadLengthtoDB = document.getElementById("threadLengthtoDB").value
-            // var threadSteptoDB = document.getElementById("threadSteptoDB").value
-            // var quantitytoDB = document.getElementById("quantitytoDB").value
-            // var bendLengthtoDB = document.getElementById("bendLengthtoDB").value
-            // var bendRadiustoDB = document.getElementById("bendRadiustoDB").value
-            // var pricetoDB = document.getElementById("pricetoDB").value
-            // var amounttoDB = document.getElementById("amounttoDB").value
-            // var billetLengthtoDB = document.getElementById("billetLengthtoDB").value
-            // var weighttoDB = document.getElementById("weighttoDB").value
-            // var batchWeighttoDB = document.getElementById("batchWeighttoDB").value
+             var materialIdtoDB = document.getElementById("materialIdtoDB").value;
+             var diametertoDB = document.getElementById("diametertoDB").value;
+             var lengthtoDB = document.getElementById("lengthtoDB").value;
+             var threadDiametertoDB = document.getElementById("threadDiametertoDB").value;
+             var threadLengthtoDB = document.getElementById("threadLengthtoDB").value;
+             var threadSteptoDB = document.getElementById("threadSteptoDB").value;
+             var quantitytoDB = document.getElementById("quantitytoDB").value
+             var bendLengthtoDB = document.getElementById("bendLengthtoDB").value
+             var bendRadiustoDB = document.getElementById("bendRadiustoDB").value
+             var pricetoDB = document.getElementById("pricetoDB").value
+             var amounttoDB = document.getElementById("amounttoDB").value
+             var billetLengthtoDB = document.getElementById("billetLengthtoDB").value
+             var weighttoDB = document.getElementById("weighttoDB").value
+             var batchWeighttoDB = document.getElementById("batchWeighttoDB").value
+             var svgtoDB = document.getElementById("containSvg").innerHTML;
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
                         type: 'POST',
                         data: {
-                             'materialId': materialIdtoDB   
+                             'materialId': materialIdtoDB,
+                             'diameter': diametertoDB,
+                             'length': lengthtoDB,
+                             'threadDiameter': threadDiametertoDB,
+                             'threadLength': threadLengthtoDB,
+                             'threadStep': threadSteptoDB,
+                             'quantity': quantitytoDB,
+                             'bendLength': bendLengthtoDB,
+                             'bendRadius': bendRadiustoDB,
+                             'price': pricetoDB,
+                             'amount': amounttoDB,
+                             'billetLength': billetLengthtoDB,
+                             'weight': weighttoDB,
+                             'batchWeight': batchWeighttoDB,
+                             'svgElement' : svgtoDB
                         },
                         success: function(response)
                         {
@@ -364,28 +379,6 @@
                         }
                     }
             )
-          //     $.ajax(
-          //   {
-          //       url: 'Url.Action("Add","Anchor")',
-          //       type: 'POST',
-          //       data: {
-          //           'materialId': materialIdtoDB
-          //           'diameter': diametertoDB
-          //         //  'length': lengthtoDB
-          //         //  'threadDiameter': threadDiametertoDB
-          //         //  'threadLength': threadLengthtoDB
-          //         //  'threadStep': threadSteptoDB
-          //         //  'quantity': quantitytoDB
-          //         //  'bendLength': bendLengthtoDB
-          //         //  'bendRadius': bendRadiustoDB
-          //         //  'price': pricetoDB
-          //         //  'amount': amounttoDB
-          //         //  'billetLength': billetLengthtoDB
-          //         //  'weight': weighttoDB
-          //         //  'batchWeight': batchWeighttoDB
-          //             }               
-          //   }
-          //   )     
              }
 
     </script>
