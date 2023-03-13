@@ -1,14 +1,16 @@
 ﻿@using Core.AnchorCalculator.Entities
 @model List<Material>
 
-<table class="table">
+<div class="row" style="max-width: 1400px">
+    <div class="col-sm-12 col-md-12 col-lg-8">
+        <table class="table">
     <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Наименование</th>
       <th scope="col">Размер,мм</th>
       <th scope="col">Тир профиля</th>
-      <th scope="col">Цена за метр, сом</th>
+      <th scope="col">Цена за метр,сом</th>
     </tr>
     </thead>
       @if (@Model.Count == 0)
@@ -24,14 +26,64 @@
           <td>@(String.Format("{0} {1}", "Ø", item.Size))</td>
           <td>@item.Type.ToString()</td>
           <td>@item.PricePerMetr</td>
-          <td><a class="btn btn-dark" asp-controller="Material" asp-action="Edit" role="button" asp-route-id="@item.Id">Редактировать</a></td>    
-          <td><button type="button" class="btn btn-danger" onclick="deleteLine('@item.Id')">Удалить</button></td> 
+          <td>
+              <p class="btn-group-vertical">
+                                <a class="btn btn-dark btn-sm" asp-controller="Material" asp-action="Edit" role="button" asp-route-id="@item.Id">Редактировать</a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteLine('@item.Id')">Удалить</button>
+              </p>
+          </td>         
       </tr>  
       }  
       </tbody>
       } 
 </table>
 <a class="btn btn-dark" asp-controller="Material" asp-action="Add" role="button">Добавить материал</a>
+    </div>
+     <div class="col-sm-0 col-md-0 col-lg-4">
+         <div class="card">
+  <div class="card-body">
+    <form id="CalculateForm">
+         <div class="row mb-3">
+               <label for="Cutting" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость реза,сом:</label>
+               <div class="col-sm-3 mb-1">
+                 <input type="text" class="form-control" id="Cutting">           
+               </div>
+               <label for="Bending" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость гибки,сом:</label>
+               <div class="col-sm-3 mb-1">
+                 <input type="text" class="form-control" id="Bending">           
+               </div>
+               <label for="CuttingThread" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость нарезки резьбы,сом:</label>
+               <div class="col-sm-3 mb-1">
+                 <input type="text" class="form-control" id="CuttingThread">           
+               </div>
+               <label for="Plashka" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость плашки,сом:</label>
+               <div class="col-sm-3 mb-1">
+                 <input type="text" class="form-control" id="Plashka">           
+               </div>
+               <label for="Cutter" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость резца,сом:</label>
+               <div class="col-sm-3 mb-1">
+                 <input type="text" class="form-control" id="Cutter">           
+               </div>
+               <label for="BandSawBlade" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость отрезного круга,сом:</label>
+               <div class="col-sm-3 mb-1">
+                 <input type="text" class="form-control" id="BandSawBlade">           
+               </div>
+               <label for="Margin" class="col-sm-9 col-form-label ml-0 pl-0">Наценка,%:</label>
+               <div class="col-sm-3 mb-1">
+                 <input type="text" class="form-control" id="Margin">           
+               </div>
+             </div>
+             <button type="submit" class="btn btn-primary mt-2">Изменить</button>
+    </form>
+  </div>
+</div>
+    </div>
+</div>
+
+
+
+
+
 
 <script>
   function deleteLine(id) {

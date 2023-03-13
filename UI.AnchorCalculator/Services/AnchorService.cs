@@ -27,6 +27,18 @@ namespace UI.AnchorCalculator.Services
             return anchorViewModel;
         }
 
+        //Method for getting AnchorViewModel for Details
+        public AnchorViewModel GetAnchorViewModelForDetails(Anchor anchor)
+        {
+            Material material = MService.GetMaterialById(anchor.MaterialId).Result;
+            AnchorViewModel anchorViewModel = new()
+            {
+                Anchor = anchor,
+                Material = $"{material.Name} Ø{material.Size} {material.Type}"
+            };
+            return anchorViewModel;
+        }
+
         //Method for getting Anchor
         public Anchor GetAnchor(AnchorViewModel viewModel)
         {
@@ -44,6 +56,9 @@ namespace UI.AnchorCalculator.Services
             };
             return anchor;
         }
+
+        //Method for getting Anchor by id
+        public Anchor GetAnchorById(int id) => applicationDbContext.Anchors.FindAsync(id).Result;
 
         //Method for getting All anchors
         public IQueryable<Anchor> GetAll() => applicationDbContext.Anchors.OrderBy(x => x.Id);

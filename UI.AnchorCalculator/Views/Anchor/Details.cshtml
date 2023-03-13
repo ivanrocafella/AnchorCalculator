@@ -1,0 +1,53 @@
+﻿@model UI.AnchorCalculator.ViewModels.AnchorViewModel
+
+<div class="card mb-3" style="max-width: 640px;">
+  <div class="row g-0">
+    <div class="col-md-6">
+      <div class="img-fluid rounded-start"></div>
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title"># @Model.Anchor.Id</h5>
+        <p class="card-text">Диаметр: @Model.Anchor.Diameter мм</p>
+        <p class="card-text">Длина: @Model.Anchor.Length мм</p>
+        <p class="card-text">Диаметр резьбы: @Model.Anchor.ThreadDiameter мм</p>
+        <p class="card-text">Шаг резьбы: @Model.Anchor.ThreadStep мм</p>
+        <p class="card-text">Длина резьбы: @Model.Anchor.ThreadLength мм</p>
+        <p class="card-text">Длина загиба: @Model.Anchor.BendLength мм</p>
+        <p class="card-text">Радиус загиба: @Model.Anchor.BendRadius мм</p>
+        <p class="card-text">Длина заготовки: @Model.Anchor.BilletLength мм</p>
+        <p class="card-text">Кол-во: @Model.Anchor.Quantity шт</p>
+        <p class="card-text">Вес 1 шт: @Model.Anchor.Weight кг</p>
+        <p class="card-text">Вес @Model.Anchor.Quantity шт: @Model.Anchor.BatchWeight кг</p>
+        <p class="card-text">Цена: @Model.Anchor.Price сом</p>
+        <p class="card-text">Общая стоимость: @Model.Anchor.Amount сом</p>
+        <p class="card-text">Материал: @Model.Material</p>
+        <p class="card-text"><small class="text-muted">@Model.Anchor.DateCreate</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+   <script>
+
+      document.addEventListener('DOMContentLoaded', function(){
+           var id = @Model.Anchor.Id;
+           $.ajax(
+                  {
+                      url: '@Url.Action("GetAnchorJsonResult", "Anchor")',
+                      type: 'GET',
+                      data: {'id': id},
+                      success: function (response) {
+                      console.log(response.success);
+                      if(response.success) {
+                          console.log(response.anchor)
+                           let divImg = document.getElementsByClassName("img-fluid")[0];
+                           console.log(divImg);
+                           divImg.innerHTML = response.anchor.svgElement;   
+                      }}})
+      });
+   </script>
+    
+}

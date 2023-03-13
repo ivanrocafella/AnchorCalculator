@@ -4,13 +4,15 @@
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
      @if (@Model.Count == 0)
-      { }
-      else
+    {
+        <h2>Анкеры ещё не добавлены</h2>
+    }
+    else
     {
           @foreach (var item in Model)
     {
-       <div class="col">
-    <div class="card h-100">
+   <div class="col">
+    <div class="card h-100" onclick="location.href='/Anchor/Details/@item.Id';" style="cursor: pointer;">
         <div class="card-img-top" id="@item.Id"></div>      
       <div class="card-body">
         <h5 class="card-title"># @item.Id</h5>
@@ -20,7 +22,7 @@
         <small class="text-muted">Дата создания: @item.DateCreate</small>
       </div>
     </div>
-  </div> 
+   </div> 
     } 
     }
 </div>
@@ -29,6 +31,7 @@
 @section Scripts
 {
    <script>
+
       document.addEventListener('DOMContentLoaded', function(){
            $.ajax(
                   {
@@ -39,15 +42,17 @@
                       if(response.success) {
                           console.log(response.anchorsSvg)
                           var anchorsSvg = response.anchorsSvg;
-                          let i = response.id;
-                          var divId = '';
-                         for (const value of anchorsSvg)
-                         {
-                            console.log(value);
-                            divId = document.getElementById(i++);
+                          let idMin = response.idMin;
+                          let idMax = response.idMax;
+                          let divId = '';
+                          let j = 0;
+                          for(i=idMin; i<=idMax; i++){
+                            divId = document.getElementById(i);
                             console.log(divId);
-                            divId.innerHTML = value;
-                         }
+                            if(divId !== null){
+                                divId.innerHTML = anchorsSvg[j++];                                
+                            };                           
+                          }
                       }}})
       });
    </script>

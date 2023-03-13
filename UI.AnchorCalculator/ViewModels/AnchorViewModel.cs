@@ -44,5 +44,6 @@ namespace UI.AnchorCalculator.ViewModels
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }
         public List<Material>? Materials { get; set; }
+        public Anchor? Anchor { get; set; }
     }
 }

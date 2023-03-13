@@ -23,15 +23,12 @@ namespace UI.AnchorCalculator.Controllers
             _CService = cService;
         }
 
-
-
         // GET: AnchorController
         public ActionResult Index()
         {
             AnchorViewModel viewModel = _AService.GetAnchorViewModel();
             return View(viewModel);
         }
-
 
         // GET: AnchorController
         public ActionResult Anchors()
@@ -46,11 +43,21 @@ namespace UI.AnchorCalculator.Controllers
             var anchorsSvg = _AService.GetAll().Select(e => e.SvgElement).ToListAsync().Result;
             var anchorsId = _AService.GetAll().Select(e => e.Id).ToListAsync().Result;
             if (anchorsSvg.Count>0)
-                return Json(new { success = true, anchorsSvg = anchorsSvg, id = anchorsId[0] });
+                return Json(new { success = true, anchorsSvg = anchorsSvg, idMin = anchorsId[0], idMax = anchorsId[^1]});
             else
                 return Json(new { success = false });
         }
 
+        // GET: AnchorController
+        [HttpGet]
+        public JsonResult GetAnchorJsonResult(int id)
+        {
+            var anchor = _AService.GetAnchorById(id);
+            if (anchor != null)
+                return Json(new { success = true, anchor = anchor });
+            else
+                return Json(new { success = false });
+        }
 
         // GET: AnchorController
 
@@ -96,11 +103,17 @@ namespace UI.AnchorCalculator.Controllers
             }    
         }
 
-
         // GET: AnchorController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (id != 0)
+            {
+                Anchor anchor = _AService.GetAnchorById(id);
+                AnchorViewModel viewModel = _AService.GetAnchorViewModelForDetails(anchor);
+                return View(viewModel);
+            }
+            else
+                return NoContent();
         }
 
         // GET: AnchorController/Create
@@ -163,13 +176,5 @@ namespace UI.AnchorCalculator.Controllers
                 return View();
             }
         }
-
-        // Validation 
-
-      //  [AcceptVerbs("GET", "POST")]
-      //  public bool CheckThreadLength(string ThreadLength) => int.Parse(ThreadLength) >= 50 && int.Parse(ThreadLength) <= 100;
-      //
-      //  [AcceptVerbs("GET", "POST")]
-      //  public bool CheckBendLength(string BendLength) => int.Parse(BendLength) >= 100 && int.Parse(BendLength) <= 500;
     }
 }

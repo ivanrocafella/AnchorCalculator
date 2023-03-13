@@ -8,15 +8,19 @@ namespace UI.AnchorCalculator.Services
     {
         const double dencitySteel = 7850; // dencity of steel
         private readonly MaterialService MService;
+        private readonly IWebHostEnvironment appEnvironment;
 
-        public CalculateService(MaterialService mService)
+        public CalculateService(MaterialService mService, IWebHostEnvironment appEnvironment)
         {
             MService = mService;
+            this.appEnvironment = appEnvironment;
         }
 
-        public void Calculate(Anchor anchor)
+        public async void Calculate(Anchor anchor)
         {
-            CostWork costWork = new();          
+            CostWork costWork = new();
+            costWork = await costWork.GetCostWork(appEnvironment);
+           // costWork.AddCostWork(costWork,appEnvironment);
 
             anchor.BilletLength = Math.Round(GetLengthBillet(anchor), 2);
             double BilletWeight = ((anchor.BilletLength * (Math.PI * Math.Pow(anchor.Diameter, 2) / 4)) / Math.Pow(10, 9)) * dencitySteel; // weight of anchor's billet
