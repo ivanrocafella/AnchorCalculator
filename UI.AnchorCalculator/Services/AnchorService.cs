@@ -30,7 +30,7 @@ namespace UI.AnchorCalculator.Services
         //Method for getting AnchorViewModel for Details
         public AnchorViewModel GetAnchorViewModelForDetails(Anchor anchor)
         {
-            Material material = MService.GetMaterialById(anchor.MaterialId).Result;
+            Material material = applicationDbContext.Materials.Find(anchor.MaterialId);
             AnchorViewModel anchorViewModel = new()
             {
                 Anchor = anchor,
@@ -52,7 +52,8 @@ namespace UI.AnchorCalculator.Services
                 BendLength = viewModel.BendLength,
                 BendRadius = viewModel.BendRadius,
                 ThreadStep = viewModel.ThreadStep,
-                Quantity = viewModel.Quantity
+                Quantity = viewModel.Quantity,
+                Material = MService.GetMaterialById(viewModel.MaterialId).Result
             };
             return anchor;
         }
@@ -84,6 +85,8 @@ namespace UI.AnchorCalculator.Services
                BatchWeight = viewModel.BatchWeight,
                BilletLength = viewModel.BilletLength,
                MaterialId = viewModel.MaterialId,
+               Sebes = viewModel.Sebes,
+               BatchSebes = viewModel.BatchSebes
            };
            await applicationDbContext.Anchors.AddAsync(anchor);
            await applicationDbContext.SaveChangesAsync();

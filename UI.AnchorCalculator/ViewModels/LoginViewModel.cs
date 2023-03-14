@@ -4,16 +4,15 @@ namespace UI.AnchorCalculator.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Required]
+        [Required(ErrorMessage = "Введите email или логин")]
+        [Display(Name = "Email или Логин")]
+        public string EmailLogin { get; set; }
+        [Required(ErrorMessage = "Введите пароль")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
-
-        [Display(Name = "Запомнить?")]
+        [Display(Name = "Запомнить")]
         public bool RememberMe { get; set; }
+        public string? ReturnUrl { get; set; }
     }
 }

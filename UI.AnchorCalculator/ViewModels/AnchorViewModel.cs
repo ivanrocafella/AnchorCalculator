@@ -41,6 +41,8 @@ namespace UI.AnchorCalculator.ViewModels
         public string? SvgElement { get; set; }
         public double BatchWeight { get; set; }
         public double BilletLength { get; set; }
+        public double Sebes { get; set; }
+        public double BatchSebes { get; set; }
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }
         public List<Material>? Materials { get; set; }

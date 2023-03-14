@@ -27,31 +27,27 @@ namespace UI.AnchorCalculator.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new() { Email = model.Email, UserName = model.Email};
-                // добавляем пользователя
+                User user = new User
+                {
+                    Email = model.Email,
+                    UserName = model.UserName
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // установка куки
+                    await _userManager.AddToRoleAsync(user, "employee");
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
             }
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login(string? returnUrl = null) =>
+         View(new LoginViewModel { ReturnUrl = returnUrl });
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -59,27 +55,35 @@ namespace UI.AnchorCalculator.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result =
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                User user = await _userManager.FindByNameAsync(model.EmailLogin) ?? await _userManager.FindByEmailAsync(model.EmailLogin);
+                if (user != null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    var result = await _signInManager.PasswordSignInAsync(
+                       user,
+                       model.Password,
+                       model.RememberMe,
+                       false);
+
+                    if (result.Succeeded)
+                    {
+                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+                        return RedirectToAction("Index", "Home");
+                    }
+                    ModelState.AddModelError("", "Неправильный логин, электронная почта и (или) пароль");
                 }                   
-                else
-                {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-                }
             }
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> LogOut()
         {
-            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

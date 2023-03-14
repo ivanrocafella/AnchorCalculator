@@ -1,5 +1,4 @@
-﻿@using Core.AnchorCalculator.Entities
-@model List<Material>
+﻿@model UI.AnchorCalculator.ViewModels.MaterialsAndCostWorkViewModel
 
 <div class="row" style="max-width: 1400px">
     <div class="col-sm-12 col-md-12 col-lg-8">
@@ -13,12 +12,12 @@
       <th scope="col">Цена за метр,сом</th>
     </tr>
     </thead>
-      @if (@Model.Count == 0)
+      @if (@Model.Materials.Count == 0)
       { }
       else
       {
        <tbody>
-      @foreach (var item in Model)
+      @foreach (var item in Model.Materials)
       {
       <tr id="@item.Id">
           <th scope="row">@item.Id</th>
@@ -28,8 +27,8 @@
           <td>@item.PricePerMetr</td>
           <td>
               <p class="btn-group-vertical">
-                                <a class="btn btn-dark btn-sm" asp-controller="Material" asp-action="Edit" role="button" asp-route-id="@item.Id">Редактировать</a>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteLine('@item.Id')">Удалить</button>
+                 <a class="btn btn-dark btn-sm" asp-controller="Material" asp-action="Edit" role="button" asp-route-id="@item.Id">Редактировать</a>
+                 <button type="button" class="btn btn-danger btn-sm" onclick="deleteLine('@item.Id')">Удалить</button>
               </p>
           </td>         
       </tr>  
@@ -42,44 +41,57 @@
      <div class="col-sm-0 col-md-0 col-lg-4">
          <div class="card">
   <div class="card-body">
-    <form id="CalculateForm">
+    <h5 class="card-title">Стоимость работ</h5>
+    <form id="CostWorkForm">
          <div class="row mb-3">
                <label for="Cutting" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость реза,сом:</label>
                <div class="col-sm-3 mb-1">
-                 <input type="text" class="form-control" id="Cutting">           
+                 <input asp-for="CostWork.Cutting" type="text" class="form-control" id="Cutting" value="@Model.CostWork.Cutting">           
                </div>
                <label for="Bending" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость гибки,сом:</label>
                <div class="col-sm-3 mb-1">
-                 <input type="text" class="form-control" id="Bending">           
+                 <input asp-for="CostWork.Bending" type="text" class="form-control" id="Bending" value="@Model.CostWork.Bending">           
                </div>
                <label for="CuttingThread" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость нарезки резьбы,сом:</label>
                <div class="col-sm-3 mb-1">
-                 <input type="text" class="form-control" id="CuttingThread">           
+                 <input asp-for="CostWork.CuttingThread" type="text" class="form-control" id="CuttingThread" value="@Model.CostWork.CuttingThread">           
                </div>
                <label for="Plashka" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость плашки,сом:</label>
                <div class="col-sm-3 mb-1">
-                 <input type="text" class="form-control" id="Plashka">           
+                 <input asp-for="CostWork.Plashka" type="text" class="form-control" id="Plashka" value="@Model.CostWork.Plashka">           
                </div>
                <label for="Cutter" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость резца,сом:</label>
                <div class="col-sm-3 mb-1">
-                 <input type="text" class="form-control" id="Cutter">           
+                 <input asp-for="CostWork.Cutter" type="text" class="form-control" id="Cutter" value="@Model.CostWork.Cutter">           
                </div>
                <label for="BandSawBlade" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость отрезного круга,сом:</label>
                <div class="col-sm-3 mb-1">
-                 <input type="text" class="form-control" id="BandSawBlade">           
+                 <input asp-for="CostWork.BandSawBlade" type="text" class="form-control" id="BandSawBlade" value="@Model.CostWork.BandSawBlade">           
                </div>
                <label for="Margin" class="col-sm-9 col-form-label ml-0 pl-0">Наценка,%:</label>
                <div class="col-sm-3 mb-1">
-                 <input type="text" class="form-control" id="Margin">           
+                 <input asp-for="MarginPercent" type="text" class="form-control" id="Margin" value="@Model.MarginPercent">           
                </div>
              </div>
-             <button type="submit" class="btn btn-primary mt-2">Изменить</button>
+             <button id="liveToastBtn" type="submit" class="btn btn-primary mt-2">Изменить</button>
     </form>
   </div>
 </div>
     </div>
 </div>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Калькулятор анкеров</strong>
+      <small>Только что</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Стоимость работ успешно изменена!
+    </div>
+  </div>
+</div>
 
 
 
@@ -99,4 +111,45 @@
                }
            )
     }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+                   $("#Cutting").inputmask("99", {"placeholder": ""});
+                   $("#Bending").inputmask("99", {"placeholder": ""});
+                   $("#CuttingThread").inputmask("99", {"placeholder": ""});
+                   $("#Plashka").inputmask("99", {"placeholder": ""});
+                   $("#Cutter").inputmask("99", {"placeholder": ""});
+                   $("#BandSawBlade").inputmask("99", {"placeholder": ""});
+                   $("#Margin").inputmask("999", {"placeholder": ""});
+                     });
+
+        var costWorkForm = document.getElementById("CostWorkForm");
+        costWorkForm.addEventListener("submit", function formSubmit(event){
+            event.preventDefault();    
+            var formData = new FormData(costWorkForm)
+            console.log(formData)
+            $.ajax(
+            {
+                url: '@Url.Action("EditCostWork", "Material")',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,          
+                success: function (response)
+                {
+                    if(response.success)
+                    {
+                      console.log(response.success);  
+                                var toastTrigger = document.getElementById('liveToastBtn')
+                                var toastLiveExample = document.getElementById('liveToast')
+                                if (toastTrigger) {
+                                    var toast = new bootstrap.Toast(toastLiveExample)
+                                    toast.show()
+                                }
+                    } else {
+                    }                  
+                }
+            }
+            )
+        }        
+        )
 </script>

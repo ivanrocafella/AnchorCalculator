@@ -1,6 +1,7 @@
 ﻿using Core.AnchorCalculator.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 using UI.AnchorCalculator.ViewModels;
 
@@ -20,8 +21,8 @@ namespace UI.AnchorCalculator.Controllers
         // GET: MaterialController
         public ActionResult Index()
         {
-            List<Material> materials = _MService.GetAllMaterials().Result;
-            return View(materials);
+            MaterialsAndCostWorkViewModel materialsAndCost = _MService.GetMaterialsAndCostWorkViewModel();
+            return View(materialsAndCost);
         }
 
         // GET: MaterialController/Details/5
@@ -53,7 +54,7 @@ namespace UI.AnchorCalculator.Controllers
         // GET: MaterialController/Edit/5
         public ActionResult Edit(int id)
         {
-            MaterialViewModelForEdit modelForEdit = _MService.GetMaterialViewModelForEdit(id).Result;
+            MaterialViewModelForEdit modelForEdit = _MService.GetMaterialViewModelForEdit(id);
             return View(modelForEdit);
         }
 
@@ -70,6 +71,21 @@ namespace UI.AnchorCalculator.Controllers
             catch
             {
                 return View(modelForEdit);
+            }
+        }
+
+        // POST: MaterialController/Edit
+        [HttpPost]
+        public JsonResult EditCostWork(MaterialsAndCostWorkViewModel materialsAndCost)
+        {
+            try
+            {
+                CostWork costWork = _MService.EditCostWork(materialsAndCost);
+                return Json(new { success = true });
+            }
+            catch
+            { 
+                return Json(new { success = false });
             }
         }
 

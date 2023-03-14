@@ -16,23 +16,22 @@ namespace UI.AnchorCalculator.Services
             this.appEnvironment = appEnvironment;
         }
 
-        public async void Calculate(Anchor anchor)
+        public async Task Calculate(Anchor anchor)
         {
             CostWork costWork = new();
             costWork = await costWork.GetCostWork(appEnvironment);
-           // costWork.AddCostWork(costWork,appEnvironment);
 
             anchor.BilletLength = Math.Round(GetLengthBillet(anchor), 2);
             double BilletWeight = ((anchor.BilletLength * (Math.PI * Math.Pow(anchor.Diameter, 2) / 4)) / Math.Pow(10, 9)) * dencitySteel; // weight of anchor's billet
 
             anchor.Weight = Math.Round(BilletWeight - ((((Math.PI * Math.Pow(anchor.Diameter, 2) / 4) - (Math.PI * Math.Pow(anchor.ThreadDiameter, 2) / 4)) * anchor.ThreadLength) / Math.Pow(10, 9)) * dencitySteel, 2); // weight of anchor
             anchor.BatchWeight =  Math.Round(anchor.Weight * anchor.Quantity, 2); // weight of anchor's batch
-   
-            Material material = MService.GetMaterialById(anchor.MaterialId).Result;
 
-            double priceMaterialAnchor = (GetLengthBillet(anchor) / 1000) * material.PricePerMetr; // price of anchor's material 
-            anchor.Price = Math.Round(priceMaterialAnchor + costWork.CostFull, 2);
-            anchor.Amount = Math.Round(anchor.Price * anchor.Quantity, 2);
+            double priceMaterialAnchor = (anchor.BilletLength / 1000) * anchor.Material.PricePerMetr; // price of anchor's material 
+            anchor.Sebes = Math.Round(priceMaterialAnchor + costWork.CostFull, 2);
+            anchor.BatchSebes = Math.Round(anchor.Sebes * anchor.Quantity, 2);
+            anchor.Price = Math.Round(anchor.Sebes * (1 + costWork.Margin),2);
+            anchor.Amount = Math.Round(anchor.BatchSebes * (1 + costWork.Margin), 2);
         }
 
         static double GetLengthBillet(Anchor anchor)

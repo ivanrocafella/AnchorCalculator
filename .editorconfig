@@ -17,3 +17,9 @@ dotnet_diagnostic.CS8602.severity = none
 
 # CS8603: Возможно, возврат ссылки, допускающей значение NULL.
 dotnet_diagnostic.CS8603.severity = none
+
+# IDE0058: Значение выражения никогда не используется
+dotnet_diagnostic.IDE0058.severity = none
+
+# CS8634: Тип не может быть использован как параметр типа в универсальном типе или методе. Допустимость значения NULL для аргумента типа не соответствует ограничению "class".
+dotnet_diagnostic.CS8634.severity = none

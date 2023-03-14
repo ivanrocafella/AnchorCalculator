@@ -171,7 +171,10 @@
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("descriptAnchor").style.display = "flex";
                         let PriceWeight = document.getElementById("PriceWeight");
-                        PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' + 
+                        if(response.isAuthen){
+                            PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' + 
+                                                                                              '<p class="card-text">Себестоимость: ' + response.anchorJS.sebes + ' сом</p>' +
+                                                                                              '<p class="card-text">Общая себестоимость: ' + response.anchorJS.batchSebes + ' сом</p>' +
                                                                                               '<p class="card-text">Цена: ' + response.anchorJS.price + ' сом</p>' +
                                                                                               '<p class="card-text">Общая стоимость: ' + response.anchorJS.amount + ' сом</p>' + 
                                                                                               '<p class="card-text">Длина заготовки: ' + response.anchorJS.billetLength + ' мм</p>' + 
@@ -186,12 +189,24 @@
                                                                                               '<input id="quantitytoDB" type="hidden" value="'+ response.anchorJS.quantity +'">' +
                                                                                               '<input id="bendLengthtoDB" type="hidden" value="'+ response.anchorJS.bendLength +'">' +
                                                                                               '<input id="bendRadiustoDB" type="hidden" value="'+ response.anchorJS.bendRadius +'">' + 
+                                                                                              '<input id="sebestoDB" type="hidden" value="'+ response.anchorJS.sebes +'">' +
+                                                                                              '<input id="batchSebestoDB" type="hidden" value="'+ response.anchorJS.batchSebes +'">' +
                                                                                               '<input id="pricetoDB" type="hidden" value="'+ response.anchorJS.price +'">' +
                                                                                               '<input id="amounttoDB" type="hidden" value="'+ response.anchorJS.amount +'">' +
                                                                                               '<input id="billetLengthtoDB" type="hidden" value="'+ response.anchorJS.billetLength +'">' +
                                                                                               '<input id="weighttoDB" type="hidden" value="'+ response.anchorJS.weight +'">' +
                                                                                               '<input id="batchWeighttoDB" type="hidden" value="'+ response.anchorJS.batchWeight +'">' + 
                                                                                               '<button id="liveToastBtn" class="btn btn-primary mt-2" onclick="Add();">Сохранить</button>'; 
+                        }
+                        else{
+                           PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +                                                                                              
+                                                                                              '<p class="card-text">Цена: ' + response.anchorJS.price + ' сом</p>' +
+                                                                                              '<p class="card-text">Общая стоимость: ' + response.anchorJS.amount + ' сом</p>' + 
+                                                                                              '<p class="card-text">Длина заготовки: ' + response.anchorJS.billetLength + ' мм</p>' + 
+                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight + ' кг</p>' + 
+                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight + ' кг</p>';  
+                        }
+                        
                     } else {
                         if(typeof response.errorMessageDiam !== "undefined")
                         {
@@ -358,6 +373,8 @@
              var billetLengthtoDB = document.getElementById("billetLengthtoDB").value
              var weighttoDB = document.getElementById("weighttoDB").value
              var batchWeighttoDB = document.getElementById("batchWeighttoDB").value
+             var sebestoDB = document.getElementById("sebestoDB").value
+             var batchSebestoDB = document.getElementById("batchSebestoDB").value
              var svgtoDB = document.getElementById("containSvg").innerHTML;
             $.ajax(
                     {
@@ -378,7 +395,9 @@
                              'billetLength': billetLengthtoDB,
                              'weight': weighttoDB,
                              'batchWeight': batchWeighttoDB,
-                             'svgElement' : svgtoDB
+                             'svgElement' : svgtoDB,
+                             'sebes': sebestoDB,
+                             'batchSebes' : batchSebestoDB
                         },
                         success: function(response)
                         {

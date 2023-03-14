@@ -1,5 +1,6 @@
 ﻿using Core.AnchorCalculator.Entities;
 using GrapeCity.Documents.Svg;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -62,7 +63,8 @@ namespace UI.AnchorCalculator.Controllers
         // GET: AnchorController
 
         [HttpPost]
-        public JsonResult GetAnchorJsonResult(AnchorViewModel viewModel)
+        [AllowAnonymous]
+        public async Task<JsonResult> GetAnchorJsonResult(AnchorViewModel viewModel)
         {
             if ((viewModel.BendLength > 0 && viewModel.BendLength < 100) || viewModel.BendLength > 500)
             {
@@ -80,8 +82,11 @@ namespace UI.AnchorCalculator.Controllers
             {
                 Anchor Anchor = _AService.GetAnchor(viewModel);
                 _SvgService.GetSvg(Anchor, _appEnvironment.WebRootPath);
-                _CService.Calculate(Anchor);
-                return Json(new { success = true, anchorJS = Anchor });
+                await _CService.Calculate(Anchor);
+                if (User.Identity.IsAuthenticated)
+                    return Json(new { success = true, anchorJS = Anchor, isAuthen = true });
+                else
+                    return Json(new { success = true, anchorJS = Anchor, isAuthen = false });
             }
             else
             {
