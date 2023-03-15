@@ -2,8 +2,10 @@
 using GrapeCity.Documents.Svg;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 using UI.AnchorCalculator.ViewModels;
 
@@ -15,13 +17,15 @@ namespace UI.AnchorCalculator.Controllers
         private readonly AnchorService _AService;
         private readonly SvgMakingService _SvgService;
         private readonly CalculateService _CService;
+        private readonly UserManager<User> _userManager;
 
-        public AnchorController(IWebHostEnvironment appEnvironment, AnchorService aService, SvgMakingService svgService, CalculateService cService)
+        public AnchorController(IWebHostEnvironment appEnvironment, AnchorService aService, SvgMakingService svgService, CalculateService cService, UserManager<User> userManager)
         {
             _appEnvironment = appEnvironment;
             _AService = aService;
             _SvgService = svgService;
             _CService = cService;
+            _userManager = userManager;
         }
 
         // GET: AnchorController
@@ -51,11 +55,11 @@ namespace UI.AnchorCalculator.Controllers
 
         // GET: AnchorController
         [HttpGet]
-        public JsonResult GetAnchorJsonResult(int id)
+        public async Task<JsonResult> GetAnchorJsonResult(int id)
         {
-            var anchor = _AService.GetAnchorById(id);
+            Anchor anchor = await _AService.GetAnchorById(id);
             if (anchor != null)
-                return Json(new { success = true, anchor = anchor });
+                return Json(new { success = true, svgElement = anchor.SvgElement });
             else
                 return Json(new { success = false });
         }
@@ -109,11 +113,11 @@ namespace UI.AnchorCalculator.Controllers
         }
 
         // GET: AnchorController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
             if (id != 0)
             {
-                Anchor anchor = _AService.GetAnchorById(id);
+                Anchor anchor = await _AService.GetAnchorById(id);
                 AnchorViewModel viewModel = _AService.GetAnchorViewModelForDetails(anchor);
                 return View(viewModel);
             }
@@ -133,7 +137,8 @@ namespace UI.AnchorCalculator.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _AService.AddAnchor(viewModel);
+                User user = await CurrentUser.Get(_userManager, User.Identity.Name);
+                await _AService.AddAnchor(viewModel, user.Id);
                 return Json(new { success = true });
             }
             else

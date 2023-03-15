@@ -20,5 +20,25 @@ namespace DAL.AnchorCalculator
         public DbSet<Material> Materials { get; set; }
         public override DbSet<User> Users { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            SetNullBehaviour(builder);
+        }
+
+        private static void SetNullBehaviour(ModelBuilder builder)
+        {
+            builder.Entity<Anchor>()
+             .HasOne(b => b.Material)
+             .WithMany(a => a.Anchors)
+             .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<Anchor>()
+             .HasOne(b => b.User)
+             .WithMany(a => a.Anchors)
+             .OnDelete(DeleteBehavior.SetNull);
+        }
+
     }
 }

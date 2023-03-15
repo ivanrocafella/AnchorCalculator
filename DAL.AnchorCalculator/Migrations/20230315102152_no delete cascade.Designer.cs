@@ -4,6 +4,7 @@ using DAL.AnchorCalculator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.AnchorCalculator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230315102152_no delete cascade")]
+    partial class nodeletecascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,13 +329,11 @@ namespace DAL.AnchorCalculator.Migrations
                 {
                     b.HasOne("Core.AnchorCalculator.Entities.Material", "Material")
                         .WithMany("Anchors")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("Core.AnchorCalculator.Entities.User", "User")
                         .WithMany("Anchors")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Material");
 

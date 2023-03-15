@@ -1,6 +1,8 @@
 ﻿using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.ViewModels;
 
 namespace UI.AnchorCalculator.Services
@@ -30,11 +32,9 @@ namespace UI.AnchorCalculator.Services
         //Method for getting AnchorViewModel for Details
         public AnchorViewModel GetAnchorViewModelForDetails(Anchor anchor)
         {
-            Material material = applicationDbContext.Materials.Find(anchor.MaterialId);
             AnchorViewModel anchorViewModel = new()
             {
-                Anchor = anchor,
-                Material = $"{material.Name} Ø{material.Size} {material.Type}"
+                Anchor = anchor
             };
             return anchorViewModel;
         }
@@ -59,13 +59,13 @@ namespace UI.AnchorCalculator.Services
         }
 
         //Method for getting Anchor by id
-        public Anchor GetAnchorById(int id) => applicationDbContext.Anchors.FindAsync(id).Result;
+        public async Task<Anchor> GetAnchorById(int id) => await applicationDbContext.Anchors.Include(e => e.User).Include(e => e.Material).FirstOrDefaultAsync(e => e.Id == id);
 
         //Method for getting All anchors
-        public IQueryable<Anchor> GetAll() => applicationDbContext.Anchors.OrderBy(x => x.Id);
+        public IQueryable<Anchor> GetAll() => applicationDbContext.Anchors.OrderBy(x => x.Id).Include(e => e.User);
 
         //Method for adding new Anchor to the database
-        public async Task AddAnchor(AnchorViewModel viewModel)
+        public async Task AddAnchor(AnchorViewModel viewModel, string userId)
         {
            Anchor anchor = new()
            {
@@ -86,7 +86,8 @@ namespace UI.AnchorCalculator.Services
                BilletLength = viewModel.BilletLength,
                MaterialId = viewModel.MaterialId,
                Sebes = viewModel.Sebes,
-               BatchSebes = viewModel.BatchSebes
+               BatchSebes = viewModel.BatchSebes,
+               UserId = userId
            };
            await applicationDbContext.Anchors.AddAsync(anchor);
            await applicationDbContext.SaveChangesAsync();

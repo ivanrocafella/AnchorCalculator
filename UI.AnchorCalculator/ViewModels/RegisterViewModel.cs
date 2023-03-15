@@ -7,11 +7,11 @@ namespace UI.AnchorCalculator.ViewModels
     {
         [Required(ErrorMessage = "Укажите логин")]
         [Display(Name = "Логин")]
-        [Remote(action: "CheckExistAccount", controller: "Validation", ErrorMessage = "Такой пользователь уже есть")]
+        [Remote(action: "CheckExistAccountByUserName", controller: "Validation", ErrorMessage = "Такой пользователь уже есть")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Укажите email")]
         [Display(Name = "Email")]
-        [Remote(action: "CheckExistAccount", controller: "Validation", ErrorMessage = "Такой пользователь уже есть")]
+        [Remote(action: "CheckExistAccountByEmail", controller: "Validation", ErrorMessage = "Такой пользователь уже есть")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Введите пароль")]
         [DataType(DataType.Password)]

@@ -29,9 +29,9 @@ namespace Core.AnchorCalculator.Entities
         public double BatchWeight { get; set; }
         public double BilletLength { get; set; }
 
-        public int MaterialId { get; set; }
-        public Material Material { get; set; }
+        public int? MaterialId { get; set; }
+        public Material? Material { get; set; }
         public string? UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

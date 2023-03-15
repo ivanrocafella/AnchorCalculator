@@ -1,0 +1,38 @@
+﻿@using Core.AnchorCalculator.Entities
+
+@model IEnumerable<User>
+@{
+    ViewBag.Title = "Список пользователей";
+}
+ 
+<a asp-action="Create">Добавить пользователя</a>
+ 
+<table class="table">
+    <tr><th>Email</th><th>Логин</th><th></th></tr>
+    @foreach (var user in Model)
+    {
+        <tr id="@user.Id">
+            <td>@user.Email</td>
+            <td>@user.UserName</td>
+            <td>
+               <button type="submit" class="btn btn-sm btn-danger" onclick="deleteLine('@user.Id')">Удалить</button>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+     function deleteLine(id) {
+        event.preventDefault();
+        var element = document.getElementById(id)
+        element.remove();
+        console.log('remove')
+        $.ajax(
+                   {
+                       url: '@Url.Action("Delete","Users")',
+                       type: 'POST',
+                       data: { 'id': id }
+                   }
+               )
+        }
+</script>

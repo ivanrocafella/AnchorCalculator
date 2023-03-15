@@ -5,7 +5,7 @@ namespace UI.AnchorCalculator.Controllers
 {
     public class ValidationController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ValidationController(ApplicationDbContext context)
         {
@@ -13,7 +13,9 @@ namespace UI.AnchorCalculator.Controllers
         }
 
         [AcceptVerbs("GET", "POST")]
-        public bool CheckExistAccount(string word) => !_context.Users.Any(e => e.UserName == word || e.Email == word);
+        public bool CheckExistAccountByEmail(string Email) => !_context.Users.Any(e => e.Email == Email);
+        [AcceptVerbs("GET", "POST")]
+        public bool CheckExistAccountByUserName(string UserName) => !_context.Users.Any(e => e.UserName == UserName);
 
     }
 }

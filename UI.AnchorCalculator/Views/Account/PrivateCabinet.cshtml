@@ -1,0 +1,13 @@
+﻿@using Core.AnchorCalculator.Entities
+@model User
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Информация</h5>
+    <p class="card-text">Email: @Model.Email</p>
+    <p class="card-text">Логин: @Model.UserName</p>
+    <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-id="@Model.Id">Сменить пароль</a>
+  </div>
+</div>
+
+

@@ -24,6 +24,7 @@
         <p class="card-text">Цена: @Model.Anchor.Price сом</p>
         <p class="card-text">Общая стоимость: @Model.Anchor.Amount сом</p>
         <p class="card-text">Материал: @Model.Material</p>
+        <p class="card-text">Автор: @if (Model.Anchor.User != null) { @Model.Anchor.User.UserName }</p>
         <p class="card-text"><small class="text-muted">@Model.Anchor.DateCreate</small></p>
       </div>
     </div>
@@ -36,18 +37,17 @@
 
       document.addEventListener('DOMContentLoaded', function(){
            var id = @Model.Anchor.Id;
+           console.log(id);
            $.ajax(
                   {
                       url: '@Url.Action("GetAnchorJsonResult", "Anchor")',
                       type: 'GET',
                       data: {'id': id},
                       success: function (response) {
-                      console.log(response.success);
-                      if(response.success) {
-                          console.log(response.anchor)
+                      if(response.success)
+                      {
                            let divImg = document.getElementsByClassName("img-fluid")[0];
-                           console.log(divImg);
-                           divImg.innerHTML = response.anchor.svgElement;   
+                           divImg.innerHTML = response.svgElement;   
                       }}})
       });
    </script>

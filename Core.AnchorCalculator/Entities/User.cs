@@ -9,7 +9,7 @@ namespace Core.AnchorCalculator.Entities
 {
     public class User : IdentityUser
     {
-        public ICollection<Anchor> Anchors { get; set; }
+        public ICollection<Anchor>? Anchors { get; set; }
 
         public User()
         {
