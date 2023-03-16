@@ -23,8 +23,8 @@
         <p class="card-text">Общая cебестоимость: @Model.Anchor.BatchSebes сом</p>
         <p class="card-text">Цена: @Model.Anchor.Price сом</p>
         <p class="card-text">Общая стоимость: @Model.Anchor.Amount сом</p>
-        <p class="card-text">Материал: @Model.Material</p>
-        <p class="card-text">Автор: @if (Model.Anchor.User != null) { @Model.Anchor.User.UserName }</p>
+        <p class="card-text">Материал: @Model.MaterialName </p>
+        <p class="card-text">Автор: @Model.UserName</p>
         <p class="card-text"><small class="text-muted">@Model.Anchor.DateCreate</small></p>
       </div>
     </div>

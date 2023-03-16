@@ -23,7 +23,6 @@ namespace DAL.AnchorCalculator
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
             SetNullBehaviour(builder);
         }
 

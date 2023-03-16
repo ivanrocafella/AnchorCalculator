@@ -1,15 +1,39 @@
-﻿@using Core.AnchorCalculator.Entities
-@model List<Anchor>
+﻿
+@using UI.AnchorCalculator.ViewModels
+@model AnchorsViewModel
 
+<h2>Каталог анкеров</h2>
+<form method="get" class="row gx-3 gy-2 align-items-center mb-4">
+  <div class="col-sm-3">
+    <label class="colFormLabel" for="specificSizeInputName">Имя пользователя:</label>
+    <input type="text" id="SelectedUserName" name="SelectedUserName" value="@Model.FilterView.SelectedUserName" class="form-control">
+  </div>
+  <div class="col-sm-3">
+    <label class="colFormLabel" for="specificSizeSelect">Материал:</label>
+     <select id="selectBox" name="SelectedMaterial" class="form-select" aria-label="Default select example">
+                     <option>Ничего не выбрано</option>
+                     @foreach (var item in Model.FilterView.Materials)
+                     {
+                         <option id="material_@item.Id" value="@item.Id">@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
+                     }
+     </select>  
+  </div>
+  <div class="col-auto pt-3">
+    <button type="submit" class="btn btn-primary">Фильтр</button>
+  </div>
+   <div class="col-auto pt-3">
+    <button class="btn btn-primary" onclick="refreshFilters()">Сбросить фильтры</button>
+  </div>
+</form>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-     @if (@Model.Count == 0)
+     @if (@Model.Anchors.Count == 0)
     {
         <h2>Анкеры ещё не добавлены</h2>
     }
     else
     {
-          @foreach (var item in Model)
+          @foreach (var item in Model.Anchors)
     {
    <div class="col">
     <div class="card h-100" onclick="location.href='/Anchor/Details/@item.Id';" style="cursor: pointer;">
@@ -34,10 +58,23 @@
    <script>
 
       document.addEventListener('DOMContentLoaded', function(){
+          let divsImg = document.getElementsByClassName("card-img-top");
+          let exampleAttr; 
+          let ids = [];
+            for(let i = 0; i < divsImg.length; i++){
+                exampleAttr = divsImg[i].getAttribute("id");
+                console.log(exampleAttr)
+                ids.push(exampleAttr)
+            }
+            let stringIds = ids.join(',');
+           console.log(divsImg);
+           console.log(ids);
+           console.log(stringIds);
            $.ajax(
                   {
                       url: '@Url.Action("GetListAnchorJsonResult", "Anchor")',
                       type: 'GET',
+                      data : {'ids' : stringIds},
                       success: function (response) {
                       console.log(response.success);
                       if(response.success) {
@@ -49,13 +86,20 @@
                           let j = 0;
                           for(i=idMin; i<=idMax; i++){
                             divId = document.getElementById(i);
-                            console.log(divId);
                             if(divId !== null){
                                 divId.innerHTML = anchorsSvg[j++];                                
                             };                           
                           }
                       }}})
       });
+
+      function refreshFilters() {
+          var selectBox = document.getElementById("selectBox");
+          selectBox.value=0;
+          var inputSelectedUserName = document.getElementById("SelectedUserName");
+          inputSelectedUserName.value = null;
+      }     
+
    </script>
     
 }

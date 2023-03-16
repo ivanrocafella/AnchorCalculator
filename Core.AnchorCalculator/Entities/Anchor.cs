@@ -28,6 +28,8 @@ namespace Core.AnchorCalculator.Entities
         public string? SvgElement { get; set; }
         public double BatchWeight { get; set; }
         public double BilletLength { get; set; }
+        public string MaterialJson { get; set; } // json
+        public string UserJson { get; set; } // json
 
         public int? MaterialId { get; set; }
         public Material? Material { get; set; }

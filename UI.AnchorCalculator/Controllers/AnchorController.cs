@@ -36,17 +36,20 @@ namespace UI.AnchorCalculator.Controllers
         }
 
         // GET: AnchorController
-        public ActionResult Anchors()
+        public async Task<ActionResult> Anchors(int? SelectedMaterial, string SelectedUserName)
         {
-            List<Anchor> anchors = _AService.GetAll().ToListAsync().Result;
-            return View(anchors);
+            IQueryable<Anchor> anchors = _AService.GetAll(); 
+            _AService.Filter(ref anchors, SelectedMaterial, SelectedUserName); // filter
+            AnchorsViewModel anchorsViewModel = await _AService.GetAnchorsViewModel(anchors, SelectedMaterial, SelectedUserName);
+            return View(anchorsViewModel);
         }
 
         // GET: AnchorController
-        public JsonResult GetListAnchorJsonResult()
+        public async Task<JsonResult> GetListAnchorJsonResult(string ids)
         {
-            var anchorsSvg = _AService.GetAll().Select(e => e.SvgElement).ToListAsync().Result;
-            var anchorsId = _AService.GetAll().Select(e => e.Id).ToListAsync().Result;
+            List<Anchor> anchors = await _AService.GetListAnchorFromPage(ids);
+            var anchorsSvg = anchors.Select(e => e.SvgElement).ToList();
+            var anchorsId = anchors.Select(e => e.Id).ToList();
             if (anchorsSvg.Count>0)
                 return Json(new { success = true, anchorsSvg = anchorsSvg, idMin = anchorsId[0], idMax = anchorsId[^1]});
             else
@@ -84,7 +87,7 @@ namespace UI.AnchorCalculator.Controllers
             }
             if (ModelState.IsValid)
             {
-                Anchor Anchor = _AService.GetAnchor(viewModel);
+                Anchor Anchor = await _AService.GetAnchor(viewModel);
                 _SvgService.GetSvg(Anchor, _appEnvironment.WebRootPath);
                 await _CService.Calculate(Anchor);
                 if (User.Identity.IsAuthenticated)
