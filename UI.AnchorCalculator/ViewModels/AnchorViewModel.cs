@@ -1,4 +1,5 @@
 ﻿using Core.AnchorCalculator.Entities;
+using Core.AnchorCalculator.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -44,6 +45,7 @@ namespace UI.AnchorCalculator.ViewModels
         public double Sebes { get; set; }
         public double BatchSebes { get; set; }
         public string? UserName { get; set; }
+        public string Kind { get; set; }
         public string? MaterialName { get; set; }
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }

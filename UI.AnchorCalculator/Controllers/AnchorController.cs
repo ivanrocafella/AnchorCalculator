@@ -1,4 +1,5 @@
 ﻿using Core.AnchorCalculator.Entities;
+using Core.AnchorCalculator.Entities.Enums;
 using GrapeCity.Documents.Svg;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -36,11 +37,12 @@ namespace UI.AnchorCalculator.Controllers
         }
 
         // GET: AnchorController
-        public async Task<ActionResult> Anchors(int? SelectedMaterial, string SelectedUserName)
+        public async Task<ActionResult> Anchors(int? SelectedMaterial, string SelectedUserName
+            , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill)
         {
             IQueryable<Anchor> anchors = _AService.GetAll(); 
-            _AService.Filter(ref anchors, SelectedMaterial, SelectedUserName); // filter
-            AnchorsViewModel anchorsViewModel = await _AService.GetAnchorsViewModel(anchors, SelectedMaterial, SelectedUserName);
+            _AService.Filter(ref anchors, SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill); // filter
+            AnchorsViewModel anchorsViewModel = await _AService.GetAnchorsViewModel(anchors, SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill);
             return View(anchorsViewModel);
         }
 
@@ -73,7 +75,7 @@ namespace UI.AnchorCalculator.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> GetAnchorJsonResult(AnchorViewModel viewModel)
         {
-            if ((viewModel.BendLength > 0 && viewModel.BendLength < 100) || viewModel.BendLength > 500)
+            if ((viewModel.Kind != Kind.Straight.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < 100) || viewModel.BendLength > 500)
             {
                 ModelState.AddModelError(nameof(viewModel.BendLength), "Длина загиба должна быть от 100 до 500");
             }
@@ -88,7 +90,11 @@ namespace UI.AnchorCalculator.Controllers
             if (ModelState.IsValid)
             {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
-                _SvgService.GetSvg(Anchor, _appEnvironment.WebRootPath);
+                if (Anchor.Kind == Kind.Straight)
+                    _SvgService.GetSvgStraightAnchor(Anchor);
+                if (Anchor.Kind == Kind.Bend)
+                    _SvgService.GetSvgBendAnchor(Anchor);
+                //_SvgService.GetSvg(Anchor);
                 await _CService.Calculate(Anchor);
                 if (User.Identity.IsAuthenticated)
                     return Json(new { success = true, anchorJS = Anchor, isAuthen = true });
@@ -97,18 +103,18 @@ namespace UI.AnchorCalculator.Controllers
             }
             else
             {
-                if (ModelState.Root.Children[8].Errors.Count > 0 && ModelState.Root.Children[3].Errors.Count > 0)
+                if (ModelState.Root.Children[9].Errors.Count > 0 && ModelState.Root.Children[4].Errors.Count > 0)
                     return Json(new { success = false
-                        , errorMessageDiam = ModelState.Root.Children[8].Errors[0].ErrorMessage
-                        , errorMessageBendLen = ModelState.Root.Children[3].Errors[0].ErrorMessage
+                        , errorMessageDiam = ModelState.Root.Children[9].Errors[0].ErrorMessage
+                        , errorMessageBendLen = ModelState.Root.Children[4].Errors[0].ErrorMessage
                     });
-                else if (ModelState.Root.Children[8].Errors.Count > 0)
+                else if (ModelState.Root.Children[9].Errors.Count > 0)
                 {
-                    return Json(new { success = false, errorMessageDiam = ModelState.Root.Children[8].Errors[0].ErrorMessage });
+                    return Json(new { success = false, errorMessageDiam = ModelState.Root.Children[9].Errors[0].ErrorMessage });
                 }
-                else if (ModelState.Root.Children[3].Errors.Count > 0)
+                else if (ModelState.Root.Children[4].Errors.Count > 0)
                 {
-                    return Json(new { success = false, errorMessageBendLen = ModelState.Root.Children[3].Errors[0].ErrorMessage });
+                    return Json(new { success = false, errorMessageBendLen = ModelState.Root.Children[4].Errors[0].ErrorMessage });
                 }
                 else
                     return Json(new { succes = false });

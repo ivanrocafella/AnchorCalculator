@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Core.AnchorCalculator.Entities.Enums;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,15 @@ namespace Core.AnchorCalculator.Entities
         public double BilletLength { get; set; }
         public string MaterialJson { get; set; } // json
         public string UserJson { get; set; } // json
+
+        public virtual int KindId
+        {
+            get => (int)Kind;
+            set => Kind = (Kind)value;
+        }
+        [EnumDataType(typeof(Kind))]
+        public Kind Kind { get; set; }
+        public double PricePerMetr { get; set; }
 
         public int? MaterialId { get; set; }
         public Material? Material { get; set; }

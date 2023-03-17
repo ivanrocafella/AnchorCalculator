@@ -4,11 +4,27 @@
 
 <h2>Каталог анкеров</h2>
 <form method="get" class="row gx-3 gy-2 align-items-center mb-4">
-  <div class="col-sm-3">
-    <label class="colFormLabel" for="specificSizeInputName">Имя пользователя:</label>
+  <div class="col-lg-2">
+    <label class="colFormLabel" for="SelectedUserName">Логин автора:</label>
     <input type="text" id="SelectedUserName" name="SelectedUserName" value="@Model.FilterView.SelectedUserName" class="form-control">
   </div>
-  <div class="col-sm-3">
+  <div class="col-lg-2">
+    <label class="colFormLabel" for="DateTimeFrom">Дата от:</label>
+    <input type="datetime-local" id="DateTimeFrom" name="DateTimeFrom" value="@Model.FilterView.DateTimeFrom" class="form-control">
+  </div>
+    <div class="col-lg-2">
+    <label class="colFormLabel" for="DateTimeTill">Дата до:</label>
+    <input type="datetime-local" id="DateTimeTill" name="DateTimeTill" value="@Model.FilterView.DateTimeTill" class="form-control">
+  </div>
+  <div class="col-lg-1">
+    <label class="colFormLabel" for="PriceFrom">Цена от:</label>
+    <input type="number" id="PriceFrom" name="PriceFrom" value="@Model.FilterView.PriceFrom" class="form-control" step="0.1" min="0">
+  </div>
+    <div class="col-lg-1">
+    <label class="colFormLabel" for="PriceTill">Цена до:</label>
+    <input type="number" id="PriceTill" name="PriceTill" value="@Model.FilterView.PriceTill" class="form-control" step="0.1" min="0">
+  </div>
+  <div class="col-lg-2">
     <label class="colFormLabel" for="specificSizeSelect">Материал:</label>
      <select id="selectBox" name="SelectedMaterial" class="form-select" aria-label="Default select example">
                      <option>Ничего не выбрано</option>
@@ -18,18 +34,18 @@
                      }
      </select>  
   </div>
-  <div class="col-auto pt-3">
-    <button type="submit" class="btn btn-primary">Фильтр</button>
-  </div>
-   <div class="col-auto pt-3">
-    <button class="btn btn-primary" onclick="refreshFilters()">Сбросить фильтры</button>
-  </div>
+  <div class="col-lg-2 pt-3">
+      <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="submit" class="btn btn-dark">Фильтр</button>
+            <button class="btn btn-secondary" onclick="refreshFilters()">Сбросить</button>
+      </div> 
+   </div>
 </form>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
      @if (@Model.Anchors.Count == 0)
     {
-        <h2>Анкеры ещё не добавлены</h2>
+        <h2>Анкеров нет</h2>
     }
     else
     {
@@ -98,6 +114,14 @@
           selectBox.value=0;
           var inputSelectedUserName = document.getElementById("SelectedUserName");
           inputSelectedUserName.value = null;
+          var DateTimeFrom = document.getElementById("DateTimeFrom");
+          DateTimeFrom.value = null;
+          var DateTimeTill = document.getElementById("DateTimeTill");
+          DateTimeTill.value = null;
+          var PriceFrom = document.getElementById("PriceFrom");
+          PriceFrom.value = 0;
+          var PriceTill = document.getElementById("PriceTill");
+          PriceTill.value = 0;
       }     
 
    </script>

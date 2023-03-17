@@ -1,4 +1,5 @@
 ﻿using Core.AnchorCalculator.Entities;
+using Core.AnchorCalculator.Entities.Enums;
 using DAL.AnchorCalculator;
 using UI.AnchorCalculator.Extensions;
 
@@ -37,7 +38,7 @@ namespace UI.AnchorCalculator.Services
         static double GetLengthBillet(Anchor anchor)
         {
             double lengthBillet;
-            if (anchor.BendLength > anchor.Diameter + anchor.BendRadius)
+            if (anchor.Kind == Kind.Bend)
             {
                 double kFactor = 1 / (Math.Log(1 + (double)anchor.Diameter / anchor.BendRadius)) - anchor.BendRadius / anchor.Diameter; // K-factor 
                 lengthBillet = (anchor.Length - anchor.BendRadius - anchor.Diameter)
@@ -45,7 +46,7 @@ namespace UI.AnchorCalculator.Services
                     + (anchor.BendLength - (anchor.Diameter + anchor.BendRadius)));
             }
             else
-                lengthBillet = anchor.Length;
+                lengthBillet = anchor.Length;    
             return lengthBillet;
         }
     }

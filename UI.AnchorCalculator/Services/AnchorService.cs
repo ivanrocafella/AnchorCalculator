@@ -1,4 +1,5 @@
 ﻿using Core.AnchorCalculator.Entities;
+using Core.AnchorCalculator.Entities.Enums;
 using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace UI.AnchorCalculator.Services
             AnchorViewModel anchorViewModel = new()
             {
                 Materials = MService.GetAllMaterials().Result.OrderBy(x => x.Name).ThenBy(x => x.Size).ToList()
-            };    
+            };
             return anchorViewModel;
         }
 
@@ -49,6 +50,7 @@ namespace UI.AnchorCalculator.Services
         //Method for getting Anchor
         public async Task<Anchor> GetAnchor(AnchorViewModel viewModel)
         {
+            List<Kind> kinds = Enum.GetValues(typeof(Kind)).Cast<Kind>().ToList();
             Anchor anchor = new()
             {
                 MaterialId = viewModel.MaterialId,
@@ -60,7 +62,8 @@ namespace UI.AnchorCalculator.Services
                 BendRadius = viewModel.BendRadius,
                 ThreadStep = viewModel.ThreadStep,
                 Quantity = viewModel.Quantity,
-                Material = await MService.GetMaterialById(viewModel.MaterialId)
+                Material = await MService.GetMaterialById(viewModel.MaterialId),
+                KindId = (int)kinds.FirstOrDefault(e => e.ToString() == viewModel.Kind)
             };
             return anchor;
         }
@@ -107,22 +110,37 @@ namespace UI.AnchorCalculator.Services
         }
 
         //Method for filtration anchors
-        public void Filter(ref IQueryable<Anchor> anchors, int? SelectedMaterial, string SelectedUserName)
+        public void Filter(ref IQueryable<Anchor> anchors, int? SelectedMaterial, string SelectedUserName
+            , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill)
         {
             if (SelectedMaterial != null && SelectedMaterial != 0)
                 anchors = anchors.Where(e => e.Material.Id == SelectedMaterial);
             if (!String.IsNullOrEmpty(SelectedUserName))
                 anchors = anchors.Where(e => e.User.UserName.Contains(SelectedUserName));
+            if (DateTimeFrom > DateTime.MinValue && DateTimeFrom < DateTime.MaxValue && DateTimeTill <= DateTime.MinValue)
+                anchors = anchors.Where(e => e.DateCreate >= DateTimeFrom);
+            if (DateTimeTill > DateTime.MinValue && DateTimeTill < DateTime.MaxValue && DateTimeFrom <= DateTime.MinValue)
+                anchors = anchors.Where(e => e.DateCreate <= DateTimeTill);
+            if (DateTimeFrom > DateTime.MinValue && DateTimeFrom < DateTime.MaxValue && DateTimeTill > DateTime.MinValue && DateTimeTill < DateTime.MaxValue)
+                anchors = anchors.Where(e => e.DateCreate >= DateTimeFrom && e.DateCreate <= DateTimeTill);
+            if (PriceFrom > 0 && PriceFrom < Double.PositiveInfinity && PriceTill == 0)
+                anchors = anchors.Where(e => e.Price >= PriceFrom);
+            if (PriceTill > 0 && PriceTill < Double.PositiveInfinity && PriceFrom == 0)
+                anchors = anchors.Where(e => e.Price <= PriceTill);
+            if (PriceFrom > 0 && PriceFrom < Double.PositiveInfinity && PriceTill > 0 && PriceTill < Double.PositiveInfinity)
+                anchors = anchors.Where(e => e.Price >= PriceFrom && e.Price <= PriceTill);
+
         }
 
 
         //Method for getting AnchorsViewModel for Anchors
-        public async Task<AnchorsViewModel> GetAnchorsViewModel(IQueryable<Anchor> anchors, int? SelectedMaterial, string SelectedUserName)
+        public async Task<AnchorsViewModel> GetAnchorsViewModel(IQueryable<Anchor> anchors, int? SelectedMaterial
+            , string SelectedUserName, DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill)
         {
             AnchorsViewModel anchorsViewModel = new() 
             {
                 Anchors = anchors.ToList(),
-                FilterView = new FilterViewModelAnchors(await MService.GetAllMaterials(), SelectedMaterial, SelectedUserName)
+                FilterView = new FilterViewModelAnchors(await MService.GetAllMaterials(), SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill)
             };
             return anchorsViewModel;
         }
