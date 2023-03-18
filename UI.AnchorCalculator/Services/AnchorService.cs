@@ -174,7 +174,8 @@ namespace UI.AnchorCalculator.Services
                BatchSebes = viewModel.BatchSebes,
                UserId = userId,
                UserJson = userJson,
-               MaterialJson = materialJson
+               MaterialJson = materialJson,
+               KindId = int.Parse(viewModel.Kind)
            };
            await applicationDbContext.Anchors.AddAsync(anchor);
            await applicationDbContext.SaveChangesAsync();

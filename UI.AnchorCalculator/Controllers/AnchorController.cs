@@ -94,6 +94,8 @@ namespace UI.AnchorCalculator.Controllers
                     _SvgService.GetSvgStraightAnchor(Anchor);
                 if (Anchor.Kind == Kind.Bend)
                     _SvgService.GetSvgBendAnchor(Anchor);
+                if (Anchor.Kind == Kind.BendDouble)
+                    _SvgService.GetSvgBendDoubleAnchor(Anchor);
                 //_SvgService.GetSvg(Anchor);
                 await _CService.Calculate(Anchor);
                 if (User.Identity.IsAuthenticated)

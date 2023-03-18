@@ -32,7 +32,6 @@ namespace Core.AnchorCalculator.Entities
         public double BilletLength { get; set; }
         public string MaterialJson { get; set; } // json
         public string UserJson { get; set; } // json
-
         public virtual int KindId
         {
             get => (int)Kind;
