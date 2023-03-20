@@ -1885,11 +1885,11 @@ namespace UI.AnchorCalculator.Services
                         var pbHalfRightBendPartAnchor = new SvgPathBuilder();
                         var pathHalfRightBendPartAnchor = new SvgPathElement();
 
-                        pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                             Y_InitCoord + anchor.Length - anchor.Diameter);
                         pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius);
                         pbHalfRightBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.Length);
-                        pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap);
+                        pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap);
 
                         pathHalfRightBendPartAnchor.PathData = pbHalfRightBendPartAnchor.ToPathData();
                         pathHalfRightBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -1903,11 +1903,11 @@ namespace UI.AnchorCalculator.Services
                         var pbHalfLeftBendPartAnchor = new SvgPathBuilder();
                         var pathHalfLeftBendPartAnchor = new SvgPathElement();
 
-                        pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + anchor.Length - anchor.Diameter);
                         pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax);
                         pbHalfLeftBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.Length);
-                        pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2);
+                        pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2);
 
                         pathHalfLeftBendPartAnchor.PathData = pbHalfLeftBendPartAnchor.ToPathData();
                         pathHalfLeftBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -1921,13 +1921,13 @@ namespace UI.AnchorCalculator.Services
                         var pbgapRight = new SvgPathBuilder();
                         var pathgapRight = new SvgPathElement();
 
-                        pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                                Y_InitCoord + anchor.Length - anchor.Diameter);
-                        pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap - 5,
+                        pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap - 5,
                             Y_InitCoord + anchor.Length - anchor.Diameter / 2,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                             Y_InitCoord + anchor.Length,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                             Y_InitCoord + anchor.Length);
 
                         pathgapRight.PathData = pbgapRight.ToPathData();
@@ -1942,13 +1942,13 @@ namespace UI.AnchorCalculator.Services
                         var pbgapLeft = new SvgPathBuilder();
                         var pathgapLeft = new SvgPathElement();
 
-                        pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + anchor.Length - anchor.Diameter);
-                        pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 - 5,
+                        pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 - 5,
                             Y_InitCoord + anchor.Length - anchor.Diameter / 2,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + anchor.Length,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + anchor.Length);
 
                         pathgapLeft.PathData = pbgapLeft.ToPathData();
@@ -2352,11 +2352,11 @@ namespace UI.AnchorCalculator.Services
                         var pbHalfRightBendPartAnchor = new SvgPathBuilder();
                         var pathHalfRightBendPartAnchor = new SvgPathElement();
 
-                        pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                             Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
                         pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius);
                         pbHalfRightBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + lengthMax + anchor.ThreadLength);
-                        pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap);
+                        pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap);
 
                         pathHalfRightBendPartAnchor.PathData = pbHalfRightBendPartAnchor.ToPathData();
                         pathHalfRightBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -2370,11 +2370,11 @@ namespace UI.AnchorCalculator.Services
                         var pbHalfLeftBendPartAnchor = new SvgPathBuilder();
                         var pathHalfLeftBendPartAnchor = new SvgPathElement();
 
-                        pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
                         pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax);
                         pbHalfLeftBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + lengthMax + anchor.ThreadLength);
-                        pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2);
+                        pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2);
 
                         pathHalfLeftBendPartAnchor.PathData = pbHalfLeftBendPartAnchor.ToPathData();
                         pathHalfLeftBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -2388,13 +2388,13 @@ namespace UI.AnchorCalculator.Services
                         var pbgapRight = new SvgPathBuilder();
                         var pathgapRight = new SvgPathElement();
 
-                        pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                                Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
-                        pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap - 5,
+                        pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap - 5,
                             Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                             Y_InitCoord + lengthMax + anchor.ThreadLength,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                             Y_InitCoord + lengthMax + anchor.ThreadLength);
 
                         pathgapRight.PathData = pbgapRight.ToPathData();
@@ -2409,13 +2409,13 @@ namespace UI.AnchorCalculator.Services
                         var pbgapLeft = new SvgPathBuilder();
                         var pathgapLeft = new SvgPathElement();
 
-                        pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
-                        pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 - 5,
+                        pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 - 5,
                             Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + lengthMax + anchor.ThreadLength,
-                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                            X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                             Y_InitCoord + lengthMax + anchor.ThreadLength);
 
                         pathgapLeft.PathData = pbgapLeft.ToPathData();
@@ -2637,6 +2637,60 @@ namespace UI.AnchorCalculator.Services
                 SvgLengthUnits.Pixels);
 
             svgElements.Add(rectThreadStepBodyAnchor);
+
+            //Draw second part with thread
+
+            SvgRectElement rectThreadBodyAnchorSecond;
+            SvgRectElement rectThreadStepBodyAnchorSecond;
+
+            if (anchor.BendLength <= bendLengthMax)
+            {
+                rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - anchor.BendLength + anchor.Diameter,
+                Y_InitCoord,
+                anchor.ThreadDiameter,
+                anchor.ThreadLength,
+                Color.Transparent,
+                Color.Black,
+                1.5f,
+                SvgLengthUnits.Pixels);
+
+                svgElements.Add(rectThreadBodyAnchorSecond);
+
+                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + ThreadStep / 2 - anchor.BendLength + anchor.Diameter,
+                Y_InitCoord,
+                anchor.ThreadDiameter - ThreadStep,
+                anchor.ThreadLength,
+                Color.Transparent,
+                Color.Black,
+                1f,
+                SvgLengthUnits.Pixels);
+
+                svgElements.Add(rectThreadStepBodyAnchorSecond);
+            }
+            else
+            {
+                rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - bendLengthMax,
+                                Y_InitCoord,
+                                anchor.ThreadDiameter,
+                                anchor.ThreadLength,
+                                Color.Transparent,
+                                Color.Black,
+                                1.5f,
+                                SvgLengthUnits.Pixels);
+
+                svgElements.Add(rectThreadBodyAnchorSecond);
+
+                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + ThreadStep / 2 - bendLengthMax,
+                Y_InitCoord,
+                anchor.ThreadDiameter - ThreadStep,
+                anchor.ThreadLength,
+                Color.Transparent,
+                Color.Black,
+                1f,
+                SvgLengthUnits.Pixels);
+
+                svgElements.Add(rectThreadStepBodyAnchorSecond);
+            }
 
             // Draw sizes of part with thread
 
@@ -2961,11 +3015,11 @@ namespace UI.AnchorCalculator.Services
                     var pbHalfRightBendPartAnchor = new SvgPathBuilder();
                     var pathHalfRightBendPartAnchor = new SvgPathElement();
 
-                    pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                    pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                         Y_InitCoord + anchor.Length - anchor.Diameter);
                     pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius);
                     pbHalfRightBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.Length);
-                    pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap);
+                    pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap);
 
                     pathHalfRightBendPartAnchor.PathData = pbHalfRightBendPartAnchor.ToPathData();
                     pathHalfRightBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -2979,11 +3033,11 @@ namespace UI.AnchorCalculator.Services
                     var pbHalfLeftBendPartAnchor = new SvgPathBuilder();
                     var pathHalfLeftBendPartAnchor = new SvgPathElement();
 
-                    pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                    pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + anchor.Length - anchor.Diameter);
                     pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.BendRadius + anchor.Diameter);
                     pbHalfLeftBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.Length);
-                    pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2);
+                    pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2);
 
                     pathHalfLeftBendPartAnchor.PathData = pbHalfLeftBendPartAnchor.ToPathData();
                     pathHalfLeftBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -2997,13 +3051,13 @@ namespace UI.AnchorCalculator.Services
                     var pbgapRight = new SvgPathBuilder();
                     var pathgapRight = new SvgPathElement();
 
-                    pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                    pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                            Y_InitCoord + anchor.Length - anchor.Diameter);
-                    pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap - 5,
+                    pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap - 5,
                         Y_InitCoord + anchor.Length - anchor.Diameter / 2,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                         Y_InitCoord + anchor.Length,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                         Y_InitCoord + anchor.Length);
 
                     pathgapRight.PathData = pbgapRight.ToPathData();
@@ -3018,13 +3072,13 @@ namespace UI.AnchorCalculator.Services
                     var pbgapLeft = new SvgPathBuilder();
                     var pathgapLeft = new SvgPathElement();
 
-                    pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                    pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + anchor.Length - anchor.Diameter);
-                    pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 - 5,
+                    pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 - 5,
                         Y_InitCoord + anchor.Length - anchor.Diameter / 2,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + anchor.Length,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + anchor.Length);
 
                     pathgapLeft.PathData = pbgapLeft.ToPathData();
@@ -3037,7 +3091,7 @@ namespace UI.AnchorCalculator.Services
                     //Size of bending part
 
                     var lineVertLeftSizeBendPart = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
-                          Y_InitCoord + anchor.Length - anchor.BendRadius,
+                          Y_InitCoord + anchor.Length - anchor.BendRadius - anchor.Diameter,
                           X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
                           Y_InitCoord + anchor.Length + (outPartHorSize + 5),
                           Color.Black,
@@ -3480,7 +3534,7 @@ namespace UI.AnchorCalculator.Services
                     //Size of bending part
 
                     var lineVertLeftSizeBendPart = GetSvgLineElement(X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - anchor.BendLength,
-                          Y_InitCoord + anchor.ThreadLength + lengthMax,
+                          Y_InitCoord + anchor.ThreadLength + lengthMax - anchor.BendRadius - anchor.Diameter,
                           X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - anchor.BendLength,
                           Y_InitCoord + anchor.ThreadLength + lengthMax + (outPartHorSize + 5),
                           Color.Black,
@@ -3563,6 +3617,74 @@ namespace UI.AnchorCalculator.Services
                 }
                 else
                 {
+                    //Draw second basic part without thread and bend 
+
+                    //Make bottom half basic part without thread and bend
+
+                    pbHalfBotBasicBodySecondAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
+                                    Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
+                    pbHalfBotBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.ThreadLength + lengthMax - anchor.BendRadius - anchor.Diameter);
+                    pbHalfBotBasicBodySecondAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.Diameter);
+                    pbHalfBotBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
+
+                    pathHalfBotBasicBodySecondAnchor.PathData = pbHalfBotBasicBodySecondAnchor.ToPathData();
+                    pathHalfBotBasicBodySecondAnchor.Fill = new SvgPaint(Color.Transparent);
+                    pathHalfBotBasicBodySecondAnchor.Stroke = new SvgPaint(Color.Black);
+                    pathHalfBotBasicBodySecondAnchor.StrokeWidth = new SvgLength(1.5f);
+
+                    svgElements.Add(pathHalfBotBasicBodySecondAnchor);
+
+                    // Make gap Bot Line
+
+                    pbgapBotSecond.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
+                           Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
+                    pbgapBotSecond.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter - bendLengthMax,
+                        Y_InitCoord + anchor.ThreadLength + lengthMax / 2 - 5,
+                        X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - bendLengthMax,
+                        Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
+                        X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - bendLengthMax,
+                        Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
+
+                    pathgapBotSecond.PathData = pbgapBotSecond.ToPathData();
+                    pathgapBotSecond.Fill = new SvgPaint(Color.Transparent);
+                    pathgapBotSecond.Stroke = new SvgPaint(Color.Black);
+                    pathgapBotSecond.StrokeWidth = new SvgLength(0.5f);
+
+                    svgElements.Add(pathgapBotSecond);
+
+                    //Make top half basic part without thread and bend
+
+                    pbHalfTopBasicBodySecondAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
+                        Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
+                    pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.ThreadLength);
+                    pbHalfTopBasicBodySecondAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.Diameter);
+                    pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
+
+                    pathHalfTopBasicBodySecondAnchor.PathData = pbHalfTopBasicBodySecondAnchor.ToPathData();
+                    pathHalfTopBasicBodySecondAnchor.Fill = new SvgPaint(Color.Transparent);
+                    pathHalfTopBasicBodySecondAnchor.Stroke = new SvgPaint(Color.Black);
+                    pathHalfTopBasicBodySecondAnchor.StrokeWidth = new SvgLength(1.5f);
+
+                    svgElements.Add(pathHalfTopBasicBodySecondAnchor);
+
+                    // Make gap Top Line
+
+                    pbgapTopSecond.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
+                           Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
+                    pbgapTopSecond.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter - bendLengthMax,
+                        Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap) - 5,
+                        X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - bendLengthMax,
+                        Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap),
+                        X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - bendLengthMax,
+                        Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
+
+                    pathgapTopSecond.PathData = pbgapTopSecond.ToPathData();
+                    pathgapTopSecond.Fill = new SvgPaint(Color.Transparent);
+                    pathgapTopSecond.Stroke = new SvgPaint(Color.Black);
+                    pathgapTopSecond.StrokeWidth = new SvgLength(0.5f);
+
+                    svgElements.Add(pathgapTopSecond);
+
                     //Draw bending part without radius 
 
                     //Make right half bending part without radius
@@ -3570,11 +3692,11 @@ namespace UI.AnchorCalculator.Services
                     var pbHalfRightBendPartAnchor = new SvgPathBuilder();
                     var pathHalfRightBendPartAnchor = new SvgPathElement();
 
-                    pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                    pbHalfRightBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                         Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
                     pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius);
                     pbHalfRightBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + lengthMax + anchor.ThreadLength);
-                    pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap);
+                    pbHalfRightBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap);
 
                     pathHalfRightBendPartAnchor.PathData = pbHalfRightBendPartAnchor.ToPathData();
                     pathHalfRightBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -3588,11 +3710,11 @@ namespace UI.AnchorCalculator.Services
                     var pbHalfLeftBendPartAnchor = new SvgPathBuilder();
                     var pathHalfLeftBendPartAnchor = new SvgPathElement();
 
-                    pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                    pbHalfLeftBendPartAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
                     pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.BendRadius + anchor.Diameter);
                     pbHalfLeftBendPartAnchor.AddVerticalLineTo(false, Y_InitCoord + lengthMax + anchor.ThreadLength);
-                    pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2);
+                    pbHalfLeftBendPartAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2);
 
                     pathHalfLeftBendPartAnchor.PathData = pbHalfLeftBendPartAnchor.ToPathData();
                     pathHalfLeftBendPartAnchor.Fill = new SvgPaint(Color.Transparent);
@@ -3606,13 +3728,13 @@ namespace UI.AnchorCalculator.Services
                     var pbgapRight = new SvgPathBuilder();
                     var pathgapRight = new SvgPathElement();
 
-                    pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                    pbgapRight.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                            Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
-                    pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap - 5,
+                    pbgapRight.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap - 5,
                         Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                         Y_InitCoord + lengthMax + anchor.ThreadLength,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 + gap,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
                         Y_InitCoord + lengthMax + anchor.ThreadLength);
 
                     pathgapRight.PathData = pbgapRight.ToPathData();
@@ -3627,13 +3749,13 @@ namespace UI.AnchorCalculator.Services
                     var pbgapLeft = new SvgPathBuilder();
                     var pathgapLeft = new SvgPathElement();
 
-                    pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                    pbgapLeft.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter);
-                    pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2 - 5,
+                    pbgapLeft.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 - 5,
                         Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + lengthMax + anchor.ThreadLength,
-                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - bendLengthMax / 2,
+                        X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
                         Y_InitCoord + lengthMax + anchor.ThreadLength);
 
                     pathgapLeft.PathData = pbgapLeft.ToPathData();
@@ -3646,7 +3768,7 @@ namespace UI.AnchorCalculator.Services
                     //Size of bending part
 
                     var lineVertLeftSizeBendPart = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
-                          Y_InitCoord + lengthMax + anchor.ThreadLength,
+                          Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.BendRadius - anchor.Diameter,
                           X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
                           Y_InitCoord + lengthMax + anchor.ThreadLength + (outPartHorSize + 5),
                           Color.Black,
@@ -3713,7 +3835,7 @@ namespace UI.AnchorCalculator.Services
                         Y_InitCoord + anchor.ThreadLength + lengthMax - anchor.Diameter - anchor.BendRadius);
                     pbRadiusBendSecond.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax);
                     pbRadiusBendSecond.AddCurveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
-                        Y_InitCoord + anchor.ThreadLength + lengthMax,
+                        Y_InitCoord + anchor.ThreadLength + lengthMax - anchor.Diameter - anchor.BendRadius,
                         X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
                         Y_InitCoord + anchor.ThreadLength + lengthMax,
                         X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.BendRadius + anchor.Diameter,

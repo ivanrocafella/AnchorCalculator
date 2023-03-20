@@ -75,9 +75,13 @@ namespace UI.AnchorCalculator.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> GetAnchorJsonResult(AnchorViewModel viewModel)
         {
-            if ((viewModel.Kind != Kind.Straight.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < 100) || viewModel.BendLength > 500)
+            if ((viewModel.Kind == Kind.Bend.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < 100) || viewModel.BendLength > 500)
             {
                 ModelState.AddModelError(nameof(viewModel.BendLength), "Длина загиба должна быть от 100 до 500");
+            }
+            if ((viewModel.Kind == Kind.BendDouble.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < 200) || viewModel.BendLength > 500)
+            {
+                ModelState.AddModelError(nameof(viewModel.BendLength), "Длина загиба должна быть от 200 до 500");
             }
             if (viewModel.ThreadDiameter == 0)
             {

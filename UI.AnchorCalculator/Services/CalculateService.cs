@@ -26,6 +26,9 @@ namespace UI.AnchorCalculator.Services
             double BilletWeight = ((anchor.BilletLength * (Math.PI * Math.Pow(anchor.Diameter, 2) / 4)) / Math.Pow(10, 9)) * dencitySteel; // weight of anchor's billet
 
             anchor.Weight = Math.Round(BilletWeight - ((((Math.PI * Math.Pow(anchor.Diameter, 2) / 4) - (Math.PI * Math.Pow(anchor.ThreadDiameter, 2) / 4)) * anchor.ThreadLength) / Math.Pow(10, 9)) * dencitySteel, 2); // weight of anchor
+            if (anchor.Kind == Kind.BendDouble)
+                anchor.Weight = Math.Round(BilletWeight - 2 * ((((Math.PI * Math.Pow(anchor.Diameter, 2) / 4) - (Math.PI * Math.Pow(anchor.ThreadDiameter, 2) / 4)) * anchor.ThreadLength) / Math.Pow(10, 9)) * dencitySteel, 2);
+
             anchor.BatchWeight =  Math.Round(anchor.Weight * anchor.Quantity, 2); // weight of anchor's batch
 
             double priceMaterialAnchor = (anchor.BilletLength / 1000) * anchor.Material.PricePerMetr; // price of anchor's material 
@@ -38,12 +41,18 @@ namespace UI.AnchorCalculator.Services
         static double GetLengthBillet(Anchor anchor)
         {
             double lengthBillet;
+            double kFactor = 1 / (Math.Log(1 + (double)anchor.Diameter / anchor.BendRadius)) - anchor.BendRadius / anchor.Diameter; // K-factor 
             if (anchor.Kind == Kind.Bend)
-            {
-                double kFactor = 1 / (Math.Log(1 + (double)anchor.Diameter / anchor.BendRadius)) - anchor.BendRadius / anchor.Diameter; // K-factor 
-                lengthBillet = (anchor.Length - anchor.BendRadius - anchor.Diameter)
+            {               
+                lengthBillet = anchor.Length - anchor.BendRadius - anchor.Diameter
                     + ((Math.PI * (anchor.BendRadius + kFactor * anchor.Diameter) * 1 / 2)
                     + (anchor.BendLength - (anchor.Diameter + anchor.BendRadius)));
+            }
+            else if (anchor.Kind == Kind.BendDouble)
+            {
+                lengthBillet = 2 * (anchor.Length - anchor.BendRadius - anchor.Diameter
+                    + (Math.PI * (anchor.BendRadius + kFactor * anchor.Diameter) * 1 / 2))
+                    + anchor.BendLength - 2 * (anchor.Diameter + anchor.BendRadius);
             }
             else
                 lengthBillet = anchor.Length;    
