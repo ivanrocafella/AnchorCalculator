@@ -38,11 +38,13 @@ namespace UI.AnchorCalculator.Controllers
 
         // GET: AnchorController
         public async Task<ActionResult> Anchors(int? SelectedMaterial, string SelectedUserName
-            , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill)
+            , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill, int PageSize, int page = 1)
         {
             IQueryable<Anchor> anchors = _AService.GetAll(); 
             _AService.Filter(ref anchors, SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill); // filter
-            AnchorsViewModel anchorsViewModel = await _AService.GetAnchorsViewModel(anchors, SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill);
+            PagingData pagingData = _AService.Pagination(ref anchors, PageSize, page);
+            AnchorsViewModel anchorsViewModel = await _AService.GetAnchorsViewModel(anchors, SelectedMaterial, SelectedUserName, DateTimeFrom
+                , DateTimeTill, PriceFrom, PriceTill, pagingData);
             return View(anchorsViewModel);
         }
 

@@ -129,18 +129,30 @@ namespace UI.AnchorCalculator.Services
                 anchors = anchors.Where(e => e.Price <= PriceTill);
             if (PriceFrom > 0 && PriceFrom < Double.PositiveInfinity && PriceTill > 0 && PriceTill < Double.PositiveInfinity)
                 anchors = anchors.Where(e => e.Price >= PriceFrom && e.Price <= PriceTill);
+        }
 
+
+        //Method for pagination anchors
+        public PagingData Pagination(ref IQueryable<Anchor> anchors, int pageSize, int page)
+        {
+            if (pageSize == 0)
+                pageSize = 6;
+            var countAllAnchors = anchors.Count();
+            anchors = anchors.Skip((page - 1) * pageSize).Take(pageSize);
+            PagingData pagingData = new(page, countAllAnchors, pageSize);
+            return pagingData;
         }
 
 
         //Method for getting AnchorsViewModel for Anchors
         public async Task<AnchorsViewModel> GetAnchorsViewModel(IQueryable<Anchor> anchors, int? SelectedMaterial
-            , string SelectedUserName, DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill)
+            , string SelectedUserName, DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill, PagingData pagingData)
         {
             AnchorsViewModel anchorsViewModel = new() 
             {
                 Anchors = anchors.ToList(),
-                FilterView = new FilterViewModelAnchors(await MService.GetAllMaterials(), SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill)
+                FilterView = new FilterViewModelAnchors(await MService.GetAllMaterials(), SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill),
+                PageViewModelAnchors = new PageViewModelAnchors(pagingData.Count, pagingData.Page, pagingData.PageSize)
             };
             return anchorsViewModel;
         }
