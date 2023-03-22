@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace Core.AnchorCalculator.Entities
     public class Material : Entity
     {
         public string? Name { get; set; }
+        [NotMapped]
+        public string? FullName { get { return $"{Name} ⌀{Size} {Type}"; } }
         public double Size { get; set; }
         public virtual int TypeId
         {

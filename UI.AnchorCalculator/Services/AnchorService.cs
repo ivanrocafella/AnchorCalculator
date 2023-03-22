@@ -110,11 +110,11 @@ namespace UI.AnchorCalculator.Services
         }
 
         //Method for filtration anchors
-        public void Filter(ref IQueryable<Anchor> anchors, int? SelectedMaterial, string SelectedUserName
+        public void Filter(ref IQueryable<Anchor> anchors, string? SelectedMaterial, string SelectedUserName
             , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill)
         {
-            if (SelectedMaterial != null && SelectedMaterial != 0)
-                anchors = anchors.Where(e => e.Material.Id == SelectedMaterial);
+            if (SelectedMaterial != null)
+                anchors = anchors.Where(e => e.Material.FullName.Contains(SelectedMaterial));
             if (!String.IsNullOrEmpty(SelectedUserName))
                 anchors = anchors.Where(e => e.User.UserName.Contains(SelectedUserName));
             if (DateTimeFrom > DateTime.MinValue && DateTimeFrom < DateTime.MaxValue && DateTimeTill <= DateTime.MinValue)
@@ -135,8 +135,6 @@ namespace UI.AnchorCalculator.Services
         //Method for pagination anchors
         public PagingData Pagination(ref IQueryable<Anchor> anchors, int pageSize, int page)
         {
-            if (pageSize == 0)
-                pageSize = 6;
             var countAllAnchors = anchors.Count();
             anchors = anchors.Skip((page - 1) * pageSize).Take(pageSize);
             PagingData pagingData = new(page, countAllAnchors, pageSize);
@@ -145,7 +143,7 @@ namespace UI.AnchorCalculator.Services
 
 
         //Method for getting AnchorsViewModel for Anchors
-        public async Task<AnchorsViewModel> GetAnchorsViewModel(IQueryable<Anchor> anchors, int? SelectedMaterial
+        public async Task<AnchorsViewModel> GetAnchorsViewModel(IQueryable<Anchor> anchors, string? SelectedMaterial
             , string SelectedUserName, DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill, PagingData pagingData)
         {
             AnchorsViewModel anchorsViewModel = new() 

@@ -37,8 +37,8 @@ namespace UI.AnchorCalculator.Controllers
         }
 
         // GET: AnchorController
-        public async Task<ActionResult> Anchors(int? SelectedMaterial, string SelectedUserName
-            , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill, int PageSize, int page = 1)
+        public async Task<ActionResult> Anchors(string? SelectedMaterial, string SelectedUserName
+            , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill, int PageSize = 6, int page = 1)
         {
             IQueryable<Anchor> anchors = _AService.GetAll(); 
             _AService.Filter(ref anchors, SelectedMaterial, SelectedUserName, DateTimeFrom, DateTimeTill, PriceFrom, PriceTill); // filter

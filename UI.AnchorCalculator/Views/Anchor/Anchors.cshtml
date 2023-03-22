@@ -25,11 +25,11 @@
     <label class="colFormLabel" for="SelectedUserName">Логин автора:</label>
     <input type="text" id="SelectedUserName" name="SelectedUserName" value="@Model.FilterView.SelectedUserName" class="form-control">
   </div>
-  <div class="col-lg-1">
+  <div class="col-lg-2">
     <label class="colFormLabel" for="DateTimeFrom">Дата от:</label>
     <input type="datetime-local" id="DateTimeFrom" name="DateTimeFrom" value="@Model.FilterView.DateTimeFrom" class="form-control">
   </div>
-    <div class="col-lg-1">
+    <div class="col-lg-2">
     <label class="colFormLabel" for="DateTimeTill">Дата до:</label>
     <input type="datetime-local" id="DateTimeTill" name="DateTimeTill" value="@Model.FilterView.DateTimeTill" class="form-control">
   </div>
@@ -41,20 +41,18 @@
     <label class="colFormLabel" for="PriceTill">Цена до:</label>
     <input type="number" id="PriceTill" name="PriceTill" value="@Model.FilterView.PriceTill" class="form-control" step="0.1" min="0">
   </div>
-  <div class="col-lg-1">
+  <div class="col-lg-2">
     <label class="colFormLabel" for="specificSizeSelect">Материал:</label>
      <select id="selectBox" name="SelectedMaterial" class="form-select" aria-label="Default select example">
                      <option>Ничего не выбрано</option>
                      @foreach (var item in Model.FilterView.Materials)
                      {
-                         <option id="material_@item.Id" value="@item.Id">@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
+                         <option id="material_@item.Id" value="@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)">
+                             @String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
                      }
      </select>  
   </div>
-  <div class="col-lg-2">
-    <label class="colFormLabel" for="PageSize">Элементов на странице:</label>
-    <input type="number" id="PageSize" name="PageSize" value="@Model.PageViewModelAnchors.PageSize" class="form-control" step="1" min="0" max="20">
-  </div>
+  <input type="hidden" name="PageSize" value="@Model.PageViewModelAnchors.PageSize">
   <div class="col-lg-2 pt-3">
       <div class="btn-group" role="group" aria-label="Basic example">
             <button type="submit" class="btn btn-dark">Фильтр</button>
@@ -62,6 +60,17 @@
       </div> 
    </div>
 </form>
+
+<div class="mb-2 mt-2 row" style="max-width: 450px;">
+  <label for="PageSize" class="col-sm-6 col-form-label">Элементов на странице:</label>
+  <div class="col-sm-3">
+    <input type="number" id="PageSize" name="PageSize" value="@Model.PageViewModelAnchors.PageSize" class="form-control"
+           step="1" min="1" max="20" onchange="ChangeSizeOfPage(document.getElementById('PageSize').value)">
+  </div>
+  <div class="col-sm-3">
+    <button class="btn btn-secondary" onclick="location.href='/Anchor/Anchors';">Сбросить</button>
+  </div>
+</div>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
      @if (@Model.Anchors.Count == 0)
@@ -101,34 +110,79 @@
     </page-link>
 </div>
 
-
+<div>
+    <input type="hidden" id="SelectedMaterialForChangeSize" value="@(Model.FilterView.SelectedMaterial)"/>
+    <input type="hidden" id="SelectedUserNameForChangeSize" value="@(Model.FilterView.SelectedUserName)"/>
+    <input type="hidden" id="DateTimeFromForChangeSize" value="@(Model.FilterView.DateTimeFrom)"/>
+    <input type="hidden" id="DateTimeTillForChangeSize" value="@(Model.FilterView.DateTimeTill)"/>
+    <input type="hidden" id="PriceFromForChangeSize" value="@(Model.FilterView.PriceFrom)"/>
+    <input type="hidden" id="PriceTillForChangeSize" value="@(Model.FilterView.PriceTill)"/>
+</div>
 
 @section Scripts
 {
    <script>
 
-      document.addEventListener('DOMContentLoaded', function(){
+     // const onConfirmRefresh = function (event) {
+     //        event.preventDefault();
+     //        console.log("reloading");
+     //        
+     //
+     //      }
+     //
+     //  window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+
+       //window.onbeforeunload = function() {
+       //    event.preventDefault();
+       //    console.log('reload');
+       //         }
+
+       function ChangeSizeOfPage(pageSize){
+         console.log(SelectedMaterialForChangeSize);
+         console.log(pageSize);
+         $.ajax(
+             {
+                url: '@Url.Action("Anchors", "Anchor")',
+                type: 'GET',
+                data : {'pageSize' : pageSize,
+                        'selectedMaterial' : '@Model.FilterView.SelectedMaterial',
+                        'selectedUserName' : '@Model.FilterView.SelectedUserName',
+                        'dateTimeFrom' : '@Model.FilterView.DateTimeFrom',
+                        'dateTimeTill' : '@Model.FilterView.DateTimeTill',
+                        'priceFrom' : '@Model.FilterView.PriceFrom',
+                        'priceTill' : '@Model.FilterView.PriceTill'
+                       },
+                datatype: "html",
+                success : function(data){
+                    document.body.innerHTML = data;
+                    addSvgs();
+                }
+         }
+         )
+       }
+
+       function addSvgs(){
           let divsImg = document.getElementsByClassName("card-img-top");
           let exampleAttr; 
           let ids = [];
             for(let i = 0; i < divsImg.length; i++){
                 exampleAttr = divsImg[i].getAttribute("id");
-                console.log(exampleAttr)
+               // console.log(exampleAttr)
                 ids.push(exampleAttr)
             }
             let stringIds = ids.join(',');
-           console.log(divsImg);
-           console.log(ids);
-           console.log(stringIds);
+           //console.log(divsImg);
+          // console.log(ids);
+          // console.log(stringIds);
            $.ajax(
                   {
                       url: '@Url.Action("GetListAnchorJsonResult", "Anchor")',
                       type: 'GET',
                       data : {'ids' : stringIds},
                       success: function (response) {
-                      console.log(response.success);
+                   //   console.log(response.success);
                       if(response.success) {
-                          console.log(response.anchorsSvg)
+                         // console.log(response.anchorsSvg)
                           var anchorsSvg = response.anchorsSvg;
                           let idMin = response.idMin;
                           let idMax = response.idMax;
@@ -141,7 +195,11 @@
                             };                           
                           }
                       }}})
-      });
+      }
+
+
+
+      document.addEventListener('DOMContentLoaded', addSvgs());
 
       function refreshFilters() {
           var selectBox = document.getElementById("selectBox");
@@ -155,9 +213,7 @@
           var PriceFrom = document.getElementById("PriceFrom");
           PriceFrom.value = 0;
           var PriceTill = document.getElementById("PriceTill");
-          PriceTill.value = 0;
-          var PageSize = document.getElementById("PageSize");
-          PageSize.value = 6;
+          PriceTill.value = 0;          
       }     
 
    </script>

@@ -1,7 +1,6 @@
 
 using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
-using DAL.AnchorCalculator.Cotracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UI.AnchorCalculator.Extensions;
