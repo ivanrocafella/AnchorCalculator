@@ -3,7 +3,9 @@ using Core.AnchorCalculator.Entities.Enums;
 using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.ViewModels;
 
@@ -41,7 +43,7 @@ namespace UI.AnchorCalculator.Services
                 Anchor = anchor
             };
             if(anchor.Material != null)
-                anchorViewModel.MaterialName = $"{anchor.Material.Name} ⌀{anchor.Material.Size} {anchor.Material.Type}";
+                anchorViewModel.MaterialName = anchor.Material.FullName;
             if (anchor.User != null)
                 anchorViewModel.UserName = anchor.User.UserName;
             return anchorViewModel;
@@ -113,8 +115,8 @@ namespace UI.AnchorCalculator.Services
         public void Filter(ref IQueryable<Anchor> anchors, string? SelectedMaterial, string SelectedUserName
             , DateTime DateTimeFrom, DateTime DateTimeTill, double PriceFrom, double PriceTill)
         {
-            if (SelectedMaterial != null)
-                anchors = anchors.Where(e => e.Material.FullName.Contains(SelectedMaterial));
+            if (!String.IsNullOrEmpty(SelectedMaterial))
+                anchors = anchors.Where(e => e.MaterialJson.Contains(SelectedMaterial));
             if (!String.IsNullOrEmpty(SelectedUserName))
                 anchors = anchors.Where(e => e.User.UserName.Contains(SelectedUserName));
             if (DateTimeFrom > DateTime.MinValue && DateTimeFrom < DateTime.MaxValue && DateTimeTill <= DateTime.MinValue)
@@ -158,10 +160,14 @@ namespace UI.AnchorCalculator.Services
         //Method for adding new Anchor to the database
         public async Task AddAnchor(AnchorViewModel viewModel, string userId)
         {
-           User user = await _userManager.FindByIdAsync(userId); 
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+            User user = await _userManager.FindByIdAsync(userId); 
            Material material = await MService.GetMaterialById(viewModel.MaterialId);
-           string materialJson = JsonSerializer.Serialize<Material>(material);
-           string userJson = JsonSerializer.Serialize<User>(user);
+           string materialJson = JsonSerializer.Serialize<Material>(material, options);
+           string userJson = JsonSerializer.Serialize<User>(user, options);
             Anchor anchor = new()
            {
                Length = viewModel.Length,

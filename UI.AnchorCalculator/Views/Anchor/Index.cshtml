@@ -5,6 +5,26 @@
     .container {
             margin-left: 1%;
         }
+
+
+.radios>label{
+  border: 1px solid black;
+  color: black;
+}
+.radios>.btn:hover{
+  border: 1px solid black;
+  color: #fff;
+  text-decoration: none;
+  background: black;
+}
+.radios>.btn-check:active+.btn-outline-primary, 
+.btn-check:checked+.btn-outline-primary, .btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+  background: black;
+  color: #fff;
+  border-color: black
+}
+    
 </style>
 
 
@@ -25,7 +45,7 @@
                      <option>Ничего не выбрано</option>
                      @foreach (var item in Model.Materials)
                      {
-                         <option id="material_@item.Id" value="@item.Id">@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
+                         <option id="material_@item.Id" value="@item.Id">@item.FullName</option>
                      }
                  </select>                
                </div>
@@ -73,7 +93,7 @@
                </div>
              </div>
              <div class="row mb-3 w-25">
-                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                 <div class="radios btn-group" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" asp-for="Kind" id="straight" autocomplete="off" checked onclick="showSubForm()" value="@Kind.Straight">
                     <label class="btn btn-outline-primary" for="straight">|</label>
 
@@ -100,7 +120,7 @@
                     </div>
                 </div>               
              </div> 
-             <button type="submit" class="btn btn-primary mt-2">Расчитать</button>
+             <button type="submit" class="btn btn-dark mt-2">Расчитать</button>
            </form>
         </p>
       </div>
@@ -206,7 +226,7 @@
                                                                                               '<input id="weighttoDB" type="hidden" value="'+ response.anchorJS.weight +'">' +
                                                                                               '<input id="batchWeighttoDB" type="hidden" value="'+ response.anchorJS.batchWeight +'">' +
                                                                                               '<input id="kindToDB" type="hidden" value="'+ response.anchorJS.kind +'">' +                                                                                               
-                                                                                              '<button id="liveToastBtn" class="btn btn-primary mt-2" onclick="Add();">Сохранить</button>'; 
+                                                                                              '<button id="liveToastBtn" class="btn btn-dark mt-2" onclick="Add();">Сохранить</button>'; 
                         }
                         else{
                            PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +                                                                                              

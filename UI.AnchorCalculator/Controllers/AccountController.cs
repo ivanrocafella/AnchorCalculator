@@ -103,7 +103,12 @@ namespace UI.AnchorCalculator.Controllers
                     else
                     {
                         foreach (var error in result.Errors)
-                            ModelState.AddModelError(string.Empty, error.Description);
+                        {
+                            var message = error.Description;
+                            if (message == "Incorrect password.")
+                                message = "Неверный пароль.";                                
+                            ModelState.AddModelError(string.Empty, message);
+                        }                            
                     }
                 }
                 else

@@ -62,16 +62,14 @@ namespace UI.AnchorCalculator.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(MaterialViewModelForEdit modelForEdit)
-        {
-            try
+        { 
+            if (ModelState.IsValid)
             {
                 await _MService.EditMaterial(modelForEdit);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
+            else
                 return View(modelForEdit);
-            }
         }
 
         // POST: MaterialController/Edit

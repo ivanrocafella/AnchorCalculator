@@ -44,11 +44,11 @@
   <div class="col-lg-2">
     <label class="colFormLabel" for="specificSizeSelect">Материал:</label>
      <select id="selectBox" name="SelectedMaterial" class="form-select" aria-label="Default select example">
-                     <option>Ничего не выбрано</option>
+                     <option value="">Ничего не выбрано</option>
                      @foreach (var item in Model.FilterView.Materials)
                      {
-                         <option id="material_@item.Id" value="@String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)">
-                             @String.Format("{0} Ø{1} {2}", item.Name, item.Size, item.Type)</option>
+                         <option id="material_@item.Id" value="@item.FullName">
+                             @item.FullName</option>
                      }
      </select>  
   </div>
