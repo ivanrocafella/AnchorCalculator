@@ -19,9 +19,9 @@ namespace UI.AnchorCalculator.Controllers
 
 
         // GET: MaterialController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            MaterialsAndCostWorkViewModel materialsAndCost = _MService.GetMaterialsAndCostWorkViewModel();
+            MaterialsAndCostWorkViewModel materialsAndCost = await _MService.GetMaterialsAndCostWorkViewModel();
             return View(materialsAndCost);
         }
 

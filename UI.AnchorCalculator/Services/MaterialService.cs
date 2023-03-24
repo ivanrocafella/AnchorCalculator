@@ -56,13 +56,13 @@ namespace UI.AnchorCalculator.Services
         }
 
         //Method for getting MaterialsAndCostWorkViewModel
-        public MaterialsAndCostWorkViewModel GetMaterialsAndCostWorkViewModel()
+        public async Task<MaterialsAndCostWorkViewModel> GetMaterialsAndCostWorkViewModel()
         {
             CostWork costWork = new();
             MaterialsAndCostWorkViewModel materialsAndCostWorkViewModel = new()
             {
-                Materials = _applicationDbContext.Materials.OrderBy(x => x.Name).ThenBy(x => x.Size).ToListAsync().Result,
-                CostWork = costWork.GetCostWork(environment).Result
+                Materials = await _applicationDbContext.Materials.OrderBy(x => x.Name).ThenBy(x => x.Size).ToListAsync(),
+                CostWork = await costWork.GetCostWork(environment)
             };
             return materialsAndCostWorkViewModel;
         }

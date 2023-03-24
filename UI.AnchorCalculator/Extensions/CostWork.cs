@@ -21,7 +21,6 @@ namespace UI.AnchorCalculator.Extensions
         {
             Options = new() 
             {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
                 WriteIndented = true
             };
         }

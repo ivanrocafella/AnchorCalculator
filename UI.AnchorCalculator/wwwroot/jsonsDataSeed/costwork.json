@@ -5,15 +5,13 @@
   "Plashka": 20,
   "Cutter": 27,
   "BandSawBlade": 20,
-  "Margin": 0.5,
+  "Margin": 0.9,
   "CostFull": 240,
   "Options": {
     "Converters": [],
     "AllowTrailingCommas": false,
     "DefaultBufferSize": 16384,
-    "Encoder": {
-      "MaxOutputCharactersPerInputCharacter": 6
-    },
+    "Encoder": null,
     "DictionaryKeyPolicy": null,
     "IgnoreNullValues": false,
     "DefaultIgnoreCondition": 0,
