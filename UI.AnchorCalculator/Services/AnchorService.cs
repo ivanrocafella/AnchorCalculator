@@ -160,11 +160,11 @@ namespace UI.AnchorCalculator.Services
         //Method for adding new Anchor to the database
         public async Task AddAnchor(AnchorViewModel viewModel, string userId)
         {
-            var options = new JsonSerializerOptions
-            {
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-            };
-            User user = await _userManager.FindByIdAsync(userId); 
+           var options = new JsonSerializerOptions
+           {
+               Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+           };
+           User user = await _userManager.FindByIdAsync(userId); 
            Material material = await MService.GetMaterialById(viewModel.MaterialId);
            string materialJson = JsonSerializer.Serialize<Material>(material, options);
            string userJson = JsonSerializer.Serialize<User>(user, options);
@@ -195,6 +195,14 @@ namespace UI.AnchorCalculator.Services
            };
            await applicationDbContext.Anchors.AddAsync(anchor);
            await applicationDbContext.SaveChangesAsync();
+        }
+
+        //Method for delete 1 Anchor by id
+        public async Task DeleteById(int id)
+        {
+            Anchor anchor = applicationDbContext.Anchors.Find(id);
+            applicationDbContext.Remove(anchor);
+            await applicationDbContext.SaveChangesAsync();
         }
     }
 }

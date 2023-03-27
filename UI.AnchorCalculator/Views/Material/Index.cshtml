@@ -6,10 +6,11 @@
     <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Наименование</th>
+      <th scope="col">Наим-ие</th>
       <th scope="col">Размер,мм</th>
       <th scope="col">Тир профиля</th>
       <th scope="col">Цена за метр,сом</th>
+      <th scope="col">Дата обнов-я</th>
     </tr>
     </thead>
       @if (@Model.Materials.Count == 0)
@@ -25,6 +26,7 @@
           <td>@(String.Format("{0} {1}", "Ø", item.Size))</td>
           <td>@item.Type.ToString()</td>
           <td>@item.PricePerMetr</td>
+          <td>@item.DateUpdate.ToLocalTime()</td>
           <td>
               <p class="btn-group-vertical">
                  <a class="btn btn-dark btn-sm" asp-controller="Material" asp-action="Edit" role="button" asp-route-id="@item.Id">Редактировать</a>
@@ -41,7 +43,7 @@
      <div class="col-sm-0 col-md-0 col-lg-4">
          <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Стоимость работ</h5>
+    <h5 class="card-title">Стоимость работ и наценка</h5>
     <form id="CostWorkForm">
          <div class="row mb-3">
                <label for="Cutting" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость реза,сом:</label>

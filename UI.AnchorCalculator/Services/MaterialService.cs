@@ -26,7 +26,8 @@ namespace UI.AnchorCalculator.Services
                 Name = viewModel.Name,
                 Size = viewModel.Size,
                 TypeId = viewModel.TypeId,
-                PricePerMetr = viewModel.PricePerMetr
+                PricePerMetr = viewModel.PricePerMetr,
+                DateUpdate = DateTime.UtcNow
             };
             await _applicationDbContext.Materials.AddAsync(material);
             await _applicationDbContext.SaveChangesAsync();
@@ -40,6 +41,7 @@ namespace UI.AnchorCalculator.Services
             material.Name = viewModel.Name;
             material.Size = viewModel.Size;
             material.PricePerMetr = viewModel.PricePerMetr;
+            material.DateUpdate = DateTime.UtcNow;
             _applicationDbContext.Materials.Update(material);
             await _applicationDbContext.SaveChangesAsync();
         }
@@ -101,7 +103,7 @@ namespace UI.AnchorCalculator.Services
         }
 
         //Method for edit CostWork
-        public CostWork EditCostWork(MaterialsAndCostWorkViewModel materialsAndCostWorkViewModel)
+        public async Task EditCostWork(MaterialsAndCostWorkViewModel materialsAndCostWorkViewModel)
         {
             CostWork costWork = new()
             {
@@ -113,8 +115,7 @@ namespace UI.AnchorCalculator.Services
                 BandSawBlade = materialsAndCostWorkViewModel.CostWork.BandSawBlade,
                 Margin = materialsAndCostWorkViewModel.CostWork.Margin
             };
-            costWork.AddCostWork(costWork,environment);
-            return costWork;
+            await costWork.AddCostWork(costWork,environment);
         }
     }
 }

@@ -3,6 +3,11 @@
 @addTagHelper *, UI.AnchorCalculator
 
 <style>
+ .pagination {
+     margin-top: 2rem;
+        padding-top: 2rem;
+ }
+
 .pagination>li>a{
   border: 1px solid black;
   color: black;
@@ -81,7 +86,7 @@
     {
           @foreach (var item in Model.Anchors)
     {
-   <div class="col">
+   <div id="anchor-@item.Id" class="col mb-5">
     <div class="card h-100" onclick="location.href='/Anchor/Details/@item.Id';" style="cursor: pointer;">
         <div class="card-img-top" id="@item.Id"></div>      
       <div class="card-body">
@@ -93,9 +98,33 @@
         <small class="text-muted">Дата создания: @item.DateCreate</small>
       </div>
     </div>
+      @if (User.IsInRole("admin"))
+                {
+                    <button type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setIdForButton(@item.Id)">
+                        Удалить
+                    </button>
+                }
    </div> 
-    } 
+    }   
     }
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Удаление анкера</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal_body" class="modal-body">
+                Вы действительно хотите удалить?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                <button id="btnDelCard" type="button" class="btn btn-danger">Да</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="mt-4">
@@ -123,19 +152,26 @@
 {
    <script>
 
-     // const onConfirmRefresh = function (event) {
-     //        event.preventDefault();
-     //        console.log("reloading");
-     //        
-     //
-     //      }
-     //
-     //  window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+        function setIdForButton(id) {
+            var btnDelCard = document.getElementById("btnDelCard");
+            var modal_body = document.getElementById("modal_body");
+            modal_body.innerHTML = 'Вы действительно хотите удалить анкер # '+ id+'?';
+            btnDelCard.setAttribute('onclick', 'delAnchor('+ id +');');
+        }
 
-       //window.onbeforeunload = function() {
-       //    event.preventDefault();
-       //    console.log('reload');
-       //         }
+        function delAnchor(id) {
+            event.preventDefault();
+            var element = document.getElementById('anchor-' + id + '')
+            element.remove();
+            console.log('remove')
+            $.ajax(
+                {
+                    url: '@Url.Action("Delete","Anchor")',
+                    type: 'POST',
+                    data: { 'id': id }
+                }
+            )
+        }
 
        function ChangeSizeOfPage(pageSize){
          console.log(SelectedMaterialForChangeSize);

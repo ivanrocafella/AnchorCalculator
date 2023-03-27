@@ -11,8 +11,9 @@ namespace UI.AnchorCalculator.ViewModels
         public double Size { get; set; }
         [Display(Name = "Тип сечения")]
         public int TypeId { get; set; }
-        [Range(0.1, Double.MaxValue, ErrorMessage = "Укажите цену за метр")]
+        [Range(0, Double.MaxValue, ErrorMessage = "Укажите цену за метр")]
         [Display(Name = "Цена за метр")]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public double PricePerMetr { get; set; }
 
         public Array? Types { get; set; }

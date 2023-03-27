@@ -15,21 +15,13 @@ namespace UI.AnchorCalculator.Extensions
         public double BandSawBlade { get; set; }
         public double Margin { get; set; }
         public double CostFull { get { return Cutting + Bending + CuttingThread + Plashka + CuttingThread + BandSawBlade; } }
-        public JsonSerializerOptions Options { get; }
+ 
 
-        public CostWork()
-        {
-            Options = new() 
-            {
-                WriteIndented = true
-            };
-        }
-
-        public async void AddCostWork(CostWork costWork, IWebHostEnvironment appEnvironment)
+        public async Task AddCostWork(CostWork costWork, IWebHostEnvironment appEnvironment)
         {
             string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed\\costwork.json");
             using (FileStream fs = new(path, FileMode.OpenOrCreate))
-                await JsonSerializer.SerializeAsync<CostWork>(fs, costWork, Options);
+                await JsonSerializer.SerializeAsync<CostWork>(fs, costWork);
         }
 
         public async Task<CostWork> GetCostWork(IWebHostEnvironment appEnvironment)

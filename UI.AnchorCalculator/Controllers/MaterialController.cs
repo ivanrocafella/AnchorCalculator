@@ -1,6 +1,7 @@
 ﻿using Core.AnchorCalculator.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 using UI.AnchorCalculator.ViewModels;
@@ -74,14 +75,14 @@ namespace UI.AnchorCalculator.Controllers
 
         // POST: MaterialController/Edit
         [HttpPost]
-        public JsonResult EditCostWork(MaterialsAndCostWorkViewModel materialsAndCost)
+        public async Task<JsonResult> EditCostWork(MaterialsAndCostWorkViewModel materialsAndCost)
         {
-            try
+            if (ModelState.IsValid)
             {
-                CostWork costWork = _MService.EditCostWork(materialsAndCost);
+                await _MService.EditCostWork(materialsAndCost);
                 return Json(new { success = true });
             }
-            catch
+            else
             { 
                 return Json(new { success = false });
             }

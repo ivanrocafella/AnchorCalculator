@@ -192,12 +192,12 @@ namespace UI.AnchorCalculator.Controllers
 
         // POST: AnchorController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                await _AService.DeleteById(id);
+                return Ok();
             }
             catch
             {
