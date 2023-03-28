@@ -37,7 +37,6 @@
 
       document.addEventListener('DOMContentLoaded', function(){
            var id = @Model.Anchor.Id;
-           console.log(id);
            $.ajax(
                   {
                       url: '@Url.Action("GetAnchorJsonResult", "Anchor")',

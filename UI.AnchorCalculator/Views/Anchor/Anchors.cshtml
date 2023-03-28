@@ -163,7 +163,6 @@
             event.preventDefault();
             var element = document.getElementById('anchor-' + id + '')
             element.remove();
-            console.log('remove')
             $.ajax(
                 {
                     url: '@Url.Action("Delete","Anchor")',
@@ -174,8 +173,6 @@
         }
 
        function ChangeSizeOfPage(pageSize){
-         console.log(SelectedMaterialForChangeSize);
-         console.log(pageSize);
          $.ajax(
              {
                 url: '@Url.Action("Anchors", "Anchor")',
@@ -203,22 +200,16 @@
           let ids = [];
             for(let i = 0; i < divsImg.length; i++){
                 exampleAttr = divsImg[i].getAttribute("id");
-               // console.log(exampleAttr)
                 ids.push(exampleAttr)
             }
             let stringIds = ids.join(',');
-           //console.log(divsImg);
-          // console.log(ids);
-          // console.log(stringIds);
            $.ajax(
                   {
                       url: '@Url.Action("GetListAnchorJsonResult", "Anchor")',
                       type: 'GET',
                       data : {'ids' : stringIds},
                       success: function (response) {
-                   //   console.log(response.success);
                       if(response.success) {
-                         // console.log(response.anchorsSvg)
                           var anchorsSvg = response.anchorsSvg;
                           let idMin = response.idMin;
                           let idMax = response.idMax;

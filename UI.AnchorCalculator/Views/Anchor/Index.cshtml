@@ -195,8 +195,7 @@
                     {
                         ThreadDiameterValid.innerHTML = "";
                         BendLengthValid.innerHTML = "";
-                        ThreadDiameterValid.innerHTML = "";
-                        console.log(response.anchorJS)                   
+                        ThreadDiameterValid.innerHTML = "";                   
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("descriptAnchor").style.display = "flex";
                         let PriceWeight = document.getElementById("PriceWeight");
@@ -243,17 +242,14 @@
                            if(response.errorMessageDiam == "The value '' is invalid.")
                            {
                              ThreadDiameterValid.innerHTML = "Поле обязательно для заполнения";
-                             console.log(response.errorMessageDiam);
                            }
                            else
                            {
                              ThreadDiameterValid.innerHTML = response.errorMessageDiam;
-                             console.log(response.errorMessageDiam);
                            }                           
                         }
                         else
                         {
-                            console.log("пусто диам");
                            ThreadDiameterValid.innerHTML = "";
                         };
 
@@ -262,18 +258,15 @@
                            if(response.errorMessageBendLen == "The value '' is invalid.")
                            {
                              BendLengthValid.innerHTML = "Поле обязательно для заполнения";
-                             console.log(response.errorMessageBendLen);
                            }
                            else
                            {
                              BendLengthValid.innerHTML = response.errorMessageBendLen;
-                             console.log(response.errorMessageBendLen);
                            }                         
                         }
                         else
                         {
                            BendLengthValid.innerHTML = "";
-                           console.log("пусто загиб");
                         };
                     }                  
                 }
@@ -291,10 +284,7 @@
                       type: 'GET',
                       data: { 'id': selectedValue },
                       success: function (response) {
-                      console.log(response.success);
-                      console.log(response.materialJS.size);
                       if(response.success) {
-                          console.log(response.success)
                           var DiametrInput = document.getElementById("Diameter");
                           DiametrInput.value = response.materialJS.size;
                           var BendRadius = document.getElementById("BendRadius");
@@ -446,10 +436,6 @@
                                     var toast = new bootstrap.Toast(toastLiveExample)
                                     toast.show()
                                 }
-                            }
-                            else
-                            {
-                                console.log(response.success)
                             }
                         }
                     }

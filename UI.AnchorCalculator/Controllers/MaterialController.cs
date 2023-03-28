@@ -83,9 +83,7 @@ namespace UI.AnchorCalculator.Controllers
                 return Json(new { success = true });
             }
             else
-            { 
                 return Json(new { success = false });
-            }
         }
 
         // POST: MaterialController/Delete/5

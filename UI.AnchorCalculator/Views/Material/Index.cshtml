@@ -95,6 +95,19 @@
   </div>
 </div>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToastUnLucky" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Калькулятор анкеров</strong>
+            <small>Только что</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Стоимость работ не изменена! Все поля должны быть заполнены
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -104,7 +117,6 @@
     event.preventDefault();
     var element = document.getElementById(id)
     element.remove();
-    console.log('remove')
     $.ajax(
                {
                    url: '@Url.Action("Delete","Material")',
@@ -128,7 +140,6 @@
         costWorkForm.addEventListener("submit", function formSubmit(event){
             event.preventDefault();    
             var formData = new FormData(costWorkForm)
-            console.log(formData)
             $.ajax(
             {
                 url: '@Url.Action("EditCostWork", "Material")',
@@ -138,17 +149,18 @@
                 data: formData,          
                 success: function (response)
                 {
+                    var toast;
                     if(response.success)
-                    {
-                      console.log(response.success);  
-                                var toastTrigger = document.getElementById('liveToastBtn')
-                                var toastLiveExample = document.getElementById('liveToast')
-                                if (toastTrigger) {
-                                    var toast = new bootstrap.Toast(toastLiveExample)
-                                    toast.show()
-                                }
+                    {                  
+                        var toastTrigger = document.getElementById('liveToastBtn')
+                        var toastLiveExample = document.getElementById('liveToast')                               
+                        toast = new bootstrap.Toast(toastLiveExample)
+                              
                     } else {
-                    }                  
+                        var toastLiveUnluck = document.getElementById('liveToastUnLucky')
+                        toast = new bootstrap.Toast(toastLiveUnluck)                        
+                    }  
+                    toast.show()
                 }
             }
             )
