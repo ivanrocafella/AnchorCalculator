@@ -1,6 +1,6 @@
 ﻿@model UI.AnchorCalculator.ViewModels.AnchorViewModel
 
-<div class="card mb-3" style="max-width: 640px;">
+<div class="card mb-3" style="max-width: 640px;" id="cardDetails">
   <div class="row g-0">
     <div class="col-md-6">
       <div class="img-fluid rounded-start"></div>
@@ -26,6 +26,7 @@
         <p class="card-text">Материал: @Model.MaterialName </p>
         <p class="card-text">Автор: @Model.UserName</p>
         <p class="card-text"><small class="text-muted">@Model.Anchor.DateCreate</small></p>
+        <button type="button" class="btn btn-secondary" onclick="printDiv(cardDetails);">Печать</button>
       </div>
     </div>
   </div>
@@ -49,6 +50,15 @@
                            divImg.innerHTML = response.svgElement;   
                       }}})
       });
+
+        function printDiv(elemId) {
+            console.log(elemId);
+            const printContents = elemId.innerHTML;
+            const originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        };
    </script>
     
 }
