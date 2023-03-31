@@ -9,6 +9,10 @@ namespace UI.AnchorCalculator.Services
     {
         public int X_InitCoord = 100; // X origin
         const int Y_InitCoord = 100; // Y origin
+        const int viewWidth = 900;
+        const int viewHeight = 1100;
+        const int Width = 500;
+        const int Height = 500;
         public void GetSvg(Anchor anchor)
         {
             float ThreadStep = (float)anchor.ThreadStep; // parse to float double threadstep
@@ -1121,8 +1125,8 @@ namespace UI.AnchorCalculator.Services
             int outPartRadSize = 45; // length of shelf of radius size
 
             var svgDoc = new GcSvgDocument();
-            svgDoc.RootSvg.Width = new SvgLength(500, SvgLengthUnits.Pixels);
-            svgDoc.RootSvg.Height = new SvgLength(500, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Width = new SvgLength(Width, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Height = new SvgLength(Height, SvgLengthUnits.Pixels);
 
             List<SvgElement> svgElements = new(); // Make list to fill with objects SvgRectElement
 
@@ -1556,8 +1560,8 @@ namespace UI.AnchorCalculator.Services
             SvgViewBox view = new();
             view.MinX = 0;
             view.MinY = 0;
-            view.Width = 900;
-            view.Height = 1100;
+            view.Width = viewWidth;
+            view.Height = viewHeight;
 
             svgDoc.RootSvg.ViewBox = view;
 
@@ -1584,8 +1588,8 @@ namespace UI.AnchorCalculator.Services
             int outPartRadSize = 45; // length of shelf of radius size
 
             var svgDoc = new GcSvgDocument();
-            svgDoc.RootSvg.Width = new SvgLength(500, SvgLengthUnits.Pixels);
-            svgDoc.RootSvg.Height = new SvgLength(500, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Width = new SvgLength(Width, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Height = new SvgLength(Height, SvgLengthUnits.Pixels);
 
             List<SvgElement> svgElements = new(); // Make list to fill with objects SvgRectElement
 
@@ -2581,8 +2585,8 @@ namespace UI.AnchorCalculator.Services
             SvgViewBox view = new();
             view.MinX = 0;
             view.MinY = 0;
-            view.Width = 900;
-            view.Height = 1100;
+            view.Width = viewWidth;
+            view.Height = viewHeight;
 
             svgDoc.RootSvg.ViewBox = view;
 
@@ -2609,8 +2613,8 @@ namespace UI.AnchorCalculator.Services
             int outPartRadSize = 45; // length of shelf of radius size
 
             var svgDoc = new GcSvgDocument();
-            svgDoc.RootSvg.Width = new SvgLength(500, SvgLengthUnits.Pixels);
-            svgDoc.RootSvg.Height = new SvgLength(500, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Width = new SvgLength(Width, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Height = new SvgLength(Height, SvgLengthUnits.Pixels);
 
             List<SvgElement> svgElements = new(); // Make list to fill with objects SvgRectElement
 
@@ -3947,8 +3951,8 @@ namespace UI.AnchorCalculator.Services
             SvgViewBox view = new();
             view.MinX = 0;
             view.MinY = 0;
-            view.Width = 900;
-            view.Height = 1100;
+            view.Width = viewWidth;
+            view.Height = viewHeight;
 
             svgDoc.RootSvg.ViewBox = view;
 
