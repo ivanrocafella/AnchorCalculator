@@ -1,27 +1,32 @@
 ﻿@model UI.AnchorCalculator.ViewModels.LoginViewModel
 
- <body class="text-center">
-    <main class="form-signin">
-        <h2>Вход в приложение</h2>
-        <form method="post" asp-controller="Account" asp-action="Login">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div>
-                <label asp-for="EmailLogin"></label><br />
-                <input asp-for="EmailLogin" />
-                <span asp-validation-for="EmailLogin" class="text-danger"></span>
-            </div>
-            <div>
-                <label asp-for="Password"></label><br />
-                <input asp-for="Password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div>
-                <label asp-for="RememberMe"></label><br />
-                <input asp-for="RememberMe" />
-            </div>
-            <div>
-                <input type="submit" value="Войти" />
-            </div>
-        </form>
-    </main>
+<style>
+    ul {
+        list-style-type: none;
+    }
+</style>
+
+<body class="text-center">
+    <h2>Вход в приложение</h2>
+    <form method="post" asp-controller="Account" asp-action="Login">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div>
+            <label asp-for="EmailLogin"></label><br />
+            <input asp-for="EmailLogin" /><br/>
+            <span asp-validation-for="EmailLogin" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" /><br/>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="RememberMe"></label><br />
+            <input asp-for="RememberMe" />
+        </div>
+        <div>
+            <input type="submit" value="Войти" />
+        </div>
+    </form>
 </body>
+      
