@@ -204,14 +204,14 @@
                         document.getElementById("descriptAnchor").style.display = "flex";
                         let PriceWeight = document.getElementById("PriceWeight");
                         if(response.isAuthen){
-                            PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' + 
-                                                                                              '<p class="card-text">Себестоимость: ' + response.anchorJS.sebes + ' сом</p>' +
-                                                                                              '<p class="card-text">Общая себестоимость: ' + response.anchorJS.batchSebes + ' сом</p>' +
-                                                                                              '<p class="card-text">Цена: ' + response.anchorJS.price + ' сом</p>' +
-                                                                                              '<p class="card-text">Общая стоимость: ' + response.anchorJS.amount + ' сом</p>' + 
-                                                                                              '<p class="card-text">Длина заготовки: ' + response.anchorJS.billetLength + ' мм</p>' + 
-                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight + ' кг</p>' + 
-                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight + ' кг</p>' +
+                            PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
+                                                                                              '<p class="card-text">Себестоимость: ' + Math.round(response.anchorJS.sebes) + ' сом</p>' +
+                                                                                              '<p class="card-text">Общая себестоимость: ' +  Math.round(response.anchorJS.batchSebes) + ' сом</p>' +
+                                                                                              '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
+                                                                                              '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
+                                                                                              '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
+                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
+                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchWeight) + ' кг</p>' +
                                                                                               '<input id="materialIdtoDB" type="hidden" value="'+ response.anchorJS.materialId +'">' + 
                                                                                               '<input id="diametertoDB" type="hidden" value="'+ response.anchorJS.diameter +'">' +
                                                                                               '<input id="lengthtoDB" type="hidden" value="'+ response.anchorJS.length +'">' +
@@ -236,12 +236,12 @@
 
                         }
                         else{
-                           PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +                                                                                              
-                                                                                              '<p class="card-text">Цена: ' + response.anchorJS.price + ' сом</p>' +
-                                                                                              '<p class="card-text">Общая стоимость: ' + response.anchorJS.amount + ' сом</p>' + 
-                                                                                              '<p class="card-text">Длина заготовки: ' + response.anchorJS.billetLength + ' мм</p>' + 
-                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight + ' кг</p>' + 
-                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight + ' кг</p>' +
+                           PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
+                                                                                              '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
+                                                                                              '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
+                                                                                              '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
+                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
+                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchWeight) + ' кг</p>' +
                                                                                               '<button class="btn btn-secondary mt-2" onclick="printDiv(descriptAnchor);">Печать</button>';
                         }
                         
