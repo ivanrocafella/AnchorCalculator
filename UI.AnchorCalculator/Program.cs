@@ -3,14 +3,18 @@ using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseMySql(connection, ServerVersion.AutoDetect(connection));
+});
 
 // Add services to the container.
 builder.Services.AddIdentity<User, IdentityRole>(options =>

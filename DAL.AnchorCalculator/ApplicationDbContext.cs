@@ -12,7 +12,7 @@ namespace DAL.AnchorCalculator
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
@@ -38,6 +38,5 @@ namespace DAL.AnchorCalculator
              .WithMany(a => a.Anchors)
              .OnDelete(DeleteBehavior.SetNull);
         }
-
     }
 }
