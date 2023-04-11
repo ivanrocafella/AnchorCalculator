@@ -19,15 +19,15 @@ namespace UI.AnchorCalculator.Extensions
 
         public async Task AddCostWork(CostWork costWork, IWebHostEnvironment appEnvironment)
         {
-            string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed\\costwork.json");
-            using (FileStream fs = new(path, FileMode.OpenOrCreate))
-                await JsonSerializer.SerializeAsync<CostWork>(fs, costWork);
+            string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed", "costwork.json");
+            using FileStream fs = new(path, FileMode.OpenOrCreate);
+            await JsonSerializer.SerializeAsync<CostWork>(fs, costWork);
         }
 
         public async Task<CostWork> GetCostWork(IWebHostEnvironment appEnvironment)
         {
             CostWork? costWork = new();
-            string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed\\costwork.json");
+            string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed", "costwork.json");
             using (FileStream fs = new(path, FileMode.OpenOrCreate))
             {
                 costWork = await JsonSerializer.DeserializeAsync<CostWork>(fs);
