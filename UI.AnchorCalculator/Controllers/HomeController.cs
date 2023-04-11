@@ -6,7 +6,7 @@ namespace UI.AnchorCalculator.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        public readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {

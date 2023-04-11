@@ -4,11 +4,14 @@ using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
+using NLog;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Nlog.config"));
+
 builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
     EnvironmentName = Environments.Staging
@@ -32,6 +35,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
                                              "àáâãäå¸æçèéêëìíîïğñòóôõö÷øùúûüışÿÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß";
 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddSingleton<LoggerManager>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<MaterialService>();

@@ -11,11 +11,12 @@ namespace UI.AnchorCalculator.Services
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IWebHostEnvironment environment;
-
-        public MaterialService(ApplicationDbContext applicationDbContext, IWebHostEnvironment environment)
+        private readonly LoggerManager _logger;
+        public MaterialService(ApplicationDbContext applicationDbContext, IWebHostEnvironment environment, LoggerManager logger)
         {
             _applicationDbContext = applicationDbContext;
             this.environment = environment;
+            _logger = logger;
         }
 
         //Method for adding new Material to the database
@@ -60,7 +61,7 @@ namespace UI.AnchorCalculator.Services
         //Method for getting MaterialsAndCostWorkViewModel
         public async Task<MaterialsAndCostWorkViewModel> GetMaterialsAndCostWorkViewModel()
         {
-            CostWork costWork = new();
+            CostWork costWork = new(_logger);
             MaterialsAndCostWorkViewModel materialsAndCostWorkViewModel = new()
             {
                 Materials = await _applicationDbContext.Materials.OrderBy(x => x.Name).ThenBy(x => x.Size).ToListAsync(),
@@ -105,7 +106,7 @@ namespace UI.AnchorCalculator.Services
         //Method for edit CostWork
         public async Task EditCostWork(MaterialsAndCostWorkViewModel materialsAndCostWorkViewModel)
         {
-            CostWork costWork = new()
+            CostWork costWork = new(_logger)
             {
                 Cutting = materialsAndCostWorkViewModel.CostWork.Cutting,
                 Bending = materialsAndCostWorkViewModel.CostWork.Bending,

@@ -7,19 +7,21 @@ namespace UI.AnchorCalculator.Services
 {
     public class CalculateService
     {
+        private readonly LoggerManager _logger;
         const double dencitySteel = 7850; // dencity of steel
         private readonly MaterialService MService;
         private readonly IWebHostEnvironment appEnvironment;
 
-        public CalculateService(MaterialService mService, IWebHostEnvironment appEnvironment)
+        public CalculateService(MaterialService mService, IWebHostEnvironment appEnvironment, LoggerManager logger)
         {
             MService = mService;
             this.appEnvironment = appEnvironment;
+            _logger = logger;
         }
 
         public async Task Calculate(Anchor anchor)
         {
-            CostWork costWork = new();
+            CostWork costWork = new(_logger);
             costWork = await costWork.GetCostWork(appEnvironment);
 
             anchor.BilletLength = Math.Round(GetLengthBillet(anchor), 2);
