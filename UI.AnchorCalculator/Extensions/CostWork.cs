@@ -33,7 +33,7 @@ namespace UI.AnchorCalculator.Extensions
 
         public async Task<CostWork> GetCostWork(IWebHostEnvironment appEnvironment)
         {
-            string path = Path.Combine(appEnvironment.WebRootPath, "costwork.json");
+            string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed", "costwork.json");
             try
             {
                 CostWork? costWork = new(_logger);                
