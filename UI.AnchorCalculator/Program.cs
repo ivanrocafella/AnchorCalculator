@@ -9,6 +9,10 @@ using UI.AnchorCalculator.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    EnvironmentName = Environments.Staging
+}); 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
