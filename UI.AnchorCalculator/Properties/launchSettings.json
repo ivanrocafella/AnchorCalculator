@@ -24,31 +24,6 @@
       "useSSL": true
     }
   },
-  "EnvironmentsSample-Staging": {
-    "commandName": "Project",
-    "dotnetRunMessages": true,
-    "launchBrowser": true,
-    "applicationUrl": "http://localhost:5000",
-    "environmentVariables": {
-      "ASPNETCORE_ENVIRONMENT": "Staging",
-      "ASPNETCORE_DETAILEDERRORS": "1",
-      "ASPNETCORE_SHUTDOWNTIMEOUTSECONDS": "3"
-    }
-  },
-  "WebAppNetCore": {
-    "commandName": "Project",
-    "launchBrowser": true,
-    "launchUrl": "http://localhost:5000",
-    "environmentVariables": {
-      "ASPNETCORE_ENVIRONMENT": "Development"
-    }
-  },
-  "web": {
-    "commandName": "web",
-    "environmentVariables": {
-      "ASPNETCORE_ENVIRONMENT": "Development"
-    }
-  },
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,

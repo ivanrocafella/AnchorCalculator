@@ -21,8 +21,17 @@ namespace UI.AnchorCalculator.Services
 
         public async Task Calculate(Anchor anchor)
         {
-            CostWork costWork = new(_logger);
-            costWork = await costWork.GetCostWork(appEnvironment);
+            CostWork costWork = new();
+            try
+            {
+                costWork = await costWork.GetCostWork(appEnvironment);
+            }
+            catch (Exception ex)
+            {
+                string exception = $"Error:{ex.Message}";
+                _logger.LogDebug(exception);
+                throw;
+            }
 
             anchor.BilletLength = Math.Round(GetLengthBillet(anchor), 2);
             double BilletWeight = ((anchor.BilletLength * (Math.PI * Math.Pow(anchor.Diameter, 2) / 4)) / Math.Pow(10, 9)) * dencitySteel; // weight of anchor's billet

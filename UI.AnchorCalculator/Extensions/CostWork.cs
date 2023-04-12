@@ -10,7 +10,6 @@ namespace UI.AnchorCalculator.Extensions
 {
     public class CostWork
     {
-        private readonly LoggerManager _logger;
         public double Cutting { get; set; }
         public double Bending { get; set; }
         public double CuttingThread { get; set; }
@@ -20,10 +19,6 @@ namespace UI.AnchorCalculator.Extensions
         public double Margin { get; set; }
         public double CostFull { get { return Cutting + Bending + CuttingThread + Plashka + CuttingThread + BandSawBlade; } }
 
-        public CostWork(LoggerManager logger)
-        {
-            _logger = logger;
-        }
         public async Task AddCostWork(CostWork costWork, IWebHostEnvironment appEnvironment)
         {
             string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed", "costwork.json");
@@ -34,21 +29,12 @@ namespace UI.AnchorCalculator.Extensions
         public async Task<CostWork> GetCostWork(IWebHostEnvironment appEnvironment)
         {
             string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed", "costwork.json");
-            try
+            CostWork? costWork = new();                
+            using (FileStream fs = new(path, FileMode.OpenOrCreate))
             {
-                CostWork? costWork = new(_logger);                
-                using (FileStream fs = new(path, FileMode.OpenOrCreate))
-                {
-                    costWork = await JsonSerializer.DeserializeAsync<CostWork>(fs);
-                }
-                return costWork;
+                costWork = await JsonSerializer.DeserializeAsync<CostWork>(fs);
             }
-            catch (Exception ex)
-            {
-                string exception = $"error:{ex.Message}, wrongPath: {path}";
-                _logger.LogDebug(exception);
-                throw;
-            }
+            return costWork;
         }
     }
 }

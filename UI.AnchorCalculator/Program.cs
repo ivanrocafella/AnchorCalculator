@@ -12,10 +12,6 @@ using UI.AnchorCalculator.Services;
 var builder = WebApplication.CreateBuilder(args);
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Nlog.config"));
 
-builder = WebApplication.CreateBuilder(new WebApplicationOptions
-{
-    EnvironmentName = Environments.Staging
-}); 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

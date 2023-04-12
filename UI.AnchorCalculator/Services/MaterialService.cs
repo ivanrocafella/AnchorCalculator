@@ -2,6 +2,7 @@
 using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.ViewModels;
 
@@ -61,12 +62,21 @@ namespace UI.AnchorCalculator.Services
         //Method for getting MaterialsAndCostWorkViewModel
         public async Task<MaterialsAndCostWorkViewModel> GetMaterialsAndCostWorkViewModel()
         {
-            CostWork costWork = new(_logger);
+            CostWork costWork = new();
             MaterialsAndCostWorkViewModel materialsAndCostWorkViewModel = new()
             {
                 Materials = await _applicationDbContext.Materials.OrderBy(x => x.Name).ThenBy(x => x.Size).ToListAsync(),
-                CostWork = await costWork.GetCostWork(environment)
             };
+            try
+            {
+                materialsAndCostWorkViewModel.CostWork = await costWork.GetCostWork(environment);
+            }
+            catch (Exception ex)
+            {
+                string exception = $"Error:{ex.Message}";
+                _logger.LogDebug(exception);
+                throw;
+            }
             return materialsAndCostWorkViewModel;
         }
 
@@ -106,7 +116,7 @@ namespace UI.AnchorCalculator.Services
         //Method for edit CostWork
         public async Task EditCostWork(MaterialsAndCostWorkViewModel materialsAndCostWorkViewModel)
         {
-            CostWork costWork = new(_logger)
+            CostWork costWork = new()
             {
                 Cutting = materialsAndCostWorkViewModel.CostWork.Cutting,
                 Bending = materialsAndCostWorkViewModel.CostWork.Bending,
