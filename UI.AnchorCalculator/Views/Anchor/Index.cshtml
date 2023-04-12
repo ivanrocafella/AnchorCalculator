@@ -194,10 +194,13 @@
                 type: 'POST',
                 contentType: false,
                 processData: false,
+                dataType: "json",
                 data: formData,          
                 success: function (response)
                 {
                     var ThreadDiameterValid = document.getElementById("ThreadDiameterValid");
+                    console.log(response.success)
+                    console.log(response.anchorJS)
                     if(response.success)
                     {
                         ThreadDiameterValid.innerHTML = "";
