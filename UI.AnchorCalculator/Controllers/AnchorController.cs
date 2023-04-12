@@ -155,7 +155,7 @@ namespace UI.AnchorCalculator.Controllers
             if (ModelState.IsValid)
             {
                 User user = await CurrentUser.Get(_userManager, User.Identity.Name);
-                await _AService.AddAnchor(viewModel, user.Id);
+                await _AService.AddAnchor(viewModel, user.Id);   
                 return Json(new { success = true });
             }
             else
