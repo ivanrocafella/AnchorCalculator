@@ -416,6 +416,7 @@
              var batchSebestoDB = document.getElementById("batchSebestoDB").value
              var svgtoDB = document.getElementById("containSvg").innerHTML;
              var kindToDB = document.getElementById("kindToDB").value;
+             console.log('Addwork')
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
@@ -442,6 +443,7 @@
                         },
                         success: function(response)
                         {
+                        console.log(response.success)
                             if(response.success)
                             {
                                 document.getElementById("liveToastBtn").disabled = true;
