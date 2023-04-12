@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UI.AnchorCalculator.Extensions
 {
@@ -22,8 +23,9 @@ namespace UI.AnchorCalculator.Extensions
         public async Task AddCostWork(CostWork costWork, IWebHostEnvironment appEnvironment)
         {
             string path = Path.Combine(appEnvironment.WebRootPath, "jsonsDataSeed", "costwork.json");
-            using FileStream fs = new(path, FileMode.OpenOrCreate);
-            await JsonSerializer.SerializeAsync<CostWork>(fs, costWork);
+            string json = JsonSerializer.Serialize<CostWork>(costWork);
+            using StreamWriter writer = new(path, false);
+            await writer.WriteAsync(json);             
         }
 
         public async Task<CostWork> GetCostWork(IWebHostEnvironment appEnvironment)
