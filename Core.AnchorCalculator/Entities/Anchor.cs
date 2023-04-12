@@ -23,7 +23,7 @@ namespace Core.AnchorCalculator.Entities
         public int BendRadius { get; set; }
         public int ThreadLength { get; set; }
         public int ThreadDiameter { get; set; }
-        public double ThreadStep { get; set; }
+        public float ThreadStep { get; set; }
         public double Amount { get; set; }
         public int Quantity { get; set; }
         public DateTime DateCreate { get; set; }

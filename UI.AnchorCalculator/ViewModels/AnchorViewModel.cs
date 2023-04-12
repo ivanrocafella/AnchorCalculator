@@ -30,7 +30,7 @@ namespace UI.AnchorCalculator.ViewModels
         [Display(Name = "Диаметр резьбы, мм:")]
         public int ThreadDiameter { get; set; }
         [Display(Name = "Шаг резьбы, мм:")]
-        public double ThreadStep { get; set; }
+        public float ThreadStep { get; set; }
         public double Amount { get; set; }
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Range(1, Int32.MaxValue, ErrorMessage = "Кол-во не может быть равно 0")]

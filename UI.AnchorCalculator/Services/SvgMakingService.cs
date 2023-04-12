@@ -15,7 +15,6 @@ namespace UI.AnchorCalculator.Services
         const int Height = 500;
         public void GetSvgStraightAnchor(Anchor anchor)
         {
-            float ThreadStep = (float)anchor.ThreadStep; // parse to float double threadstep
             int lengthMax = 800; // max length of anchor
             int bendLengthMax = 300; // max length of anchor's bend
 
@@ -47,9 +46,9 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(rectThreadBodyAnchor);
 
-            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + ThreadStep / 2,
+            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2,
                 Y_InitCoord,
-                anchor.ThreadDiameter - ThreadStep,
+                anchor.ThreadDiameter - anchor.ThreadStep,
                 anchor.ThreadLength,
                 Color.Transparent,
                 Color.Black,
@@ -113,7 +112,7 @@ namespace UI.AnchorCalculator.Services
             svgElements.Add(lineSerifRightSizeDiamThread);
 
 
-            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{ThreadStep}",
+            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
                             X_InitCoord + anchor.ThreadDiameter,
                             Y_InitCoord - (outPartHorSize - 5),
                             0,
@@ -478,7 +477,6 @@ namespace UI.AnchorCalculator.Services
 
         public void GetSvgBendAnchor(Anchor anchor)
         {
-            float ThreadStep = (float)anchor.ThreadStep; // parse to float double threadstep
             int lengthMax = 800; // max length of anchor
             int bendLengthMax = 300; // max length of anchor's bend
 
@@ -510,9 +508,9 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(rectThreadBodyAnchor);
 
-            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + ThreadStep / 2,
+            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2,
                 Y_InitCoord,
-                anchor.ThreadDiameter - ThreadStep,
+                anchor.ThreadDiameter - anchor.ThreadStep,
                 anchor.ThreadLength,
                 Color.Transparent,
                 Color.Black,
@@ -576,7 +574,7 @@ namespace UI.AnchorCalculator.Services
             svgElements.Add(lineSerifRightSizeDiamThread);
 
 
-            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{ThreadStep}",
+            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
                             X_InitCoord + anchor.ThreadDiameter,
                             Y_InitCoord - (outPartHorSize - 5),
                             0,
@@ -1503,7 +1501,6 @@ namespace UI.AnchorCalculator.Services
 
         public void GetSvgBendDoubleAnchor(Anchor anchor)
         {
-            float ThreadStep = (float)anchor.ThreadStep; // parse to float double threadstep
             int lengthMax = 800; // max length of anchor
             int bendLengthMax = 300; // max length of anchor's bend
 
@@ -1535,9 +1532,9 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(rectThreadBodyAnchor);
 
-            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + ThreadStep / 2,
+            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2,
                 Y_InitCoord,
-                anchor.ThreadDiameter - ThreadStep,
+                anchor.ThreadDiameter - anchor.ThreadStep,
                 anchor.ThreadLength,
                 Color.Transparent,
                 Color.Black,
@@ -1564,9 +1561,9 @@ namespace UI.AnchorCalculator.Services
 
                 svgElements.Add(rectThreadBodyAnchorSecond);
 
-                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + ThreadStep / 2 - anchor.BendLength + anchor.Diameter,
+                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - anchor.BendLength + anchor.Diameter,
                 Y_InitCoord,
-                anchor.ThreadDiameter - ThreadStep,
+                anchor.ThreadDiameter - anchor.ThreadStep,
                 anchor.ThreadLength,
                 Color.Transparent,
                 Color.Black,
@@ -1588,9 +1585,9 @@ namespace UI.AnchorCalculator.Services
 
                 svgElements.Add(rectThreadBodyAnchorSecond);
 
-                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + ThreadStep / 2 - bendLengthMax,
+                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - bendLengthMax,
                 Y_InitCoord,
-                anchor.ThreadDiameter - ThreadStep,
+                anchor.ThreadDiameter - anchor.ThreadStep,
                 anchor.ThreadLength,
                 Color.Transparent,
                 Color.Black,
@@ -1655,7 +1652,7 @@ namespace UI.AnchorCalculator.Services
             svgElements.Add(lineSerifRightSizeDiamThread);
 
 
-            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{ThreadStep}",
+            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
                             X_InitCoord + anchor.ThreadDiameter,
                             Y_InitCoord - (outPartHorSize - 5),
                             0,
