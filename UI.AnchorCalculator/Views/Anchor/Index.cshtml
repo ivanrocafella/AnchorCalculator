@@ -185,7 +185,7 @@
             }
             var formData = new FormData(calculateForm)
             console.log(formData)
-            for (var pair of formData.entries()) {
+            for (var pair of formData.entries()) {               
                 console.log(pair[0] + ', ' + pair[1]);
             }
             $.ajax(
@@ -345,51 +345,51 @@
             var valueThreadStep;
             if (valueThreadDiameter > 0 && valueThreadDiameter <= 6) 
             {
-                         valueThreadStep =  1;
+                         valueThreadStep =  "1";
             }
             else if(valueThreadDiameter > 6 && valueThreadDiameter <= 8)
             {
-                         valueThreadStep =  1.25;
+                         valueThreadStep =  "1.25";
             }
                        else if(valueThreadDiameter > 8 && valueThreadDiameter <= 10)
             {
-                         valueThreadStep =  1.5;
+                         valueThreadStep =  "1.5";
             }
                         else if(valueThreadDiameter > 10 && valueThreadDiameter <= 12)
             {
-                         valueThreadStep =  1.75;
+                         valueThreadStep =  "1.75";
             }
                         else if(valueThreadDiameter > 12 && valueThreadDiameter <= 16)
             {
-                         valueThreadStep =  2;
+                         valueThreadStep =  "2";
             }
                          else if(valueThreadDiameter > 16 && valueThreadDiameter <= 22)
             {
-                         valueThreadStep =  2.5;
+                         valueThreadStep =  "2.5";
             }
                           else if(valueThreadDiameter > 22 && valueThreadDiameter <= 27)
             {
-                         valueThreadStep =  3;
+                         valueThreadStep =  "3";
             }
                           else if(valueThreadDiameter > 27 && valueThreadDiameter <= 30)
             {
-                         valueThreadStep =  3.5;
+                         valueThreadStep =  "3.5";
             }
                           else if(valueThreadDiameter > 30 && valueThreadDiameter <= 36)
             {
-                         valueThreadStep =  4;
+                         valueThreadStep =  "4";
             }
                           else if(valueThreadDiameter > 36 && valueThreadDiameter <= 42)
             {
-                         valueThreadStep =  4.5;
+                         valueThreadStep =  "4.5";
             }
                           else if(valueThreadDiameter > 42 && valueThreadDiameter <= 48)
             {
-                         valueThreadStep =  5;
+                         valueThreadStep =  "5";
             }
             else
             {
-               valueThreadStep = 0;
+               valueThreadStep = "0";
             }
             inputThreadStep.value = valueThreadStep
               
@@ -398,22 +398,39 @@
 
         function Add(){
              var materialIdtoDB = document.getElementById("materialIdtoDB").value;
+
              var diametertoDB = document.getElementById("diametertoDB").value;
+
              var lengthtoDB = document.getElementById("lengthtoDB").value;
+
              var threadDiametertoDB = document.getElementById("threadDiametertoDB").value;
+
              var threadLengthtoDB = document.getElementById("threadLengthtoDB").value;
+
              var threadSteptoDB = document.getElementById("threadSteptoDB").value;
+
              var quantitytoDB = document.getElementById("quantitytoDB").value
+
              var bendLengthtoDB = document.getElementById("bendLengthtoDB").value
+
              var bendRadiustoDB = document.getElementById("bendRadiustoDB").value
-             var pricetoDB = document.getElementById("pricetoDB").value
-             var amounttoDB = document.getElementById("amounttoDB").value
+
+             var pricetoDB = document.getElementById("pricetoDB").value;
+
+             var amounttoDB = document.getElementById("amounttoDB").value;
+
              var billetLengthtoDB = document.getElementById("billetLengthtoDB").value
+
              var weighttoDB = document.getElementById("weighttoDB").value
+
              var batchWeighttoDB = document.getElementById("batchWeighttoDB").value
+
              var sebestoDB = document.getElementById("sebestoDB").value
+
              var batchSebestoDB = document.getElementById("batchSebestoDB").value
+
              var svgtoDB = document.getElementById("containSvg").innerHTML;
+
              var kindToDB = document.getElementById("kindToDB").value;
              console.log(svgtoDB)
              console.log('Addwork')
@@ -423,24 +440,24 @@
                         type: 'POST',
                         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                         data: {
-                             'materialId': materialIdtoDB,
-                             'diameter': diametertoDB,
-                             'length': lengthtoDB,
-                             'threadDiameter': threadDiametertoDB,
-                             'threadLength': threadLengthtoDB,
-                             'threadStep': threadSteptoDB,
-                             'quantity': quantitytoDB,
-                             'bendLength': bendLengthtoDB,
-                             'bendRadius': bendRadiustoDB,
-                             'price': pricetoDB,
-                             'amount': amounttoDB,
-                             'billetLength': billetLengthtoDB,
-                             'weight': weighttoDB,
-                             'batchWeight': batchWeighttoDB,
-                             'svgElement' : svgtoDB,
-                             'sebes': sebestoDB,
-                             'batchSebes' : batchSebestoDB,
-                             'kind' : kindToDB
+                        'materialId': materialIdtoDB,
+                        'diameter': diametertoDB,
+                        'length': lengthtoDB,
+                        'threadDiameter': threadDiametertoDB,
+                        'threadLength': threadLengthtoDB,
+                        'threadStep': threadSteptoDB,
+                        'quantity': quantitytoDB,
+                        'bendLength': bendLengthtoDB,
+                        'bendRadius': bendRadiustoDB,
+                        'price': pricetoDB,
+                        'amount': amounttoDB,
+                        'billetLength': billetLengthtoDB,
+                        'weight': weighttoDB,
+                        'batchWeight': batchWeighttoDB,
+                        'svgElement' : svgtoDB,
+                        'sebes': sebestoDB,
+                        'batchSebes': batchSebestoDB,
+                        'kind' : kindToDB
                         },
                         success: function(response)
                         {

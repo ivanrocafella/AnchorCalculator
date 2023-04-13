@@ -152,9 +152,14 @@ namespace UI.AnchorCalculator.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(AnchorViewModel viewModel)
         {
+            if (ModelState.IsValid)
+            {
                 User user = await CurrentUser.Get(_userManager, User.Identity.Name);
                 await _AService.AddAnchor(viewModel, user.Id);   
-                return Json(new { success = true });          
+                return Json(new { success = true });
+            }
+            else
+                return Json(new { success = false });           
         }
 
         // GET: AnchorController/Edit/5

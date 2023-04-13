@@ -53,6 +53,8 @@ namespace UI.AnchorCalculator.Services
         public async Task<Anchor> GetAnchor(AnchorViewModel viewModel)
         {
             List<Kind> kinds = Enum.GetValues(typeof(Kind)).Cast<Kind>().ToList();
+            var threadStep = float.Parse(viewModel.ThreadStep);
+
             Anchor anchor = new()
             {
                 MaterialId = viewModel.MaterialId,
@@ -62,7 +64,7 @@ namespace UI.AnchorCalculator.Services
                 ThreadLength = viewModel.ThreadLength,
                 BendLength = viewModel.BendLength,
                 BendRadius = viewModel.BendRadius,
-                ThreadStep = viewModel.ThreadStep,
+                ThreadStep = threadStep,
                 Quantity = viewModel.Quantity,
                 Material = await MService.GetMaterialById(viewModel.MaterialId),
                 KindId = (int)kinds.FirstOrDefault(e => e.ToString() == viewModel.Kind)
@@ -178,7 +180,7 @@ namespace UI.AnchorCalculator.Services
                BendRadius = viewModel.BendRadius,
                ThreadLength = viewModel.ThreadLength,
                ThreadDiameter = viewModel.ThreadDiameter,
-               ThreadStep = viewModel.ThreadStep,
+               ThreadStep = float.Parse(viewModel.ThreadStep),
                Amount = viewModel.Amount,
                Quantity = viewModel.Quantity,
                DateCreate = DateTime.Now,
