@@ -71,12 +71,12 @@
               <div class="row mb-3">
                <label asp-for="ThreadDiameter" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
-                 <input asp-for="ThreadDiameter" type="text" class="form-control" id="ThreadDiameter" onchange="changeFuncThreadStep();">
+                 <input asp-for="ThreadDiameter" type="text" class="form-control" id="ThreadDiameter" oninput="changeFuncThreadStep();">
                  <span id="ThreadDiameterValid" class="text-danger"></span>
                </div>
              </div> 
              <div class="row mb-3">
-               <label asp-for="ThreadLength" class="col-sm-4 col-form-label"></label>
+               <label asp-for="ThreadLength" class="col-sm-4 col-form-label"></label>   
                <div class="col-sm-8">
                  <input asp-for="ThreadLength" type="text" class="form-control" id="ThreadLength">
                  <span asp-validation-for="ThreadLength" class="text-danger"></span>
@@ -85,7 +85,7 @@
               <div class="row mb-3">
                <label asp-for="ThreadStep" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
-                 <input asp-for="ThreadStep" type="number" class="form-control" id="ThreadStep" step="0.25" readonly>
+                 <input asp-for="ThreadStep" type="text" class="form-control" id="ThreadStep" readonly>
                  <span asp-validation-for="ThreadStep" class="text-danger"></span>
                </div>
              </div> 
@@ -336,11 +336,9 @@
                    subForm.style.display = "none";
                    document.getElementById("BendLength").value=0; 
                  }
-               }      
+               }
 
-
-            function changeFuncThreadStep()
-            {                     
+            function changeFuncThreadStep() {
             var inputThreadDiameter = document.getElementById("ThreadDiameter");
             var valueThreadDiameter = inputThreadDiameter.value;
             var inputThreadStep = document.getElementById("ThreadStep");
@@ -397,7 +395,8 @@
               
                }
 
-             function Add(){
+
+        function Add(){
              var materialIdtoDB = document.getElementById("materialIdtoDB").value;
              var diametertoDB = document.getElementById("diametertoDB").value;
              var lengthtoDB = document.getElementById("lengthtoDB").value;
@@ -415,7 +414,8 @@
              var sebestoDB = document.getElementById("sebestoDB").value
              var batchSebestoDB = document.getElementById("batchSebestoDB").value
              var svgtoDB = document.getElementById("containSvg").innerHTML;
-             var kindToDB = document.getElementById("kindToDB").value;
+             var kindToDB = JSON.stringify(document.getElementById("kindToDB").value);
+             console.log(kindToDB)
              console.log('Addwork')
             $.ajax(
                     {
