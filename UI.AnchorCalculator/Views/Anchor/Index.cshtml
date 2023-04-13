@@ -188,7 +188,7 @@
             for (var pair of formData.entries()) {               
                 console.log(pair[0] + ', ' + pair[1]);
             }
-            $.ajax(
+            var xhrGetAnchorJsonResult = $.ajax(
             {
                 url: '@Url.Action("GetAnchorJsonResult", "Anchor")',
                 type: 'POST',
@@ -286,6 +286,9 @@
                 }
             }
             )
+            var xhrGetAnchorJsonResultJS = JSON.stringify(xhrGetAnchorJsonResult);
+            console.log(xhrGetAnchorJsonResultJS);
+            console.log(xhrGetAnchorJsonResult);
         }        
         )
 
@@ -437,7 +440,6 @@
                     {
                         url: '@Url.Action("Add","Anchor")',
                         type: 'POST',
-                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                         data: {
                         'materialId': materialIdtoDB,
                         'diameter': diametertoDB,
