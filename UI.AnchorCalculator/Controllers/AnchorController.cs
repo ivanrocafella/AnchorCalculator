@@ -32,7 +32,7 @@ namespace UI.AnchorCalculator.Controllers
 
         // GET: AnchorController
         public ActionResult Index()
-        {
+        {         
             AnchorViewModel viewModel = _AService.GetAnchorViewModel();
             return View(viewModel);
         }

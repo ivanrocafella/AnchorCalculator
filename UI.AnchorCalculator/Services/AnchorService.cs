@@ -3,6 +3,7 @@ using Core.AnchorCalculator.Entities.Enums;
 using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
@@ -52,6 +53,8 @@ namespace UI.AnchorCalculator.Services
         //Method for getting Anchor
         public async Task<Anchor> GetAnchor(AnchorViewModel viewModel)
         {
+            Console.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName);
+            //   Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             List<Kind> kinds = Enum.GetValues(typeof(Kind)).Cast<Kind>().ToList();
             var threadStep = float.Parse(viewModel.ThreadStep);
 
