@@ -53,8 +53,7 @@ namespace UI.AnchorCalculator.Services
         //Method for getting Anchor
         public async Task<Anchor> GetAnchor(AnchorViewModel viewModel)
         {
-            Console.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName);
-            //   Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
             List<Kind> kinds = Enum.GetValues(typeof(Kind)).Cast<Kind>().ToList();
             var threadStep = float.Parse(viewModel.ThreadStep);
 
