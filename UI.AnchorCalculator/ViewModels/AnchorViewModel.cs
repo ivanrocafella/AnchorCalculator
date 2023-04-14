@@ -11,11 +11,11 @@ namespace UI.AnchorCalculator.ViewModels
         [Range(200,6000,ErrorMessage = "Укажите длину от 200 до 6000")]
         [Display(Name = "Длина, мм:")]
         public int Length { get; set; }
-        [Range(1, Int32.MaxValue, ErrorMessage = "Выберите материал")]
+        [Required(ErrorMessage = "Выберите материал")]
         [Display(Name = "Диаметр, мм:")]
-        public float Diameter { get; set; }
-        public double Weight { get; set; }
-        public double Price { get; set; }
+        public string Diameter { get; set; }
+        public string? Weight { get; set; }
+        public string? Price { get; set; }
         /// <summary>
         /// Get or set anchhor's billet 
         /// </summary>
@@ -30,8 +30,9 @@ namespace UI.AnchorCalculator.ViewModels
         [Display(Name = "Диаметр резьбы, мм:")]
         public int ThreadDiameter { get; set; }
         [Display(Name = "Шаг резьбы, мм:")]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string ThreadStep { get; set; }
-        public double Amount { get; set; }
+        public string? Amount { get; set; }
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Range(1, Int32.MaxValue, ErrorMessage = "Кол-во не может быть равно 0")]
         [Display(Name = "Кол-во, шт:")]
@@ -40,12 +41,12 @@ namespace UI.AnchorCalculator.ViewModels
         public DateTime DateCreate { get; set; }
         public string? Material { get; set; }
         public string? SvgElement { get; set; }
-        public double BatchWeight { get; set; }
-        public double BilletLength { get; set; }
-        public double Sebes { get; set; }
-        public double BatchSebes { get; set; }
+        public string? BatchWeight { get; set; }
+        public string? BilletLength { get; set; }
+        public string? Sebes { get; set; }
+        public string? BatchSebes { get; set; }
         public string? UserName { get; set; }
-        public string Kind { get; set; }
+        public string? Kind { get; set; }
         public string? MaterialName { get; set; }
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }

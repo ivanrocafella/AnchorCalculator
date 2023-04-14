@@ -3,14 +3,10 @@ using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MySql.EntityFrameworkCore.Extensions;
 using NLog;
-using System.Globalization;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 
-//Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-//Console.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName);
 var builder = WebApplication.CreateBuilder(args);
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Nlog.config"));
 

@@ -55,14 +55,15 @@ namespace UI.AnchorCalculator.Services
         //Method for getting Anchor
         public async Task<Anchor> GetAnchor(AnchorViewModel viewModel)
         {
-            logger.Debug($"viewModel.ThreadStep: {viewModel.ThreadStep}");
+            logger.Debug($"viewModel.ThreadStep: {viewModel.ThreadStep}; culture: {Thread.CurrentThread.CurrentCulture.DisplayName}"); // logging of input ThreadStep and currentculture
             List<Kind> kinds = Enum.GetValues(typeof(Kind)).Cast<Kind>().ToList();
             var threadStep = float.Parse(viewModel.ThreadStep, CultureInfo.InvariantCulture);
+            var diameter = float.Parse(viewModel.Diameter, CultureInfo.InvariantCulture);
 
             Anchor anchor = new()
             {
                 MaterialId = viewModel.MaterialId,
-                Diameter = viewModel.Diameter,
+                Diameter = diameter,
                 ThreadDiameter = viewModel.ThreadDiameter,
                 Length = viewModel.Length,
                 ThreadLength = viewModel.ThreadLength,
@@ -177,23 +178,23 @@ namespace UI.AnchorCalculator.Services
             Anchor anchor = new()
            {
                Length = viewModel.Length,
-               Diameter = viewModel.Diameter,
-               Weight = viewModel.Weight,
-               Price = viewModel.Price,
+               Diameter = float.Parse(viewModel.Diameter, CultureInfo.InvariantCulture),
+               Weight = double.Parse(viewModel.Weight, CultureInfo.InvariantCulture),
+               Price = double.Parse(viewModel.Price, CultureInfo.InvariantCulture),
                BendLength = viewModel.BendLength,
                BendRadius = viewModel.BendRadius,
                ThreadLength = viewModel.ThreadLength,
                ThreadDiameter = viewModel.ThreadDiameter,
-               ThreadStep = float.Parse(viewModel.ThreadStep),
-               Amount = viewModel.Amount,
+               ThreadStep = float.Parse(viewModel.ThreadStep, CultureInfo.InvariantCulture),
+               Amount = double.Parse(viewModel.Amount, CultureInfo.InvariantCulture),
                Quantity = viewModel.Quantity,
                DateCreate = DateTime.Now,
                SvgElement = viewModel.SvgElement,
-               BatchWeight = viewModel.BatchWeight,
-               BilletLength = viewModel.BilletLength,
+               BatchWeight = double.Parse(viewModel.BatchWeight, CultureInfo.InvariantCulture),
+               BilletLength = double.Parse(viewModel.BilletLength, CultureInfo.InvariantCulture),
                MaterialId = viewModel.MaterialId,
-               Sebes = viewModel.Sebes,
-               BatchSebes = viewModel.BatchSebes,
+               Sebes = double.Parse(viewModel.Sebes, CultureInfo.InvariantCulture),
+               BatchSebes = double.Parse(viewModel.BatchSebes, CultureInfo.InvariantCulture),
                UserId = userId,
                UserJson = userJson,
                MaterialJson = materialJson,

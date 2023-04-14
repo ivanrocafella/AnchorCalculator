@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 using UI.AnchorCalculator.ViewModels;
@@ -32,7 +33,7 @@ namespace UI.AnchorCalculator.Controllers
 
         // GET: AnchorController
         public ActionResult Index()
-        {         
+        {
             AnchorViewModel viewModel = _AService.GetAnchorViewModel();
             return View(viewModel);
         }
@@ -90,7 +91,7 @@ namespace UI.AnchorCalculator.Controllers
             {
                 ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
             }
-            if (viewModel.ThreadDiameter > viewModel.Diameter)
+            if (viewModel.ThreadDiameter > float.Parse(viewModel.Diameter, CultureInfo.InvariantCulture))
             {
                 ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
             }
