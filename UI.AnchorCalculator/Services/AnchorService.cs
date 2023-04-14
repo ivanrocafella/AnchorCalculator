@@ -3,6 +3,7 @@ using Core.AnchorCalculator.Entities.Enums;
 using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -17,6 +18,7 @@ namespace UI.AnchorCalculator.Services
         private readonly ApplicationDbContext applicationDbContext;
         private readonly MaterialService MService;
         private readonly UserManager<User> _userManager;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public AnchorService(ApplicationDbContext applicationDbContext, MaterialService mService, UserManager<User> userManager)
         {
@@ -53,9 +55,9 @@ namespace UI.AnchorCalculator.Services
         //Method for getting Anchor
         public async Task<Anchor> GetAnchor(AnchorViewModel viewModel)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
+            logger.Debug($"viewModel.ThreadStep: {viewModel.ThreadStep}");
             List<Kind> kinds = Enum.GetValues(typeof(Kind)).Cast<Kind>().ToList();
-            var threadStep = float.Parse(viewModel.ThreadStep);
+            var threadStep = float.Parse(viewModel.ThreadStep, CultureInfo.InvariantCulture);
 
             Anchor anchor = new()
             {
