@@ -60,7 +60,7 @@ namespace UI.AnchorCalculator.Services
 
             anchor.BatchSebes = Math.Round(
                 (((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity 
-                + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend) * 2 + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar
+                + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar
                 , 2 ); // sebes of anchor in som
             anchor.Sebes = Math.Round(anchor.BatchSebes / anchor.Quantity, 2);            
             anchor.Amount = Math.Round(anchor.BatchSebes * (1 + costWork.Margin), 2);
