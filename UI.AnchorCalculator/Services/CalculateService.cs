@@ -54,13 +54,17 @@ namespace UI.AnchorCalculator.Services
             double priceBandSaw = anchor.Material.TimeBandSaw * costWork.AreaWelding + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
             double priceMaterialAnchor = ((anchor.BilletLength / 1000) * anchor.Material.PricePerMetr) / costWork.ExchangeDollar; // price of anchor's material in $
 
-            anchor.Sebes = Math.Round(
-                ((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity 
-                + costWork.TimeSetTheradRolling + costWork.TimeSetBend * costWork.AreaWelding * 2 + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar
-                , 2); // sebes of anchor in som
-            anchor.BatchSebes = Math.Round(anchor.Sebes * anchor.Quantity, 2);
-            anchor.Price = Math.Round(anchor.Sebes * (1 + costWork.Margin),2);
+            double setBend = 0;
+            if (anchor.Kind != Kind.Straight)
+                setBend = costWork.TimeSetBend * costWork.AreaWelding;
+
+            anchor.BatchSebes = Math.Round(
+                (((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity 
+                + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend) * 2 + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar
+                , 2 ); // sebes of anchor in som
+            anchor.Sebes = Math.Round(anchor.BatchSebes / anchor.Quantity, 2);            
             anchor.Amount = Math.Round(anchor.BatchSebes * (1 + costWork.Margin), 2);
+            anchor.Price = Math.Round(anchor.Sebes * (1 + costWork.Margin), 2);
         }
 
         static double GetLengthBillet(Anchor anchor)
