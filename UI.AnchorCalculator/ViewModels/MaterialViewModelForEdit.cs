@@ -15,7 +15,7 @@ namespace UI.AnchorCalculator.ViewModels
         public int TypeId { get; set; }
         public Core.AnchorCalculator.Entities.Enums.Type Type { get; set; }
         [Range(0, Double.MaxValue, ErrorMessage = "Укажите цену за метр")]
-        [Display(Name = "Цена за метр")]
+        [Display(Name = "Цена за метр,сом")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public double PricePerMetr { get; set; }
         [Range(0, Double.MaxValue, ErrorMessage = "Укажите время накатки резьбы")]
