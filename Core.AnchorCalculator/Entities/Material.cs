@@ -15,6 +15,9 @@ namespace Core.AnchorCalculator.Entities
         [NotMapped]
         public string? FullName { get { return $"{Name} ⌀{Size} {Type}"; } }
         public double Size { get; set; }
+        public double TimeTheradRolling { get; set; } // unity of measure = н
+        public double TimeBandSaw { get; set; } // unity of measure = н
+        public double LengthBladeBandSaw { get; set; } // unity of measure = м
         public virtual int TypeId
         {
             get => (int)Type;

@@ -216,7 +216,7 @@
                                                                                               '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
                                                                                               '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
                                                                                               '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
-                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchWeight) + ' кг</p>' +
+                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
                                                                                               '<input id="materialIdtoDB" type="hidden" value="'+ response.anchorJS.materialId +'">' + 
                                                                                               '<input id="diametertoDB" type="hidden" value="'+ response.anchorJS.diameter +'">' +
                                                                                               '<input id="lengthtoDB" type="hidden" value="'+ response.anchorJS.length +'">' +
@@ -246,7 +246,7 @@
                                                                                               '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
                                                                                               '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
                                                                                               '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
-                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchWeight) + ' кг</p>' +
+                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
                                                                                               '<button class="btn btn-secondary mt-2" onclick="printDiv(descriptAnchor);">Печать</button>';
                         }
                         

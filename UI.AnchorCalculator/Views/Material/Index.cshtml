@@ -1,7 +1,7 @@
 ﻿@model UI.AnchorCalculator.ViewModels.MaterialsAndCostWorkViewModel
 
 <div class="row" style="max-width: 1400px">
-    <div class="col-sm-12 col-md-12 col-lg-8">
+    <div class="col-sm-12 col-md-12">
         <table class="table">
     <thead>
     <tr>
@@ -10,6 +10,9 @@
       <th scope="col">Размер,мм</th>
       <th scope="col">Тир профиля</th>
       <th scope="col">Цена за метр,сом</th>
+      <th scope="col">Время накатки резьбы,ч</th>
+      <th scope="col">Время лентопила,ч</th>
+      <th scope="col">Длина полотна лентопила,мм</th>
       <th scope="col">Дата обнов-я</th>
     </tr>
     </thead>
@@ -26,6 +29,9 @@
           <td>@(String.Format("{0} {1}", "Ø", item.Size))</td>
           <td>@item.Type.ToString()</td>
           <td>@item.PricePerMetr</td>
+          <td>@item.TimeTheradRolling</td>
+          <td>@item.TimeBandSaw</td>
+          <td>@item.LengthBladeBandSaw</td>
           <td>@item.DateUpdate.ToLocalTime()</td>
           <td>
               <p class="btn-group-vertical">
@@ -38,42 +44,46 @@
       </tbody>
       } 
 </table>
-<a class="btn btn-dark" asp-controller="Material" asp-action="Add" role="button">Добавить материал</a>
+<a class="btn btn-dark mb-3" asp-controller="Material" asp-action="Add" role="button">Добавить материал</a>
     </div>
-     <div class="col-sm-0 col-md-0 col-lg-4">
+     <div class="col-sm-0 col-md-0">
          <div class="card">
   <div class="card-body">
     <h5 class="card-title">Стоимость работ и наценка</h5>
     <form id="CostWorkForm">
          <div class="row mb-3">
-               <label for="Cutting" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость реза,сом:</label>
+                        <label for="ExchangeDollar" class="col-sm-9 col-form-label ml-0 pl-0">Курс доллара,сом/$:</label>
                <div class="col-sm-3 mb-1">
-                 <input asp-for="CostWork.Cutting" type="text" class="form-control" id="Cutting" value="@Model.CostWork.Cutting">           
-               </div>
-               <label for="Bending" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость гибки,сом:</label>
+                            <input asp-for="CostWork.ExchangeDollar" type="text" class="form-control" id="ExchangeDollar" value="@Model.CostWork.ExchangeDollar">
+                        </div>
+                        <label for="AreaWelding" class="col-sm-9 col-form-label ml-0 pl-0">Сварочный участок,$:</label>
                <div class="col-sm-3 mb-1">
-                 <input asp-for="CostWork.Bending" type="text" class="form-control" id="Bending" value="@Model.CostWork.Bending">           
-               </div>
-               <label for="CuttingThread" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость нарезки резьбы,сом:</label>
+                            <input asp-for="CostWork.AreaWelding" type="text" class="form-control" id="AreaWelding" value="@Model.CostWork.AreaWelding">
+                        </div>
+                        <label for="LengthEffective" class="col-sm-9 col-form-label ml-0 pl-0">Расчетная длина,мм:</label>
                <div class="col-sm-3 mb-1">
-                 <input asp-for="CostWork.CuttingThread" type="text" class="form-control" id="CuttingThread" value="@Model.CostWork.CuttingThread">           
-               </div>
-               <label for="Plashka" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость плашки,сом:</label>
+                            <input asp-for="CostWork.LengthEffective" type="text" class="form-control" id="LengthEffective" value="100" readonly>
+                        </div>
+                        <label for="PriceBandSaw" class="col-sm-9 col-form-label ml-0 pl-0">Цена лентопила,$:</label>
                <div class="col-sm-3 mb-1">
-                 <input asp-for="CostWork.Plashka" type="text" class="form-control" id="Plashka" value="@Model.CostWork.Plashka">           
-               </div>
-               <label for="Cutter" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость резца,сом:</label>
+                            <input asp-for="CostWork.PriceBandSaw" type="text" class="form-control" id="PriceBandSaw" value="@Model.CostWork.PriceBandSaw">
+                        </div>
+                        <label for="TimeSetTheradRolling" class="col-sm-9 col-form-label ml-0 pl-0">Время настройки резьбонакатного станка,$:</label>
                <div class="col-sm-3 mb-1">
-                 <input asp-for="CostWork.Cutter" type="text" class="form-control" id="Cutter" value="@Model.CostWork.Cutter">           
-               </div>
-               <label for="BandSawBlade" class="col-sm-9 col-form-label ml-0 pl-0">Стоимость отрезного круга,сом:</label>
+                            <input asp-for="CostWork.TimeSetTheradRolling" type="text" class="form-control" id="TimeSetTheradRolling" value="@Model.CostWork.TimeSetTheradRolling">
+                        </div>
+                        <label for="TimeBend" class="col-sm-9 col-form-label ml-0 pl-0">Время гиба,$:</label>
                <div class="col-sm-3 mb-1">
-                 <input asp-for="CostWork.BandSawBlade" type="text" class="form-control" id="BandSawBlade" value="@Model.CostWork.BandSawBlade">           
-               </div>
-               <label for="Margin" class="col-sm-9 col-form-label ml-0 pl-0">Наценка,%:</label>
+                            <input asp-for="CostWork.TimeBend" type="text" class="form-control" id="TimeBend" value="@Model.CostWork.TimeBend">
+                        </div>
+                        <label for="TimeSetBend" class="col-sm-9 col-form-label ml-0 pl-0">Время настройки гибочного станка,ч:</label>
                <div class="col-sm-3 mb-1">
-                 <input asp-for="MarginPercent" type="text" class="form-control" id="Margin" value="@Model.MarginPercent">           
-               </div>
+                            <input asp-for="CostWork.TimeSetBend" type="text" class="form-control" id="TimeSetBend" value="@Model.CostWork.TimeSetBend">
+                        </div>
+                         <label for="Margin" class="col-sm-9 col-form-label ml-0 pl-0">Наценка,%:</label>
+               <div class="col-sm-3 mb-1">
+                            <input asp-for="MarginPercent" type="text" class="form-control" id="Margin" value="@Model.MarginPercent">           
+                         </div>
              </div>
              <button id="liveToastBtn" type="submit" class="btn btn-dark mt-2">Изменить</button>
     </form>
@@ -127,14 +137,54 @@
     }
 
     document.addEventListener("DOMContentLoaded", function(event) {
-                   $("#Cutting").inputmask("99", {"placeholder": ""});
-                   $("#Bending").inputmask("99", {"placeholder": ""});
-                   $("#CuttingThread").inputmask("99", {"placeholder": ""});
-                   $("#Plashka").inputmask("99", {"placeholder": ""});
-                   $("#Cutter").inputmask("99", {"placeholder": ""});
-                   $("#BandSawBlade").inputmask("99", {"placeholder": ""});
-                   $("#Margin").inputmask("999", {"placeholder": ""});
-                     });
+        $("#ExchangeDollar").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#AreaWelding").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#PriceBandSaw").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#TimeSetTheradRolling").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#TimeBend").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#TimeSetBend").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#LengthEffective").inputmask({
+            alias: 'numeric',
+            allowMinus: false,
+            digits: 0,
+            max: 999
+        });
+        $("#Margin").inputmask({
+            alias: 'numeric',
+            allowMinus: false,
+            digits: 0,
+            max: 999
+        });});
 
         var costWorkForm = document.getElementById("CostWorkForm");
         costWorkForm.addEventListener("submit", function formSubmit(event){

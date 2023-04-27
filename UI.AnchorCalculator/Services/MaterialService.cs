@@ -29,8 +29,11 @@ namespace UI.AnchorCalculator.Services
                 Size = viewModel.Size,
                 TypeId = viewModel.TypeId,
                 PricePerMetr = viewModel.PricePerMetr,
-                DateUpdate = DateTime.UtcNow
-            };
+                DateUpdate = DateTime.UtcNow,
+                TimeTheradRolling = viewModel.TimeTheradRolling,
+                TimeBandSaw = viewModel.TimeBandSaw,
+                LengthBladeBandSaw = viewModel.LengthBladeBandSaw
+        };
             await _applicationDbContext.Materials.AddAsync(material);
             await _applicationDbContext.SaveChangesAsync();
         }
@@ -44,6 +47,9 @@ namespace UI.AnchorCalculator.Services
             material.Size = viewModel.Size;
             material.PricePerMetr = viewModel.PricePerMetr;
             material.DateUpdate = DateTime.UtcNow;
+            material.TimeTheradRolling = viewModel.TimeTheradRolling;
+            material.TimeBandSaw = viewModel.TimeBandSaw;
+            material.LengthBladeBandSaw = viewModel.LengthBladeBandSaw;
             _applicationDbContext.Materials.Update(material);
             await _applicationDbContext.SaveChangesAsync();
         }
@@ -100,7 +106,10 @@ namespace UI.AnchorCalculator.Services
                 PricePerMetr = material.PricePerMetr,
                 Types = materialViewModel.Types,
                 Names = materialViewModel.Names.Where(e => e != material.Name).ToArray(),
-                Type = material.Type
+                Type = material.Type,
+                TimeTheradRolling = material.TimeTheradRolling,
+                TimeBandSaw = material.TimeBandSaw,
+                LengthBladeBandSaw = material.LengthBladeBandSaw
             };
             return viewModelForEdit;
         }
@@ -118,12 +127,13 @@ namespace UI.AnchorCalculator.Services
         {
             CostWork costWork = new()
             {
-                Cutting = materialsAndCostWorkViewModel.CostWork.Cutting,
-                Bending = materialsAndCostWorkViewModel.CostWork.Bending,
-                CuttingThread = materialsAndCostWorkViewModel.CostWork.CuttingThread,
-                Plashka = materialsAndCostWorkViewModel.CostWork.Plashka,
-                Cutter = materialsAndCostWorkViewModel.CostWork.Cutter,
-                BandSawBlade = materialsAndCostWorkViewModel.CostWork.BandSawBlade,
+                ExchangeDollar = materialsAndCostWorkViewModel.CostWork.ExchangeDollar,
+                AreaWelding = materialsAndCostWorkViewModel.CostWork.AreaWelding,
+                LengthEffective = materialsAndCostWorkViewModel.CostWork.LengthEffective,
+                PriceBandSaw = materialsAndCostWorkViewModel.CostWork.PriceBandSaw,
+                TimeSetTheradRolling = materialsAndCostWorkViewModel.CostWork.TimeSetTheradRolling,
+                TimeBend = materialsAndCostWorkViewModel.CostWork.TimeBend,
+                TimeSetBend = materialsAndCostWorkViewModel.CostWork.TimeSetBend,
                 Margin = materialsAndCostWorkViewModel.CostWork.Margin
             };
             await costWork.AddCostWork(costWork,environment);

@@ -226,7 +226,7 @@ namespace UI.AnchorCalculator.Services
 
             //Make object bending part without radius
 
-            SvgRectElement rectBendAnchor;
+            //SvgRectElement rectBendAnchor;
 
             //Make object bending part with radius
 

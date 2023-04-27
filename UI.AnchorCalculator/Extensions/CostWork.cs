@@ -11,14 +11,14 @@ namespace UI.AnchorCalculator.Extensions
 {
     public class CostWork
     {
-        public double Cutting { get; set; }
-        public double Bending { get; set; }
-        public double CuttingThread { get; set; }
-        public double Plashka { get; set; }
-        public double Cutter { get; set; }
-        public double BandSawBlade { get; set; }
-        public double Margin { get; set; }
-        public double CostFull { get { return Cutting + Bending + CuttingThread + Plashka + CuttingThread + BandSawBlade; } }
+        public double ExchangeDollar { get; set; } // unity of measure = som / $
+        public double AreaWelding { get; set; } // unity of measure = $
+        public double LengthEffective { get; set; } // unity of measure = мм
+        public double PriceBandSaw { get; set; } // unity of measure = $
+        public double TimeSetTheradRolling { get; set; }  // unity of measure = ч
+        public double TimeBend { get; set; } // unity of measure = ч
+        public double TimeSetBend { get; set; } // unity of measure = ч
+        public double Margin { get; set; } // unity of measure = %
 
         public async Task AddCostWork(CostWork costWork, IWebHostEnvironment appEnvironment)
         {

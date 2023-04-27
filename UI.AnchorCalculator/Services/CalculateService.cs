@@ -40,10 +40,24 @@ namespace UI.AnchorCalculator.Services
             if (anchor.Kind == Kind.BendDouble)
                 anchor.Weight = Math.Round(BilletWeight - 2 * ((((Math.PI * Math.Pow(anchor.Diameter, 2) / 4) - (Math.PI * Math.Pow(anchor.ThreadDiameter, 2) / 4)) * anchor.ThreadLength) / Math.Pow(10, 9)) * dencitySteel, 2);
 
-            anchor.BatchWeight =  Math.Round(anchor.Weight * anchor.Quantity, 2); // weight of anchor's batch
+            anchor.BatchWeight =  Math.Round(anchor.Weight * anchor.Quantity, 2); // weight of anchor's batch  
 
-            double priceMaterialAnchor = (anchor.BilletLength / 1000) * anchor.Material.PricePerMetr; // price of anchor's material 
-            anchor.Sebes = Math.Round(priceMaterialAnchor + costWork.CostFull, 2);
+            int quantityBend = anchor.Kind switch
+            {
+                Kind.Bend => 1,
+                Kind.BendDouble => 2,
+                _ => 0,
+            };
+
+            double priceBend = costWork.TimeBend * costWork.AreaWelding * quantityBend; // price of bending in $
+            double priceThreadRolling = anchor.Material.TimeTheradRolling * (anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
+            double priceBandSaw = anchor.Material.TimeBandSaw * costWork.AreaWelding + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
+            double priceMaterialAnchor = ((anchor.BilletLength / 1000) * anchor.Material.PricePerMetr) / costWork.ExchangeDollar; // price of anchor's material in $
+
+            anchor.Sebes = Math.Round(
+                ((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity 
+                + costWork.TimeSetTheradRolling + costWork.TimeSetBend * costWork.AreaWelding * 2 + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar
+                , 2); // sebes of anchor in som
             anchor.BatchSebes = Math.Round(anchor.Sebes * anchor.Quantity, 2);
             anchor.Price = Math.Round(anchor.Sebes * (1 + costWork.Margin),2);
             anchor.Amount = Math.Round(anchor.BatchSebes * (1 + costWork.Margin), 2);
