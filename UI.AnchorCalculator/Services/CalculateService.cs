@@ -58,13 +58,12 @@ namespace UI.AnchorCalculator.Services
             if (anchor.Kind != Kind.Straight)
                 setBend = costWork.TimeSetBend * costWork.AreaWelding;
 
-            anchor.BatchSebes = Math.Round(
-                (((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity 
-                + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar
-                , 2 ); // sebes of anchor in som
-            anchor.Sebes = Math.Round(anchor.BatchSebes / anchor.Quantity, 2);            
-            anchor.Amount = Math.Round(anchor.BatchSebes * (1 + costWork.Margin), 2);
-            anchor.Price = Math.Round(anchor.Sebes * (1 + costWork.Margin), 2);
+            double costWorkInterm = ((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity
+                + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend);
+            anchor.BatchSebes = (costWorkInterm + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar; // sebes of anchor in som
+            anchor.Sebes = anchor.BatchSebes / anchor.Quantity;
+            anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar;
+            anchor.Price = anchor.Amount / anchor.Quantity;
         }
 
         static double GetLengthBillet(Anchor anchor)
