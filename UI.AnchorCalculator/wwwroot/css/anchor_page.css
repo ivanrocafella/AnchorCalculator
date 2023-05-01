@@ -1,0 +1,38 @@
+﻿.container {
+    margin-left: 1%;
+    max-width: 1600px;
+}
+
+svg {
+    width: 100%;
+    height: auto;
+}
+
+.radios > label {
+    border: 1px solid black;
+    color: black;
+}
+
+.radios > .btn:hover {
+    border: 1px solid black;
+    color: #fff;
+    text-decoration: none;
+    background: black;
+}
+
+.radios > .btn-check:active + .btn-outline-primary,
+.btn-check:checked + .btn-outline-primary, .btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+    background: black;
+    color: #fff;
+    border-color: black
+}
+
+@media print {
+    body {
+        display: flex;
+        justify-content: center;
+        vertical-align: auto;
+    }
+}
+

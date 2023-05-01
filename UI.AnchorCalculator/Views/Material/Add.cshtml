@@ -15,7 +15,7 @@
   <div class="row mb-3">
     <label asp-for="Size" class="col-sm-2 col-form-label"></label>
     <div class="col-sm-10">
-      <input asp-for="Size" type="number" class="form-control" id="size" step="0.5">
+            <input asp-for="Size" type="text" class="form-control" id="size" step="0.5">
       <span asp-validation-for="Size" class="text-danger"></span>
     </div>
   </div> 
@@ -33,28 +33,28 @@
   <div class="row mb-3">
     <label asp-for="PricePerMetr" class="col-sm-2 col-form-label"></label>
     <div class="col-sm-10">
-      <input asp-for="PricePerMetr" type="number" class="form-control" id="price">
+            <input asp-for="PricePerMetr" type="text" class="form-control" id="price">
       <span asp-validation-for="PricePerMetr" class="text-danger"></span>
     </div>
   </div>
   <div class="row mb-3">
       <label asp-for="TimeTheradRolling" class="col-sm-2 col-form-label"></label>
       <div class="col-sm-10">
-          <input asp-for="TimeTheradRolling" type="number" class="form-control" id="timeTheradRolling">
+            <input asp-for="TimeTheradRolling" type="text" class="form-control" id="timeTheradRolling">
           <span asp-validation-for="TimeTheradRolling" class="text-danger"></span>
       </div>
   </div>
   <div class="row mb-3">
         <label asp-for="TimeBandSaw" class="col-sm-2 col-form-label"></label>
       <div class="col-sm-10">
-            <input asp-for="TimeBandSaw" type="number" class="form-control" id="timeBandSaw">
+            <input asp-for="TimeBandSaw" type="text" class="form-control" id="timeBandSaw">
             <span asp-validation-for="TimeBandSaw" class="text-danger"></span>
       </div>
   </div>
   <div class="row mb-3">
        <label asp-for="LengthBladeBandSaw" class="col-sm-2 col-form-label"></label>
      <div class="col-sm-10">
-           <input asp-for="LengthBladeBandSaw" type="number" class="form-control" id="lengthBladeBandSaw">
+            <input asp-for="LengthBladeBandSaw" type="text" class="form-control" id="lengthBladeBandSaw">
            <span asp-validation-for="LengthBladeBandSaw" class="text-danger"></span>
      </div>
   </div>
@@ -64,4 +64,9 @@
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            $(':text').val('');
+        });
+    </script>
 }
