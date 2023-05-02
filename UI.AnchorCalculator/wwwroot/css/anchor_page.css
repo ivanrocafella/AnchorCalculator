@@ -33,6 +33,30 @@ svg {
         display: flex;
         justify-content: center;
         vertical-align: auto;
+        min-height: 100%;
     }
+
+    #imgAndStamp {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        z-index: 15;
+        top: 50%;
+        left: 50%;
+        margin: -150px 0 0 -150px;
+    }
+}
+
+
+
+#div_blank, #div_drawing {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
 }
 

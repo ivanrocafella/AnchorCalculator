@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-6">
       <div class="card-body">
-        <h5 class="card-title"># @Model.Anchor.Id</h5>
+        <div id="descript"><h5 class="card-title"># @Model.Anchor.Id</h5>
         <p class="card-text">Диаметр: @Model.Anchor.Diameter мм</p>
         <p class="card-text">Длина: @Model.Anchor.Length мм</p>
         <p class="card-text">Диаметр резьбы: @Model.Anchor.ThreadDiameter мм</p>
@@ -23,13 +23,23 @@
         <p class="card-text">Общая cебестоимость: @Math.Round(Model.Anchor.BatchSebes, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text">Цена: @Math.Round(Model.Anchor.Price, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text">Общая стоимость: @Math.Round(Model.Anchor.Amount, MidpointRounding.AwayFromZero) сом</p>
-        <p class="card-text">Материал: @Model.MaterialName </p>
-        <p class="card-text">Автор: @Model.UserName</p>
-        <p class="card-text"><small class="text-muted">@Model.Anchor.DateCreate</small></p>
-        <button type="button" class="btn btn-secondary" onclick="printDiv(row_details);">Печать</button>
+        <p class="card-text" id="material">Материал: @Model.MaterialName </p>
+        <p class="card-text" id="author">Исполнитель: @Model.UserName</p>
+        <p class="card-text"><small class="text-muted">Дата создания: @Model.Anchor.DateCreate</small></p></div>     
       </div>
     </div>
   </div>
+<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <button type="button" class="btn btn-secondary" onclick="printDiv(row_details);">Печать бланка</button>
+        <button type="button" class="btn btn-dark" onclick="printDiv(div_drawing);">Печать чертежа</button>
+</div>
+</div>
+
+<div id="div_drawing" style="display:none">
+    <div id="stampDrawing">
+    </div>
+    <div id="svgForDrawing">
+    </div>
 </div>
 
 @section Scripts
@@ -47,18 +57,21 @@
                       if(response.success)
                       {
                            let divImg = document.getElementsByClassName("img-fluid")[0];
-                           divImg.innerHTML = response.svgElement;   
-                      }}})
+                           let svgForDrawing = document.getElementById("svgForDrawing");
+                           svgForDrawing.innerHTML = response.anchor.svgElement;
+                           divImg.innerHTML = response.anchor.svgElement;
+                        }}})
+            var author = document.getElementById("author").innerHTML;
+            var material = document.getElementById("material").innerHTML;
+            var listStamp = '<p class="card-text">' + material + '</p>' +
+                '<p class="card-text">' + author + '</p>' +
+                '<p class="card-text" > Визирующее лицо: </p>';
+            console.log(listStamp);
+            document.getElementById("stampDrawing").innerHTML = listStamp;
       });
 
-        function printDiv(elemId) {
-            console.log(elemId);
-            const printContents = elemId.innerHTML;
-            const originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        };
+
    </script>
-    
+
+   <script type="text/javascript" src="~/js/print.js"></script>    
 }

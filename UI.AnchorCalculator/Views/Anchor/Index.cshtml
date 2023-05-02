@@ -137,7 +137,17 @@
   </div>
 </div>
       
+<div id="div_blank" style="display:none">        
+        <div id="svgForBlank"></div>
+        <div id="listBlank">
+        </div>
+</div>
 
+<div id="div_drawing" style="display:none">       
+        <div id="stampDrawing">
+        </div>
+        <div id="svgForDrawing"></div>
+</div>
 
 
 
@@ -179,17 +189,27 @@
                         BendLengthValid.innerHTML = "";
                         ThreadDiameterValid.innerHTML = "";                   
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
+                        document.getElementById("svgForDrawing").innerHTML = response.anchorJS.svgElement;
+                        document.getElementById("svgForBlank").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("descriptAnchor").style.display = "flex";
                         let PriceWeight = document.getElementById("PriceWeight");
+                        let Descript_to_blank;
                         if(response.isAuthen){
-                            PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
-                                                                                              '<p class="card-text">Себестоимость: ' + Math.round(response.anchorJS.sebes) + ' сом</p>' +
-                                                                                              '<p class="card-text">Общая себестоимость: ' +  Math.round(response.anchorJS.batchSebes) + ' сом</p>' +
-                                                                                              '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
-                                                                                              '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
-                                                                                              '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
-                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
-                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
+                                    Descript_to_blank = '<div id="Descript_to_blank"><h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
+                                    '<p class="card-text">Себестоимость: ' + Math.round(response.anchorJS.sebes) + ' сом</p>' +
+                                    '<p class="card-text">Общая себестоимость: ' + Math.round(response.anchorJS.batchSebes) + ' сом</p>' +
+                                    '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
+                                    '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
+                                    '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
+                                    '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
+                                    '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
+                                    '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
+                                    '<p class="card-text">Исполнитель: @User.Identity.Name</p></div>';
+                                    document.getElementById("listBlank").innerHTML = Descript_to_blank;
+                                    document.getElementById("stampDrawing").innerHTML = '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
+                                                                                        '<p class="card-text">Исполнитель: @User.Identity.Name</p>' +
+                                                                                        '<p class="card-text" > Визирующее лицо: </p>';
+                                                                                              PriceWeight.innerHTML = Descript_to_blank +
                                                                                               '<input id="materialIdtoDB" type="hidden" value="'+ response.anchorJS.materialId +'">' + 
                                                                                               '<input id="diametertoDB" type="hidden" value="'+ response.anchorJS.diameter +'">' +
                                                                                               '<input id="lengthtoDB" type="hidden" value="'+ response.anchorJS.length +'">' +
@@ -209,19 +229,21 @@
                                                                                               '<input id="kindToDB" type="hidden" value="'+ response.anchorJS.kind +'">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
-                                                                                              '<button type="button" class="btn btn-secondary" onclick="printDiv(row_descript);">Печать бланка</button>' +
-                                                                                              '<button type="button" class="btn btn-secondary" onclick="printImgDiv(containSvg);">Печать чертежа</button>' +
+                                                                                              '<button type="button" id="btn_blank" class="btn btn-secondary" disabled onclick="printDiv(div_blank);">Печать бланка</button>' +
+                                                                                              '<button type="button" id="btn_drawing" class="btn btn-secondary" disabled onclick="printDiv(div_drawing);">Печать чертежа</button>' +
                                                                                               '</div>'; 
 
                         }
                         else{
-                           PriceWeight.innerHTML = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
-                                                                                              '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
-                                                                                              '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
-                                                                                              '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
-                                                                                              '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
-                                                                                              '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
-                                                                                              '<button class="btn btn-secondary mt-2" onclick="printDiv(row_descript);">Печать бланка</button>';
+                                Descript_to_blank = '<h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
+                                    '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
+                                    '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
+                                    '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
+                                    '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
+                                    '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
+                                    '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>';
+                                document.getElementById("listBlank").innerHTML = Descript_to_blank;
+                                PriceWeight.innerHTML = Descript_to_blank + '<button class="btn btn-secondary mt-2" onclick="printDiv(div_blank);">Печать бланка</button>';
                         }
                         
                     } else {
@@ -279,14 +301,12 @@
                           var DiametrInput = document.getElementById("Diameter");
                           DiametrInput.value = response.materialJS.size;
                           var BendRadius = document.getElementById("BendRadius");
-                          if(response.materialJS.typeId == 0)
-                          {                            
+                          if(response.materialJS.typeId == 0) {                            
                             BendRadius.value = 37;
                           }
-                          else
-                          {
+                          else {
                             BendRadius.value = 58;
-                          }
+                          } 
                       }}})}     
           
 
@@ -442,6 +462,12 @@
                         console.log(response.success)
                             if(response.success)
                             {
+                                var btn_blank = document.getElementById("btn_blank")
+                                btn_blank.disabled = false;
+                                btn_blank.className = 'btn btn-dark';
+                                var btn_drawing = document.getElementById("btn_drawing")
+                                btn_drawing.disabled = false;
+                                btn_drawing.className = 'btn btn-dark';
                                 document.getElementById("liveToastBtn").disabled = true;
                                 var toastTrigger = document.getElementById('liveToastBtn')
                                 var toastLiveExample = document.getElementById('liveToast')
@@ -455,38 +481,6 @@
             )
              }       
     </script>
-
-    <script>
-        function printDiv(elemId) {
-            console.log(elemId);
-            const printContents = elemId.innerHTML;
-            console.log(printContents);
-            const body = document.body;
-            const originalContents = body.innerHTML;
-            body.innerHTML = printContents;
-            console.log(body);
-            window.print();
-            body.innerHTML = originalContents;
-        }
-        function printImgDiv(elemId) {
-            var div = document.createElement("div");
-            const divImg = elemId.innerHTML;
-            div.innerHTML = divImg;
-            console.log(div);
-            var divP = document.createElement("div");
-            divP.innerHTML = '<p class="card-text">Исполнитель: @User.Identity.Name</p>' +
-                             '<p class="card-text">Визирующее лицо:</p>';
-            div.appendChild(divP);
-            console.log(elemId);
-            const body = document.body;
-            const printContents = div.innerHTML;           
-            const originalContents = body.innerHTML;
-            body.innerHTML = printContents;
-            console.log(body);
-            window.print();
-            body.innerHTML = originalContents;
-        }
-    </script>
-   
+    <script type="text/javascript" src="~/js/print.js"></script>
 }
 

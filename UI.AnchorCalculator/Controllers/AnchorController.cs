@@ -68,7 +68,7 @@ namespace UI.AnchorCalculator.Controllers
         {
             Anchor anchor = await _AService.GetAnchorById(id);
             if (anchor != null)
-                return Json(new { success = true, svgElement = anchor.SvgElement });
+                return Json(new { success = true, anchor });
             else
                 return Json(new { success = false });
         }
