@@ -8,7 +8,7 @@ namespace UI.AnchorCalculator.ViewModels
     public class AnchorViewModel 
     {
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [Range(200,6000,ErrorMessage = "Укажите длину от 200 до 6000")]
+        [Range(200,6000,ErrorMessage = "Укажите длину от 400 до 6000")]
         [Display(Name = "Длина, мм:")]
         public int Length { get; set; }
         [Required(ErrorMessage = "Выберите материал")]

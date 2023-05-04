@@ -223,6 +223,8 @@ namespace UI.AnchorCalculator.Services
             SvgLineElement lineHorTopSizeLengthOfAnchor;
             SvgLineElement lineHorBotSizeLengthOfAnchor;
             SvgLineElement lineVertSizeLengthOfAnchor;
+            SvgLineElement lineAxialTopHalfOfAnchor;
+            SvgLineElement lineAxialBotHalfOfAnchor;
 
             //Make object bending part without radius
 
@@ -306,6 +308,16 @@ namespace UI.AnchorCalculator.Services
                           Y_InitCoord + anchor.Length / 2 + 10,
                           -90,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of anchor
+
+                lineAxialTopHalfOfAnchor = GetSvgLineElement(X_InitCoord + anchor.Diameter/2,
+                            Y_InitCoord - outPartHorSize,
+                            X_InitCoord + anchor.Diameter / 2,
+                            Y_InitCoord + anchor.Length + outPartHorSize,
+                            Color.Black,
+                            0.15f,
+                            SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineAxialTopHalfOfAnchor); // Make top axial line of anchor
             }
             else
             {
@@ -352,6 +364,16 @@ namespace UI.AnchorCalculator.Services
 
                 SvgLineElement lineSerifBotSizeLengthOfAnchor;
 
+                lineAxialTopHalfOfAnchor = GetSvgLineElement(X_InitCoord + anchor.Diameter / 2,
+                            Y_InitCoord - outPartHorSize,
+                            X_InitCoord + anchor.Diameter / 2,
+                            Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap),
+                            Color.Black,
+                            0.15f,
+                            SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineAxialTopHalfOfAnchor); // Make top axial line of anchor
+
                 // Make gap Bot Line
 
                 var pbgapBot = new SvgPathBuilder();
@@ -372,6 +394,16 @@ namespace UI.AnchorCalculator.Services
                 pathgapBot.StrokeWidth = new SvgLength(0.5f);
 
                 svgElements.Add(pathgapBot);
+
+                lineAxialBotHalfOfAnchor = GetSvgLineElement(X_InitCoord + anchor.Diameter / 2,
+                       Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
+                       X_InitCoord + anchor.Diameter / 2,
+                       Y_InitCoord + anchor.ThreadLength + lengthMax + outPartHorSize,
+                       Color.Black,
+                       0.15f,
+                       SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineAxialBotHalfOfAnchor); // Make bot axial line of anchor
 
                 // Size of anchors's length
 
