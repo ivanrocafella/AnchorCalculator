@@ -21,6 +21,11 @@
   background: black;
   color: #fff;
 }
+
+ svg {
+     max-width: 500px;
+     max-height: 500px;
+ }
 </style>
 
 
@@ -88,8 +93,8 @@
     {
    <div id="anchor-@item.Id" class="col mb-5">
     <div class="card h-100" onclick="location.href='/Anchor/Details/@item.Id';" style="cursor: pointer;">
-        <div class="card-img-top" id="@item.Id"></div>      
-      <div class="card-body">
+                    <div class="card-img-top" id="@item.Id" style="cursor: pointer;"></div>
+       <div class="card-body">
         <h5 class="card-title"># @item.Id</h5>
         <p class="card-text">Цена: @Math.Round(item.Price, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text">Автор: @if (item.User != null) { @item.User.UserName }</p>
@@ -99,11 +104,11 @@
       </div>
     </div>
       @if (User.IsInRole("admin"))
-                {
-                    <button type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setIdForButton(@item.Id)">
-                        Удалить
-                    </button>
-                }
+       {
+           <button type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setIdForButton(@item.Id)">
+               Удалить
+           </button>
+       }
    </div> 
     }   
     }
@@ -195,7 +200,7 @@
        }
 
        function addSvgs(){
-          let divsImg = document.getElementsByClassName("card-img-top");
+            let divsImg = document.getElementsByClassName("card-img-top");
           let exampleAttr; 
           let ids = [];
             for(let i = 0; i < divsImg.length; i++){

@@ -11,8 +11,8 @@ namespace UI.AnchorCalculator.Services
         const int Y_InitCoord = 100; // Y origin
         const int viewWidth = 900;
         const int viewHeight = 1100;
-        const int Width = 500;
-        const int Height = 500;
+        const int Width = 900;
+        const int Height = 900;
         public void GetSvgStraightAnchor(Anchor anchor)
         {
             int lengthMax = 800; // max length of anchor
@@ -1950,6 +1950,10 @@ namespace UI.AnchorCalculator.Services
 
             SvgLineElement basicBodyTopAxialLineFirst;
             SvgLineElement basicBodyTopAxialLineSecond;
+            SvgLineElement middleAxialLine;
+
+            SvgLineElement bendPartWithoutRadiusAxialLineRight;
+            SvgLineElement bendPartWithoutRadiusAxialLineLeft;
 
             SvgLineElement basicBodyBotAxialLineFirst;
             SvgLineElement basicBodyBotAxialLineSecond;
@@ -2050,6 +2054,26 @@ namespace UI.AnchorCalculator.Services
                         SvgLengthUnits.Pixels);
 
                     svgElements.Add(rectBendAnchor);
+
+                    bendPartWithoutRadiusAxialLineRight = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius,
+                                   Y_InitCoord + anchor.Length - anchor.Diameter / 2,
+                                   X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.BendRadius - (anchor.BendLength - 2 * anchor.Diameter),
+                                   Y_InitCoord + anchor.Length - anchor.Diameter / 2,
+                                   Color.Black,
+                                   0.15f,
+                                   SvgLengthUnits.Pixels); // drawing of axial line of bend part without radius
+
+                    svgElements.Add(bendPartWithoutRadiusAxialLineRight);
+
+                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - anchor.BendLength / 2,
+                                   Y_InitCoord - outPartHorSize,
+                                   X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - anchor.BendLength / 2,
+                                   Y_InitCoord + anchor.Length + 5,
+                                   Color.Black,
+                                   0.15f,
+                                   SvgLengthUnits.Pixels); // drawing of axial line in middle
+
+                    svgElements.Add(middleAxialLine);
 
                     //Size of bending part
 
@@ -2163,6 +2187,16 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(basicBodyTopAxialLineSecond);
 
+                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                                  Y_InitCoord - outPartHorSize,
+                                  X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                                  Y_InitCoord + anchor.Length + 5,
+                                  Color.Black,
+                                  0.15f,
+                                  SvgLengthUnits.Pixels); // drawing of axial line in middle
+
+                    svgElements.Add(middleAxialLine);
+
                     //Draw second basic part without thread and bend 
 
                     rectBasicBodyAnchorSecond = GetSvgRectElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
@@ -2232,6 +2266,26 @@ namespace UI.AnchorCalculator.Services
                     pathgapRight.StrokeWidth = new SvgLength(0.5f);
 
                     svgElements.Add(pathgapRight);
+
+                    bendPartWithoutRadiusAxialLineRight = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius,
+                          Y_InitCoord + anchor.Length - anchor.Diameter / 2,
+                          X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
+                          Y_InitCoord + anchor.Length - anchor.Diameter / 2,
+                          Color.Black,
+                          0.15f,
+                          SvgLengthUnits.Pixels); // drawing of axial line of bend right part without radius
+
+                    svgElements.Add(bendPartWithoutRadiusAxialLineRight);
+
+                    bendPartWithoutRadiusAxialLineLeft = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.BendRadius + anchor.Diameter,
+                       Y_InitCoord + anchor.Length - anchor.Diameter / 2,
+                       X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
+                       Y_InitCoord + anchor.Length - anchor.Diameter / 2,
+                       Color.Black,
+                       0.15f,
+                       SvgLengthUnits.Pixels); // drawing of axial line of bend left part without radius
+
+                    svgElements.Add(bendPartWithoutRadiusAxialLineLeft);
 
                     // Make gap Left Line
 
@@ -2678,6 +2732,16 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(basicBodyTopAxialLineSecond);
 
+                    bendPartWithoutRadiusAxialLineRight = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius,
+                    Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
+                    X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.BendRadius - (anchor.BendLength - 2 * anchor.Diameter),
+                    Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
+                    Color.Black,
+                    0.15f,
+                    SvgLengthUnits.Pixels); // drawing of axial line of bend part without radius
+
+                    svgElements.Add(bendPartWithoutRadiusAxialLineRight);
+
                     basicBodyBotAxialLineSecond = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
                                     Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
                                     X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
@@ -2755,6 +2819,16 @@ namespace UI.AnchorCalculator.Services
                     pathgapTopSecond.StrokeWidth = new SvgLength(0.5f);
 
                     svgElements.Add(pathgapTopSecond);
+
+                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendLength / 2 + anchor.Diameter,
+                             Y_InitCoord - outPartHorSize,
+                             X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendLength / 2 + anchor.Diameter,
+                             Y_InitCoord + anchor.ThreadLength + lengthMax + 5,
+                             Color.Black,
+                             0.15f,
+                             SvgLengthUnits.Pixels); // drawing of axial line in middle
+
+                    svgElements.Add(middleAxialLine);
 
                     //Draw bending part without radius
 
@@ -2890,6 +2964,27 @@ namespace UI.AnchorCalculator.Services
                                     SvgLengthUnits.Pixels); // drawing of axial line in left bottom side of anchor 
 
                     svgElements.Add(basicBodyBotAxialLineSecond);
+
+                    bendPartWithoutRadiusAxialLineRight = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius,
+                         Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
+                         X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2 + gap,
+                         Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
+                         Color.Black,
+                         0.15f,
+                         SvgLengthUnits.Pixels); // drawing of axial line of bend right part without radius
+
+                    svgElements.Add(bendPartWithoutRadiusAxialLineRight);
+
+                    bendPartWithoutRadiusAxialLineLeft = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.BendRadius + anchor.Diameter,
+                       Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
+                       X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax / 2,
+                       Y_InitCoord + lengthMax + anchor.ThreadLength - anchor.Diameter / 2,
+                       Color.Black,
+                       0.15f,
+                       SvgLengthUnits.Pixels); // drawing of axial line of bend left part without radius
+
+                    svgElements.Add(bendPartWithoutRadiusAxialLineLeft);
+
 
                     //Draw second basic part without thread and bend 
 
@@ -3080,6 +3175,16 @@ namespace UI.AnchorCalculator.Services
                                SvgLengthUnits.Pixels);
 
                     svgElements.Add(lineSerifLeftSizeBendPart);
+
+                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                             Y_InitCoord - outPartHorSize,
+                             X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                             Y_InitCoord + anchor.ThreadLength + lengthMax + 5,
+                             Color.Black,
+                             0.15f,
+                             SvgLengthUnits.Pixels); // drawing of axial line in middle
+
+                    svgElements.Add(middleAxialLine);
 
                     var lineSerifRightSizeBendPart = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2,
                                Y_InitCoord + lengthMax + anchor.ThreadLength + outPartHorSize,

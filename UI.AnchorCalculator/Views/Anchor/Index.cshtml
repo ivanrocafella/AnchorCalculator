@@ -149,6 +149,14 @@
         <div id="svgForDrawing"></div>
 </div>
 
+<div id="content">
+    <h3>Hello, this is a H3 tag</h3>
+
+    <p>A paragraph</p>
+</div>
+<div id="editor"></div>
+<button id="cmd">generate PDF</button>
+
 
 
 
@@ -157,6 +165,25 @@
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
     <script>
+
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+
+        $('#cmd').click(function () {
+            doc.fromHTML($('#content').html(), 15, 15, {
+                'width': 170,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('sample-file.pdf');
+        });
+
+
+
+
 
         var calculateForm = document.getElementById("CalculateForm");
 
@@ -304,13 +331,8 @@
                           var ThreadDiameterInt = Math.trunc(response.materialJS.size);
                           ThreadDiameterInput.value = ThreadDiameterInt
                           var BendRadius = document.getElementById("BendRadius");
-                            changeFuncThreadStep(ThreadDiameterInt);
-                          if(response.materialJS.typeId == 0) {                                
-                            BendRadius.value = 37;
-                          }
-                          else {
-                            BendRadius.value = 58;
-                          } 
+                          changeFuncThreadStep(ThreadDiameterInt);
+                            BendRadius.value = Math.ceil(response.materialJS.size);
                       }}})}     
           
 

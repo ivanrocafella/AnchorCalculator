@@ -1,11 +1,17 @@
 ﻿@model UI.AnchorCalculator.ViewModels.AnchorViewModel
 
-<div class="card mb-3" style="max-width: 640px;" id="cardDetails">
+<style>
+    svg {
+        max-width: 500px;
+    }
+</style>
+
+<div class="card mb-3" style="max-width: 840px;" id="cardDetails">
   <div id="row_details" class="row g-0">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div class="img-fluid rounded-start"></div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="card-body">
         <div id="descript"><h5 class="card-title"># @Model.Anchor.Id</h5>
         <p class="card-text">Диаметр: @Model.Anchor.Diameter мм</p>
@@ -15,7 +21,7 @@
         <p class="card-text">Длина резьбы: @Model.Anchor.ThreadLength мм</p>
         <p class="card-text">Длина загиба: @Model.Anchor.BendLength мм</p>
         <p class="card-text">Радиус загиба: @Model.Anchor.BendRadius мм</p>
-        <p class="card-text">Длина заготовки: @Math.Round(Model.Anchor.BilletLength, MidpointRounding.AwayFromZero) мм</p>
+        <p class="card-text" id="billetLength">Длина заготовки: @Math.Round(Model.Anchor.BilletLength, MidpointRounding.AwayFromZero) мм</p>
         <p class="card-text">Кол-во: @Model.Anchor.Quantity шт</p>
         <p class="card-text">Вес 1 шт: @Math.Round(Model.Anchor.Weight, 2) кг</p>
         <p class="card-text">Вес @Model.Anchor.Quantity шт: @Math.Round(Model.Anchor.BatchWeight, MidpointRounding.AwayFromZero) кг</p>
@@ -63,11 +69,17 @@
                         }}})
             var author = document.getElementById("author").innerHTML;
             var material = document.getElementById("material").innerHTML;
+            var billetLength = document.getElementById("billetLength").innerHTML;
             var listStamp = '<p class="card-text">' + material + '</p>' +
                 '<p class="card-text">' + author + '</p>' +
-                '<p class="card-text" > Визирующее лицо: </p>';
+                '<p class="card-text" > Визирующее лицо: </p>' +
+                '<div style="position:fixed;bottom: 0;"><p class="card-text">1. Размер для справок</p>' +
+                '<p class="card-text">2. ' + billetLength + '</p>' +
+                '<p class="card-text">3. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
+                '<p class="card-text">4. Оснастка: центр: палец 8; бок: палец 7 и оправка О1</p></div>';
             console.log(listStamp);
-            document.getElementById("stampDrawing").innerHTML = listStamp;
+            var stampDrawing = document.getElementById("stampDrawing");
+            stampDrawing.innerHTML = listStamp;
       });
 
 
