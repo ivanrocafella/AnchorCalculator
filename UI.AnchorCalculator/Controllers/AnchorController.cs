@@ -99,7 +99,10 @@ namespace UI.AnchorCalculator.Controllers
             {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
                 if (Anchor.Kind == Kind.Straight)
+                {
+                    Anchor.BendRadius = 0;
                     _SvgService.GetSvgStraightAnchor(Anchor);
+                }
                 if (Anchor.Kind == Kind.Bend)
                     _SvgService.GetSvgBendAnchor(Anchor);
                 if (Anchor.Kind == Kind.BendDouble)

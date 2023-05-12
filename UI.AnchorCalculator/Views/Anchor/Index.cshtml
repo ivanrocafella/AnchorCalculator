@@ -149,13 +149,11 @@
         <div id="svgForDrawing"></div>
 </div>
 
-<div id="content">
-    <h3>Hello, this is a H3 tag</h3>
-
-    <p>A paragraph</p>
-</div>
-<div id="editor"></div>
-<button id="cmd">generate PDF</button>
+  <div id="drawing_pdf" class="card mb-3" style="display:none">
+    <div id="svg_pdf" class="card-img-top"></div>
+    <div id="notes_pdf" class="card-body"></div>
+    <div id="stamp_pdf" class="card-body"></div>
+  </div>
 
 
 
@@ -166,20 +164,109 @@
 
     <script>
 
-        var doc = new jsPDF();
-        var specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            }
-        };
 
-        $('#cmd').click(function () {
-            doc.fromHTML($('#content').html(), 15, 15, {
-                'width': 170,
-                'elementHandlers': specialElementHandlers
-            });
-            doc.save('sample-file.pdf');
-        });
+
+
+         function toPdf(billetLength, bendRadius) {
+             console.log(bendRadius)
+             var fingerCenter = "";
+             var mandrelCenter = "";
+             var fingerSide = "";    
+             var mandrelSide = "";
+            if (bendRadius > 0 && bendRadius <= 12) {
+                fingerCenter = "1";
+                mandrelCenter = "_";
+                fingerSide = "7";
+                mandrelSide = "O11";
+            } else if (bendRadius > 12 && bendRadius <= 16) {
+                fingerCenter = "3";
+                mandrelCenter = "_";
+                fingerSide = "7";
+                mandrelSide = "O10";
+            } else if (bendRadius > 16 && bendRadius <= 20) {
+                fingerCenter = "4";
+                mandrelCenter = "_";
+                fingerSide = "7";
+                mandrelSide = "O9";
+            } else if (bendRadius > 20 && bendRadius <= 24) {
+                fingerCenter = "6";
+                mandrelCenter = "_";
+                fingerSide = "7";
+                mandrelSide = "O6";
+            } else if (bendRadius > 24 && bendRadius <= 30) {
+                fingerCenter = "8";
+                mandrelCenter = "_";
+                fingerSide = "7";
+                mandrelSide = "O1";
+            } else if (bendRadius > 30 && bendRadius <= 36) {
+                fingerCenter = "7";
+                mandrelCenter = "O4";
+                fingerSide = "4";
+                mandrelSide = "_";
+            } else if (bendRadius > 36 && bendRadius <= 42) {
+                fingerCenter = "7";
+                mandrelCenter = "O6";
+                fingerSide = "7";
+                mandrelSide = "O8";
+            } else if (bendRadius > 42 && bendRadius <= 48) {
+                fingerCenter = "7";
+                mandrelCenter = "O8";
+                fingerSide = "7";
+                mandrelSide = "O3";
+            } else {
+                fingerCenter = "_";
+                mandrelCenter = "_";
+                fingerSide = "_";
+                mandrelSide = "_";
+            }
+
+                 var notes =
+                     '<div><p class="card-text">1. *Размер для справок</p>' +
+                     '<p class="card-text">2. Размер заготовки ' + billetLength + ' мм</p>' +
+                     '<p class="card-text">3. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
+                     '<p class="card-text d-flex justify-content-between">' +
+                     '<span class="mr-auto">4. Оснастка: центр: палец ' + fingerCenter + ' , оправка: ' + mandrelCenter + ' ; бок: палец ' + fingerSide + ' , оправка ' + mandrelSide + '' +
+                     '</span><span style="text-align: right;">Кол - во: 48 шт.</span></p></div>';
+
+            var stamp = '<table class="table table-bordered border-dark">'+
+                '<thead>'+
+                '<tr>'+
+                '<th colspan="4">DGFDGERTRGFDGFDGDFGDFG</th>' +
+                '</tr>'+
+                '</thead>'+
+                '<tbody>'+
+                '<tr>'+
+                '<th scope="col">Исполнитель</th>'+
+                '<td>Кобцев Иван</td>'+
+                '<td>Поздпись</td>'+
+                '<td>Дата</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<th scope="row">Гл. инженер</th>'+
+                '<td>Никуленко</td>'+
+                '<td>Thornton</td>'+
+                '<td>Дата</td>'+
+                '</tr>'+
+                '<tr>'+
+                '</tbody>'+
+                '</table>';
+
+                 console.log(true);
+                 var drawing_pdf = document.getElementById("drawing_pdf");
+                 var notes_pdf = document.getElementById("notes_pdf");
+                 notes_pdf.innerHTML = notes;
+                 var stamp_pdf = document.getElementById("stamp_pdf");
+                 stamp_pdf.innerHTML = stamp;
+
+
+
+                console.log(drawing_pdf);
+                drawing_pdf.style.display = "block";
+                $('#drawing_pdf').printThis();
+                 setTimeout(() => {
+                  drawing_pdf.style.display = "none";
+                 }, 4000) 
+         }
 
 
 
@@ -218,6 +305,7 @@
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svgForDrawing").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svgForBlank").innerHTML = response.anchorJS.svgElement;
+                        document.getElementById("svg_pdf").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("descriptAnchor").style.display = "flex";
                         let PriceWeight = document.getElementById("PriceWeight");
                         let Descript_to_blank;
@@ -258,6 +346,8 @@
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
                                                                                               '<button type="button" id="btn_blank" class="btn btn-secondary" disabled onclick="printDiv(div_blank);">Печать бланка</button>' +
                                                                                               '<button type="button" id="btn_drawing" class="btn btn-secondary" disabled onclick="printDiv(div_drawing);">Печать чертежа</button>' +
+                                                                                              '<button type="button" id="btn_drawing_pdf" class="btn btn-secondary" disabled onclick="toPdf(' + response.anchorJS.billetLength + ','
+                                                                                              +  response.anchorJS.bendRadius + ');">Чертеж в PDF</button>' +
                                                                                               '</div>'; 
 
                         }
@@ -331,8 +421,8 @@
                           var ThreadDiameterInt = Math.trunc(response.materialJS.size);
                           ThreadDiameterInput.value = ThreadDiameterInt
                           var BendRadius = document.getElementById("BendRadius");
-                          changeFuncThreadStep(ThreadDiameterInt);
-                            BendRadius.value = Math.ceil(response.materialJS.size);
+                          changeFuncThreadStep(ThreadDiameterInt);      
+                          BendRadius.value = Math.ceil(response.materialJS.size);
                       }}})}     
           
 
@@ -484,6 +574,9 @@
                                 btn_blank.className = 'btn btn-dark';
                                 var btn_drawing = document.getElementById("btn_drawing")
                                 btn_drawing.disabled = false;
+                                var btn_drawing_pdf = document.getElementById("btn_drawing_pdf");
+                                console.log(btn_drawing_pdf);
+                                btn_drawing_pdf.disabled = false;
                                 btn_drawing.className = 'btn btn-dark';
                                 document.getElementById("liveToastBtn").disabled = true;
                                 var toastTrigger = document.getElementById('liveToastBtn')
@@ -499,5 +592,6 @@
              }       
     </script>
     <script type="text/javascript" src="~/js/print.js"></script>
+    <script src="~/lib/jquery/jasonday-printThis-23be1f8/printThis.js"></script>
 }
 

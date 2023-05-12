@@ -7,7 +7,7 @@ namespace UI.AnchorCalculator.Services
 {
     public class SvgMakingService
     {
-        public int X_InitCoord = 100; // X origin
+        public int X_InitCoord = 250; // X origin
         const int Y_InitCoord = 100; // Y origin
         const int viewWidth = 900;
         const int viewHeight = 1100;
@@ -2187,9 +2187,9 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(basicBodyTopAxialLineSecond);
 
-                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2,
                                   Y_InitCoord - outPartHorSize,
-                                  X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                                  X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2,
                                   Y_InitCoord + anchor.Length + 5,
                                   Color.Black,
                                   0.15f,
@@ -3176,9 +3176,9 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(lineSerifLeftSizeBendPart);
 
-                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                    middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2,
                              Y_InitCoord - outPartHorSize,
-                             X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2 - gap,
+                             X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter - bendLengthMax / 2,
                              Y_InitCoord + anchor.ThreadLength + lengthMax + 5,
                              Color.Black,
                              0.15f,
