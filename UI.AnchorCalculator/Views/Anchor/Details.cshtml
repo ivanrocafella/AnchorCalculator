@@ -2,16 +2,17 @@
 
 <style>
     svg {
-        max-width: 500px;
+        width: 100%;
+        height: auto;
     }
 </style>
 
 <div class="card mb-3" style="max-width: 840px;" id="cardDetails">
   <div id="row_details" class="row g-0">
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="img-fluid rounded-start"></div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <div class="card-body">
         <div id="descript"><h5 class="card-title"># @Model.Anchor.Id</h5>
         <p class="card-text">Диаметр: @Model.Anchor.Diameter мм</p>
@@ -36,15 +37,27 @@
     </div>
   </div>
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-        <button type="button" class="btn btn-secondary" onclick="printDiv(row_details);">Печать бланка</button>
-        <button type="button" class="btn btn-dark" onclick="printDiv(div_drawing);">Печать чертежа</button>
+        <button type="button" class="btn btn-secondary" onclick="PrintBlank();">Печать бланка</button>
+        <button type="button" class="btn btn-dark" onclick="PrintDraw(@Model.Anchor.Id);">Печать чертежа</button>
 </div>
 </div>
 
-<div id="div_drawing" style="display:none">
-    <div id="stampDrawing">
-    </div>
-    <div id="svgForDrawing">
+
+
+<div id="drawing_pdf" class="card mb-3" style="display:none">
+    <div id="svg_pdf" class="card-img-top"></div>
+    <div id="notes_pdf" class="card-body"></div>
+    <div id="stamp_pdf" class="card-body"></div>
+</div>
+
+<div id="blank_pdf" class="card mb-3" style="display:none">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <div id="svg_blank_pdf" class="card-img"></div>
+        </div>
+        <div class="col-md-8 card-img-overlay">
+            <div id="listBlank" class="card-body"></div>
+        </div>
     </div>
 </div>
 
@@ -63,27 +76,18 @@
                       if(response.success)
                       {
                            let divImg = document.getElementsByClassName("img-fluid")[0];
-                           let svgForDrawing = document.getElementById("svgForDrawing");
-                           svgForDrawing.innerHTML = response.anchor.svgElement;
                            divImg.innerHTML = response.anchor.svgElement;
+                           document.getElementById("svg_pdf").innerHTML = response.anchor.svgElement;
+                           document.getElementById("svg_blank_pdf").innerHTML = response.anchor.svgElement;
+                           document.getElementById("listBlank").innerHTML = document.getElementById("descript").innerHTML
                         }}})
-            var author = document.getElementById("author").innerHTML;
-            var material = document.getElementById("material").innerHTML;
-            var billetLength = document.getElementById("billetLength").innerHTML;
-            var listStamp = '<p class="card-text">' + material + '</p>' +
-                '<p class="card-text">' + author + '</p>' +
-                '<p class="card-text" > Визирующее лицо: </p>' +
-                '<div style="position:fixed;bottom: 0;"><p class="card-text">1. Размер для справок</p>' +
-                '<p class="card-text">2. ' + billetLength + '</p>' +
-                '<p class="card-text">3. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
-                '<p class="card-text">4. Оснастка: центр: палец 8; бок: палец 7 и оправка О1</p></div>';
-            console.log(listStamp);
-            var stampDrawing = document.getElementById("stampDrawing");
-            stampDrawing.innerHTML = listStamp;
+
       });
+
 
 
    </script>
 
-   <script type="text/javascript" src="~/js/print.js"></script>    
+   <script type="text/javascript" src="~/js/print.js"></script>
+   <script type="text/javascript" src="~/js/printDrawBlank.js"></script>
 }

@@ -165,7 +165,7 @@ namespace UI.AnchorCalculator.Services
         }
 
         //Method for adding new Anchor to the database
-        public async Task AddAnchor(AnchorViewModel viewModel, string userId)
+        public async Task<int> AddAnchor(AnchorViewModel viewModel, string userId)
         {
            var options = new JsonSerializerOptions
            {
@@ -202,6 +202,7 @@ namespace UI.AnchorCalculator.Services
            };
            await applicationDbContext.Anchors.AddAsync(anchor);
            await applicationDbContext.SaveChangesAsync();
+           return anchor.Id;
         }
 
         //Method for delete 1 Anchor by id
