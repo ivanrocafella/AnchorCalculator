@@ -15,7 +15,13 @@
                     var length = response.anchor.length;
                     var materialFullName = response.anchor.material.fullName;
                     var dateNow = new Date();
-                    var dateNowFormat = ((dateNow.getMonth() > 8) ? (dateNow.getMonth() + 1) : ('0' + (dateNow.getMonth() + 1))) + '.' + ((dateNow.getDate() > 9) ? dateNow.getDate() : ('0' + dateNow.getDate())) + '.' + dateNow.getFullYear()
+                    var date = dateNow.getDate();
+                    var month = dateNow.getMonth();
+                    var year = dateNow.getFullYear();
+                    console.log(date);
+                    console.log(month);
+                    console.log(year);
+                    var dateNowFormat = (((dateNow.getDate() > 9) ? dateNow.getDate() : ('0' + dateNow.getDate())) + '.' + (dateNow.getMonth() > 8) ? (dateNow.getMonth() + 1) : ('0' + (dateNow.getMonth() + 1))) + '.' +  + dateNow.getFullYear()
 
                     console.log(bendRadius)
                     var fingerCenter = "";
