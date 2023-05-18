@@ -83,7 +83,7 @@ namespace UI.AnchorCalculator.Services
 
             var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
                        Y_InitCoord - (outPartHorSize - 5),
-                       X_InitCoord + anchor.ThreadDiameter + 50,
+                       X_InitCoord + anchor.ThreadDiameter + 105,
                        Y_InitCoord - (outPartHorSize - 5),
                        Color.Black,
                        0.5f,
@@ -113,8 +113,8 @@ namespace UI.AnchorCalculator.Services
 
 
             svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
-                            X_InitCoord + anchor.ThreadDiameter,
-                            Y_InitCoord - (outPartHorSize - 5),
+                            X_InitCoord + anchor.ThreadDiameter + 8,
+                            Y_InitCoord - (outPartHorSize - 3),
                             0,
                             SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
 
@@ -171,7 +171,7 @@ namespace UI.AnchorCalculator.Services
             svgElements.Add(lineSerifBotSizeDiamThread);
 
             svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
-                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
                 Y_InitCoord + anchor.ThreadLength / 2 + 10,
                 -90,
                 SvgLengthUnits.Pixels));    // Make text of size's value length of thread
@@ -180,7 +180,7 @@ namespace UI.AnchorCalculator.Services
 
             var lineHorSizeDiamAnchor = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                        Y_InitCoord + anchor.ThreadLength + outPartHorSize,
-                       X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 40,
+                       X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 55,
                        Y_InitCoord + anchor.ThreadLength + outPartHorSize,
                        Color.Black,
                        0.5f,
@@ -208,11 +208,11 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(lineSerifRightSizeDiamAnchor);
 
-            svgElements.Add(GetSvgTextElement($"d{anchor.Diameter}",
+            svgElements.Add(GetSvgTextElement($"⌀{anchor.Diameter}",
                 X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 5,
-                Y_InitCoord + anchor.ThreadLength + outPartHorSize,
+                Y_InitCoord + anchor.ThreadLength + outPartHorSize - 2,
                 0,
-                SvgLengthUnits.Pixels));    // Make text of size's value diametr of anchor
+                SvgLengthUnits.Pixels)); // Make text of size's value diametr of anchor
 
             //Make object basic part without thread and bend 
 
@@ -299,7 +299,7 @@ namespace UI.AnchorCalculator.Services
                 svgElements.Add(lineSerifBotSizeLengthOfAnchor);
 
                 svgElements.Add(GetSvgTextElement($"{anchor.Length}",
-                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40),
+                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40) - 2,
                           Y_InitCoord + anchor.Length / 2 + 10,
                           -90,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of anchor
@@ -458,7 +458,7 @@ namespace UI.AnchorCalculator.Services
                        SvgLengthUnits.Pixels);
 
                     svgElements.Add(GetSvgTextElement($"{anchor.Length}",
-                         X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40),
+                         X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40) - 2,
                          Y_InitCoord + (anchor.ThreadLength + lengthMax) / 2 + 10,
                          -90,
                          SvgLengthUnits.Pixels));    // Make text of size's value length of anchor
@@ -572,7 +572,7 @@ namespace UI.AnchorCalculator.Services
 
             var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
                        Y_InitCoord - (outPartHorSize - 5),
-                       X_InitCoord + anchor.ThreadDiameter + 50,
+                       X_InitCoord + anchor.ThreadDiameter + 105,
                        Y_InitCoord - (outPartHorSize - 5),
                        Color.Black,
                        0.5f,
@@ -602,8 +602,8 @@ namespace UI.AnchorCalculator.Services
 
 
             svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
-                            X_InitCoord + anchor.ThreadDiameter,
-                            Y_InitCoord - (outPartHorSize - 5),
+                            X_InitCoord + anchor.ThreadDiameter + 8,
+                            Y_InitCoord - (outPartHorSize - 3),
                             0,
                             SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
 
@@ -660,7 +660,7 @@ namespace UI.AnchorCalculator.Services
             svgElements.Add(lineSerifBotSizeDiamThread);
 
             svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
-                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
                 Y_InitCoord + anchor.ThreadLength / 2 + 10,
                 -90,
                 SvgLengthUnits.Pixels));    // Make text of size's value length of thread
@@ -669,7 +669,7 @@ namespace UI.AnchorCalculator.Services
 
             var lineHorSizeDiamAnchor = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                        Y_InitCoord + anchor.ThreadLength + outPartHorSize,
-                       X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 40,
+                       X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 55,
                        Y_InitCoord + anchor.ThreadLength + outPartHorSize,
                        Color.Black,
                        0.5f,
@@ -697,9 +697,9 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(lineSerifRightSizeDiamAnchor);
 
-            svgElements.Add(GetSvgTextElement($"d{anchor.Diameter}",
+            svgElements.Add(GetSvgTextElement($"⌀{anchor.Diameter}",
                 X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 5,
-                Y_InitCoord + anchor.ThreadLength + outPartHorSize,
+                Y_InitCoord + anchor.ThreadLength + outPartHorSize - 2,
                 0,
                 SvgLengthUnits.Pixels));    // Make text of size's value diametr of anchor
 
@@ -814,7 +814,7 @@ namespace UI.AnchorCalculator.Services
 
                         svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                               X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - anchor.BendLength) / 2 - 10,
-                              Y_InitCoord + anchor.Length + outPartHorSize,
+                              Y_InitCoord + anchor.Length + outPartHorSize - 2,
                               0,
                               SvgLengthUnits.Pixels));    // Make text of size's value length of thread
                         
@@ -972,7 +972,7 @@ namespace UI.AnchorCalculator.Services
 
                         svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                               X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - bendLengthMax) / 2 - 10,
-                              Y_InitCoord + anchor.Length + outPartHorSize,
+                              Y_InitCoord + anchor.Length + outPartHorSize - 2,
                               0,
                               SvgLengthUnits.Pixels));    // Make text of size's value length of thread
 
@@ -1065,7 +1065,7 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(GetSvgTextElement($"R{anchor.BendRadius}",
                         X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - outPartRadSize,
-                        Y_InitCoord + anchor.Length - anchor.Diameter - anchor.BendRadius,
+                        Y_InitCoord + anchor.Length - anchor.Diameter - anchor.BendRadius - 2,
                         0,
                         SvgLengthUnits.Pixels));    // Make text of size's value radius of anchor
                 
@@ -1130,7 +1130,7 @@ namespace UI.AnchorCalculator.Services
                 svgElements.Add(lineSerifBotSizeLengthOfAnchor);
 
                 svgElements.Add(GetSvgTextElement($"{anchor.Length}",
-                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40),
+                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40) - 2,
                           Y_InitCoord + anchor.Length / 2 + 10,
                           -90,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of anchor
@@ -1337,7 +1337,7 @@ namespace UI.AnchorCalculator.Services
 
                         svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                               X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - anchor.BendLength) / 2 - 10,
-                              Y_InitCoord + anchor.ThreadLength + lengthMax + outPartHorSize,
+                              Y_InitCoord + anchor.ThreadLength + lengthMax + outPartHorSize - 2,
                               0,
                               SvgLengthUnits.Pixels));    // Make text of size's value length of thread                       
 
@@ -1495,7 +1495,7 @@ namespace UI.AnchorCalculator.Services
 
                         svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                               X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - bendLengthMax) / 2 - 10,
-                              Y_InitCoord + lengthMax + anchor.ThreadLength + outPartHorSize,
+                              Y_InitCoord + lengthMax + anchor.ThreadLength + outPartHorSize - 2,
                               0,
                               SvgLengthUnits.Pixels));    // Make text of size's value length of thread
 
@@ -1563,7 +1563,7 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(GetSvgTextElement($"R{anchor.BendRadius}",
                         X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - outPartRadSize,
-                        Y_InitCoord + anchor.ThreadLength + lengthMax - (anchor.BendRadius + anchor.Diameter),
+                        Y_InitCoord + anchor.ThreadLength + lengthMax - (anchor.BendRadius + anchor.Diameter) - 2,
                         0,
                         SvgLengthUnits.Pixels));    // Make text of size's value radius of anchor
 
@@ -1594,7 +1594,7 @@ namespace UI.AnchorCalculator.Services
                             SvgLengthUnits.Pixels);
 
                     svgElements.Add(GetSvgTextElement($"{anchor.Length}",
-                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40),
+                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40) - 2,
                           Y_InitCoord + (anchor.ThreadLength + lengthMax) / 2 + 10,
                           -90,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of anchor
@@ -1795,7 +1795,7 @@ namespace UI.AnchorCalculator.Services
 
             var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
                        Y_InitCoord - (outPartHorSize - 5),
-                       X_InitCoord + anchor.ThreadDiameter + 50,
+                       X_InitCoord + anchor.ThreadDiameter + 105,
                        Y_InitCoord - (outPartHorSize - 5),
                        Color.Black,
                        0.5f,
@@ -1825,8 +1825,8 @@ namespace UI.AnchorCalculator.Services
 
 
             svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
-                            X_InitCoord + anchor.ThreadDiameter,
-                            Y_InitCoord - (outPartHorSize - 5),
+                            X_InitCoord + anchor.ThreadDiameter + 8,
+                            Y_InitCoord - (outPartHorSize - 3),
                             0,
                             SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
 
@@ -1883,7 +1883,7 @@ namespace UI.AnchorCalculator.Services
             svgElements.Add(lineSerifBotSizeDiamThread);
 
             svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
-                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
                 Y_InitCoord + anchor.ThreadLength / 2 + 10,
                 -90,
                 SvgLengthUnits.Pixels));    // Make text of size's value length of thread
@@ -1892,7 +1892,7 @@ namespace UI.AnchorCalculator.Services
 
             var lineHorSizeDiamAnchor = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                        Y_InitCoord + anchor.ThreadLength + outPartHorSize,
-                       X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 40,
+                       X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 55,
                        Y_InitCoord + anchor.ThreadLength + outPartHorSize,
                        Color.Black,
                        0.5f,
@@ -1920,9 +1920,9 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(lineSerifRightSizeDiamAnchor);
 
-            svgElements.Add(GetSvgTextElement($"d{anchor.Diameter}",
+            svgElements.Add(GetSvgTextElement($"⌀{anchor.Diameter}",
                 X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 5,
-                Y_InitCoord + anchor.ThreadLength + outPartHorSize,
+                Y_InitCoord + anchor.ThreadLength + outPartHorSize - 2,
                 0,
                 SvgLengthUnits.Pixels));    // Make text of size's value diametr of anchor
 
@@ -2129,7 +2129,7 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                           X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - anchor.BendLength) / 2 - 10,
-                          Y_InitCoord + anchor.Length + outPartHorSize,
+                          Y_InitCoord + anchor.Length + outPartHorSize - 2,
                           0,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of thread
 
@@ -2362,7 +2362,7 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                           X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - bendLengthMax) / 2 - 10,
-                          Y_InitCoord + anchor.Length + outPartHorSize,
+                          Y_InitCoord + anchor.Length + outPartHorSize - 2,
                           0,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of thread
 
@@ -2455,7 +2455,7 @@ namespace UI.AnchorCalculator.Services
 
                 svgElements.Add(GetSvgTextElement($"R{anchor.BendRadius}",
                     X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - outPartRadSize,
-                    Y_InitCoord + anchor.Length - anchor.Diameter - anchor.BendRadius,
+                    Y_InitCoord + anchor.Length - anchor.Diameter - anchor.BendRadius - 2,
                     0,
                     SvgLengthUnits.Pixels));    // Make text of size's value radius of anchor
 
@@ -2520,7 +2520,7 @@ namespace UI.AnchorCalculator.Services
                 svgElements.Add(lineSerifBotSizeLengthOfAnchor);
 
                 svgElements.Add(GetSvgTextElement($"{anchor.Length}",
-                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40),
+                          X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40) - 2,
                           Y_InitCoord + anchor.Length / 2 + 10,
                           -90,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of anchor
@@ -2897,7 +2897,7 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                           X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - anchor.BendLength) / 2 - 10,
-                          Y_InitCoord + anchor.ThreadLength + lengthMax + outPartHorSize,
+                          Y_InitCoord + anchor.ThreadLength + lengthMax + outPartHorSize - 2,
                           0,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of thread
 
@@ -3198,7 +3198,7 @@ namespace UI.AnchorCalculator.Services
 
                     svgElements.Add(GetSvgTextElement($"{anchor.BendLength}",
                           X_InitCoord + (anchor.Diameter + anchor.ThreadDiameter - bendLengthMax) / 2 - 10,
-                          Y_InitCoord + lengthMax + anchor.ThreadLength + outPartHorSize,
+                          Y_InitCoord + lengthMax + anchor.ThreadLength + outPartHorSize - 2,
                           0,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of thread
 
@@ -3263,7 +3263,7 @@ namespace UI.AnchorCalculator.Services
 
                 svgElements.Add(GetSvgTextElement($"R{anchor.BendRadius}",
                     X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendRadius - outPartRadSize,
-                    Y_InitCoord + anchor.ThreadLength + lengthMax - (anchor.BendRadius + anchor.Diameter),
+                    Y_InitCoord + anchor.ThreadLength + lengthMax - (anchor.BendRadius + anchor.Diameter) - 2,
                     0,
                     SvgLengthUnits.Pixels));    // Make text of size's value radius of anchor
 
@@ -3294,7 +3294,7 @@ namespace UI.AnchorCalculator.Services
                         SvgLengthUnits.Pixels);
 
                 svgElements.Add(GetSvgTextElement($"{anchor.Length}",
-                      X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40),
+                      X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (outPartHorSize + 40) - 2,
                       Y_InitCoord + (anchor.ThreadLength + lengthMax) / 2 + 10,
                       -90,
                       SvgLengthUnits.Pixels));    // Make text of size's value length of anchor

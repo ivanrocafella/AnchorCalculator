@@ -76,12 +76,12 @@
                     }
 
                     var notes =
-                        '<div><p class="card-text">1. *Размер для справок</p>' +
-                        '<p class="card-text">2. Размер заготовки ' + billetLength + ' мм</p>' +
-                        '<p class="card-text">3. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
+                        '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
+                        '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
+                        '<p class="card-text">2. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
                         '<p class="card-text d-flex justify-content-between">' +
-                        '<span class="mr-auto">4. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '' +
-                        '</span><span style="text-align: right;">Кол - во: ' + quantity + ' шт.</span></p></div>';
+                        '<span class="mr-auto">3. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '' +
+                        '</span><span style="text-align: right;"></span></p></div>';
 
                     var stamp = '<table class="table table-bordered border-dark">' +
                         '<thead>' +
@@ -97,13 +97,6 @@
                         '<td class="w-25"></td>' +
                         '<td class="text-center w-20">' + dateNowFormat + '</td>' +
                         '</tr>' +
-                        '<tr>' +
-                        '<th scope="col" class="w-25">Гл. инженер</th>' +
-                        '<td class="w-30">Никуленко</td>' +
-                        '<td class="w-25"></td>' +
-                        '<td class="text-center w-20">' + dateNowFormat + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
                         '</tbody>' +
                         '</table>';
 
