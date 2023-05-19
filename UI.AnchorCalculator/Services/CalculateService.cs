@@ -64,6 +64,8 @@ namespace UI.AnchorCalculator.Services
             anchor.Sebes = anchor.BatchSebes / anchor.Quantity;
             anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar;
             anchor.Price = anchor.Amount / anchor.Quantity;
+            anchor.PriceMaterial = priceMaterialAnchor * costWork.ExchangeDollar; // price of anchor's material in som
+            anchor.BatchPriceMaterial = anchor.PriceMaterial * anchor.Quantity; // price of anchor's material batch in som
         }
 
         static double GetLengthBillet(Anchor anchor)

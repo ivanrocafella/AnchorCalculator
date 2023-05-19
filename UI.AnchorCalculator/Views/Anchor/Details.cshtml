@@ -27,9 +27,11 @@
         <p class="card-text">Вес 1 шт: @Math.Round(Model.Anchor.Weight, 2) кг</p>
         <p class="card-text">Вес @Model.Anchor.Quantity шт: @Math.Round(Model.Anchor.BatchWeight, MidpointRounding.AwayFromZero) кг</p>
         <p class="card-text">Себестоимость: @Math.Round(Model.Anchor.Sebes, MidpointRounding.AwayFromZero) сом</p>
-        <p class="card-text">Общая cебестоимость: @Math.Round(Model.Anchor.BatchSebes, MidpointRounding.AwayFromZero) сом</p>
+        <p class="card-text">Общая cебестоимость: @Math.Round(Model.Anchor.BatchSebes, MidpointRounding.AwayFromZero) сом</p>          
         <p class="card-text">Цена: @Math.Round(Model.Anchor.Price, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text">Общая стоимость: @Math.Round(Model.Anchor.Amount, MidpointRounding.AwayFromZero) сом</p>
+        <p class="card-text">Цена мат-ла на 1 шт: @Math.Round(Model.Anchor.PriceMaterial, MidpointRounding.AwayFromZero) сом</p>
+        <p class="card-text">Цена мат-ла на @Model.Anchor.Quantity шт: @Math.Round(Model.Anchor.BatchPriceMaterial, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text" id="material">Материал: @Model.MaterialName </p>
         <p class="card-text" id="author">Исполнитель: @Model.UserName</p>
         <p class="card-text"><small class="text-muted">Дата создания: @Model.Anchor.DateCreate</small></p></div>     

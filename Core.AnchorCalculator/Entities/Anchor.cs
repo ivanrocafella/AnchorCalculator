@@ -12,8 +12,8 @@ namespace Core.AnchorCalculator.Entities
     {
         public int Length { get; set; }
         public float Diameter { get; set; }
-        public double Weight{ get; set; }
-        public double Sebes { get; set; }
+        public double Weight { get; set; }
+        public double Sebes { get; set; }        
         public double BatchSebes { get; set; }
         public double Price { get; set; }
         /// <summary>
@@ -40,6 +40,8 @@ namespace Core.AnchorCalculator.Entities
         [EnumDataType(typeof(Kind))]
         public Kind Kind { get; set; }
         public double PricePerMetr { get; set; }
+        public double PriceMaterial { get; set; }
+        public double BatchPriceMaterial { get; set; }
 
         public int? MaterialId { get; set; }
         public Material? Material { get; set; }
