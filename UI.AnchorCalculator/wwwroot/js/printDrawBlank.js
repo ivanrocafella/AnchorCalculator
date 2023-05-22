@@ -18,6 +18,7 @@
                     var date = dateNow.getDate().toString().padStart(2, '0');;
                     var month = (dateNow.getMonth() + 1).toString().padStart(2, '0');
                     var year = dateNow.getFullYear().toString();
+                    var lengthPathRoller = Math.round(response.anchor.lengthPathRoller);
                     console.log(date);
                     console.log(month);
                     console.log(year);
@@ -78,9 +79,10 @@
                     var notes =
                         '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
                         '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
-                        '<p class="card-text">2. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
+                        '<p class="card-text">2. Длина пути ролика ' + lengthPathRoller + ' мм</p>' +
+                        '<p class="card-text">3. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
                         '<p class="card-text d-flex justify-content-between">' +
-                        '<span class="mr-auto">3. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '' +
+                        '<span class="mr-auto">4. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '' +
                         '</span><span style="text-align: right;"></span></p></div>';
 
                     var stamp = '<table class="table table-bordered border-dark">' +

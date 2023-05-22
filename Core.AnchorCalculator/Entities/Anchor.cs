@@ -42,6 +42,7 @@ namespace Core.AnchorCalculator.Entities
         public double PricePerMetr { get; set; }
         public double PriceMaterial { get; set; }
         public double BatchPriceMaterial { get; set; }
+        public double LengthPathRoller { get; set; } // мм
 
         public int? MaterialId { get; set; }
         public Material? Material { get; set; }

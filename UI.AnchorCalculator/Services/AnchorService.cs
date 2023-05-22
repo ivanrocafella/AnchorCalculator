@@ -200,7 +200,8 @@ namespace UI.AnchorCalculator.Services
                MaterialJson = materialJson,
                KindId = int.Parse(viewModel.Kind),
                PriceMaterial = viewModel.PriceMaterial,
-               BatchPriceMaterial = viewModel.BatchPriceMaterial
+               BatchPriceMaterial = viewModel.BatchPriceMaterial,
+               LengthPathRoller = viewModel.LengthPathRoller
            };
            await applicationDbContext.Anchors.AddAsync(anchor);
            await applicationDbContext.SaveChangesAsync();

@@ -45,6 +45,7 @@ namespace UI.AnchorCalculator.ViewModels
         public string? BilletLength { get; set; }
         public double PriceMaterial { get; set; }
         public double BatchPriceMaterial { get; set; }
+        public double LengthPathRoller { get; set; }
         public string? Sebes { get; set; }
         public string? BatchSebes { get; set; }
         public string? UserName { get; set; }
