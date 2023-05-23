@@ -3,7 +3,9 @@ using Core.AnchorCalculator.Entities.Enums;
 using DAL.AnchorCalculator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using NLog;
+using System;
 using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -19,12 +21,14 @@ namespace UI.AnchorCalculator.Services
         private readonly MaterialService MService;
         private readonly UserManager<User> _userManager;
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly LoggerManager _loggerManager;
 
-        public AnchorService(ApplicationDbContext applicationDbContext, MaterialService mService, UserManager<User> userManager)
+        public AnchorService(ApplicationDbContext applicationDbContext, MaterialService mService, UserManager<User> userManager, LoggerManager loggerManager)
         {
             this.applicationDbContext = applicationDbContext;
             MService = mService;
             _userManager = userManager;
+            _loggerManager = loggerManager;
         }
 
 
@@ -175,37 +179,47 @@ namespace UI.AnchorCalculator.Services
            Material material = await MService.GetMaterialById(viewModel.MaterialId);
            string materialJson = JsonSerializer.Serialize<Material>(material, options);
            string userJson = JsonSerializer.Serialize<User>(user, options);
-            Anchor anchor = new()
-           {
-               Length = viewModel.Length,
-               Diameter = float.Parse(viewModel.Diameter, CultureInfo.InvariantCulture),
-               Weight = double.Parse(viewModel.Weight, CultureInfo.InvariantCulture),
-               Price = double.Parse(viewModel.Price, CultureInfo.InvariantCulture),
-               BendLength = viewModel.BendLength,
-               BendRadius = viewModel.BendRadius,
-               ThreadLength = viewModel.ThreadLength,
-               ThreadDiameter = viewModel.ThreadDiameter,
-               ThreadStep = float.Parse(viewModel.ThreadStep, CultureInfo.InvariantCulture),
-               Amount = double.Parse(viewModel.Amount, CultureInfo.InvariantCulture),
-               Quantity = viewModel.Quantity,
-               DateCreate = DateTime.Now,
-               SvgElement = viewModel.SvgElement,
-               BatchWeight = double.Parse(viewModel.BatchWeight, CultureInfo.InvariantCulture),
-               BilletLength = double.Parse(viewModel.BilletLength, CultureInfo.InvariantCulture),
-               MaterialId = viewModel.MaterialId,
-               Sebes = double.Parse(viewModel.Sebes, CultureInfo.InvariantCulture),
-               BatchSebes = double.Parse(viewModel.BatchSebes, CultureInfo.InvariantCulture),
-               UserId = userId,
-               UserJson = userJson,
-               MaterialJson = materialJson,
-               KindId = int.Parse(viewModel.Kind),
-               PriceMaterial = viewModel.PriceMaterial,
-               BatchPriceMaterial = viewModel.BatchPriceMaterial,
-               LengthPathRoller = viewModel.LengthPathRoller
-           };
-           await applicationDbContext.Anchors.AddAsync(anchor);
-           await applicationDbContext.SaveChangesAsync();
-           return anchor.Id;
+        
+            try
+            {
+                Anchor anchor = new()
+                {
+                    Length = viewModel.Length,
+                    Diameter = float.Parse(viewModel.Diameter, CultureInfo.InvariantCulture),
+                    Weight = double.Parse(viewModel.Weight, CultureInfo.InvariantCulture),
+                    Price = double.Parse(viewModel.Price, CultureInfo.InvariantCulture),
+                    BendLength = viewModel.BendLength,
+                    BendRadius = viewModel.BendRadius,
+                    ThreadLength = viewModel.ThreadLength,
+                    ThreadDiameter = viewModel.ThreadDiameter,
+                    ThreadStep = float.Parse(viewModel.ThreadStep, CultureInfo.InvariantCulture),
+                    Amount = double.Parse(viewModel.Amount, CultureInfo.InvariantCulture),
+                    Quantity = viewModel.Quantity,
+                    DateCreate = DateTime.Now,
+                    SvgElement = viewModel.SvgElement,
+                    BatchWeight = double.Parse(viewModel.BatchWeight, CultureInfo.InvariantCulture),
+                    BilletLength = double.Parse(viewModel.BilletLength, CultureInfo.InvariantCulture),
+                    MaterialId = viewModel.MaterialId,
+                    Sebes = double.Parse(viewModel.Sebes, CultureInfo.InvariantCulture),
+                    BatchSebes = double.Parse(viewModel.BatchSebes, CultureInfo.InvariantCulture),
+                    UserId = userId,
+                    UserJson = userJson,
+                    MaterialJson = materialJson,
+                    KindId = int.Parse(viewModel.Kind),
+                    PriceMaterial = viewModel.PriceMaterial,
+                    BatchPriceMaterial = viewModel.BatchPriceMaterial,
+                    LengthPathRoller = viewModel.LengthPathRoller
+                };
+                await applicationDbContext.Anchors.AddAsync(anchor);
+                await applicationDbContext.SaveChangesAsync();
+                return anchor.Id;
+            }
+            catch (Exception ex)
+            {
+                string exception = $"Error:{ex.Message}";
+                _loggerManager.LogDebug(exception);
+                throw;
+            }
         }
 
         //Method for delete 1 Anchor by id
