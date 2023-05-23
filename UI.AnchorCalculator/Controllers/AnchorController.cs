@@ -57,7 +57,7 @@ namespace UI.AnchorCalculator.Controllers
             var anchorsSvg = anchors.Select(e => e.SvgElement).ToList();
             var anchorsId = anchors.Select(e => e.Id).ToList();
             if (anchorsSvg.Count>0)
-                return Json(new { success = true, anchorsSvg = anchorsSvg, idMin = anchorsId[0], idMax = anchorsId[^1]});
+                return Json(new { success = true, anchorsSvg, idMin = anchorsId[0], idMax = anchorsId[^1]});
             else
                 return Json(new { success = false });
         }
@@ -79,13 +79,16 @@ namespace UI.AnchorCalculator.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> GetAnchorJsonResult(AnchorViewModel viewModel)
         {
-            if ((viewModel.Kind == Kind.Bend.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < 100) || viewModel.BendLength > 500)
+            double maxBendLength = 60 + viewModel.BendRadius + double.Parse(viewModel.Diameter);
+            if (viewModel.Kind == Kind.BendDouble.ToString())
+                maxBendLength = 60 + 2 * (viewModel.BendRadius + double.Parse(viewModel.Diameter));
+            if ((viewModel.Kind == Kind.Bend.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
             {
-                ModelState.AddModelError(nameof(viewModel.BendLength), "Длина загиба должна быть от 100 до 500");
+                ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
             }
-            if ((viewModel.Kind == Kind.BendDouble.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < 200) || viewModel.BendLength > 500)
+            if ((viewModel.Kind == Kind.BendDouble.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
             {
-                ModelState.AddModelError(nameof(viewModel.BendLength), "Длина загиба должна быть от 200 до 500");
+                ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
             }
             if (viewModel.ThreadDiameter == 0)
             {
@@ -98,7 +101,7 @@ namespace UI.AnchorCalculator.Controllers
             if (ModelState.IsValid)
             {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
-                if (Anchor.Kind == Kind.Straight)
+                if (Anchor.Kind == Kind.Straight || Anchor.BendRadius == 0)
                 {
                     Anchor.BendRadius = 0;
                     _SvgService.GetSvgStraightAnchor(Anchor);

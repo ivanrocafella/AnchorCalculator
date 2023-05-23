@@ -71,7 +71,8 @@ namespace UI.AnchorCalculator.Services
         static double GetLengthBillet(Anchor anchor)
         {
             double lengthBillet;
-            double kFactor = 1 / (Math.Log(1 + (double)anchor.Diameter / anchor.BendRadius)) - anchor.BendRadius / anchor.Diameter; // K-factor 
+            double kFactor = 1 / (Math.Log(1 + (double)anchor.Diameter / anchor.BendRadius)) - anchor.BendRadius / anchor.Diameter; // K-factor
+            anchor.LengthPathRoller = Math.PI * anchor.BendRadius * 1 / 2;
             if (anchor.Kind == Kind.Bend)
             {               
                 lengthBillet = anchor.Length - anchor.BendRadius - anchor.Diameter

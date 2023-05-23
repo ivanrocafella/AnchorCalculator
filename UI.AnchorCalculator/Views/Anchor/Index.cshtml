@@ -92,7 +92,7 @@
                 <div class="row mb-3">
                          <label asp-for="BendRadius" class="col-sm-4 col-form-label"></label>
                     <div class="col-sm-8">
-                         <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" value="32" readonly>
+                         <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" readonly>
                          <span asp-validation-for="BendRadius" class="text-danger"></span>
                     </div>
                 </div>               
@@ -311,8 +311,26 @@
                           var ThreadDiameterInt = Math.trunc(response.materialJS.size);
                           ThreadDiameterInput.value = ThreadDiameterInt
                           var BendRadius = document.getElementById("BendRadius");
-                          changeFuncThreadStep(ThreadDiameterInt);          
-                          BendRadius.value = Math.ceil(response.materialJS.size);
+                          changeFuncThreadStep(ThreadDiameterInt);
+                            if (ThreadDiameterInt > 0 && ThreadDiameterInt <= 12) {
+                                BendRadius.value = 12;
+                            } else if (ThreadDiameterInt > 12 && ThreadDiameterInt <= 16) {
+                                BendRadius.value = 16;
+                            } else if (ThreadDiameterInt > 16 && ThreadDiameterInt <= 20) {
+                                BendRadius.value = 20;
+                            } else if (ThreadDiameterInt > 20 && ThreadDiameterInt <= 24) {
+                                BendRadius.value = 24;
+                            } else if (ThreadDiameterInt > 24 && ThreadDiameterInt <= 30) {
+                                BendRadius.value = 30;
+                            } else if (ThreadDiameterInt > 30 && ThreadDiameterInt <= 36) {
+                                BendRadius.value = 36;
+                            } else if (ThreadDiameterInt > 36 && ThreadDiameterInt <= 42) {
+                                BendRadius.value = 42;
+                            } else if (ThreadDiameterInt > 42 && ThreadDiameterInt <= 48) {
+                                BendRadius.value = 48;
+                            } else {
+                                BendRadius.value = 0;
+                            }
                       }}})}     
           
 
@@ -388,7 +406,7 @@
                valueThreadStep = "0";
             }
             inputThreadStep.value = valueThreadStep
-               }
+            }
 
 
         function Add(){
