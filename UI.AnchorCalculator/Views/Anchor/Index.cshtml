@@ -174,10 +174,9 @@
                 addButton.disabled = false;
             }
             var formData = new FormData(calculateForm)
-            console.log(formData)
-            for (var pair of formData.entries()) {               
-                console.log(pair[0] + ', ' + pair[1]);
-            }
+          //  for (var pair of formData.entries()) {               
+          //      console.log(pair[0] + ', ' + pair[1]);
+          //  }
             var xhrGetAnchorJsonResult = $.ajax(
             {
                 url: '@Url.Action("GetAnchorJsonResult", "Anchor")',
@@ -188,8 +187,6 @@
                 success: function (response)
                 {
                     var ThreadDiameterValid = document.getElementById("ThreadDiameterValid");
-                    console.log(response.success)
-                    console.log(response.anchorJS)
                     if(response.success)
                     {
                         ThreadDiameterValid.innerHTML = "";
@@ -290,8 +287,6 @@
             }
             )
             var xhrGetAnchorJsonResultJS = JSON.stringify(xhrGetAnchorJsonResult);
-            console.log(xhrGetAnchorJsonResultJS);
-            console.log(xhrGetAnchorJsonResult);
         }        
         )
 
@@ -305,12 +300,11 @@
                       data: { 'id': selectedValue },
                       success: function (response) {
                       if(response.success) {
-                          var DiametrInput = document.getElementById("Diameter");
+                          var DiametrInput = document.getElementById("Diameter");                         
                           var ThreadDiameterInput = document.getElementById("ThreadDiameter");
-                            console.log(ThreadDiameterInput);
                           var diameterMaterial = response.materialJS.size;
-                          DiameterInput.value = diameterMaterial;
-                          let ThreadDiameterInt;
+                            DiametrInput.value = diameterMaterial;
+                          var ThreadDiameterInt;
                             if (diameterMaterial >= 6 && diameterMaterial < 8) {
                                 ThreadDiameterInt = 6;
                             }
@@ -410,7 +404,6 @@
                }
 
         function changeFuncThreadStep(Diameter) {
-            console.log(Diameter);  
             var inputThreadDiameter = document.getElementById("ThreadDiameter");
             var inputThreadStep = document.getElementById("ThreadStep");
             var valueThreadStep;
@@ -501,8 +494,6 @@
              var batchPriceMaterialToDB = document.getElementById("batchPriceMaterialToDB").value
 
              var lengthPathRollerToDB = document.getElementById("lengthPathRollerToDB").value
-             console.log(svgtoDB)
-             console.log('Addwork')
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
@@ -533,7 +524,6 @@
                         },
                         success: function(response)
                         {
-                        console.log(response.success)
                             if(response.success)
                             {
                                 var btn_drawing_pdf = document.getElementById("btn_drawing_pdf");
