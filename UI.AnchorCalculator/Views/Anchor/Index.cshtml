@@ -307,11 +307,61 @@
                       if(response.success) {
                           var DiametrInput = document.getElementById("Diameter");
                           var ThreadDiameterInput = document.getElementById("ThreadDiameter");
-                          DiametrInput.value = response.materialJS.size;
-                          var ThreadDiameterInt = Math.trunc(response.materialJS.size);
-                          ThreadDiameterInput.value = ThreadDiameterInt
-                          var BendRadius = document.getElementById("BendRadius");
+                            console.log(ThreadDiameterInput);
+                          var diameterMaterial = response.materialJS.size;
+                          DiameterInput.value = diameterMaterial;
+                          let ThreadDiameterInt;
+                            if (diameterMaterial >= 6 && diameterMaterial < 8) {
+                                ThreadDiameterInt = 6;
+                            }
+                            else if (diameterMaterial >= 8 && diameterMaterial < 10) {
+                                ThreadDiameterInt = 8;
+                            }
+                            else if (diameterMaterial >= 10 && diameterMaterial < 12) {
+                                ThreadDiameterInt = 10;
+                            }
+                            else if (diameterMaterial >= 12 && diameterMaterial < 14) {
+                                ThreadDiameterInt = 12;
+                            }
+                            else if (diameterMaterial >= 14 && diameterMaterial < 16) {
+                                ThreadDiameterInt = 14;
+                            }
+                            else if (diameterMaterial >= 16 && diameterMaterial < 18) {
+                                ThreadDiameterInt = 16;
+                            }
+                            else if (diameterMaterial >= 18 && diameterMaterial < 20) {
+                                ThreadDiameterInt = 18;
+                            }
+                            else if (diameterMaterial >= 20 && diameterMaterial < 22) {
+                                ThreadDiameterInt = 20;
+                            }
+                            else if (diameterMaterial >= 22 && diameterMaterial < 24) {
+                                ThreadDiameterInt = 22;
+                            }
+                            else if (diameterMaterial >= 24 && diameterMaterial < 27) {
+                                ThreadDiameterInt = 24;
+                            }
+                            else if (diameterMaterial >= 27 && diameterMaterial < 30) {
+                                ThreadDiameterInt = 27;
+                            }
+                            else if (diameterMaterial >= 30 && diameterMaterial < 36) {
+                                ThreadDiameterInt = 30;
+                            }
+                            else if (diameterMaterial >= 36 && diameterMaterial < 42) {
+                                ThreadDiameterInt = 36;
+                            }
+                            else if (diameterMaterial >= 42 && diameterMaterial < 48) {
+                                ThreadDiameterInt = 42;
+                            }
+                            else if (diameterMaterial == 48) {
+                                ThreadDiameterInt = 48;
+                            }
+                            else {
+                                ThreadDiameterInt = Math.trunc(diameterMaterial);
+                            }
+                          ThreadDiameterInput.value = ThreadDiameterInt;                    
                           changeFuncThreadStep(ThreadDiameterInt);
+                          var BendRadius = document.getElementById("BendRadius");
                             if (ThreadDiameterInt > 0 && ThreadDiameterInt <= 12) {
                                 BendRadius.value = 12;
                             } else if (ThreadDiameterInt > 12 && ThreadDiameterInt <= 16) {
