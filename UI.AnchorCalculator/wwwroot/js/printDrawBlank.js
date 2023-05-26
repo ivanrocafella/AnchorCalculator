@@ -7,6 +7,16 @@
             success: function (response) {
                 if (response.success) {
                     console.log(response.anchor)
+                    var firstName = 'Шпилька';  
+                    var form; 
+                    if (response.anchor.kind == 0) {
+                        form = 'прямая';
+                    } else if (response.anchor.kind == 1) {
+                        form = 'гнутая';
+                    } else {
+                        firstName = 'Хомут';
+                        form = 'прямоугольный';
+                    }
                     var executor = response.anchor.user.userName;
                     var billetLength = Math.round(response.anchor.billetLength);
                     var bendRadius = response.anchor.bendRadius;
@@ -88,7 +98,7 @@
                     var stamp = '<table class="table table-bordered border-dark">' +
                         '<thead>' +
                         '<tr>' +
-                        '<th colspan="2" class="text-center">Анкер M' + threadDiameter + 'x' + length + '</th>' +
+                        '<th colspan="2" class="text-center">' + firstName + ' M' + threadDiameter + 'x' + length + ' ' + form + '</th>' +
                         '<td class="text-left">Тип заказа:</th>' +
                         '<td class="text-center">' + materialFullName + '</th>' +
                         '</tr>' +
