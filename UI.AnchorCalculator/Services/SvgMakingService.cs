@@ -15,6 +15,8 @@ namespace UI.AnchorCalculator.Services
         const int Height = 900;
         public void GetSvgStraightAnchor(Anchor anchor)
         {
+            string iconDiameter = anchor.Material.TypeId == 1 ? "Арм" : "⌀";
+
             int lengthMax = 800; // max length of anchor
             int bendLengthMax = 300; // max length of anchor's bend
 
@@ -24,7 +26,7 @@ namespace UI.AnchorCalculator.Services
                 X_InitCoord += bendLengthMax; // X origin
 
             int gap = 20; // gap in out of max length  of anchor
-            int outPartHorSize = 30; // length output part of horizontal size
+            int outPartHorSize = 45; // length output part of horizontal size
             int outPartRadSize = 45; // length of shelf of radius size
 
             var svgDoc = new GcSvgDocument();
@@ -208,7 +210,7 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(lineSerifRightSizeDiamAnchor);
 
-            svgElements.Add(GetSvgTextElement($"⌀{anchor.Diameter}",
+            svgElements.Add(GetSvgTextElement($"{iconDiameter}{anchor.Diameter}",
                 X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 5,
                 Y_InitCoord + anchor.ThreadLength + outPartHorSize - 2,
                 0,
@@ -504,6 +506,8 @@ namespace UI.AnchorCalculator.Services
 
         public void GetSvgBendAnchor(Anchor anchor)
         {
+            string iconDiameter = anchor.Material.TypeId == 1 ? "Арм" : "⌀";
+
             int lengthMax = 800; // max length of anchor
             int bendLengthMax = 300; // max length of anchor's bend
 
@@ -513,7 +517,7 @@ namespace UI.AnchorCalculator.Services
                 X_InitCoord += bendLengthMax; // X origin
 
             int gap = 20; // gap in out of max length  of anchor
-            int outPartHorSize = 30; // length output part of horizontal size
+            int outPartHorSize = 45; // length output part of horizontal size
             int outPartRadSize = 45; // length of shelf of radius size
 
             var svgDoc = new GcSvgDocument();
@@ -697,7 +701,7 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(lineSerifRightSizeDiamAnchor);
 
-            svgElements.Add(GetSvgTextElement($"⌀{anchor.Diameter}",
+            svgElements.Add(GetSvgTextElement($"{iconDiameter}{anchor.Diameter}",
                 X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 5,
                 Y_InitCoord + anchor.ThreadLength + outPartHorSize - 2,
                 0,
@@ -1670,25 +1674,6 @@ namespace UI.AnchorCalculator.Services
                           0,
                           SvgLengthUnits.Pixels));    // Make text of size's of bending part without radius   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     pbAxialBotHalfOfAnchor.AddMoveTo(false, X_InitCoord + anchor.ThreadDiameter / 2,
                                 Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
                         pbAxialBotHalfOfAnchor.AddVerticalLineTo(false, Y_InitCoord + lengthMax + anchor.ThreadLength - (anchor.Diameter + anchor.BendRadius));
@@ -2004,6 +1989,8 @@ namespace UI.AnchorCalculator.Services
 
         public void GetSvgBendDoubleAnchor(Anchor anchor)
         {
+            string iconDiameter = anchor.Material.TypeId == 1 ? "Арм" : "⌀";
+
             int lengthMax = 800; // max length of anchor
             int bendLengthMax = 300; // max length of anchor's bend
 
@@ -2013,7 +2000,7 @@ namespace UI.AnchorCalculator.Services
                 X_InitCoord += bendLengthMax; // X origin
 
             int gap = 20; // gap in out of max length  of anchor
-            int outPartHorSize = 30; // length output part of horizontal size
+            int outPartHorSize = 45; // length output part of horizontal size
             int outPartRadSize = 45; // length of shelf of radius size
 
             var svgDoc = new GcSvgDocument();
@@ -2284,7 +2271,7 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(lineSerifRightSizeDiamAnchor);
 
-            svgElements.Add(GetSvgTextElement($"⌀{anchor.Diameter}",
+            svgElements.Add(GetSvgTextElement($"{iconDiameter}{anchor.Diameter}",
                 X_InitCoord + anchor.ThreadDiameter / 2 + anchor.Diameter / 2 + 5,
                 Y_InitCoord + anchor.ThreadLength + outPartHorSize - 2,
                 0,

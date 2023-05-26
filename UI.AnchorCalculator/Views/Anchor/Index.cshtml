@@ -303,6 +303,8 @@
                           var DiametrInput = document.getElementById("Diameter");                         
                           var ThreadDiameterInput = document.getElementById("ThreadDiameter");
                           var diameterMaterial = response.materialJS.size;
+                          var typeMaterial = response.materialJS.type;
+                          console.log(response.materialJS.type);
                             DiametrInput.value = diameterMaterial;
                           var ThreadDiameterInt;
                             if (diameterMaterial >= 6 && diameterMaterial < 8) {
@@ -341,8 +343,11 @@
                             else if (diameterMaterial >= 30 && diameterMaterial < 36) {
                                 ThreadDiameterInt = 30;
                             }
-                            else if (diameterMaterial >= 36 && diameterMaterial < 42) {
+                            else if (diameterMaterial >= 36 && diameterMaterial < 42 && typeMaterial == 0) {
                                 ThreadDiameterInt = 36;
+                            }
+                            else if (diameterMaterial == 36 && typeMaterial == 1) {
+                                ThreadDiameterInt = 30;
                             }
                             else if (diameterMaterial >= 42 && diameterMaterial < 48) {
                                 ThreadDiameterInt = 42;
@@ -375,7 +380,15 @@
                             } else {
                                 BendRadius.value = 0;
                             }
-                      }}})}     
+                              if (diameterMaterial == 16 && typeMaterial == 1) {
+                             BendRadius.value = 20;}
+                              if (diameterMaterial == 20 && typeMaterial == 1) {
+                                BendRadius.value = 24;}
+                              if (diameterMaterial == 28 && typeMaterial == 1) {
+                                BendRadius.value = 36;}
+                              if (diameterMaterial == 36 && typeMaterial == 1) {
+                                BendRadius.value = 42;}
+                        }}})}     
           
 
                document.addEventListener("DOMContentLoaded", function(event) {

@@ -88,7 +88,8 @@
                     var stamp = '<table class="table table-bordered border-dark">' +
                         '<thead>' +
                         '<tr>' +
-                        '<th colspan="3" class="text-center">Анкер M' + threadDiameter + 'x' + length + '</th>' +
+                        '<th colspan="2" class="text-center">Анкер M' + threadDiameter + 'x' + length + '</th>' +
+                        '<td class="text-left">Тип заказа:</th>' +
                         '<td class="text-center">' + materialFullName + '</th>' +
                         '</tr>' +
                         '</thead>' +
