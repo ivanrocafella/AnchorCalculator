@@ -1,6 +1,7 @@
 ﻿using Core.AnchorCalculator.Entities;
 using Core.AnchorCalculator.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace UI.AnchorCalculator.ViewModels
@@ -27,6 +28,11 @@ namespace UI.AnchorCalculator.ViewModels
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLength { get; set; }
+        [Range(50, 100, ErrorMessage = "Укажите длину от 50 до 100")]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [Display(Name = "Длина резьбы, мм:")]
+        public int ThreadLengthSecond { get; set; }
+        public bool HasThreadSecond { get; set; }
         [Display(Name = "Диаметр резьбы, мм:")]
         public int ThreadDiameter { get; set; }
         [Display(Name = "Шаг резьбы, мм:")]
@@ -46,6 +52,7 @@ namespace UI.AnchorCalculator.ViewModels
         public double PriceMaterial { get; set; }
         public double BatchPriceMaterial { get; set; }
         public double LengthPathRoller { get; set; }
+        public double LengthBeforeEndPathRoller { get; set; }
         public string? Sebes { get; set; }
         public string? BatchSebes { get; set; }
         public string? UserName { get; set; }

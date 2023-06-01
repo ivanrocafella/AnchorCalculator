@@ -29,6 +29,7 @@
                     var month = (dateNow.getMonth() + 1).toString().padStart(2, '0');
                     var year = dateNow.getFullYear().toString();
                     var lengthPathRoller = Math.round(response.anchor.lengthPathRoller);
+                    var lengthBeforeEndPathRoller = Math.round(response.anchor.lengthBeforeEndPathRoller);
                     console.log(date);
                     console.log(month);
                     console.log(year);
@@ -89,7 +90,7 @@
                     var notes =
                         '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
                         '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
-                        '<p class="card-text">2. Длина пути ролика ' + lengthPathRoller + ' мм</p>' +
+                        '<p class="card-text">2. Длина до конца пути ролика ' + lengthBeforeEndPathRoller + ' мм</p>' +
                         '<p class="card-text">3. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
                         '<p class="card-text d-flex justify-content-between">' +
                         '<span class="mr-auto">4. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '' +

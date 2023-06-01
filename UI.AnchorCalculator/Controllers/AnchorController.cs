@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -79,7 +80,10 @@ namespace UI.AnchorCalculator.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> GetAnchorJsonResult(AnchorViewModel viewModel)
         {
+            ModelState.Remove(nameof(viewModel.HasThreadSecond));
             double maxBendLength = 60 + viewModel.BendRadius + double.Parse(viewModel.Diameter);
+            if (!viewModel.HasThreadSecond)
+                ModelState.Remove(nameof(viewModel.ThreadLengthSecond)); 
             if (viewModel.Kind == Kind.BendDouble.ToString())
                 maxBendLength = 60 + 2 * (viewModel.BendRadius + double.Parse(viewModel.Diameter));
             if ((viewModel.Kind == Kind.Bend.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
@@ -159,6 +163,8 @@ namespace UI.AnchorCalculator.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(AnchorViewModel viewModel)
         {
+            if (viewModel.ThreadLengthSecond == 0)
+                ModelState.Remove(nameof(viewModel.ThreadLengthSecond));
             if (ModelState.IsValid)
             {
                 User user = await CurrentUser.Get(_userManager, User.Identity.Name);

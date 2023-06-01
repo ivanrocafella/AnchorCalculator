@@ -80,7 +80,7 @@
                     <input type="radio" class="btn-check" asp-for="Kind" id="withBendDouble" autocomplete="off" onclick="showSubForm()" value="@Kind.BendDouble">
                     <label class="btn btn-outline-primary" for="withBendDouble">⊔</label>
                  </div>
-             </div>  
+             </div>
              <div id="subForm" class="row mb-3" style="display:none">
                 <div class="row mb-3">
                          <label asp-for="BendLength" class="col-sm-4 col-form-label"></label>
@@ -96,7 +96,20 @@
                          <span asp-validation-for="BendRadius" class="text-danger"></span>
                     </div>
                 </div>               
-             </div> 
+             </div>
+             <div id="threadLengthSecondDiv" class="form-check form-check-inline w-75 mb-3">
+                 <input class="form-check-input" asp-for="HasThreadSecond" type="checkbox" id="threadLengthSecondDivCheckbox" onchange="showthreadLengthSecondDivInp()">
+                 <label class="form-check-label" for="inlineCheckbox1">Резьба на втором конце</label>
+             </div>
+             <div class="row mb-3" id="threadLengthSecondDivInp" style="display:none">
+                 <div class="row mb-3">
+                    <label asp-for="ThreadLengthSecond" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="ThreadLengthSecond" type="text" class="form-control" id="ThreadLengthSecond">
+                        <span asp-validation-for="ThreadLengthSecond" class="text-danger"></span>
+                    </div>
+                 </div>
+             </div>
              <button type="submit" class="btn btn-dark mt-2">Расчитать</button>
            </form>
         </p>
@@ -216,6 +229,7 @@
                                                                                               '<input id="lengthtoDB" type="hidden" value="'+ response.anchorJS.length +'">' +
                                                                                               '<input id="threadDiametertoDB" type="hidden" value="'+ response.anchorJS.threadDiameter +'">' +
                                                                                               '<input id="threadLengthtoDB" type="hidden" value="'+ response.anchorJS.threadLength +'">' +
+                                                                                              '<input id="threadLengthSecondtoDB" type="hidden" value="' + response.anchorJS.threadLengthSecond + '">' +
                                                                                               '<input id="threadSteptoDB" type="hidden" value="'+ response.anchorJS.threadStep +'">' +
                                                                                               '<input id="quantitytoDB" type="hidden" value="'+ response.anchorJS.quantity +'">' +
                                                                                               '<input id="bendLengthtoDB" type="hidden" value="'+ response.anchorJS.bendLength +'">' +
@@ -231,6 +245,7 @@
                                                                                               '<input id="priceMaterialtoDB" type="hidden" value="' + response.anchorJS.priceMaterial + '">' +
                                                                                               '<input id="batchPriceMaterialToDB" type="hidden" value="' + response.anchorJS.batchPriceMaterial + '">' +
                                                                                               '<input id="lengthPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthPathRoller.toFixed(1) + '">' +
+                                                                                              '<input id="lengthBeforeEndPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthBeforeEndPathRoller.toFixed(1) + '">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
                                                                                               '<button type="button" id="btn_drawing_pdf" class="btn btn-secondary" disabled>Чертеж</button>' +
@@ -394,8 +409,10 @@
                document.addEventListener("DOMContentLoaded", function(event) {
                    $(':text').val('');
                    $("#BendLength").val('0');
+                   $("#ThreadLengthSecond").val('0');
                    $("#BendLength").inputmask("999", {"placeholder": ""});
                    $("#ThreadLength").inputmask("999", {"placeholder": ""});
+                   $("#ThreadLengthSecond").inputmask("999", { "placeholder": "" });
                    $("#Quantity").inputmask("9999", {"placeholder": ""});
                    $("#Length").inputmask("9999", {"placeholder": ""});
                      });
@@ -406,15 +423,44 @@
                  var withBend = document.getElementById("withBend");
                  var withBendDouble = document.getElementById("withBendDouble");
                  var subForm = document.getElementById("subForm");
+                 var threadLengthSecondDiv = document.getElementById("threadLengthSecondDiv");                
+                 var threadLengthSecondDivCheckbox = document.getElementById("threadLengthSecondDivCheckbox");
+                 var threadLengthSecondDivInp = document.getElementById("threadLengthSecondDivInp");
+                 var ThreadLengthSecond = document.getElementById("ThreadLengthSecond");
                  if (withBend.checked == true) {
                    subForm.style.display = "block";
+                   threadLengthSecondDiv.style.display = "none"
+                   threadLengthSecondDivCheckbox.checked = false
+                   threadLengthSecondDivInp.style.display = "none"
+                   ThreadLengthSecond.value = 0
                  } else if (withBendDouble.checked == true) {
                    subForm.style.display = "block";
+                   threadLengthSecondDiv.style.display = "none"
+                   threadLengthSecondDivCheckbox.checked = false
+                   threadLengthSecondDivInp.style.display = "none"
+                ThreadLengthSecond.value = 0
                  } else {
                    subForm.style.display = "none";
-                   document.getElementById("BendLength").value=0; 
+                   document.getElementById("BendLength").value=0;
+                   threadLengthSecondDiv.style.display = "block"
                  }
                }
+
+
+        function showthreadLengthSecondDivInp() {
+            var threadLengthSecondDivCheckbox = document.getElementById("threadLengthSecondDivCheckbox");
+            var straight = document.getElementById("straight");
+            var threadLengthSecondDivInp = document.getElementById("threadLengthSecondDivInp");
+            var ThreadLengthSecond = document.getElementById("ThreadLengthSecond");
+            if (straight.checked == true) {
+                if (threadLengthSecondDivCheckbox.checked == true) {
+                 threadLengthSecondDivInp.style.display = "block";
+                } else {
+                 threadLengthSecondDivInp.style.display = "none";
+                 ThreadLengthSecond.value = 0;
+                }               
+            }
+        }
 
         function changeFuncThreadStep(Diameter) {
             var inputThreadDiameter = document.getElementById("ThreadDiameter");
@@ -476,6 +522,8 @@
 
              var threadLengthtoDB = document.getElementById("threadLengthtoDB").value;
 
+             var threadLengthSecondtoDB = document.getElementById("threadLengthSecondtoDB").value;
+
              var threadSteptoDB = document.getElementById("threadSteptoDB").value;
 
              var quantitytoDB = document.getElementById("quantitytoDB").value
@@ -507,6 +555,8 @@
              var batchPriceMaterialToDB = document.getElementById("batchPriceMaterialToDB").value
 
              var lengthPathRollerToDB = document.getElementById("lengthPathRollerToDB").value
+
+            var lengthBeforeEndPathRollerToDB = document.getElementById("lengthBeforeEndPathRollerToDB").value
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
@@ -518,6 +568,7 @@
                         'length': lengthtoDB,
                         'threadDiameter': threadDiametertoDB,
                         'threadLength': threadLengthtoDB,
+                        'threadLengthSecond': threadLengthSecondtoDB,
                         'threadStep': threadSteptoDB,
                         'quantity': quantitytoDB,
                         'bendLength': bendLengthtoDB,
@@ -533,7 +584,8 @@
                         'kind' : kindToDB,
                         'priceMaterial' : priceMaterialtoDB,
                         'batchPriceMaterial': batchPriceMaterialToDB,
-                        'lengthPathRoller': lengthPathRollerToDB
+                        'lengthPathRoller': lengthPathRollerToDB,
+                        'lengthBeforeEndPathRoller': lengthBeforeEndPathRollerToDB
                         },
                         success: function(response)
                         {

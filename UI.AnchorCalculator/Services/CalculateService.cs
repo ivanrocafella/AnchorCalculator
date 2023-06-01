@@ -50,7 +50,12 @@ namespace UI.AnchorCalculator.Services
             };
 
             double priceBend = costWork.TimeBend * costWork.AreaWelding * quantityBend; // price of bending in $
-            double priceThreadRolling = anchor.Material.TimeTheradRolling * (anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
+            double priceThreadRolling;
+            if (anchor.Kind == Kind.BendDouble)
+                priceThreadRolling = anchor.Material.TimeTheradRolling * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
+            else
+                priceThreadRolling = anchor.Material.TimeTheradRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $ 
+            
             double priceBandSaw = anchor.Material.TimeBandSaw * costWork.AreaWelding + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
             double priceMaterialAnchor = ((anchor.BilletLength / 1000) * anchor.Material.PricePerMetr) / costWork.ExchangeDollar; // price of anchor's material in $
 
@@ -72,7 +77,14 @@ namespace UI.AnchorCalculator.Services
         {
             double lengthBillet;
             double kFactor = 1 / (Math.Log(1 + (double)anchor.Diameter / anchor.BendRadius)) - anchor.BendRadius / anchor.Diameter; // K-factor
-            anchor.LengthPathRoller = Math.PI * anchor.BendRadius * 1 / 2;
+            anchor.LengthPathRoller = Math.PI * anchor.BendRadius * 1 / 2;      
+            
+            if (anchor.Kind != Kind.Straight)
+                anchor.LengthBeforeEndPathRoller = anchor.Length - anchor.BendRadius - anchor.Diameter
+                                                 + (Math.PI * (anchor.BendRadius + kFactor * anchor.Diameter) * 1 / 2);
+            else
+                anchor.LengthBeforeEndPathRoller = 0;
+
             if (anchor.Kind == Kind.Bend)
             {               
                 lengthBillet = anchor.Length - anchor.BendRadius - anchor.Diameter

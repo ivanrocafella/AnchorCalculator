@@ -22,6 +22,7 @@ namespace Core.AnchorCalculator.Entities
         public int BendLength { get; set; }
         public int BendRadius { get; set; }
         public int ThreadLength { get; set; }
+        public int ThreadLengthSecond { get; set; }
         public int ThreadDiameter { get; set; }
         public float ThreadStep { get; set; }
         public double Amount { get; set; }
@@ -43,6 +44,7 @@ namespace Core.AnchorCalculator.Entities
         public double PriceMaterial { get; set; }
         public double BatchPriceMaterial { get; set; }
         public double LengthPathRoller { get; set; } // мм
+        public double LengthBeforeEndPathRoller { get; set; } // мм
 
         public int? MaterialId { get; set; }
         public Material? Material { get; set; }

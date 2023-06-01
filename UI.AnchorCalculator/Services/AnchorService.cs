@@ -76,7 +76,8 @@ namespace UI.AnchorCalculator.Services
                 ThreadStep = threadStep,
                 Quantity = viewModel.Quantity,
                 Material = await MService.GetMaterialById(viewModel.MaterialId),
-                KindId = (int)kinds.FirstOrDefault(e => e.ToString() == viewModel.Kind)
+                KindId = (int)kinds.FirstOrDefault(e => e.ToString() == viewModel.Kind),
+                ThreadLengthSecond = viewModel.ThreadLengthSecond
             };
             return anchor;
         }
@@ -191,6 +192,7 @@ namespace UI.AnchorCalculator.Services
                     BendLength = viewModel.BendLength,
                     BendRadius = viewModel.BendRadius,
                     ThreadLength = viewModel.ThreadLength,
+                    ThreadLengthSecond = viewModel.ThreadLengthSecond,
                     ThreadDiameter = viewModel.ThreadDiameter,
                     ThreadStep = float.Parse(viewModel.ThreadStep, CultureInfo.InvariantCulture),
                     Amount = double.Parse(viewModel.Amount, CultureInfo.InvariantCulture),
@@ -208,7 +210,9 @@ namespace UI.AnchorCalculator.Services
                     KindId = int.Parse(viewModel.Kind),
                     PriceMaterial = viewModel.PriceMaterial,
                     BatchPriceMaterial = viewModel.BatchPriceMaterial,
-                    LengthPathRoller = viewModel.LengthPathRoller
+                    LengthPathRoller = viewModel.LengthPathRoller,
+                    LengthBeforeEndPathRoller = viewModel.LengthBeforeEndPathRoller
+
                 };
                 await applicationDbContext.Anchors.AddAsync(anchor);
                 await applicationDbContext.SaveChangesAsync();
