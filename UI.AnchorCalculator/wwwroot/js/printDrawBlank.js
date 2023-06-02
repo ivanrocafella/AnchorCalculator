@@ -10,7 +10,11 @@
                     var firstName = 'Шпилька';  
                     var form; 
                     if (response.anchor.kind == 0) {
-                        form = 'прямая';
+                        if (response.anchor.threadLengthSecond > 0) {
+                            form = 'прямая две резьбы';
+                        } else {
+                            form = 'прямая';
+                        }  
                     } else if (response.anchor.kind == 1) {
                         form = 'гнутая';
                     } else {
@@ -28,7 +32,6 @@
                     var date = dateNow.getDate().toString().padStart(2, '0');;
                     var month = (dateNow.getMonth() + 1).toString().padStart(2, '0');
                     var year = dateNow.getFullYear().toString();
-                    var lengthPathRoller = Math.round(response.anchor.lengthPathRoller);
                     var lengthBeforeEndPathRoller = Math.round(response.anchor.lengthBeforeEndPathRoller);
                     console.log(date);
                     console.log(month);

@@ -80,8 +80,7 @@ namespace UI.AnchorCalculator.Services
             anchor.LengthPathRoller = Math.PI * anchor.BendRadius * 1 / 2;      
             
             if (anchor.Kind != Kind.Straight)
-                anchor.LengthBeforeEndPathRoller = anchor.Length - anchor.BendRadius - anchor.Diameter
-                                                 + (Math.PI * (anchor.BendRadius + kFactor * anchor.Diameter) * 1 / 2);
+                anchor.LengthBeforeEndPathRoller = anchor.Length - anchor.BendRadius + anchor.LengthPathRoller;
             else
                 anchor.LengthBeforeEndPathRoller = 0;
 
