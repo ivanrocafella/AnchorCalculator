@@ -8,19 +8,7 @@
                 if (response.success) {
                     console.log(response.anchor)
                     var firstName = 'Шпилька';  
-                    var form; 
-                    if (response.anchor.kind == 0) {
-                        if (response.anchor.threadLengthSecond > 0) {
-                            form = 'прямая две резьбы';
-                        } else {
-                            form = 'прямая';
-                        }  
-                    } else if (response.anchor.kind == 1) {
-                        form = 'гнутая';
-                    } else {
-                        firstName = 'Хомут';
-                        form = 'прямоугольный';
-                    }
+                    var form;                             
                     var executor = response.anchor.user.userName;
                     var billetLength = Math.round(response.anchor.billetLength);
                     var bendRadius = response.anchor.bendRadius;
@@ -89,14 +77,32 @@
                         fingerSide = "_";
                         mandrelSide = "_";
                     }
+                    var toleranceNum = 3;
+                    var lengthPathRollerEnd = '<p class="card-text" > 2. Длина до конца пути ролика ' + lengthBeforeEndPathRoller + ' мм</p>';          
+                    var tooling = '<span class="mr-auto">4. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '';
+                    if (response.anchor.kind == 0) {
+                        toleranceNum = 2;
+                        lengthPathRollerEnd = '';
+                        tooling = '';
+                        if (response.anchor.threadLengthSecond > 0) {
+                            form = 'прямая две резьбы';
+                        } else {
+                            form = 'прямая';
+                        }
+                    } else if (response.anchor.kind == 1) {
+                        form = 'гнутая';
+                    } else {
+                        firstName = 'Хомут';
+                        form = 'прямоугольный';
+                    }
 
                     var notes =
                         '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
                         '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
-                        '<p class="card-text">2. Длина до конца пути ролика ' + lengthBeforeEndPathRoller + ' мм</p>' +
-                        '<p class="card-text">3. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
+                        lengthPathRollerEnd +
+                        '<p class="card-text">'+ toleranceNum +'. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
                         '<p class="card-text d-flex justify-content-between">' +
-                        '<span class="mr-auto">4. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '' +
+                        tooling +
                         '</span><span style="text-align: right;"></span></p></div>';
 
                     var stamp = '<table class="table table-bordered border-dark">' +
