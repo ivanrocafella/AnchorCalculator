@@ -109,12 +109,12 @@
                         '<thead>' +
                         '<tr>' +
                         '<th colspan="2" class="text-center">' + firstName + ' M' + threadDiameter + 'x' + length + ' ' + form + '</th>' +
-                        '<td class="text-left">Тип заказа:</th>' +
-                        '<td class="text-center">' + materialFullName + '</th>' +
+                        '<td class="text-left">Тип заказа:</td>' +
+                        '<td class="text-center">' + materialFullName + '</td>' +
                         '</tr>' +
                         '</thead>' +
                         '<tbody>' +
-                        '<tr>' +
+                        '<tr>' +    
                         '<th scope="col" class="w-25">Исполнитель</th>' +
                         '<td class="w-30">' + executor + '</td>' +
                         '<td class="w-25"></td>' +
