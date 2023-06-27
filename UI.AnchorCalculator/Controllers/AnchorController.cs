@@ -75,7 +75,6 @@ namespace UI.AnchorCalculator.Controllers
         }
 
         // GET: AnchorController
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<JsonResult> GetAnchorJsonResult(AnchorViewModel viewModel)

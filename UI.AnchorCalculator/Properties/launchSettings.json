@@ -6,7 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:7149/acalcul;http://localhost:5149/acalcul",
+      "applicationUrl": "https://localhost:7149;http://localhost:5149",
       "dotnetRunMessages": true
     },
     "IIS Express": {
@@ -28,7 +28,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:56273/acalcul",
+      "applicationUrl": "http://localhost:56273/",
       "sslPort": 44367
     }
   }

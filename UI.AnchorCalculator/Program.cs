@@ -52,7 +52,7 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
+        logger.LogError(ex, "An error occurred while seeding the database.");   
     }
 };
 
@@ -74,8 +74,14 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Anchor}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "acalcul",
+        pattern: "acalcul/{action=Index}/{id?}",
+        defaults: new { controller = "Anchor" });
+    endpoints.MapDefaultControllerRoute();
+});
 
 app.Run();
