@@ -80,7 +80,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
              name: "acalcul",
-             pattern: "acalcul/{action=Index}/{id?}",
+             pattern: "/acalcul/{action=Index}/{id?}",
              defaults: new { controller = "Anchor" });
     endpoints.MapDefaultControllerRoute();
 });
