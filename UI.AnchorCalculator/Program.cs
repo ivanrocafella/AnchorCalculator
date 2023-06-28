@@ -76,13 +76,17 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-             name: "acalcul",
-             pattern: "acalcul/{action=Index}/{id?}",
-             defaults: new { controller = "Anchor" });
-    endpoints.MapDefaultControllerRoute();
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//             name: "acalcul",
+//             pattern: "acalcul/{action=Index}/{id?}",
+//             defaults: new { controller = "Anchor" });
+//    endpoints.MapDefaultControllerRoute();
+//});
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Anchor}/{action=Index}/{id?}");
 
 app.Run();
