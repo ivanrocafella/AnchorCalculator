@@ -10,7 +10,6 @@ using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Nlog.config"));
 
