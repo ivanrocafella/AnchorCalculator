@@ -59,7 +59,6 @@ using (var scope = app.Services.CreateScope())
 };
 
 
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -71,19 +70,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UsePathBase(new PathString("/anchor"));
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//             name: "acalcul",
-//             pattern: "/acalcul/{action=Index}/{id?}",
-//             defaults: new { controller = "Anchor" });
-//    endpoints.MapDefaultControllerRoute();
-//});
 
 app.MapControllerRoute(
     name: "default",
