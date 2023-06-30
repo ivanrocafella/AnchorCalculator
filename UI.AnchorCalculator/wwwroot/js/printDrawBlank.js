@@ -1,7 +1,7 @@
 ﻿function PrintDraw(id) {
     $.ajax(
-        {
-            url: '/Anchor/GetAnchorJsonResult',
+        {            
+            url: '/anchor/Anchor/GetAnchorJsonResult',
             type: 'GET',
             data: { 'id': id },
             success: function (response) {
