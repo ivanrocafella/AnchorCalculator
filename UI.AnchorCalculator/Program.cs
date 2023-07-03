@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using System;
+using System.Configuration;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);   
 
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Nlog.config"));
 
@@ -70,7 +71,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 
-app.UsePathBase("/anchor");
+//app.UsePathBase("/anchor");
 app.UseRouting();
 app.MapControllers();
 
