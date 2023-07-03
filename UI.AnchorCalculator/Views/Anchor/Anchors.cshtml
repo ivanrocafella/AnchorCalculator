@@ -92,7 +92,7 @@
           @foreach (var item in Model.Anchors)
     {
    <div id="anchor-@item.Id" class="col mb-5">
-    <div class="card h-100" onclick="location.href='/Anchor/Details/@item.Id';" style="cursor: pointer;">
+                <div class="card h-100" onclick="location.href='@Url.Action("Details","Anchor",new { id = item.Id })';" style="cursor: pointer;">
                     <div class="card-img-top" id="@item.Id" style="cursor: pointer;"></div>
        <div class="card-body">
         <h5 class="card-title"># @item.Id</h5>

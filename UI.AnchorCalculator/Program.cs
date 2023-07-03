@@ -42,6 +42,7 @@ builder.Services.AddTransient<SvgMakingService>();
 builder.Services.AddTransient<CalculateService>();
 
 var app = builder.Build();
+app.UsePathBase("/anchor");
 
 using (var scope = app.Services.CreateScope())
 {
