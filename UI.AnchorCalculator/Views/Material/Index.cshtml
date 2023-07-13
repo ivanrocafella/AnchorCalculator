@@ -35,8 +35,8 @@
           <td>@item.DateUpdate.ToLocalTime()</td>
           <td>
               <p class="btn-group-vertical">
-                 <a class="btn btn-dark btn-sm" asp-controller="Material" asp-action="Edit" role="button" asp-route-id="@item.Id">Редактировать</a>
-                 <button type="button" class="btn btn-danger btn-sm" onclick="deleteLine('@item.Id')">Удалить</button>
+              <a class="btn btn-dark btn-sm" asp-controller="Material" asp-action="Edit" role="button" asp-route-id="@item.Id">Редактировать</a>
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setIdForButton('@item.Id')">Удалить</button>
               </p>
           </td>         
       </tr>  
@@ -119,20 +119,56 @@
 </div>
 
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Удаление материала</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal_body" class="modal-body">
+                Вы действительно хотите удалить?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                <button id="btnDelCard" type="button" class="btn btn-danger">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
 <script>
-  function deleteLine(id) {
+    let materialLine;
+
+    function setIdForButton(id) {
+        console.log(id)
+        materialLine = document.getElementById(id)
+        var nameMaterial = materialLine.getElementsByTagName('td')[0].textContent;
+        var sizeMaterial = materialLine.getElementsByTagName('td')[1].textContent;
+        var btnDelCard = document.getElementById("btnDelCard");
+        var modal_body = document.getElementById("modal_body");
+        modal_body.innerHTML = 'Вы действительно хотите удалить материал ' + nameMaterial + ' '+sizeMaterial+' ?';
+        btnDelCard.setAttribute('onclick', 'deleteMaterial("' + id + '");');
+    }
+
+  function deleteMaterial(id) {
     event.preventDefault();
-    var element = document.getElementById(id)
-    element.remove();
     $.ajax(
                {
                    url: '@Url.Action("Delete","Material")',
                    type: 'POST',
-                   data: { 'id': id }
-               }
+                   data: { 'id': id },
+                   success: function(response)
+                   {
+                        if(response.success)
+                        {
+                          materialLine.remove();
+                        }
+                   }
+            }
            )
     }
 
@@ -217,3 +253,4 @@
         }        
         )
 </script>
+
