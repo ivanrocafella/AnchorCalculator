@@ -93,11 +93,11 @@ namespace UI.AnchorCalculator.Controllers
             try
             {
                 await _MService.DeleteById(id);
-                return Ok();
+                return Json(new { success = true });
             }
             catch
             {
-                return View();
+                return Json(new { success = false });
             }
         }
 
