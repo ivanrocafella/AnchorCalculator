@@ -66,8 +66,10 @@ namespace UI.AnchorCalculator.Services
             double costWorkInterm = ((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity
                 + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend);
             anchor.BatchSebes = (costWorkInterm + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar; // sebes of anchor in som
-            anchor.Sebes = anchor.BatchSebes / anchor.Quantity;
+            anchor.Sebes = anchor.BatchSebes / anchor.Quantity;            
             anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar;
+            if (anchor.Quantity < 50)
+                anchor.Amount *= 2;
             anchor.Price = anchor.Amount / anchor.Quantity;
             anchor.PriceMaterial = priceMaterialAnchor * costWork.ExchangeDollar; // price of anchor's material in som
             anchor.BatchPriceMaterial = anchor.PriceMaterial * anchor.Quantity; // price of anchor's material batch in som

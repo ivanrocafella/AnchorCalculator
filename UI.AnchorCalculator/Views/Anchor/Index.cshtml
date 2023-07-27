@@ -211,7 +211,16 @@
                         document.getElementById("descriptAnchor").style.display = "flex";
                         let PriceWeight = document.getElementById("PriceWeight");
                         let UserName = "@User.Identity.Name".replace(new RegExp('"', 'g'), '');
-                        if(response.isAuthen){
+                        var curDate = Date.now();
+                        var uptDate = new Date(response.anchorJS.material.dateUpdate);
+                        const milliseconds = 86400000;
+                        var dif = Math.ceil((curDate - uptDate.getTime()) / milliseconds);
+                        var warn_Update = '';
+                        if (dif > 14){
+                                warn_Update = 'Стоимость материала не обновлялась ' + dif + ' дней!';
+                        }
+                        console.log(warn_Update);
+                                if(response.isAuthen){
                                     Descript_to_blank = '<div id="Descript_to_blank"><h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
                                     '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
                                     '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
@@ -221,7 +230,8 @@
                                     '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
                                     '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
                                     '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
-                                    '<p class="card-text">Исполнитель: @User.Identity.Name</p></div>';
+                                    '<p class="card-text">Исполнитель: @User.Identity.Name</p>' +
+                                    '<p class="card-text text-danger">' + warn_Update + '</p></div>';
                                     document.getElementById("listBlank").innerHTML = Descript_to_blank;
                                                                                               PriceWeight.innerHTML = Descript_to_blank +
                                                                                               '<input id="materialIdtoDB" type="hidden" value="'+ response.anchorJS.materialId +'">' + 
