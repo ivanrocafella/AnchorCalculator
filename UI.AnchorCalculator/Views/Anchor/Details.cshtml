@@ -32,19 +32,17 @@
         <p class="card-text">Общая стоимость: @Math.Round(Model.Anchor.Amount, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text">Цена мат-ла на 1 шт: @Math.Round(Model.Anchor.PriceMaterial, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text">Цена мат-ла на @Model.Anchor.Quantity шт: @Math.Round(Model.Anchor.BatchPriceMaterial, MidpointRounding.AwayFromZero) сом</p>
-        <p class="card-text" id="material">Материал: @Model.MaterialName </p>
+        <p class="card-text" id="material">Материал: @Model.MaterialName</p>
         <p class="card-text" id="author">Исполнитель: @Model.UserName</p>
         <p class="card-text"><small class="text-muted">Дата создания: @Model.Anchor.DateCreate</small></p></div>     
       </div>
     </div>
   </div>
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-        <button type="button" class="btn btn-secondary" onclick="PrintBlank();">Печать бланка</button>
-        <button type="button" class="btn btn-dark" onclick="PrintDraw(@Model.Anchor.Id);">Печать чертежа</button>
+        <button type="button" class="btn btn-secondary" onclick="PrintBlank();">Рез-ты расчета</button>
+        <button type="button" class="btn btn-dark" onclick="PrintDraw(@Model.Anchor.Id);">Чертеж</button>
 </div>
 </div>
-
-
 
 <div id="drawing_pdf" class="card mb-3" style="display:none">
     <div id="svg_pdf" class="card-img-top"></div>
@@ -58,7 +56,7 @@
             <div id="svg_blank_pdf" class="card-img"></div>
         </div>
         <div class="col-md-8 card-img-overlay">
-            <div id="listBlank" class="card-body"></div>
+            <div id="listBlank" class="card-body pb-5"></div>
         </div>
     </div>
 </div>
@@ -66,7 +64,6 @@
 @section Scripts
 {
    <script>
-
       document.addEventListener('DOMContentLoaded', function(){
            var id = @Model.Anchor.Id;
            $.ajax(
@@ -85,9 +82,6 @@
                         }}})
 
       });
-
-
-
    </script>
 
    <script type="text/javascript" src="~/js/print.js"></script>

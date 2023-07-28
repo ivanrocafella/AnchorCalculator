@@ -130,8 +130,6 @@
                     var stamp_pdf = document.getElementById("stamp_pdf");
                     stamp_pdf.innerHTML = stamp;
 
-
-
                     console.log(drawing_pdf);
                     drawing_pdf.style.display = "block";
                     $('#drawing_pdf').printThis();
