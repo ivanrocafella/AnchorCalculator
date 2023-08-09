@@ -24,11 +24,11 @@ namespace UI.AnchorCalculator.ViewModels
         public int BendLength { get; set; }
         [Display(Name = "Радиус загиба, мм:")]
         public int BendRadius { get; set; }
-        [Range(50, 100, ErrorMessage = "Укажите длину от 50 до 100")]
+        [Range(50, 200, ErrorMessage = "Укажите длину от 50 до 200")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLength { get; set; }
-        [Range(50, 100, ErrorMessage = "Укажите длину от 50 до 100")]
+        [Range(50, 200, ErrorMessage = "Укажите длину от 50 до 200")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLengthSecond { get; set; }
@@ -57,6 +57,8 @@ namespace UI.AnchorCalculator.ViewModels
         public string? BatchSebes { get; set; }
         public string? UserName { get; set; }
         public string? Kind { get; set; }
+        [ValidateNever]
+        public string? Production { get; set; }
         public string? MaterialName { get; set; }
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }

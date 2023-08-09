@@ -10,7 +10,7 @@ namespace UI.AnchorCalculator.Services
         public int X_InitCoord = 325; // X origin
         const int Y_InitCoord = 100; // Y origin
         const int viewWidth = 900;
-        const int viewHeight = 1100;
+        const int viewHeight = 1200;
         const int Width = 900;
         const int Height = 900;
         public void GetSvgStraightAnchor(Anchor anchor)

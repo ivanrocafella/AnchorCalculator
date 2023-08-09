@@ -77,7 +77,8 @@ namespace UI.AnchorCalculator.Services
                 Quantity = viewModel.Quantity,
                 Material = await MService.GetMaterialById(viewModel.MaterialId),
                 KindId = (int)kinds.FirstOrDefault(e => e.ToString() == viewModel.Kind),
-                ThreadLengthSecond = viewModel.ThreadLengthSecond
+                ThreadLengthSecond = viewModel.ThreadLengthSecond,
+                ProductionId = viewModel.ThreadLength > 100 ? (int)Production.CuttingThread : (int)Production.RollingThread,
             };
             return anchor;
         }

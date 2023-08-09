@@ -40,6 +40,12 @@ namespace Core.AnchorCalculator.Entities
         }
         [EnumDataType(typeof(Kind))]
         public Kind Kind { get; set; }
+        public virtual int ProductionId
+        {
+            get => (int)Production;
+            set => Production = (Production)value;
+        }
+        public Production Production { get; set; }
         public double PricePerMetr { get; set; }
         public double PriceMaterial { get; set; }
         public double BatchPriceMaterial { get; set; }
