@@ -19,6 +19,9 @@ namespace UI.AnchorCalculator.Extensions
         public double TimeBend { get; set; } // unity of measure = ч
         public double TimeSetBend { get; set; } // unity of measure = ч
         public double Margin { get; set; } // unity of measure = %
+        public double AreaLockSmith { get; set; } // unity of measure = $
+        public double PricePlashka { get; set; } // unity of measure = $ стоимость плашки
+        public double PriceCutter { get; set; } // unity of measure = $ стоимость резца
 
         public async Task AddCostWork(CostWork costWork, IWebHostEnvironment appEnvironment)
         {

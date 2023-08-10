@@ -30,7 +30,7 @@ namespace UI.AnchorCalculator.Services
                 TypeId = viewModel.TypeId,
                 PricePerMetr = viewModel.PricePerMetr,
                 DateUpdate = DateTime.UtcNow,
-                TimeTheradRolling = viewModel.TimeTheradRolling,
+                TimeThreadRolling = viewModel.TimeThreadRolling,
                 TimeBandSaw = viewModel.TimeBandSaw,
                 LengthBladeBandSaw = viewModel.LengthBladeBandSaw
         };
@@ -47,7 +47,7 @@ namespace UI.AnchorCalculator.Services
             material.Size = viewModel.Size;
             material.PricePerMetr = viewModel.PricePerMetr;
             material.DateUpdate = DateTime.UtcNow;
-            material.TimeTheradRolling = viewModel.TimeTheradRolling;
+            material.TimeThreadRolling = viewModel.TimeTheradRolling;
             material.TimeBandSaw = viewModel.TimeBandSaw;
             material.LengthBladeBandSaw = viewModel.LengthBladeBandSaw;
             _applicationDbContext.Materials.Update(material);
@@ -107,7 +107,7 @@ namespace UI.AnchorCalculator.Services
                 Types = materialViewModel.Types,
                 Names = materialViewModel.Names.Where(e => e != material.Name).ToArray(),
                 Type = material.Type,
-                TimeTheradRolling = material.TimeTheradRolling,
+                TimeTheradRolling = material.TimeThreadRolling,
                 TimeBandSaw = material.TimeBandSaw,
                 LengthBladeBandSaw = material.LengthBladeBandSaw
             };
@@ -134,7 +134,10 @@ namespace UI.AnchorCalculator.Services
                 TimeSetTheradRolling = materialsAndCostWorkViewModel.CostWork.TimeSetTheradRolling,
                 TimeBend = materialsAndCostWorkViewModel.CostWork.TimeBend,
                 TimeSetBend = materialsAndCostWorkViewModel.CostWork.TimeSetBend,
-                Margin = materialsAndCostWorkViewModel.CostWork.Margin
+                Margin = materialsAndCostWorkViewModel.CostWork.Margin,
+                AreaLockSmith = materialsAndCostWorkViewModel.CostWork.AreaLockSmith,
+                PricePlashka = materialsAndCostWorkViewModel.CostWork.PricePlashka,
+                PriceCutter = materialsAndCostWorkViewModel.CostWork.PriceCutter
             };
             await costWork.AddCostWork(costWork,environment);
         }

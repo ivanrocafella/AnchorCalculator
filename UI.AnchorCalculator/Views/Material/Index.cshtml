@@ -29,7 +29,7 @@
           <td>@(String.Format("{0} {1}", "Ø", item.Size))</td>
           <td>@item.Type.ToString()</td>
           <td>@item.PricePerMetr</td>
-          <td>@item.TimeTheradRolling</td>
+          <td>@item.TimeThreadRolling</td>
           <td>@item.TimeBandSaw</td>
           <td>@item.LengthBladeBandSaw</td>
           <td>@item.DateUpdate.ToLocalTime()</td>
@@ -60,6 +60,10 @@
                <div class="col-sm-3 mb-1">
                             <input asp-for="CostWork.AreaWelding" type="text" class="form-control" id="AreaWelding" value="@Model.CostWork.AreaWelding">
                         </div>
+                        <label for="AreaLockSmith" class="col-sm-9 col-form-label ml-0 pl-0">Слесарный участок,$:</label>
+                <div class="col-sm-3 mb-1">
+                            <input asp-for="CostWork.AreaLockSmith" type="text" class="form-control" id="AreaLockSmith" value="@Model.CostWork.AreaLockSmith">
+                </div>
                         <label for="LengthEffective" class="col-sm-9 col-form-label ml-0 pl-0">Расчетная длина,мм:</label>
                <div class="col-sm-3 mb-1">
                             <input asp-for="CostWork.LengthEffective" type="text" class="form-control" id="LengthEffective" value="100" readonly>
@@ -68,6 +72,14 @@
                <div class="col-sm-3 mb-1">
                             <input asp-for="CostWork.PriceBandSaw" type="text" class="form-control" id="PriceBandSaw" value="@Model.CostWork.PriceBandSaw">
                         </div>
+                <label for="PricePlashka" class="col-sm-9 col-form-label ml-0 pl-0">Цена плашки,$:</label>
+                <div class="col-sm-3 mb-1">
+                    <input asp-for="CostWork.PricePlashka" type="text" class="form-control" id="PricePlashka" value="@Model.CostWork.PricePlashka">
+                </div>
+                        <label for="PriceCutter" class="col-sm-9 col-form-label ml-0 pl-0">Цена резца,$:</label>
+                <div class="col-sm-3 mb-1">
+                            <input asp-for="CostWork.PriceCutter" type="text" class="form-control" id="PriceCutter" value="@Model.CostWork.PriceCutter">
+                </div>
                         <label for="TimeSetTheradRolling" class="col-sm-9 col-form-label ml-0 pl-0">Время настройки резьбонакатного станка,$:</label>
                <div class="col-sm-3 mb-1">
                             <input asp-for="CostWork.TimeSetTheradRolling" type="text" class="form-control" id="TimeSetTheradRolling" value="@Model.CostWork.TimeSetTheradRolling">
@@ -180,6 +192,24 @@
             max: 9999.9999
         });
         $("#AreaWelding").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#AreaLockSmith").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#PricePlashka").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#PriceCutter").inputmask({
             alias: 'decimal',
             allowMinus: false,
             digits: 4,
