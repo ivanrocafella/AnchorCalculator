@@ -11,8 +11,11 @@
       <th scope="col">Тиg профиля</th>
       <th scope="col">Цена за метр,сом</th>
       <th scope="col">Время накатки резьбы,ч</th>
+      <th scope="col">Время нарезки резьбы,ч</th>
       <th scope="col">Время лентопила,ч</th>
       <th scope="col">Длина полотна лентопила,мм</th>
+      <th scope="col">Плашка,шт</th>
+      <th scope="col">Резец,шт</th>
       <th scope="col">Дата обнов-я</th>
     </tr>
     </thead>
@@ -30,8 +33,11 @@
           <td>@item.Type.ToString()</td>
           <td>@item.PricePerMetr</td>
           <td>@item.TimeThreadRolling</td>
+          <td>@item.TimeThreadCutting</td>
           <td>@item.TimeBandSaw</td>
           <td>@item.LengthBladeBandSaw</td>
+          <td>@item.Plashka</td>
+          <td>@item.Cutter</td>
           <td>@item.DateUpdate.ToLocalTime()</td>
           <td>
               <p class="btn-group-vertical">

@@ -45,6 +45,13 @@
       </div>
   </div>
   <div class="row mb-3">
+      <label asp-for="TimeThreadCutting" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+             <input asp-for="TimeThreadCutting" type="text" class="form-control" id="TimeThreadCutting">
+             <span asp-validation-for="TimeThreadCutting" class="text-danger"></span>
+      </div>
+  </div>
+  <div class="row mb-3">
         <label asp-for="TimeBandSaw" class="col-sm-2 col-form-label"></label>
       <div class="col-sm-10">
             <input asp-for="TimeBandSaw" type="text" class="form-control" id="timeBandSaw">
@@ -57,6 +64,20 @@
             <input asp-for="LengthBladeBandSaw" type="text" class="form-control" id="lengthBladeBandSaw">
            <span asp-validation-for="LengthBladeBandSaw" class="text-danger"></span>
      </div>
+  </div>
+  <div class="row mb-3">
+      <label asp-for="Plashka" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+          <input asp-for="Plashka" type="text" class="form-control" id="Plashka">
+          <span asp-validation-for="Plashka" class="text-danger"></span>
+      </div>
+  </div>
+  <div class="row mb-3">
+      <label asp-for="Cutter" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+            <input asp-for="Cutter" type="text" class="form-control" id="Cutter">
+          <span asp-validation-for="Cutter" class="text-danger"></span>
+      </div>
   </div>
   <button type="submit" class="btn btn-dark">Добавить</button>
 </form>

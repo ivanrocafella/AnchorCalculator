@@ -47,6 +47,13 @@
       </div>
   </div>
   <div class="row mb-3">
+      <label asp-for="TimeThreadCutting" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+            <input asp-for="TimeThreadCutting" type="number" class="form-control" id="TimeThreadCutting">
+          <span asp-validation-for="TimeThreadCutting" class="text-danger"></span>
+      </div>
+  </div>
+  <div class="row mb-3">
       <label asp-for="TimeBandSaw" class="col-sm-2 col-form-label"></label>
       <div class="col-sm-10">
            <input asp-for="TimeBandSaw" type="number" class="form-control" id="timeBandSaw">
@@ -58,6 +65,20 @@
       <div class="col-sm-10">
            <input asp-for="LengthBladeBandSaw" type="number" class="form-control" id="lengthBladeBandSaw">
           <span asp-validation-for="LengthBladeBandSaw" class="text-danger"></span>
+      </div>
+  </div>
+  <div class="row mb-3">
+      <label asp-for="Plashka" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+          <input asp-for="Plashka" type="number" class="form-control" id="Plashka">
+          <span asp-validation-for="Plashka" class="text-danger"></span>
+      </div>
+  </div>
+  <div class="row mb-3">
+      <label asp-for="Cutter" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+          <input asp-for="Cutter" type="number" class="form-control" id="Cutter">
+          <span asp-validation-for="Cutter" class="text-danger"></span>
       </div>
   </div>
   <input asp-for="@Model.Id" type="hidden" value="@Model.Id">

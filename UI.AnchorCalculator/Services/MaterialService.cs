@@ -31,9 +31,12 @@ namespace UI.AnchorCalculator.Services
                 PricePerMetr = viewModel.PricePerMetr,
                 DateUpdate = DateTime.UtcNow,
                 TimeThreadRolling = viewModel.TimeThreadRolling,
+                TimeThreadCutting = viewModel.TimeThreadCutting,
                 TimeBandSaw = viewModel.TimeBandSaw,
-                LengthBladeBandSaw = viewModel.LengthBladeBandSaw
-        };
+                LengthBladeBandSaw = viewModel.LengthBladeBandSaw,
+                Plashka = viewModel.Plashka,
+                Cutter = viewModel.Cutter
+            };
             await _applicationDbContext.Materials.AddAsync(material);
             await _applicationDbContext.SaveChangesAsync();
         }
@@ -48,8 +51,11 @@ namespace UI.AnchorCalculator.Services
             material.PricePerMetr = viewModel.PricePerMetr;
             material.DateUpdate = DateTime.UtcNow;
             material.TimeThreadRolling = viewModel.TimeTheradRolling;
+            material.TimeThreadCutting = viewModel.TimeThreadCutting;
             material.TimeBandSaw = viewModel.TimeBandSaw;
             material.LengthBladeBandSaw = viewModel.LengthBladeBandSaw;
+            material.Plashka = viewModel.Plashka;
+            material.Cutter = viewModel.Cutter;
             _applicationDbContext.Materials.Update(material);
             await _applicationDbContext.SaveChangesAsync();
         }
@@ -108,8 +114,11 @@ namespace UI.AnchorCalculator.Services
                 Names = materialViewModel.Names.Where(e => e != material.Name).ToArray(),
                 Type = material.Type,
                 TimeTheradRolling = material.TimeThreadRolling,
+                TimeThreadCutting = material.TimeThreadCutting,
                 TimeBandSaw = material.TimeBandSaw,
-                LengthBladeBandSaw = material.LengthBladeBandSaw
+                LengthBladeBandSaw = material.LengthBladeBandSaw,
+                Plashka = material.Plashka,
+                Cutter = material.Cutter,
             };
             return viewModelForEdit;
         }

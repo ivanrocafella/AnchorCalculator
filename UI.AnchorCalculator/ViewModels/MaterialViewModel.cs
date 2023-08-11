@@ -24,11 +24,11 @@ namespace UI.AnchorCalculator.ViewModels
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public double TimeThreadCutting { get; set; } // unity of measure = н
         [Range(0, Double.MaxValue, ErrorMessage = "Укажите кол-во плашки")]
-        [Display(Name = "Кол-во плашки")]
+        [Display(Name = "Кол-во плашки, шт")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public double Plashka { get; set; } // unity of measure = 1 плашка
         [Range(0, Double.MaxValue, ErrorMessage = "Укажите кол-во резца")]
-        [Display(Name = "Кол-во резца")]
+        [Display(Name = "Кол-во резца, шт")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public double Cutter { get; set; } // unity of measure = 1 резец
         [Range(0, Double.MaxValue, ErrorMessage = "Укажите время лентопила")]

@@ -51,11 +51,20 @@ namespace UI.AnchorCalculator.Services
 
             double priceBend = costWork.TimeBend * costWork.AreaWelding * quantityBend; // price of bending in $
             double priceThreadRolling;
+            double priceThreadCutting;
             if (anchor.Kind == Kind.BendDouble)
-                priceThreadRolling = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
+            { 
+              priceThreadRolling = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
+              priceThreadCutting = anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaLockSmith
+                       + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
+            }
             else
+            { 
                 priceThreadRolling = anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $ 
-            
+                priceThreadCutting = anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaLockSmith
+                    + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
+            }
+
             double priceBandSaw = anchor.Material.TimeBandSaw * costWork.AreaWelding + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
             double priceMaterialAnchor = ((anchor.BilletLength / 1000) * anchor.Material.PricePerMetr) / costWork.ExchangeDollar; // price of anchor's material in $
 
@@ -63,8 +72,14 @@ namespace UI.AnchorCalculator.Services
             if (anchor.Kind != Kind.Straight)
                 setBend = costWork.TimeSetBend * costWork.AreaWelding;
 
-            double costWorkInterm = ((priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity
-                + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend);
+            double costWorkInterm;
+            if (anchor.Production == 0)
+                costWorkInterm = (priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity
+                    + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend;
+            else
+                costWorkInterm = (priceBend + priceThreadCutting + priceBandSaw) * anchor.Quantity
+                    + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend;
+
             anchor.BatchSebes = (costWorkInterm + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar; // sebes of anchor in som
             anchor.Sebes = anchor.BatchSebes / anchor.Quantity;            
             anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar;
