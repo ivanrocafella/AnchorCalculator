@@ -21,6 +21,12 @@
                     var month = (dateNow.getMonth() + 1).toString().padStart(2, '0');
                     var year = dateNow.getFullYear().toString();
                     var lengthBeforeEndPathRoller = Math.round(response.anchor.lengthBeforeEndPathRoller);
+                    var productionStr = '';
+                    if (response.anchor.productionId == 0) {
+                        productionStr = 'Изготовить на резьбонакатном станке';
+                    } else {
+                        productionStr = 'Изготовить на токарном станке';
+                    }
                     console.log(date);
                     console.log(month);
                     console.log(year);
@@ -78,10 +84,12 @@
                         mandrelSide = "_";
                     }
                     var toleranceNum = 3;
+                    var productionNum = 5;
                     var lengthPathRollerEnd = '<p class="card-text" > 2. Длина до конца пути ролика ' + lengthBeforeEndPathRoller + ' мм</p>';          
                     var tooling = '<span class="mr-auto">4. Оснастка: центр: палец ' + fingerCenter + ', оправка: ' + mandrelCenter + '; бок: палец ' + fingerSide + ', оправка ' + mandrelSide + '';
                     if (response.anchor.kind == 0) {
                         toleranceNum = 2;
+                        productionNum = 3;
                         lengthPathRollerEnd = '';
                         tooling = '';
                         if (response.anchor.threadLengthSecond > 0) {
@@ -101,9 +109,9 @@
                         '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
                         lengthPathRollerEnd +
                         '<p class="card-text">'+ toleranceNum +'. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
-                        '<p class="card-text d-flex justify-content-between">' +
-                        tooling +
-                        '</span><span style="text-align: right;"></span></p></div>';
+                        '<p class="card-text"' +
+                        tooling +'</p>' +
+                        '<p class="card-text" > ' + productionNum +'. '+ productionStr +'</p></div > ';
 
                     var stamp = '<table class="table table-bordered border-dark">' +
                         '<thead>' +

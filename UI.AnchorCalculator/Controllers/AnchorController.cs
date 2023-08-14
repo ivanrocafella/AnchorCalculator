@@ -102,7 +102,7 @@ namespace UI.AnchorCalculator.Controllers
                 ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
             }
             if (ModelState.IsValid)
-            {
+                {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
                 if (Anchor.Kind == Kind.Straight || Anchor.BendRadius == 0)
                 {

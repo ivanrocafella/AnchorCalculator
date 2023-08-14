@@ -259,6 +259,7 @@
                                                                                               '<input id="batchPriceMaterialToDB" type="hidden" value="' + response.anchorJS.batchPriceMaterial + '">' +
                                                                                               '<input id="lengthPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthPathRoller.toFixed(1) + '">' +
                                                                                               '<input id="lengthBeforeEndPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthBeforeEndPathRoller.toFixed(1) + '">' +
+                                                                                              '<input id="productionIdToDB" type="hidden" value="' + response.anchorJS.productionId + '">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
                                                                                               '<button type="button" id="btn_drawing_pdf" class="btn btn-secondary" disabled>Чертеж</button>' +
@@ -767,7 +768,10 @@
 
              var lengthPathRollerToDB = document.getElementById("lengthPathRollerToDB").value
 
-            var lengthBeforeEndPathRollerToDB = document.getElementById("lengthBeforeEndPathRollerToDB").value
+             var lengthBeforeEndPathRollerToDB = document.getElementById("lengthBeforeEndPathRollerToDB").value
+
+            var productionIdToDB = document.getElementById("productionIdToDB").value
+
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
@@ -796,7 +800,8 @@
                         'priceMaterial' : priceMaterialtoDB,
                         'batchPriceMaterial': batchPriceMaterialToDB,
                         'lengthPathRoller': lengthPathRollerToDB,
-                        'lengthBeforeEndPathRoller': lengthBeforeEndPathRollerToDB
+                        'lengthBeforeEndPathRoller': lengthBeforeEndPathRollerToDB,
+                        'productionId': productionIdToDB
                         },
                         success: function(response)
                         {

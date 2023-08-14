@@ -58,7 +58,7 @@ namespace UI.AnchorCalculator.ViewModels
         public string? UserName { get; set; }
         public string? Kind { get; set; }
         [ValidateNever]
-        public string? Production { get; set; }
+        public int ProductionId { get; set; }
         public string? MaterialName { get; set; }
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }
