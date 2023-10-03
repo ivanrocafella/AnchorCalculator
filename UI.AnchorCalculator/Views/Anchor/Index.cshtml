@@ -659,12 +659,12 @@
                    threadLengthSecondDivInp.style.display = "none"
                 ThreadLengthSecond.value = 0
                  } else {
+                     subForm.style.display = "none";
+                     document.getElementById("BendLength").value = 0;
                      if (!hasThreadDivCheckbox.checked) {
                          threadLengthSecondDiv.style.display = "none"
                          threadLengthSecondDivCheckbox.checked = false
-                     } else {
-                         subForm.style.display = "none";
-                         document.getElementById("BendLength").value = 0;
+                     } else {                                                  
                          threadLengthSecondDiv.style.display = "block"
                      }
                  }

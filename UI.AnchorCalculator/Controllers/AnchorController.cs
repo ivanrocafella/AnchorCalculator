@@ -86,26 +86,18 @@ namespace UI.AnchorCalculator.Controllers
             {
                 maxBendLength += diameterParse;
                 if (viewModel.ThreadDiameter > diameterParse)
-                {
                     ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
-                }
             }            
             if (!viewModel.HasThreadSecond)
                 ModelState.Remove(nameof(viewModel.ThreadLengthSecond)); 
             if (viewModel.Kind == Kind.BendDouble.ToString())
                 maxBendLength = 60 + 2 * (viewModel.BendRadius + double.Parse(viewModel.Diameter));
             if ((viewModel.Kind == Kind.Bend.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
-            {
                 ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
-            }
             if ((viewModel.Kind == Kind.BendDouble.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
-            {
                 ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
-            }
             if (viewModel.ThreadDiameter == 0)
-            {
                 ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
-            }
             if (ModelState.IsValid)
                 {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
@@ -132,13 +124,9 @@ namespace UI.AnchorCalculator.Controllers
                         , errorMessageBendLen = ModelState.Root.Children[5].Errors[0].ErrorMessage
                     });
                 else if (ModelState.Root.Children[10].Errors.Count > 0)
-                {
                     return Json(new { success = false, errorMessageDiam = ModelState.Root.Children[10].Errors[0].ErrorMessage });
-                }
                 else if (ModelState.Root.Children[5].Errors.Count > 0)
-                {
                     return Json(new { success = false, errorMessageBendLen = ModelState.Root.Children[5].Errors[0].ErrorMessage });
-                }
                 else
                     return Json(new { succes = false });
             }    
