@@ -177,6 +177,7 @@
     <script>
 
         function unableDisableThreadInput() {
+            changeFuncDiamAnchor();
             var hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
             var threadLengthSecondDivCheckbox = document.getElementById("threadLengthSecondDivCheckbox");
             var threadLengthSecondDiv = document.getElementById("threadLengthSecondDiv");
@@ -298,6 +299,7 @@
                         }
                         
                     } else {
+                            console.log(response.errorMessageBendLen);
                         if(typeof response.errorMessageDiam !== "undefined")
                         {
                            if(response.errorMessageDiam == "The value '' is invalid.")
@@ -314,7 +316,7 @@
                            ThreadDiameterValid.innerHTML = "";
                         };
 
-                         if(typeof response.errorMessageBendLen !== "undefined")
+                        if(typeof response.errorMessageBendLen !== "undefined")
                         {  
                            if(response.errorMessageBendLen == "The value '' is invalid.")
                            {
@@ -389,219 +391,207 @@
                       data: { 'id': selectedValue },
                       success: function (response) {
                       if(response.success) {
+                          var hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
                           var DiametrInput = document.getElementById("Diameter");                         
                           var ThreadDiameterInput = document.getElementById("ThreadDiameter");
                           var diameterMaterial = response.materialJS.size;
                           var typeMaterial = response.materialJS.type;
                           console.log(response.materialJS.type);
-                          DiametrInput.value = diameterMaterial;
+                          if (diameterMaterial == 0) {
+                            DiametrInput.value = '';
+                          } else {
+                            DiametrInput.value = diameterMaterial;
+                          }                          
                           var ThreadDiameterInt;
-                            if (inputThreadLengthValue > 100 || inputThreadLengthSecondValue > 100) {
-                                if (diameterMaterial >= 6 && diameterMaterial < 10) {
-                                    ThreadDiameterInt = 0;
-                                }
-                                else if (diameterMaterial >= 10 && diameterMaterial < 12) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 10;  
+                          if (!hasThreadDivCheckbox.checked) {
+                                ThreadDiameterInt = 0
+                          } else {
+                                if (inputThreadLengthValue > 100 || inputThreadLengthSecondValue > 100) {
+                                    if (diameterMaterial >= 6 && diameterMaterial < 10) {
+                                        ThreadDiameterInt = 0;
                                     }
-                                    else{
-                                        ThreadDiameterInt = 6;
-                                    }
-                                }
-                                else if (diameterMaterial >= 12 && diameterMaterial < 14) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 12;
-                                    }
-                                    else {
-                                        ThreadDiameterInt = 8;
-                                    }
-                                }
-                                else if (diameterMaterial >= 14 && diameterMaterial < 16) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 14;
-                                    }
-                                    else {
-                                        ThreadDiameterInt = 10;
-                                    }
-                                }
-                                else if (diameterMaterial >= 16 && diameterMaterial < 18) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 16;
-                                    }
-                                    else {
-                                        ThreadDiameterInt = 12;
-                                    }
-                                }
-                                else if (diameterMaterial >= 18 && diameterMaterial < 20) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 18;
-                                    }
-                                    else {
-                                        ThreadDiameterInt = 14;
-                                    }
-                                }
-                                else if (diameterMaterial >= 20 && diameterMaterial < 22) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 20;
-                                    }
-                                    else {
-                                        ThreadDiameterInt = 16;
-                                    }
-                                }
-                                else if (diameterMaterial >= 22 && diameterMaterial < 32) {
-                                    if (typeMaterial == 0) {
-                                        if (diameterMaterial >= 22 && diameterMaterial < 24) {
-                                            ThreadDiameterInt = 22;
+                                    else if (diameterMaterial >= 10 && diameterMaterial < 12) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 10;
                                         }
-                                        else if (diameterMaterial >= 24 && diameterMaterial < 27) {
-                                            ThreadDiameterInt = 24;
-                                        }
-                                        else if (diameterMaterial >= 27 && diameterMaterial < 30) {
-                                            ThreadDiameterInt = 27;
-                                        }
-                                        else if (diameterMaterial >= 30 && diameterMaterial < 32) {
-                                            ThreadDiameterInt = 30;
+                                        else {
+                                            ThreadDiameterInt = 6;
                                         }
                                     }
-                                    else {
-                                        if (diameterMaterial >= 22 && diameterMaterial < 25) {
+                                    else if (diameterMaterial >= 12 && diameterMaterial < 14) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 12;
+                                        }
+                                        else {
+                                            ThreadDiameterInt = 8;
+                                        }
+                                    }
+                                    else if (diameterMaterial >= 14 && diameterMaterial < 16) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 14;
+                                        }
+                                        else {
+                                            ThreadDiameterInt = 10;
+                                        }
+                                    }
+                                    else if (diameterMaterial >= 16 && diameterMaterial < 18) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 16;
+                                        }
+                                        else {
+                                            ThreadDiameterInt = 12;
+                                        }
+                                    }
+                                    else if (diameterMaterial >= 18 && diameterMaterial < 20) {
+                                        if (typeMaterial == 0) {
                                             ThreadDiameterInt = 18;
                                         }
-                                        else if (diameterMaterial >= 25 && diameterMaterial < 28) {
-                                            ThreadDiameterInt = 22;
-                                        }
-                                        else if (diameterMaterial >= 28 && diameterMaterial < 32) {
-                                            ThreadDiameterInt = 24;
+                                        else {
+                                            ThreadDiameterInt = 14;
                                         }
                                     }
-                                }
-                                else if (diameterMaterial >= 32 && diameterMaterial < 36) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 30;
+                                    else if (diameterMaterial >= 20 && diameterMaterial < 22) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 20;
+                                        }
+                                        else {
+                                            ThreadDiameterInt = 16;
+                                        }
                                     }
-                                    else {
-                                        ThreadDiameterInt = 27;
+                                    else if (diameterMaterial >= 22 && diameterMaterial < 32) {
+                                        if (typeMaterial == 0) {
+                                            if (diameterMaterial >= 22 && diameterMaterial < 24) {
+                                                ThreadDiameterInt = 22;
+                                            }
+                                            else if (diameterMaterial >= 24 && diameterMaterial < 27) {
+                                                ThreadDiameterInt = 24;
+                                            }
+                                            else if (diameterMaterial >= 27 && diameterMaterial < 30) {
+                                                ThreadDiameterInt = 27;
+                                            }
+                                            else if (diameterMaterial >= 30 && diameterMaterial < 32) {
+                                                ThreadDiameterInt = 30;
+                                            }
+                                        }
+                                        else {
+                                            if (diameterMaterial >= 22 && diameterMaterial < 25) {
+                                                ThreadDiameterInt = 18;
+                                            }
+                                            else if (diameterMaterial >= 25 && diameterMaterial < 28) {
+                                                ThreadDiameterInt = 22;
+                                            }
+                                            else if (diameterMaterial >= 28 && diameterMaterial < 32) {
+                                                ThreadDiameterInt = 24;
+                                            }
+                                        }
                                     }
-                                }
-                                else if (diameterMaterial >= 36 && diameterMaterial < 42) {
-                                    if (typeMaterial == 0) {
-                                        ThreadDiameterInt = 36;
-                                    }
-                                    else {
-                                        if (diameterMaterial >= 36 && diameterMaterial < 40){
+                                    else if (diameterMaterial >= 32 && diameterMaterial < 36) {
+                                        if (typeMaterial == 0) {
                                             ThreadDiameterInt = 30;
                                         }
-                                        else if (diameterMaterial >= 40 && diameterMaterial < 42) {
-                                            ThreadDiameterInt = 36;
+                                        else {
+                                            ThreadDiameterInt = 27;
                                         }
                                     }
+                                    else if (diameterMaterial >= 36 && diameterMaterial < 42) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 36;
+                                        }
+                                        else {
+                                            if (diameterMaterial >= 36 && diameterMaterial < 40) {
+                                                ThreadDiameterInt = 30;
+                                            }
+                                            else if (diameterMaterial >= 40 && diameterMaterial < 42) {
+                                                ThreadDiameterInt = 36;
+                                            }
+                                        }
+                                    }
+                                    else if (diameterMaterial >= 42 && diameterMaterial < 48) {
+                                        ThreadDiameterInt = 42;
+                                    }
+                                    else if (diameterMaterial == 48) {
+                                        ThreadDiameterInt = 48;
+                                    }
+                                    else {
+                                        ThreadDiameterInt = Math.trunc(diameterMaterial);
+                                    }
                                 }
-                                else if (diameterMaterial >= 42 && diameterMaterial < 48) {
-                                    ThreadDiameterInt = 42;
-                                }
-                                else if (diameterMaterial == 48) {
-                                    ThreadDiameterInt = 48;
-                                }   
                                 else {
-                                    ThreadDiameterInt = Math.trunc(diameterMaterial);
-                                }
-                          }
-                          else{
-                                if (diameterMaterial >= 6 && diameterMaterial < 8) {
-                                    ThreadDiameterInt = 6;
-                                }
-                                else if (diameterMaterial >= 8 && diameterMaterial < 10) {
-                                    ThreadDiameterInt = 8;
-                                }
-                                else if (diameterMaterial >= 10 && diameterMaterial < 12) {
-                                    ThreadDiameterInt = 10;
-                                }
-                                else if (diameterMaterial >= 12 && diameterMaterial < 14) {
-                                    ThreadDiameterInt = 12;
-                                }
-                                else if (diameterMaterial >= 14 && diameterMaterial < 16) {
-                                    ThreadDiameterInt = 14;
-                                }
-                                else if (diameterMaterial >= 16 && diameterMaterial < 18) {
-                                    ThreadDiameterInt = 16;
-                                }
-                                else if (diameterMaterial >= 18 && diameterMaterial < 20) {
-                                    ThreadDiameterInt = 18;
-                                }
-                                else if (diameterMaterial >= 20 && diameterMaterial < 22) {
-                                    ThreadDiameterInt = 20;
-                                }
-                                else if (diameterMaterial >= 22 && diameterMaterial < 42) {
-                                    if (typeMaterial == 0) {
-                                        if (diameterMaterial >= 22 && diameterMaterial < 24) {
-                                            ThreadDiameterInt = 22;
+                                    if (diameterMaterial >= 6 && diameterMaterial < 8) {
+                                        ThreadDiameterInt = 6;
+                                    }
+                                    else if (diameterMaterial >= 8 && diameterMaterial < 10) {
+                                        ThreadDiameterInt = 8;
+                                    }
+                                    else if (diameterMaterial >= 10 && diameterMaterial < 12) {
+                                        ThreadDiameterInt = 10;
+                                    }
+                                    else if (diameterMaterial >= 12 && diameterMaterial < 14) {
+                                        ThreadDiameterInt = 12;
+                                    }
+                                    else if (diameterMaterial >= 14 && diameterMaterial < 16) {
+                                        ThreadDiameterInt = 14;
+                                    }
+                                    else if (diameterMaterial >= 16 && diameterMaterial < 18) {
+                                        ThreadDiameterInt = 16;
+                                    }
+                                    else if (diameterMaterial >= 18 && diameterMaterial < 20) {
+                                        ThreadDiameterInt = 18;
+                                    }
+                                    else if (diameterMaterial >= 20 && diameterMaterial < 22) {
+                                        ThreadDiameterInt = 20;
+                                    }
+                                    else if (diameterMaterial >= 22 && diameterMaterial < 42) {
+                                        if (typeMaterial == 0) {
+                                            if (diameterMaterial >= 22 && diameterMaterial < 24) {
+                                                ThreadDiameterInt = 22;
+                                            }
+                                            else if (diameterMaterial >= 24 && diameterMaterial < 27) {
+                                                ThreadDiameterInt = 24;
+                                            }
+                                            else if (diameterMaterial >= 27 && diameterMaterial < 30) {
+                                                ThreadDiameterInt = 27;
+                                            }
+                                            else if (diameterMaterial >= 30 && diameterMaterial < 32) {
+                                                ThreadDiameterInt = 30;
+                                            }
+                                            else if (diameterMaterial >= 32 && diameterMaterial < 36) {
+                                                ThreadDiameterInt = 30;
+                                            }
+                                            else if (diameterMaterial >= 36 && diameterMaterial < 42) {
+                                                ThreadDiameterInt = 36;
+                                            }
                                         }
-                                        else if (diameterMaterial >= 24 && diameterMaterial < 27) {
-                                            ThreadDiameterInt = 24;
+                                        else {
+                                            if (diameterMaterial >= 22 && diameterMaterial < 25) {
+                                                ThreadDiameterInt = 22;
+                                            }
+                                            else if (diameterMaterial >= 25 && diameterMaterial < 28) {
+                                                ThreadDiameterInt = 24;
+                                            }
+                                            else if (diameterMaterial >= 28 && diameterMaterial < 32) {
+                                                ThreadDiameterInt = 27;
+                                            }
+                                            else if (diameterMaterial >= 32 && diameterMaterial <= 36) {
+                                                ThreadDiameterInt = 30;
+                                            }
+                                            else if (diameterMaterial > 36 && diameterMaterial <= 42) {
+                                                ThreadDiameterInt = 36;
+                                            }
                                         }
-                                        else if (diameterMaterial >= 27 && diameterMaterial < 30) {
-                                            ThreadDiameterInt = 27;
-                                        }
-                                        else if (diameterMaterial >= 30 && diameterMaterial < 32) {
-                                            ThreadDiameterInt = 30;
-                                        }
-                                        else if (diameterMaterial >= 32 && diameterMaterial < 36) {
-                                            ThreadDiameterInt = 30;
-                                        }
-                                        else if (diameterMaterial >= 36 && diameterMaterial < 42) {
-                                            ThreadDiameterInt = 36;
-                                        }
+                                    }
+                                    else if (diameterMaterial >= 42 && diameterMaterial < 48) {
+                                        ThreadDiameterInt = 42;
+                                    }
+                                    else if (diameterMaterial == 48) {
+                                        ThreadDiameterInt = 48;
                                     }
                                     else {
-                                        if (diameterMaterial >= 22 && diameterMaterial < 25) {
-                                            ThreadDiameterInt = 22;
-                                        }
-                                        else if (diameterMaterial >= 25 && diameterMaterial < 28) {
-                                            ThreadDiameterInt = 24;
-                                        }
-                                        else if (diameterMaterial >= 28 && diameterMaterial < 32) {
-                                            ThreadDiameterInt = 27;
-                                        }
-                                        else if (diameterMaterial >= 32 && diameterMaterial <= 36) {
-                                            ThreadDiameterInt = 30;
-                                        }
-                                         else if (diameterMaterial > 36 && diameterMaterial <= 42) {
-                                            ThreadDiameterInt = 36;
-                                        }
+                                        ThreadDiameterInt = Math.trunc(diameterMaterial);
                                     }
                                 }
+                          } 
 
-                                //else if (diameterMaterial >= 22 && diameterMaterial < 24) {
-                                //    ThreadDiameterInt = 22;
-                                //}
-                                //else if (diameterMaterial >= 24 && diameterMaterial < 27) {
-                                //    ThreadDiameterInt = 24;
-                                //}
-                                //else if (diameterMaterial >= 27 && diameterMaterial < 30) {
-                                //    ThreadDiameterInt = 27;
-                                //}
-                                //else if (diameterMaterial >= 30 && diameterMaterial < 36) {
-                                //    ThreadDiameterInt = 30;
-                                //}
-                                //else if (diameterMaterial >= 36 && diameterMaterial < 42 && typeMaterial == 0) {
-                                //    ThreadDiameterInt = 36;
-                                //}
-                                //else if (diameterMaterial == 36 && typeMaterial == 1) {
-                                //    ThreadDiameterInt = 30;
-                                //}
-                                //else if (diameterMaterial == 36 && typeMaterial == 1) {
-                                //    ThreadDiameterInt = 30;
-                                //}
-                                else if (diameterMaterial >= 42 && diameterMaterial < 48) {
-                                    ThreadDiameterInt = 42;
-                                }
-                                else if (diameterMaterial == 48) {
-                                    ThreadDiameterInt = 48;
-                                }
-                                else {
-                                    ThreadDiameterInt = Math.trunc(diameterMaterial);
-                                }
-                          }
                            
                           ThreadDiameterInput.value = ThreadDiameterInt;                    
                           changeFuncThreadStep(ThreadDiameterInt);
@@ -625,14 +615,14 @@
                             } else {
                                 BendRadius.value = 0;
                             }
-                              if (diameterMaterial == 16 && typeMaterial == 1) {
-                             BendRadius.value = 20;}
-                              if (diameterMaterial == 20 && typeMaterial == 1) {
-                                BendRadius.value = 24;}
-                              if (diameterMaterial == 28 && typeMaterial == 1) {
-                                BendRadius.value = 36;}
-                              if (diameterMaterial == 36 && typeMaterial == 1) {
-                                BendRadius.value = 42;}
+                            if (diameterMaterial == 16 && typeMaterial == 1) {
+                              BendRadius.value = 20;}
+                            if (diameterMaterial == 20 && typeMaterial == 1) {
+                              BendRadius.value = 24;}
+                            if (diameterMaterial == 28 && typeMaterial == 1) {
+                              BendRadius.value = 36;}
+                            if (diameterMaterial == 36 && typeMaterial == 1) {
+                              BendRadius.value = 42;}
                         }}})}     
           
 

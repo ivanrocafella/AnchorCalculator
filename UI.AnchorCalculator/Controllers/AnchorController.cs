@@ -79,8 +79,17 @@ namespace UI.AnchorCalculator.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> GetAnchorJsonResult(AnchorViewModel viewModel)
         {
+            ModelState.Remove(nameof(viewModel.HasThread));
             ModelState.Remove(nameof(viewModel.HasThreadSecond));
-            double maxBendLength = 60 + viewModel.BendRadius + double.Parse(viewModel.Diameter);
+            double maxBendLength = 60 + viewModel.BendRadius;
+            if (double.TryParse(viewModel.Diameter, out double diameterParse))
+            {
+                maxBendLength += diameterParse;
+                if (viewModel.ThreadDiameter > diameterParse)
+                {
+                    ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
+                }
+            }            
             if (!viewModel.HasThreadSecond)
                 ModelState.Remove(nameof(viewModel.ThreadLengthSecond)); 
             if (viewModel.Kind == Kind.BendDouble.ToString())
@@ -96,10 +105,6 @@ namespace UI.AnchorCalculator.Controllers
             if (viewModel.ThreadDiameter == 0)
             {
                 ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
-            }
-            if (viewModel.ThreadDiameter > float.Parse(viewModel.Diameter, CultureInfo.InvariantCulture))
-            {
-                ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
             }
             if (ModelState.IsValid)
                 {
@@ -121,18 +126,18 @@ namespace UI.AnchorCalculator.Controllers
             }
             else
             {
-                if (ModelState.Root.Children[9].Errors.Count > 0 && ModelState.Root.Children[4].Errors.Count > 0)
+                if (ModelState.Root.Children[10].Errors.Count > 0 && ModelState.Root.Children[5].Errors.Count > 0)
                     return Json(new { success = false
-                        , errorMessageDiam = ModelState.Root.Children[9].Errors[0].ErrorMessage
-                        , errorMessageBendLen = ModelState.Root.Children[4].Errors[0].ErrorMessage
+                        , errorMessageDiam = ModelState.Root.Children[10].Errors[0].ErrorMessage
+                        , errorMessageBendLen = ModelState.Root.Children[5].Errors[0].ErrorMessage
                     });
-                else if (ModelState.Root.Children[9].Errors.Count > 0)
+                else if (ModelState.Root.Children[10].Errors.Count > 0)
                 {
-                    return Json(new { success = false, errorMessageDiam = ModelState.Root.Children[9].Errors[0].ErrorMessage });
+                    return Json(new { success = false, errorMessageDiam = ModelState.Root.Children[10].Errors[0].ErrorMessage });
                 }
-                else if (ModelState.Root.Children[4].Errors.Count > 0)
+                else if (ModelState.Root.Children[5].Errors.Count > 0)
                 {
-                    return Json(new { success = false, errorMessageBendLen = ModelState.Root.Children[4].Errors[0].ErrorMessage });
+                    return Json(new { success = false, errorMessageBendLen = ModelState.Root.Children[5].Errors[0].ErrorMessage });
                 }
                 else
                     return Json(new { succes = false });
