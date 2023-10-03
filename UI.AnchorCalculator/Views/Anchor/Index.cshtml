@@ -97,9 +97,13 @@
                     </div>
                 </div>               
              </div>
+             <div id="hasThreadDiv" class="form-check form-check-inline w-75 mb-3">
+                 <input checked class="form-check-input" asp-for="HasThread" type="checkbox" id="hasThreadDivCheckbox" onchange="unableDisableThreadInput()">
+                 <label class="form-check-label" for="hasThreadDivCheckbox">Есть резьба</label>
+             </div>
              <div id="threadLengthSecondDiv" class="form-check form-check-inline w-75 mb-3">
                  <input class="form-check-input" asp-for="HasThreadSecond" type="checkbox" id="threadLengthSecondDivCheckbox" onchange="showthreadLengthSecondDivInp()">
-                 <label class="form-check-label" for="inlineCheckbox1">Резьба на втором конце</label>
+                 <label class="form-check-label" for="threadLengthSecondDivCheckbox">Резьба на втором конце</label>
              </div>
              <div class="row mb-3" id="threadLengthSecondDivInp" style="display:none">
                  <div class="row mb-3">
@@ -172,7 +176,21 @@
 
     <script>
 
-
+        function unableDisableThreadInput() {
+            var hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
+            var threadLengthSecondDivCheckbox = document.getElementById("threadLengthSecondDivCheckbox");
+            var threadLengthSecondDiv = document.getElementById("threadLengthSecondDiv");
+            var straight = document.getElementById("straight");
+            var withBend = document.getElementById("withBend");
+            var withBendDouble = document.getElementById("withBendDouble");
+            if (hasThreadDivCheckbox.checked === true && straight.checked) {
+                threadLengthSecondDiv.style.display = "block";
+            } else { 
+                threadLengthSecondDiv.style.display = "none";
+                threadLengthSecondDivCheckbox.checked = false;
+                showthreadLengthSecondDivInp();
+            }
+        }
 
         let Descript_to_blank;
         var calculateForm = document.getElementById("CalculateForm");
@@ -623,8 +641,6 @@
                    $("#BendLength").val('0');
                    $("#ThreadLengthSecond").val('0');
                    $("#BendLength").inputmask("999", {"placeholder": ""});
-                   //$("#ThreadLength").inputmask("999", {"placeholder": ""});
-                   //$("#ThreadLengthSecond").inputmask("999", { "placeholder": "" });
                    $("#Quantity").inputmask("9999", {"placeholder": ""});
                    $("#Length").inputmask("9999", {"placeholder": ""});
                      });
@@ -639,22 +655,28 @@
                  var threadLengthSecondDivCheckbox = document.getElementById("threadLengthSecondDivCheckbox");
                  var threadLengthSecondDivInp = document.getElementById("threadLengthSecondDivInp");
                  var ThreadLengthSecond = document.getElementById("ThreadLengthSecond");
-                 if (withBend.checked == true) {
+                 var hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
+                 if (withBend.checked) {
                    subForm.style.display = "block";
                    threadLengthSecondDiv.style.display = "none"
                    threadLengthSecondDivCheckbox.checked = false
                    threadLengthSecondDivInp.style.display = "none"
                    ThreadLengthSecond.value = 0
-                 } else if (withBendDouble.checked == true) {
+                 } else if (withBendDouble.checked) {
                    subForm.style.display = "block";
                    threadLengthSecondDiv.style.display = "none"
                    threadLengthSecondDivCheckbox.checked = false
                    threadLengthSecondDivInp.style.display = "none"
                 ThreadLengthSecond.value = 0
                  } else {
-                   subForm.style.display = "none";
-                   document.getElementById("BendLength").value=0;
-                   threadLengthSecondDiv.style.display = "block"
+                     if (!hasThreadDivCheckbox.checked) {
+                         threadLengthSecondDiv.style.display = "none"
+                         threadLengthSecondDivCheckbox.checked = false
+                     } else {
+                         subForm.style.display = "none";
+                         document.getElementById("BendLength").value = 0;
+                         threadLengthSecondDiv.style.display = "block"
+                     }
                  }
                }
 

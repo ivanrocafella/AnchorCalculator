@@ -33,6 +33,7 @@ namespace UI.AnchorCalculator.ViewModels
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLengthSecond { get; set; }
         public bool HasThreadSecond { get; set; }
+        public bool HasThread { get; set; }
         [Display(Name = "Диаметр резьбы, мм:")]
         public int ThreadDiameter { get; set; }
         [Display(Name = "Шаг резьбы, мм:")]
