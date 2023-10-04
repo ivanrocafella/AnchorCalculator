@@ -59,124 +59,126 @@ namespace UI.AnchorCalculator.Services
 
             svgElements.Add(rectThreadStepBodyAnchor);
 
-            // Draw sizes of part with thread
+            if (anchor.ThreadLength > 0)
+            {
+                // Draw sizes of part with thread
 
-            // Size of thread's diametr
+                // Size of thread's diametr
 
-            var lineVertLeftSizeDiamThread = GetSvgLineElement(X_InitCoord,
-                Y_InitCoord,
-                X_InitCoord,
-                Y_InitCoord - outPartHorSize,
-                Color.Black,
-                0.5f,
-                SvgLengthUnits.Pixels);
+                var lineVertLeftSizeDiamThread = GetSvgLineElement(X_InitCoord,
+               Y_InitCoord,
+               X_InitCoord,
+               Y_InitCoord - outPartHorSize,
+               Color.Black,
+               0.5f,
+               SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineVertLeftSizeDiamThread);
+                svgElements.Add(lineVertLeftSizeDiamThread);
 
-            var lineVertRightSizeDiamThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
-                  Y_InitCoord,
-                  X_InitCoord + anchor.ThreadDiameter,
-                  Y_InitCoord - outPartHorSize,
-                  Color.Black,
-                  0.5f,
-                  SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineVertRightSizeDiamThread);
-
-            var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
-                       Y_InitCoord - (outPartHorSize - 5),
-                       X_InitCoord + anchor.ThreadDiameter + 105,
-                       Y_InitCoord - (outPartHorSize - 5),
-                       Color.Black,
-                       0.5f,
-                       SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineHorSizeDiamThread);
-
-            var lineSerifLeftSizeDiamThread = GetSerif(X_InitCoord,
-                        Y_InitCoord - (outPartHorSize - 5),
-                        X_InitCoord,
-                        Y_InitCoord - (outPartHorSize - 5),
-                        Color.Black,
-                        0.5f,
-                        SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineSerifLeftSizeDiamThread);
-
-            var lineSerifRightSizeDiamThread = GetSerif(X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord - (outPartHorSize - 5),
-                           X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord - (outPartHorSize - 5),
-                           Color.Black,
-                           0.5f,
-                           SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineSerifRightSizeDiamThread);
-
-
-            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
-                            X_InitCoord + anchor.ThreadDiameter + 8,
-                            Y_InitCoord - (outPartHorSize - 3),
-                            0,
-                            SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
-
-            // Size of thread's length
-
-            var lineHorTopSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                var lineVertRightSizeDiamThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
                       Y_InitCoord,
-                      X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
-                      Y_InitCoord,
+                      X_InitCoord + anchor.ThreadDiameter,
+                      Y_InitCoord - outPartHorSize,
                       Color.Black,
                       0.5f,
                       SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineHorTopSizeLengthThread);
+                svgElements.Add(lineVertRightSizeDiamThread);
 
-            var lineHorBotSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord + anchor.ThreadLength,
-                           X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
-                           Y_InitCoord + anchor.ThreadLength,
+                var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
+                           Y_InitCoord - (outPartHorSize - 5),
+                           X_InitCoord + anchor.ThreadDiameter + 105,
+                           Y_InitCoord - (outPartHorSize - 5),
                            Color.Black,
                            0.5f,
                            SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineHorBotSizeLengthThread);
+                svgElements.Add(lineHorSizeDiamThread);
 
-            var lineVerSizeDiamThread = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                var lineSerifLeftSizeDiamThread = GetSerif(X_InitCoord,
+                            Y_InitCoord - (outPartHorSize - 5),
+                            X_InitCoord,
+                            Y_InitCoord - (outPartHorSize - 5),
+                            Color.Black,
+                            0.5f,
+                            SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineSerifLeftSizeDiamThread);
+
+                var lineSerifRightSizeDiamThread = GetSerif(X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord - (outPartHorSize - 5),
+                               X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord - (outPartHorSize - 5),
+                               Color.Black,
+                               0.5f,
+                               SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineSerifRightSizeDiamThread);
+
+                svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
+                                X_InitCoord + anchor.ThreadDiameter + 8,
+                                Y_InitCoord - (outPartHorSize - 3),
+                                0,
+                                SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
+
+                // Size of thread's length
+
+                var lineHorTopSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                          Y_InitCoord,
+                          X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
+                          Y_InitCoord,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineHorTopSizeLengthThread);
+
+                var lineHorBotSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord + anchor.ThreadLength,
+                               X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
+                               Y_InitCoord + anchor.ThreadLength,
+                               Color.Black,
+                               0.5f,
+                               SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineHorBotSizeLengthThread);
+
+                var lineVerSizeDiamThread = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                     Y_InitCoord,
+                                     X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                     Y_InitCoord + anchor.ThreadLength,
+                                     Color.Black,
+                                     0.5f,
+                                     SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineVerSizeDiamThread);
+
+                var lineSerifTopSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
                                  Y_InitCoord,
                                  X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                 Y_InitCoord + anchor.ThreadLength,
+                                 Y_InitCoord,
                                  Color.Black,
                                  0.5f,
                                  SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineVerSizeDiamThread);
+                svgElements.Add(lineSerifTopSizeDiamThread);
 
-            var lineSerifTopSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                             Y_InitCoord,
-                             X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                             Y_InitCoord,
-                             Color.Black,
-                             0.5f,
-                             SvgLengthUnits.Pixels);
+                var lineSerifBotSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                      Y_InitCoord + anchor.ThreadLength,
+                                      X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                      Y_InitCoord + anchor.ThreadLength,
+                                      Color.Black,
+                                      0.5f,
+                                      SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineSerifTopSizeDiamThread);
+                svgElements.Add(lineSerifBotSizeDiamThread);
 
-            var lineSerifBotSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                  Y_InitCoord + anchor.ThreadLength,
-                                  X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                  Y_InitCoord + anchor.ThreadLength,
-                                  Color.Black,
-                                  0.5f,
-                                  SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineSerifBotSizeDiamThread);
-
-            svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
-                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
-                Y_InitCoord + anchor.ThreadLength / 2 + 10,
-                -90,
-                SvgLengthUnits.Pixels));    // Make text of size's value length of thread
+                svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
+                    X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
+                    Y_InitCoord + anchor.ThreadLength / 2 + 10,
+                    -90,
+                    SvgLengthUnits.Pixels));    // Make text of size's value length of thread
+            }
 
             // Size of anchors's diametr
 
@@ -768,10 +770,16 @@ namespace UI.AnchorCalculator.Services
 
                     var pbgapTop = new SvgPathBuilder();
                     var pathgapTop = new SvgPathElement();
+                    float halfDiam;
+
+                    if (anchor.ThreadLength > 0) 
+                        halfDiam = anchor.Diameter - anchor.ThreadDiameter / 2;                    
+                    else
+                        halfDiam = 0;
 
                     pbgapTop.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                            Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
-                    pbgapTop.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter,
+                    pbgapTop.AddCurveTo(false, X_InitCoord + halfDiam,
                         Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap) - 5,
                         X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2,
                         Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap),
@@ -804,7 +812,7 @@ namespace UI.AnchorCalculator.Services
 
                     pbgapBot.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                            Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
-                    pbgapBot.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter,
+                    pbgapBot.AddCurveTo(false, X_InitCoord + halfDiam,
                         Y_InitCoord + anchor.ThreadLength + lengthMax / 2 - 5,
                         X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2,
                         Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
@@ -953,148 +961,152 @@ namespace UI.AnchorCalculator.Services
 
             List<SvgElement> svgElements = new(); // Make list to fill with objects SvgRectElement
 
-            //Draw part with thread
+            if (anchor.ThreadLength > 0)
+            {
 
-            var rectThreadBodyAnchor = GetSvgRectElement(X_InitCoord,
-                Y_InitCoord,
-                anchor.ThreadDiameter,
-                anchor.ThreadLength,
-                Color.Transparent,
-                Color.Black,
-                1.5f,
-                SvgLengthUnits.Pixels);
+                //Draw part with thread
 
-            svgElements.Add(rectThreadBodyAnchor);
+                var rectThreadBodyAnchor = GetSvgRectElement(X_InitCoord,
+                    Y_InitCoord,
+                    anchor.ThreadDiameter,
+                    anchor.ThreadLength,
+                    Color.Transparent,
+                    Color.Black,
+                    1.5f,
+                    SvgLengthUnits.Pixels);
 
-            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2,
-                Y_InitCoord,
-                anchor.ThreadDiameter - anchor.ThreadStep,
-                anchor.ThreadLength,
-                Color.Transparent,
-                Color.Black,
-                1f,
-                SvgLengthUnits.Pixels);
+                svgElements.Add(rectThreadBodyAnchor);
 
-            svgElements.Add(rectThreadStepBodyAnchor);
+                var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2,
+                    Y_InitCoord,
+                    anchor.ThreadDiameter - anchor.ThreadStep,
+                    anchor.ThreadLength,
+                    Color.Transparent,
+                    Color.Black,
+                    1f,
+                    SvgLengthUnits.Pixels);
 
-            // Draw sizes of part with thread
+                svgElements.Add(rectThreadStepBodyAnchor);
 
-            // Size of thread's diametr
+                // Draw sizes of part with thread
 
-            var lineVertLeftSizeDiamThread = GetSvgLineElement(X_InitCoord,
-                Y_InitCoord,
-                X_InitCoord,
-                Y_InitCoord - outPartHorSize,
-                Color.Black,
-                0.5f,
-                SvgLengthUnits.Pixels);
+                // Size of thread's diametr
 
-            svgElements.Add(lineVertLeftSizeDiamThread);
+                var lineVertLeftSizeDiamThread = GetSvgLineElement(X_InitCoord,
+                    Y_InitCoord,
+                    X_InitCoord,
+                    Y_InitCoord - outPartHorSize,
+                    Color.Black,
+                    0.5f,
+                    SvgLengthUnits.Pixels);
 
-            var lineVertRightSizeDiamThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
-                  Y_InitCoord,
-                  X_InitCoord + anchor.ThreadDiameter,
-                  Y_InitCoord - outPartHorSize,
-                  Color.Black,
-                  0.5f,
-                  SvgLengthUnits.Pixels);
+                svgElements.Add(lineVertLeftSizeDiamThread);
 
-            svgElements.Add(lineVertRightSizeDiamThread);
-
-            var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
-                       Y_InitCoord - (outPartHorSize - 5),
-                       X_InitCoord + anchor.ThreadDiameter + 105,
-                       Y_InitCoord - (outPartHorSize - 5),
-                       Color.Black,
-                       0.5f,
-                       SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineHorSizeDiamThread);
-
-            var lineSerifLeftSizeDiamThread = GetSerif(X_InitCoord,
-                        Y_InitCoord - (outPartHorSize - 5),
-                        X_InitCoord,
-                        Y_InitCoord - (outPartHorSize - 5),
-                        Color.Black,
-                        0.5f,
-                        SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineSerifLeftSizeDiamThread);
-
-            var lineSerifRightSizeDiamThread = GetSerif(X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord - (outPartHorSize - 5),
-                           X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord - (outPartHorSize - 5),
-                           Color.Black,
-                           0.5f,
-                           SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineSerifRightSizeDiamThread);
-
-
-            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
-                            X_InitCoord + anchor.ThreadDiameter + 8,
-                            Y_InitCoord - (outPartHorSize - 3),
-                            0,
-                            SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
-
-            // Size of thread's length
-
-            var lineHorTopSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                var lineVertRightSizeDiamThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
                       Y_InitCoord,
-                      X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
-                      Y_InitCoord,
+                      X_InitCoord + anchor.ThreadDiameter,
+                      Y_InitCoord - outPartHorSize,
                       Color.Black,
                       0.5f,
                       SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineHorTopSizeLengthThread);
+                svgElements.Add(lineVertRightSizeDiamThread);
 
-            var lineHorBotSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord + anchor.ThreadLength,
-                           X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
-                           Y_InitCoord + anchor.ThreadLength,
+                var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
+                           Y_InitCoord - (outPartHorSize - 5),
+                           X_InitCoord + anchor.ThreadDiameter + 105,
+                           Y_InitCoord - (outPartHorSize - 5),
                            Color.Black,
                            0.5f,
                            SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineHorBotSizeLengthThread);
+                svgElements.Add(lineHorSizeDiamThread);
 
-            var lineVerSizeDiamThread = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                var lineSerifLeftSizeDiamThread = GetSerif(X_InitCoord,
+                            Y_InitCoord - (outPartHorSize - 5),
+                            X_InitCoord,
+                            Y_InitCoord - (outPartHorSize - 5),
+                            Color.Black,
+                            0.5f,
+                            SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineSerifLeftSizeDiamThread);
+
+                var lineSerifRightSizeDiamThread = GetSerif(X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord - (outPartHorSize - 5),
+                               X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord - (outPartHorSize - 5),
+                               Color.Black,
+                               0.5f,
+                               SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineSerifRightSizeDiamThread);
+
+
+                svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
+                                X_InitCoord + anchor.ThreadDiameter + 8,
+                                Y_InitCoord - (outPartHorSize - 3),
+                                0,
+                                SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
+
+                // Size of thread's length
+
+                var lineHorTopSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                          Y_InitCoord,
+                          X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
+                          Y_InitCoord,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineHorTopSizeLengthThread);
+
+                var lineHorBotSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord + anchor.ThreadLength,
+                               X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
+                               Y_InitCoord + anchor.ThreadLength,
+                               Color.Black,
+                               0.5f,
+                               SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineHorBotSizeLengthThread);
+
+                var lineVerSizeDiamThread = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                     Y_InitCoord,
+                                     X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                     Y_InitCoord + anchor.ThreadLength,
+                                     Color.Black,
+                                     0.5f,
+                                     SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineVerSizeDiamThread);
+
+                var lineSerifTopSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
                                  Y_InitCoord,
                                  X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                 Y_InitCoord + anchor.ThreadLength,
+                                 Y_InitCoord,
                                  Color.Black,
                                  0.5f,
                                  SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineVerSizeDiamThread);
+                svgElements.Add(lineSerifTopSizeDiamThread);
 
-            var lineSerifTopSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                             Y_InitCoord,
-                             X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                             Y_InitCoord,
-                             Color.Black,
-                             0.5f,
-                             SvgLengthUnits.Pixels);
+                var lineSerifBotSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                      Y_InitCoord + anchor.ThreadLength,
+                                      X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                      Y_InitCoord + anchor.ThreadLength,
+                                      Color.Black,
+                                      0.5f,
+                                      SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineSerifTopSizeDiamThread);
+                svgElements.Add(lineSerifBotSizeDiamThread);
 
-            var lineSerifBotSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                  Y_InitCoord + anchor.ThreadLength,
-                                  X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                  Y_InitCoord + anchor.ThreadLength,
-                                  Color.Black,
-                                  0.5f,
-                                  SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineSerifBotSizeDiamThread);
-
-            svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
-                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
-                Y_InitCoord + anchor.ThreadLength / 2 + 10,
-                -90,
-                SvgLengthUnits.Pixels));    // Make text of size's value length of thread
+                svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
+                    X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
+                    Y_InitCoord + anchor.ThreadLength / 2 + 10,
+                    -90,
+                    SvgLengthUnits.Pixels));    // Make text of size's value length of thread
+            }
 
             // Size of anchors's diametr
 
@@ -1766,10 +1778,16 @@ namespace UI.AnchorCalculator.Services
 
                 var pbgapTop = new SvgPathBuilder();
                 var pathgapTop = new SvgPathElement();
+                float halfDiam;
+
+                if (anchor.ThreadLength > 0)
+                    halfDiam = anchor.Diameter - anchor.ThreadDiameter / 2;
+                else
+                    halfDiam = 0;
 
                 pbgapTop.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                        Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
-                pbgapTop.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter,
+                pbgapTop.AddCurveTo(false, X_InitCoord + halfDiam,
                     Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap) - 5,
                     X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2,
                     Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap),
@@ -1792,7 +1810,7 @@ namespace UI.AnchorCalculator.Services
 
                 pbgapBot.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                        Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
-                pbgapBot.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter,
+                pbgapBot.AddCurveTo(false, X_InitCoord + halfDiam,
                     Y_InitCoord + anchor.ThreadLength + lengthMax / 2 - 5,
                     X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2,
                     Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
@@ -2436,235 +2454,238 @@ namespace UI.AnchorCalculator.Services
 
             List<SvgElement> svgElements = new(); // Make list to fill with objects SvgRectElement
 
-            //Draw part with thread
-
-            var rectThreadBodyAnchor = GetSvgRectElement(X_InitCoord,
-                Y_InitCoord,
-                anchor.ThreadDiameter,
-                anchor.ThreadLength,
-                Color.Transparent,
-                Color.Black,
-                1.5f,
-                SvgLengthUnits.Pixels);
-
-            svgElements.Add(rectThreadBodyAnchor);
-
-            var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2,
-                Y_InitCoord,
-                anchor.ThreadDiameter - anchor.ThreadStep,
-                anchor.ThreadLength,
-                Color.Transparent,
-                Color.Black,
-                1f,
-                SvgLengthUnits.Pixels);
-
-            svgElements.Add(rectThreadStepBodyAnchor);
-
-            //Draw second part with thread
-
-            SvgRectElement rectThreadBodyAnchorSecond;
-            SvgRectElement rectThreadStepBodyAnchorSecond;
-
-            SvgLineElement threadAxialLineFirst; 
-            SvgLineElement threadAxialLineSecond;           
-
-            threadAxialLineFirst = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2,
-                                   Y_InitCoord - outPartHorSize,
-                                   X_InitCoord + anchor.ThreadDiameter / 2,
-                                   Y_InitCoord + anchor.ThreadLength,
-                                   Color.Black,
-                                   0.15f,
-                                   SvgLengthUnits.Pixels);
-
-            svgElements.Add(threadAxialLineFirst); // Make top part of axial thread's line of anchor
-
-            if (anchor.BendLength <= bendLengthMax)
+            if (anchor.ThreadLength > 0)
             {
-                rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - anchor.BendLength + anchor.Diameter,
-                Y_InitCoord,
-                anchor.ThreadDiameter,
-                anchor.ThreadLength,
-                Color.Transparent,
-                Color.Black,
-                1.5f,
-                SvgLengthUnits.Pixels);
+                //Draw part with thread
 
-                svgElements.Add(rectThreadBodyAnchorSecond);
+                var rectThreadBodyAnchor = GetSvgRectElement(X_InitCoord,
+                    Y_InitCoord,
+                    anchor.ThreadDiameter,
+                    anchor.ThreadLength,
+                    Color.Transparent,
+                    Color.Black,
+                    1.5f,
+                    SvgLengthUnits.Pixels);
 
-                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - anchor.BendLength + anchor.Diameter,
-                Y_InitCoord,
-                anchor.ThreadDiameter - anchor.ThreadStep,
-                anchor.ThreadLength,
-                Color.Transparent,
-                Color.Black,
-                1f,
-                SvgLengthUnits.Pixels);
+                svgElements.Add(rectThreadBodyAnchor);
 
-                svgElements.Add(rectThreadStepBodyAnchorSecond);
+                var rectThreadStepBodyAnchor = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2,
+                    Y_InitCoord,
+                    anchor.ThreadDiameter - anchor.ThreadStep,
+                    anchor.ThreadLength,
+                    Color.Transparent,
+                    Color.Black,
+                    1f,
+                    SvgLengthUnits.Pixels);
 
-                threadAxialLineSecond = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
-                                  Y_InitCoord - outPartHorSize,
-                                  X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
-                                  Y_InitCoord + anchor.ThreadLength,
-                                  Color.Black,
-                                  0.15f,
-                                  SvgLengthUnits.Pixels);
+                svgElements.Add(rectThreadStepBodyAnchor);
 
-                svgElements.Add(threadAxialLineSecond); // Make top left part of axial thread's line of anchor
-            }
-            else
-            {
-                rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - bendLengthMax,
-                                Y_InitCoord,
-                                anchor.ThreadDiameter,
-                                anchor.ThreadLength,
-                                Color.Transparent,
-                                Color.Black,
-                                1.5f,
-                                SvgLengthUnits.Pixels);
+                //Draw second part with thread
 
-                svgElements.Add(rectThreadBodyAnchorSecond);
+                SvgRectElement rectThreadBodyAnchorSecond;
+                SvgRectElement rectThreadStepBodyAnchorSecond;
 
-                rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - bendLengthMax,
-                                Y_InitCoord,
-                                anchor.ThreadDiameter - anchor.ThreadStep,
-                                anchor.ThreadLength,
-                                Color.Transparent,
-                                Color.Black,
-                                1f,
-                                SvgLengthUnits.Pixels);
+                SvgLineElement threadAxialLineFirst;
+                SvgLineElement threadAxialLineSecond;
 
-                svgElements.Add(rectThreadStepBodyAnchorSecond); // Make top left part of axial thread's line of anchor
+                threadAxialLineFirst = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2,
+                                       Y_InitCoord - outPartHorSize,
+                                       X_InitCoord + anchor.ThreadDiameter / 2,
+                                       Y_InitCoord + anchor.ThreadLength,
+                                       Color.Black,
+                                       0.15f,
+                                       SvgLengthUnits.Pixels);
 
-                threadAxialLineSecond = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2 - bendLengthMax,
-                                Y_InitCoord - outPartHorSize,
-                                X_InitCoord + anchor.ThreadDiameter / 2 - bendLengthMax,
-                                Y_InitCoord + anchor.ThreadLength,
-                                Color.Black,
-                                0.15f,
-                                SvgLengthUnits.Pixels);
+                svgElements.Add(threadAxialLineFirst); // Make top part of axial thread's line of anchor
 
-                svgElements.Add(threadAxialLineSecond); // Make top left part of axial thread's line of anchor
-            }
+                if (anchor.BendLength <= bendLengthMax)
+                {
+                    rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - anchor.BendLength + anchor.Diameter,
+                    Y_InitCoord,
+                    anchor.ThreadDiameter,
+                    anchor.ThreadLength,
+                    Color.Transparent,
+                    Color.Black,
+                    1.5f,
+                    SvgLengthUnits.Pixels);
 
-            // Draw sizes of part with thread
+                    svgElements.Add(rectThreadBodyAnchorSecond);
 
-            // Size of thread's diametr
+                    rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - anchor.BendLength + anchor.Diameter,
+                    Y_InitCoord,
+                    anchor.ThreadDiameter - anchor.ThreadStep,
+                    anchor.ThreadLength,
+                    Color.Transparent,
+                    Color.Black,
+                    1f,
+                    SvgLengthUnits.Pixels);
 
-            var lineVertLeftSizeDiamThread = GetSvgLineElement(X_InitCoord,
-                Y_InitCoord,
-                X_InitCoord,
-                Y_InitCoord - outPartHorSize,
-                Color.Black,
-                0.5f,
-                SvgLengthUnits.Pixels);
+                    svgElements.Add(rectThreadStepBodyAnchorSecond);
 
-            svgElements.Add(lineVertLeftSizeDiamThread);
+                    threadAxialLineSecond = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
+                                      Y_InitCoord - outPartHorSize,
+                                      X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
+                                      Y_InitCoord + anchor.ThreadLength,
+                                      Color.Black,
+                                      0.15f,
+                                      SvgLengthUnits.Pixels);
 
-            var lineVertRightSizeDiamThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
-                  Y_InitCoord,
-                  X_InitCoord + anchor.ThreadDiameter,
-                  Y_InitCoord - outPartHorSize,
-                  Color.Black,
-                  0.5f,
-                  SvgLengthUnits.Pixels);
+                    svgElements.Add(threadAxialLineSecond); // Make top left part of axial thread's line of anchor
+                }
+                else
+                {
+                    rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - bendLengthMax,
+                                    Y_InitCoord,
+                                    anchor.ThreadDiameter,
+                                    anchor.ThreadLength,
+                                    Color.Transparent,
+                                    Color.Black,
+                                    1.5f,
+                                    SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineVertRightSizeDiamThread);
+                    svgElements.Add(rectThreadBodyAnchorSecond);
 
-            var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
-                       Y_InitCoord - (outPartHorSize - 5),
-                       X_InitCoord + anchor.ThreadDiameter + 105,
-                       Y_InitCoord - (outPartHorSize - 5),
-                       Color.Black,
-                       0.5f,
-                       SvgLengthUnits.Pixels);
+                    rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - bendLengthMax,
+                                    Y_InitCoord,
+                                    anchor.ThreadDiameter - anchor.ThreadStep,
+                                    anchor.ThreadLength,
+                                    Color.Transparent,
+                                    Color.Black,
+                                    1f,
+                                    SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineHorSizeDiamThread);
+                    svgElements.Add(rectThreadStepBodyAnchorSecond); // Make top left part of axial thread's line of anchor
 
-            var lineSerifLeftSizeDiamThread = GetSerif(X_InitCoord,
-                        Y_InitCoord - (outPartHorSize - 5),
-                        X_InitCoord,
-                        Y_InitCoord - (outPartHorSize - 5),
-                        Color.Black,
-                        0.5f,
-                        SvgLengthUnits.Pixels);
+                    threadAxialLineSecond = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2 - bendLengthMax,
+                                    Y_InitCoord - outPartHorSize,
+                                    X_InitCoord + anchor.ThreadDiameter / 2 - bendLengthMax,
+                                    Y_InitCoord + anchor.ThreadLength,
+                                    Color.Black,
+                                    0.15f,
+                                    SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineSerifLeftSizeDiamThread);
+                    svgElements.Add(threadAxialLineSecond); // Make top left part of axial thread's line of anchor
+                }
 
-            var lineSerifRightSizeDiamThread = GetSerif(X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord - (outPartHorSize - 5),
-                           X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord - (outPartHorSize - 5),
-                           Color.Black,
-                           0.5f,
-                           SvgLengthUnits.Pixels);
+                // Draw sizes of part with thread
 
-            svgElements.Add(lineSerifRightSizeDiamThread);
+                // Size of thread's diametr
 
+                var lineVertLeftSizeDiamThread = GetSvgLineElement(X_InitCoord,
+                    Y_InitCoord,
+                    X_InitCoord,
+                    Y_InitCoord - outPartHorSize,
+                    Color.Black,
+                    0.5f,
+                    SvgLengthUnits.Pixels);
 
-            svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
-                            X_InitCoord + anchor.ThreadDiameter + 8,
-                            Y_InitCoord - (outPartHorSize - 3),
-                            0,
-                            SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
+                svgElements.Add(lineVertLeftSizeDiamThread);
 
-            // Size of thread's length
-
-            var lineHorTopSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                var lineVertRightSizeDiamThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
                       Y_InitCoord,
-                      X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
-                      Y_InitCoord,
+                      X_InitCoord + anchor.ThreadDiameter,
+                      Y_InitCoord - outPartHorSize,
                       Color.Black,
                       0.5f,
                       SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineHorTopSizeLengthThread);
+                svgElements.Add(lineVertRightSizeDiamThread);
 
-            var lineHorBotSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
-                           Y_InitCoord + anchor.ThreadLength,
-                           X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
-                           Y_InitCoord + anchor.ThreadLength,
+                var lineHorSizeDiamThread = GetSvgLineElement(X_InitCoord,
+                           Y_InitCoord - (outPartHorSize - 5),
+                           X_InitCoord + anchor.ThreadDiameter + 105,
+                           Y_InitCoord - (outPartHorSize - 5),
                            Color.Black,
                            0.5f,
                            SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineHorBotSizeLengthThread);
+                svgElements.Add(lineHorSizeDiamThread);
 
-            var lineVerSizeDiamThread = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                var lineSerifLeftSizeDiamThread = GetSerif(X_InitCoord,
+                            Y_InitCoord - (outPartHorSize - 5),
+                            X_InitCoord,
+                            Y_InitCoord - (outPartHorSize - 5),
+                            Color.Black,
+                            0.5f,
+                            SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineSerifLeftSizeDiamThread);
+
+                var lineSerifRightSizeDiamThread = GetSerif(X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord - (outPartHorSize - 5),
+                               X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord - (outPartHorSize - 5),
+                               Color.Black,
+                               0.5f,
+                               SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineSerifRightSizeDiamThread);
+
+
+                svgElements.Add(GetSvgTextElement($"М{anchor.ThreadDiameter}x{anchor.ThreadStep}",
+                                X_InitCoord + anchor.ThreadDiameter + 8,
+                                Y_InitCoord - (outPartHorSize - 3),
+                                0,
+                                SvgLengthUnits.Pixels));    // Make text of size's value diametr of thread
+
+                // Size of thread's length
+
+                var lineHorTopSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                          Y_InitCoord,
+                          X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
+                          Y_InitCoord,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineHorTopSizeLengthThread);
+
+                var lineHorBotSizeLengthThread = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter,
+                               Y_InitCoord + anchor.ThreadLength,
+                               X_InitCoord + anchor.ThreadDiameter + (outPartHorSize + 5),
+                               Y_InitCoord + anchor.ThreadLength,
+                               Color.Black,
+                               0.5f,
+                               SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineHorBotSizeLengthThread);
+
+                var lineVerSizeDiamThread = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                     Y_InitCoord,
+                                     X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                     Y_InitCoord + anchor.ThreadLength,
+                                     Color.Black,
+                                     0.5f,
+                                     SvgLengthUnits.Pixels);
+
+                svgElements.Add(lineVerSizeDiamThread);
+
+                var lineSerifTopSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
                                  Y_InitCoord,
                                  X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                 Y_InitCoord + anchor.ThreadLength,
+                                 Y_InitCoord,
                                  Color.Black,
                                  0.5f,
                                  SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineVerSizeDiamThread);
+                svgElements.Add(lineSerifTopSizeDiamThread);
 
-            var lineSerifTopSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                             Y_InitCoord,
-                             X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                             Y_InitCoord,
-                             Color.Black,
-                             0.5f,
-                             SvgLengthUnits.Pixels);
+                var lineSerifBotSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                      Y_InitCoord + anchor.ThreadLength,
+                                      X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
+                                      Y_InitCoord + anchor.ThreadLength,
+                                      Color.Black,
+                                      0.5f,
+                                      SvgLengthUnits.Pixels);
 
-            svgElements.Add(lineSerifTopSizeDiamThread);
+                svgElements.Add(lineSerifBotSizeDiamThread);
 
-            var lineSerifBotSizeDiamThread = GetSerif(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                  Y_InitCoord + anchor.ThreadLength,
-                                  X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize,
-                                  Y_InitCoord + anchor.ThreadLength,
-                                  Color.Black,
-                                  0.5f,
-                                  SvgLengthUnits.Pixels);
-
-            svgElements.Add(lineSerifBotSizeDiamThread);
-
-            svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
-                X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
-                Y_InitCoord + anchor.ThreadLength / 2 + 10,
-                -90,
-                SvgLengthUnits.Pixels));    // Make text of size's value length of thread
+                svgElements.Add(GetSvgTextElement($"{anchor.ThreadLength}",
+                    X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + outPartHorSize - 2,
+                    Y_InitCoord + anchor.ThreadLength / 2 + 10,
+                    -90,
+                    SvgLengthUnits.Pixels));    // Make text of size's value length of thread
+            }
 
             // Size of anchors's diametr
 
@@ -3541,10 +3562,16 @@ namespace UI.AnchorCalculator.Services
 
                 var pbgapTop = new SvgPathBuilder();
                 var pathgapTop = new SvgPathElement();
+                float halfDiam;
+
+                if (anchor.ThreadLength > 0)
+                    halfDiam = anchor.Diameter - anchor.ThreadDiameter / 2;
+                else
+                    halfDiam = 0;
 
                 pbgapTop.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                        Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
-                pbgapTop.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter,
+                pbgapTop.AddCurveTo(false, X_InitCoord + halfDiam,
                     Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap) - 5,
                     X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2,
                     Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap),
@@ -3567,7 +3594,7 @@ namespace UI.AnchorCalculator.Services
 
                 pbgapBot.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2,
                        Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
-                pbgapBot.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter,
+                pbgapBot.AddCurveTo(false, X_InitCoord + halfDiam,
                     Y_InitCoord + anchor.ThreadLength + lengthMax / 2 - 5,
                     X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2,
                     Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
@@ -3713,7 +3740,7 @@ namespace UI.AnchorCalculator.Services
 
                     pbgapBotSecond.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendLength + anchor.Diameter,
                            Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
-                    pbgapBotSecond.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter - anchor.BendLength + anchor.Diameter,
+                    pbgapBotSecond.AddCurveTo(false, X_InitCoord + halfDiam - anchor.BendLength + anchor.Diameter,
                         Y_InitCoord + anchor.ThreadLength + lengthMax / 2 - 5,
                         X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
                         Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
@@ -3746,7 +3773,7 @@ namespace UI.AnchorCalculator.Services
 
                     pbgapTopSecond.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendLength + anchor.Diameter,
                            Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
-                    pbgapTopSecond.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter - anchor.BendLength + anchor.Diameter,
+                    pbgapTopSecond.AddCurveTo(false, X_InitCoord + halfDiam - anchor.BendLength + anchor.Diameter,
                         Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap) - 5,
                         X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
                         Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap),
@@ -4005,7 +4032,7 @@ namespace UI.AnchorCalculator.Services
 
                     pbgapBotSecond.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
                            Y_InitCoord + anchor.ThreadLength + lengthMax / 2);
-                    pbgapBotSecond.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter - bendLengthMax,
+                    pbgapBotSecond.AddCurveTo(false, X_InitCoord + halfDiam - bendLengthMax,
                         Y_InitCoord + anchor.ThreadLength + lengthMax / 2 - 5,
                         X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - bendLengthMax,
                         Y_InitCoord + anchor.ThreadLength + lengthMax / 2,
@@ -4038,7 +4065,7 @@ namespace UI.AnchorCalculator.Services
 
                     pbgapTopSecond.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
                            Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap));
-                    pbgapTopSecond.AddCurveTo(false, X_InitCoord - anchor.ThreadDiameter / 2 + anchor.Diameter - bendLengthMax,
+                    pbgapTopSecond.AddCurveTo(false, X_InitCoord + halfDiam - bendLengthMax,
                         Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap) - 5,
                         X_InitCoord + anchor.Diameter / 2 + anchor.ThreadDiameter / 2 - bendLengthMax,
                         Y_InitCoord + anchor.ThreadLength + (lengthMax / 2 - gap),
@@ -4247,57 +4274,6 @@ namespace UI.AnchorCalculator.Services
                           Y_InitCoord + lengthMax + anchor.ThreadLength + outPartHorSize - 2,
                           0,
                           SvgLengthUnits.Pixels));    // Make text of size of bending part without radius
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                     middleAxialLine = GetSvgLineElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 + anchor.Diameter / 2 - bendLengthMax / 2,

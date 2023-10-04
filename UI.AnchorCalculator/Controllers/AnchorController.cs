@@ -81,23 +81,36 @@ namespace UI.AnchorCalculator.Controllers
         {
             ModelState.Remove(nameof(viewModel.HasThread));
             ModelState.Remove(nameof(viewModel.HasThreadSecond));
-            double maxBendLength = 60 + viewModel.BendRadius;
-            if (double.TryParse(viewModel.Diameter, out double diameterParse))
+            double maxBendLength = 60 + viewModel.BendRadius;            
+            if (!viewModel.HasThread)
             {
-                maxBendLength += diameterParse;
-                if (viewModel.ThreadDiameter > diameterParse)
-                    ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
-            }            
+                ModelState.Remove(nameof(viewModel.ThreadDiameter));
+                ModelState.Remove(nameof(viewModel.ThreadStep));
+                ModelState.Remove(nameof(viewModel.ThreadLength));
+            }
+            else
+            {
+                if (double.TryParse(viewModel.Diameter, out double diameterParse))
+                {
+                    maxBendLength += diameterParse;
+                    if (viewModel.ThreadDiameter > diameterParse)
+                        ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
+                }
+                if (viewModel.ThreadDiameter == 0)
+                    ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
+            }
             if (!viewModel.HasThreadSecond)
-                ModelState.Remove(nameof(viewModel.ThreadLengthSecond)); 
+                ModelState.Remove(nameof(viewModel.ThreadLengthSecond));
             if (viewModel.Kind == Kind.BendDouble.ToString())
-                maxBendLength = 60 + 2 * (viewModel.BendRadius + double.Parse(viewModel.Diameter));
+            {
+                maxBendLength += viewModel.BendRadius;
+                if (double.TryParse(viewModel.Diameter, out double diameterParse))
+                    maxBendLength += diameterParse;
+            }
             if ((viewModel.Kind == Kind.Bend.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
                 ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
             if ((viewModel.Kind == Kind.BendDouble.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
                 ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
-            if (viewModel.ThreadDiameter == 0)
-                ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
             if (ModelState.IsValid)
                 {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
@@ -155,6 +168,8 @@ namespace UI.AnchorCalculator.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(AnchorViewModel viewModel)
         {
+            if (viewModel.ThreadLength == 0)
+                ModelState.Remove(nameof(viewModel.ThreadLength));
             if (viewModel.ThreadLengthSecond == 0)
                 ModelState.Remove(nameof(viewModel.ThreadLengthSecond));
             if (ModelState.IsValid)

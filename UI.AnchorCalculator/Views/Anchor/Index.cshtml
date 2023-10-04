@@ -184,11 +184,18 @@
             var straight = document.getElementById("straight");
             var withBend = document.getElementById("withBend");
             var withBendDouble = document.getElementById("withBendDouble");
-            if (hasThreadDivCheckbox.checked === true && straight.checked) {
-                threadLengthSecondDiv.style.display = "block";
+            var threadLength = document.getElementById("ThreadLength");
+            if (hasThreadDivCheckbox.checked) {
+                threadLength.disabled = false;
+                threadLength.value = '';
+                if (straight.checked) { 
+                    threadLengthSecondDiv.style.display = "block";
+                }
             } else { 
                 threadLengthSecondDiv.style.display = "none";
                 threadLengthSecondDivCheckbox.checked = false;
+                threadLength.disabled = true;
+                threadLength.value = 0;
                 showthreadLengthSecondDivInp();
             }
         }
