@@ -9,12 +9,10 @@ namespace UI.AnchorCalculator.Services
     {
         private readonly LoggerManager _logger;
         const double dencitySteel = 7850; // dencity of steel
-        private readonly MaterialService MService;
         private readonly IWebHostEnvironment appEnvironment;
 
-        public CalculateService(MaterialService mService, IWebHostEnvironment appEnvironment, LoggerManager logger)
+        public CalculateService(IWebHostEnvironment appEnvironment, LoggerManager logger)
         {
-            MService = mService;
             this.appEnvironment = appEnvironment;
             _logger = logger;
         }
@@ -50,19 +48,23 @@ namespace UI.AnchorCalculator.Services
             };
 
             double priceBend = costWork.TimeBend * costWork.AreaWelding * quantityBend; // price of bending in $
-            double priceThreadRolling;
-            double priceThreadCutting;
-            if (anchor.Kind == Kind.BendDouble)
-            { 
-              priceThreadRolling = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
-              priceThreadCutting = anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaLockSmith
-                       + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
-            }
-            else
-            { 
-                priceThreadRolling = anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $ 
-                priceThreadCutting = anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaLockSmith
-                    + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
+            double priceThreadRolling = 0;
+            double priceThreadCutting = 0;
+
+            if (anchor.ThreadLength > 0)
+            {
+                if (anchor.Kind == Kind.BendDouble)
+                {
+                    priceThreadRolling = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
+                    priceThreadCutting = anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaLockSmith
+                             + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
+                }
+                else
+                {
+                    priceThreadRolling = anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $ 
+                    priceThreadCutting = anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaLockSmith
+                        + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
+                }
             }
 
             double priceBandSaw = anchor.Material.TimeBandSaw * costWork.AreaWelding + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
