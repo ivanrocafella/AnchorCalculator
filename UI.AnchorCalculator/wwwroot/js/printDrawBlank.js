@@ -15,6 +15,7 @@
                     var quantity = response.anchor.quantity;
                     var threadDiameter = response.anchor.threadDiameter;
                     var length = response.anchor.length;
+                    var threadLength = response.anchor.threadLength;
                     var materialFullName = response.anchor.material.fullName;
                     var dateNow = new Date();
                     var date = dateNow.getDate().toString().padStart(2, '0');;
@@ -104,14 +105,26 @@
                         form = 'прямоугольный';
                     }
 
-                    var notes =
-                        '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
-                        '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
-                        lengthPathRollerEnd +
-                        '<p class="card-text">'+ toleranceNum +'. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
-                        '<p class="card-text"' +
-                        tooling +'</p>' +
-                        '<p class="card-text" > ' + productionNum +'. '+ productionStr +'</p></div > ';
+                    var notes;
+                    if (threadLength > 0) {
+                            notes =
+                            '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
+                            '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
+                            lengthPathRollerEnd +
+                            '<p class="card-text">' + toleranceNum + '. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
+                            '<p class="card-text"' +
+                            tooling + '</p>' +
+                            '<p class="card-text" > ' + productionNum + '. ' + productionStr + '</p></div > ';
+                    } else {
+                            notes =
+                            '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
+                            '<p class="card-text">1. Размер заготовки ' + billetLength + ' мм</p>' +
+                            lengthPathRollerEnd +
+                            '<p class="card-text">' + toleranceNum + '. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
+                            '<p class="card-text"' +
+                            tooling + '</p></div > ';
+                    }
+                    
 
                     var stamp = '<table class="table table-bordered border-dark">' +
                         '<thead>' +
