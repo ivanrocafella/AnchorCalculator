@@ -215,7 +215,8 @@ namespace UI.AnchorCalculator.Services
                     BatchPriceMaterial = viewModel.BatchPriceMaterial,
                     LengthPathRoller = viewModel.LengthPathRoller,
                     LengthBeforeEndPathRoller = viewModel.LengthBeforeEndPathRoller,
-                    ProductionId = viewModel.ProductionId
+                    ProductionId = viewModel.ProductionId,
+                    TimeProductionUnity = viewModel.TimeProductionUnity
                 };
                 await applicationDbContext.Anchors.AddAsync(anchor);
                 await applicationDbContext.SaveChangesAsync();

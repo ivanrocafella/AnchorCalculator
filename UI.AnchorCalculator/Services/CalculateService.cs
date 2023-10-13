@@ -50,6 +50,9 @@ namespace UI.AnchorCalculator.Services
             double priceBend = costWork.TimeBend * costWork.AreaWelding * quantityBend; // price of bending in $
             double priceThreadRolling = 0;
             double priceThreadCutting = 0;
+            double timeProduction = 0;
+
+            timeProduction += costWork.TimeBend * quantityBend;
 
             if (anchor.ThreadLength > 0)
             {
@@ -58,27 +61,41 @@ namespace UI.AnchorCalculator.Services
                     priceThreadRolling = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $
                     priceThreadCutting = anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaLockSmith
                              + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
+                    if (anchor.Production == 0)
+                        timeProduction += anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective);
+                    else
+                        timeProduction += anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective);
                 }
                 else
                 {
                     priceThreadRolling = anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaWelding; // price of threadrolling in $ 
                     priceThreadCutting = anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaLockSmith
                         + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
+                    if (anchor.Production == 0)
+                        timeProduction += anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
+                    else
+                        timeProduction += anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                 }
+                timeProduction += costWork.TimeSetTheradRolling / anchor.Quantity;
             }
 
             double priceBandSaw = anchor.Material.TimeBandSaw * costWork.AreaWelding + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
             double priceMaterialAnchor = ((anchor.BilletLength / 1000) * anchor.Material.PricePerMetr) / costWork.ExchangeDollar; // price of anchor's material in $
 
+            timeProduction += anchor.Material.TimeBandSaw;
+
             double setBend = 0;
             if (anchor.Kind != Kind.Straight)
+            { 
                 setBend = costWork.TimeSetBend * costWork.AreaWelding;
+                timeProduction += costWork.TimeSetBend;
+            }
 
             double costWorkInterm;
             if (anchor.Production == 0)
                 costWorkInterm = (priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity
-                    + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend;
-            else
+                     + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend;
+            else 
                 costWorkInterm = (priceBend + priceThreadCutting + priceBandSaw) * anchor.Quantity
                     + costWork.TimeSetTheradRolling * costWork.AreaWelding + setBend;
 
@@ -90,6 +107,7 @@ namespace UI.AnchorCalculator.Services
             anchor.Price = anchor.Amount / anchor.Quantity;
             anchor.PriceMaterial = priceMaterialAnchor * costWork.ExchangeDollar; // price of anchor's material in som
             anchor.BatchPriceMaterial = anchor.PriceMaterial * anchor.Quantity; // price of anchor's material batch in som
+            anchor.TimeProductionUnity = timeProduction; // time of one anchor's production in hours
         }
 
         static double GetLengthBillet(Anchor anchor)

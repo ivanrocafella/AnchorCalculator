@@ -58,8 +58,8 @@ namespace UI.AnchorCalculator.ViewModels
         public string? BatchSebes { get; set; }
         public string? UserName { get; set; }
         public string? Kind { get; set; }
-        [ValidateNever]
         public int ProductionId { get; set; }
+        public double TimeProductionUnity { get; set; }
         public string? MaterialName { get; set; }
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }

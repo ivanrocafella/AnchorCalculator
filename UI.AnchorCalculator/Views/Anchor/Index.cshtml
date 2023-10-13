@@ -253,6 +253,7 @@
                                     '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
                                     '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
                                     '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
+                                    '<p class="card-text">Время пр-ва 1 шт: ' + response.anchorJS.timeProductionUnity.toFixed(2) + ' ч</p>' +
                                     '<p class="card-text">Цена мат-ла на 1 шт: ' + Math.round(response.anchorJS.priceMaterial) + ' сом</p>' +
                                     '<p class="card-text">Цена мат-ла на ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchPriceMaterial) + ' сом</p>' +
                                     '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
@@ -286,6 +287,7 @@
                                                                                               '<input id="lengthPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthPathRoller.toFixed(1) + '">' +
                                                                                               '<input id="lengthBeforeEndPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthBeforeEndPathRoller.toFixed(1) + '">' +
                                                                                               '<input id="productionIdToDB" type="hidden" value="' + response.anchorJS.productionId + '">' +
+                                                                                              '<input id="timeProductionUnityToDB" type="hidden" value="' + response.anchorJS.timeProductionUnity + '">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
                                                                                               '<button type="button" id="btn_drawing_pdf" class="btn btn-secondary" disabled>Чертеж</button>' +
@@ -789,7 +791,9 @@
 
              var lengthBeforeEndPathRollerToDB = document.getElementById("lengthBeforeEndPathRollerToDB").value
 
-            var productionIdToDB = document.getElementById("productionIdToDB").value
+             var productionIdToDB = document.getElementById("productionIdToDB").value
+
+             var timeProductionUnityToDB = document.getElementById("timeProductionUnityToDB").value
 
             $.ajax(
                     {
@@ -820,7 +824,8 @@
                         'batchPriceMaterial': batchPriceMaterialToDB,
                         'lengthPathRoller': lengthPathRollerToDB,
                         'lengthBeforeEndPathRoller': lengthBeforeEndPathRollerToDB,
-                        'productionId': productionIdToDB
+                        'productionId': productionIdToDB,
+                        'timeProductionUnity': timeProductionUnityToDB
                         },
                         success: function(response)
                         {
