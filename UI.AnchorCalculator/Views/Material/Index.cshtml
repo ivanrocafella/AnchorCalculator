@@ -62,9 +62,17 @@
                <div class="col-sm-3 mb-1">
                             <input asp-for="CostWork.ExchangeDollar" type="text" class="form-control" id="ExchangeDollar" value="@Model.CostWork.ExchangeDollar">
                         </div>
-                        <label for="AreaWelding" class="col-sm-9 col-form-label ml-0 pl-0">Сварочный участок,$:</label>
+                        <label for="PnrRollingThread" class="col-sm-9 col-form-label ml-0 pl-0">Накатка резьбы,$:</label>
                <div class="col-sm-3 mb-1">
-                            <input asp-for="CostWork.AreaWelding" type="text" class="form-control" id="AreaWelding" value="@Model.CostWork.AreaWelding">
+                            <input asp-for="CostWork.PnrRollingThread" type="text" class="form-control" id="PnrRollingThread" value="@Model.CostWork.PnrRollingThread">
+                        </div>
+                        <label for="PnrBendingAnchor" class="col-sm-9 col-form-label ml-0 pl-0">Гибка анкеров,$:</label>
+               <div class="col-sm-3 mb-1">
+                            <input asp-for="CostWork.PnrBendingAnchor" type="text" class="form-control" id="PnrBendingAnchor" value="@Model.CostWork.PnrBendingAnchor">
+                        </div>
+                        <label for="PnrBandSaw" class="col-sm-9 col-form-label ml-0 pl-0">Лентопил,$:</label>
+               <div class="col-sm-3 mb-1">
+                            <input asp-for="CostWork.PnrBandSaw" type="text" class="form-control" id="PnrBandSaw" value="@Model.CostWork.PnrBandSaw">
                         </div>
                         <label for="AreaLockSmith" class="col-sm-9 col-form-label ml-0 pl-0">Слесарный участок,$:</label>
                 <div class="col-sm-3 mb-1">
@@ -86,9 +94,9 @@
                 <div class="col-sm-3 mb-1">
                             <input asp-for="CostWork.PriceCutter" type="text" class="form-control" id="PriceCutter" value="@Model.CostWork.PriceCutter">
                 </div>
-                        <label for="TimeSetTheradRolling" class="col-sm-9 col-form-label ml-0 pl-0">Время настройки резьбонакатного станка,ч:</label>
+                        <label for="TimeSetThreadRolling" class="col-sm-9 col-form-label ml-0 pl-0">Время настройки резьбонакатного станка,ч:</label>
                <div class="col-sm-3 mb-1">
-                            <input asp-for="CostWork.TimeSetTheradRolling" type="text" class="form-control" id="TimeSetTheradRolling" value="@Model.CostWork.TimeSetTheradRolling">
+                            <input asp-for="CostWork.TimeSetThreadRolling" type="text" class="form-control" id="TimeSetThreadRolling" value="@Model.CostWork.TimeSetThreadRolling">
                         </div>
                         <label for="TimeBend" class="col-sm-9 col-form-label ml-0 pl-0">Время гиба,ч:</label>
                <div class="col-sm-3 mb-1">
@@ -197,7 +205,19 @@
             digits: 4,
             max: 9999.9999
         });
-        $("#AreaWelding").inputmask({
+        $("#PnrRollingThread").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#PnrBendingAnchor").inputmask({
+            alias: 'decimal',
+            allowMinus: false,
+            digits: 4,
+            max: 9999.9999
+        });
+        $("#PnrBandSaw").inputmask({
             alias: 'decimal',
             allowMinus: false,
             digits: 4,
@@ -227,7 +247,7 @@
             digits: 4,
             max: 9999.9999
         });
-        $("#TimeSetTheradRolling").inputmask({
+        $("#TimeSetThreadRolling").inputmask({
             alias: 'decimal',
             allowMinus: false,
             digits: 4,

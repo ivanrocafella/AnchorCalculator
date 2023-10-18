@@ -81,6 +81,10 @@ namespace UI.AnchorCalculator.Services
                 ProductionId = viewModel.ThreadLength > 100 || viewModel.ThreadLengthSecond > 100
                 ? (int)Production.CuttingThread 
                 : (int)Production.RollingThread,
+                TimeProductionThread = viewModel.TimeProductionThread,
+                TimeProductionBend = viewModel.TimeProductionBend,
+                TimeProductionBandSaw = viewModel.TimeProductionBandSaw,
+                LengthFull = viewModel.LengthFull
             };
             return anchor;
         }
@@ -216,7 +220,10 @@ namespace UI.AnchorCalculator.Services
                     LengthPathRoller = viewModel.LengthPathRoller,
                     LengthBeforeEndPathRoller = viewModel.LengthBeforeEndPathRoller,
                     ProductionId = viewModel.ProductionId,
-                    TimeProductionUnity = viewModel.TimeProductionUnity
+                    TimeProductionThread = viewModel.TimeProductionThread,
+                    TimeProductionBend = viewModel.TimeProductionBend,
+                    TimeProductionBandSaw = viewModel.TimeProductionBandSaw,
+                    LengthFull = viewModel.LengthFull
                 };
                 await applicationDbContext.Anchors.AddAsync(anchor);
                 await applicationDbContext.SaveChangesAsync();

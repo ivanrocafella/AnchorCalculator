@@ -12,10 +12,12 @@ namespace UI.AnchorCalculator.Extensions
     public class CostWork
     {
         public double ExchangeDollar { get; set; } // unity of measure = som / $
-        public double AreaWelding { get; set; } // unity of measure = $
+        public double PnrRollingThread { get; set; } // unity of measure = $
+        public double PnrBendingAnchor { get; set; } // unity of measure = $
+        public double PnrBandSaw { get; set; } // unity of measure = $
         public double LengthEffective { get; set; } // unity of measure = мм
         public double PriceBandSaw { get; set; } // unity of measure = $
-        public double TimeSetTheradRolling { get; set; }  // unity of measure = ч
+        public double TimeSetThreadRolling { get; set; }  // unity of measure = ч
         public double TimeBend { get; set; } // unity of measure = ч
         public double TimeSetBend { get; set; } // unity of measure = ч
         public double Margin { get; set; } // unity of measure = %

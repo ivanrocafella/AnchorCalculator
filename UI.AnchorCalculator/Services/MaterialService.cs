@@ -137,10 +137,12 @@ namespace UI.AnchorCalculator.Services
             CostWork costWork = new()
             {
                 ExchangeDollar = materialsAndCostWorkViewModel.CostWork.ExchangeDollar,
-                AreaWelding = materialsAndCostWorkViewModel.CostWork.AreaWelding,
+                PnrRollingThread = materialsAndCostWorkViewModel.CostWork.PnrRollingThread,
+                PnrBendingAnchor = materialsAndCostWorkViewModel.CostWork.PnrBendingAnchor,
+                PnrBandSaw = materialsAndCostWorkViewModel.CostWork.PnrBandSaw,
                 LengthEffective = materialsAndCostWorkViewModel.CostWork.LengthEffective,
                 PriceBandSaw = materialsAndCostWorkViewModel.CostWork.PriceBandSaw,
-                TimeSetTheradRolling = materialsAndCostWorkViewModel.CostWork.TimeSetTheradRolling,
+                TimeSetThreadRolling = materialsAndCostWorkViewModel.CostWork.TimeSetThreadRolling,
                 TimeBend = materialsAndCostWorkViewModel.CostWork.TimeBend,
                 TimeSetBend = materialsAndCostWorkViewModel.CostWork.TimeSetBend,
                 Margin = materialsAndCostWorkViewModel.CostWork.Margin,

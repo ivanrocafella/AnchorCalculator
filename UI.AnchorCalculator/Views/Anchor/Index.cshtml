@@ -247,19 +247,22 @@
                         {
                                 warn_Production = 'Анкер изгототавливается на токарном станке';
                         }
-                        console.log(warn_Update);
+                            console.log(response.anchorJS);
                                 if(response.isAuthen){
                                     Descript_to_blank = '<div id="Descript_to_blank"><h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
                                     '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
                                     '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
                                     '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
-                                    '<p class="card-text">Время пр-ва 1 шт: ' + response.anchorJS.timeProductionUnity.toFixed(2) + ' ч</p>' +
                                     '<p class="card-text">Цена мат-ла на 1 шт: ' + Math.round(response.anchorJS.priceMaterial) + ' сом</p>' +
                                     '<p class="card-text">Цена мат-ла на ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchPriceMaterial) + ' сом</p>' +
                                     '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
                                     '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
                                     '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
                                     '<p class="card-text">Исполнитель: @User.Identity.Name</p>' +
+                                    '<p class="card-text">Накатка/нарезка резьбы: ' + response.anchorJS.timeProductionThread.toFixed(2) + ' ч</p>' +
+                                    '<p class="card-text">Гибка: ' + response.anchorJS.timeProductionBend.toFixed(2) + ' ч</p>' +
+                                    '<p class="card-text">Лентопил: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>' +
+                                    '<p class="card-text">Общая длина: ' + response.anchorJS.lengthFull.toFixed(1) + ' м</p>' +
                                     '<p class="card-text text-danger">' + warn_Update + '</p></div>' +
                                     '<p class="card-text text-success">' + warn_Production + '</p></div>';
                                     document.getElementById("listBlank").innerHTML = Descript_to_blank;
@@ -287,7 +290,10 @@
                                                                                               '<input id="lengthPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthPathRoller.toFixed(1) + '">' +
                                                                                               '<input id="lengthBeforeEndPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthBeforeEndPathRoller.toFixed(1) + '">' +
                                                                                               '<input id="productionIdToDB" type="hidden" value="' + response.anchorJS.productionId + '">' +
-                                                                                              '<input id="timeProductionUnityToDB" type="hidden" value="' + response.anchorJS.timeProductionUnity + '">' +
+                                                                                              '<input id="timeProductionThreadToDB" type="hidden" value="' + response.anchorJS.timeProductionThread + '">' +
+                                                                                              '<input id="timeProductionBendToDB" type="hidden" value="' + response.anchorJS.timeProductionBend + '">' +
+                                                                                              '<input id="timeProductionBandSawToDB" type="hidden" value="' + response.anchorJS.timeProductionBandSaw + '">' +
+                                                                                              '<input id="lengthFullToDB" type="hidden" value="' + response.anchorJS.lengthFull + '">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
                                                                                               '<button type="button" id="btn_drawing_pdf" class="btn btn-secondary" disabled>Чертеж</button>' +
@@ -793,7 +799,13 @@
 
              var productionIdToDB = document.getElementById("productionIdToDB").value
 
-             var timeProductionUnityToDB = document.getElementById("timeProductionUnityToDB").value
+             var timeProductionThreadToDB = document.getElementById("timeProductionThreadToDB").value
+
+             var timeProductionBendToDB = document.getElementById("timeProductionBendToDB").value
+
+             var timeProductionBandSawToDB = document.getElementById("timeProductionBandSawToDB").value
+
+             var lengthFullToDB = document.getElementById("lengthFullToDB").value
 
             $.ajax(
                     {
@@ -825,7 +837,10 @@
                         'lengthPathRoller': lengthPathRollerToDB,
                         'lengthBeforeEndPathRoller': lengthBeforeEndPathRollerToDB,
                         'productionId': productionIdToDB,
-                        'timeProductionUnity': timeProductionUnityToDB
+                        'timeProductionThread': timeProductionThreadToDB,
+                        'timeProductionBend': timeProductionBendToDB,
+                        'timeProductionBandSaw': timeProductionBandSawToDB,
+                        'lengthFull': lengthFullToDB
                         },
                         success: function(response)
                         {

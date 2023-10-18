@@ -51,8 +51,10 @@ namespace Core.AnchorCalculator.Entities
         public double BatchPriceMaterial { get; set; }
         public double LengthPathRoller { get; set; } // мм
         public double LengthBeforeEndPathRoller { get; set; } // мм
-        public double TimeProductionUnity { get; set; }
-        public double TimeProductionBatch { get; set; }
+        public double TimeProductionThread { get; set; } // h
+        public double TimeProductionBend { get; set; } // h
+        public double TimeProductionBandSaw { get; set; } // h
+        public double LengthFull { get; set; } // m
 
 
         public int? MaterialId { get; set; }

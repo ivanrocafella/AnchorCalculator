@@ -59,7 +59,10 @@ namespace UI.AnchorCalculator.ViewModels
         public string? UserName { get; set; }
         public string? Kind { get; set; }
         public int ProductionId { get; set; }
-        public double TimeProductionUnity { get; set; }
+        public double TimeProductionThread { get; set; }
+        public double TimeProductionBend { get; set; }
+        public double TimeProductionBandSaw { get; set; }
+        public double LengthFull { get; set; }
         public string? MaterialName { get; set; }
         [Display(Name = "Материал")]
         public int MaterialId { get; set; }
