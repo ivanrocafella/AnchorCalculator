@@ -109,7 +109,7 @@ namespace UI.AnchorCalculator.Services
             { 
                 setBend = costWork.TimeSetBend * costWork.PnrBendingAnchor;
                 timeProduction += costWork.TimeSetBend;
-                timeProductionBend += costWork.TimeSetBend;
+                timeProductionBend += costWork.TimeSetBend / anchor.Quantity;
             }
 
             double costWorkInterm;
