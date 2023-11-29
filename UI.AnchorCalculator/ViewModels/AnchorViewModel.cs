@@ -9,7 +9,7 @@ namespace UI.AnchorCalculator.ViewModels
     public class AnchorViewModel 
     {
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [Range(200,6000,ErrorMessage = "Укажите длину от 400 до 6000")]
+        [Range(400,6000,ErrorMessage = "Укажите длину от 400 до 6000")]
         [Display(Name = "Длина, мм:")]
         public int Length { get; set; }
         [Required(ErrorMessage = "Выберите материал")]
@@ -24,11 +24,11 @@ namespace UI.AnchorCalculator.ViewModels
         public int BendLength { get; set; }
         [Display(Name = "Радиус загиба, мм:")]
         public int BendRadius { get; set; }
-        [Range(50, 200, ErrorMessage = "Укажите длину от 50 до 200")]
+        [Range(50, 300, ErrorMessage = "Укажите длину от 50 до 300")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLength { get; set; }
-        [Range(50, 200, ErrorMessage = "Укажите длину от 50 до 200")]
+        [Range(50, 300, ErrorMessage = "Укажите длину от 50 до 300")]
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLengthSecond { get; set; }
@@ -59,6 +59,7 @@ namespace UI.AnchorCalculator.ViewModels
         public string? UserName { get; set; }
         public string? Kind { get; set; }
         public int ProductionId { get; set; }
+        public bool HasCuttingThread { get; set; }
         public double TimeProductionThread { get; set; }
         public double TimeProductionBend { get; set; }
         public double TimeProductionBandSaw { get; set; }

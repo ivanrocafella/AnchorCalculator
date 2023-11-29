@@ -101,6 +101,10 @@
                  <input checked class="form-check-input" asp-for="HasThread" type="checkbox" id="hasThreadDivCheckbox" onchange="unableDisableThreadInput()">
                  <label class="form-check-label" for="hasThreadDivCheckbox">Есть резьба</label>
              </div>
+             <div id="hasCuttingThreadDiv" class="form-check form-check-inline w-75 mb-3">
+                 <input class="form-check-input" asp-for="HasCuttingThread" type="checkbox" id="hasCuttingThreadDivCheckbox">
+                 <label class="form-check-label" for="hasCuttingThreadDivCheckbox">Резьба на токарном станке</label>
+             </div>
              <div id="threadLengthSecondDiv" class="form-check form-check-inline w-75 mb-3">
                  <input class="form-check-input" asp-for="HasThreadSecond" type="checkbox" id="threadLengthSecondDivCheckbox" onchange="showthreadLengthSecondDivInp()">
                  <label class="form-check-label" for="threadLengthSecondDivCheckbox">Резьба на втором конце</label>
@@ -185,18 +189,22 @@
             var withBend = document.getElementById("withBend");
             var withBendDouble = document.getElementById("withBendDouble");
             var threadLength = document.getElementById("ThreadLength");
+            var hasCuttingThreadDiv = document.getElementById("hasCuttingThreadDiv");
             if (hasThreadDivCheckbox.checked) {
                 threadLength.disabled = false;
                 threadLength.value = '';
                 if (straight.checked) { 
                     threadLengthSecondDiv.style.display = "block";
+                    hasCuttingThreadDiv.style.display = "block";
                 }
             } else { 
-                threadLengthSecondDiv.style.display = "none";
+                threadLengthSecondDiv.style.display = "none";                
                 threadLengthSecondDivCheckbox.checked = false;
                 threadLength.disabled = true;
                 threadLength.value = 0;
                 showthreadLengthSecondDivInp();
+                hasCuttingThreadDiv.style.display = "none";
+                hasCuttingThreadDivCheckbox.checked = false;
             }
         }
 

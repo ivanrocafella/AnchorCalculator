@@ -81,6 +81,7 @@ namespace UI.AnchorCalculator.Controllers
         {
             ModelState.Remove(nameof(viewModel.HasThread));
             ModelState.Remove(nameof(viewModel.HasThreadSecond));
+            ModelState.Remove(nameof(viewModel.HasCuttingThread));
             double maxBendLength = 60 + viewModel.BendRadius;            
             if (!viewModel.HasThread)
             {
