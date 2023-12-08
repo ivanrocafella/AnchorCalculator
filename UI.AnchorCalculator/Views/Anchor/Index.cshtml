@@ -257,23 +257,41 @@
                         }
                             console.log(response.anchorJS);
                                 if(response.isAuthen){
+                                    if(response.anchorJS.productionId == 0){
                                     Descript_to_blank = '<div id="Descript_to_blank"><h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
-                                    '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
-                                    '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
-                                    '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
-                                    '<p class="card-text">Цена мат-ла на 1 шт: ' + Math.round(response.anchorJS.priceMaterial) + ' сом</p>' +
-                                    '<p class="card-text">Цена мат-ла на ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchPriceMaterial) + ' сом</p>' +
-                                    '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
-                                    '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
-                                    '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
-                                    '<p class="card-text">Исполнитель: @User.Identity.Name</p>' +
-                                    '<p class="card-text">Накатка/нарезка резьбы: ' + response.anchorJS.timeProductionThread.toFixed(2) + ' ч</p>' +
-                                    '<p class="card-text">Гибка: ' + response.anchorJS.timeProductionBend.toFixed(2) + ' ч</p>' +
-                                    '<p class="card-text">Лентопил: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>' +
-                                    '<p class="card-text">Общая длина: ' + response.anchorJS.lengthFull.toFixed(1) + ' м</p>' +
-                                    '<p class="card-text text-danger">' + warn_Update + '</p></div>' +
-                                    '<p class="card-text text-success">' + warn_Production + '</p></div>';
+                                        '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
+                                        '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
+                                        '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
+                                        '<p class="card-text">Цена мат-ла на 1 шт: ' + Math.round(response.anchorJS.priceMaterial) + ' сом</p>' +
+                                        '<p class="card-text">Цена мат-ла на ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchPriceMaterial) + ' сом</p>' +
+                                        '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
+                                        '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
+                                        '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
+                                        '<p class="card-text">Исполнитель: @User.Identity.Name</p>' +
+                                        '<p class="card-text">Накатка/нарезка резьбы: ' + response.anchorJS.timeProductionThread.toFixed(2) + ' ч</p>' +
+                                        '<p class="card-text">Гибка: ' + response.anchorJS.timeProductionBend.toFixed(2) + ' ч</p>' +
+                                        '<p class="card-text">Лентопил: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>' +
+                                        '<p class="card-text">Общая длина: ' + response.anchorJS.lengthFull.toFixed(1) + ' м</p>' +
+                                        '<p class="card-text text-danger">' + warn_Update + '</p></div>' +
+                                        '<p class="card-text text-success">' + warn_Production + '</p></div>';
                                     document.getElementById("listBlank").innerHTML = Descript_to_blank;
+                                    } else{
+                                    Descript_to_blank = '<div id="Descript_to_blank"><h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
+                                        '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
+                                        '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +
+                                        '<p class="card-text">Длина заготовки: ' + Math.round(response.anchorJS.billetLength) + ' мм</p>' +
+                                        '<p class="card-text">Цена мат-ла на 1 шт: ' + Math.round(response.anchorJS.priceMaterial) + ' сом</p>' +
+                                        '<p class="card-text">Цена мат-ла на ' + response.anchorJS.quantity + ' шт: ' + Math.round(response.anchorJS.batchPriceMaterial) + ' сом</p>' +
+                                        '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
+                                        '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
+                                        '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
+                                        '<p class="card-text">Исполнитель: @User.Identity.Name</p>' +
+                                        '<p class="card-text">Общая длина: ' + response.anchorJS.lengthFull.toFixed(1) + ' м</p>' +
+                                        '<p class="card-text text-danger">' + warn_Update + '</p></div>' +
+                                        '<p class="card-text text-success">' + warn_Production + '</p></div>';
+                                    document.getElementById("listBlank").innerHTML = Descript_to_blank;
+                                    }
+                                    
                                                                                               PriceWeight.innerHTML = Descript_to_blank +
                                                                                               '<input id="materialIdtoDB" type="hidden" value="'+ response.anchorJS.materialId +'">' + 
                                                                                               '<input id="diametertoDB" type="hidden" value="'+ response.anchorJS.diameter +'">' +
