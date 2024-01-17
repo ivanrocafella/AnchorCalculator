@@ -52,7 +52,7 @@
                <label asp-for="ThreadLength" class="col-sm-4 col-form-label"></label>   
                <div class="col-sm-8">
                  <input asp-for="ThreadLength" type="text" class="form-control" id="ThreadLength">
-                 <span asp-validation-for="ThreadLength" class="text-danger"></span>
+                 <span id="ThreadLengthValid" class="text-danger"></span>
                </div>
              </div> 
               <div class="row mb-3">
@@ -118,7 +118,7 @@
                     <label asp-for="ThreadLengthSecond" class="col-sm-4 col-form-label"></label>
                     <div class="col-sm-8">
                         <input asp-for="ThreadLengthSecond" type="text" class="form-control" id="ThreadLengthSecond">
-                        <span asp-validation-for="ThreadLengthSecond" class="text-danger"></span>
+                        <span id="ThreadLengthSecondValid" class="text-danger"></span>
                     </div>
                  </div>
              </div>
@@ -187,7 +187,8 @@
         let hasCuttingThreadDivCheckbox = document.getElementById("hasCuttingThreadDivCheckbox");
         let onHydraulicMachineDivCheckbox = document.getElementById("onHydraulicMachineDivCheckbox");
 
-        function onCheckThreadCutter() {           
+        function onCheckThreadCutter() {
+            changeFuncDiamAnchor();
             if (hasCuttingThreadDivCheckbox.checked) {
                 onHydraulicMachineDivCheckbox.checked = false;
             }
@@ -197,6 +198,7 @@
         }
 
         function onCheckHydraylicMachine() {
+            changeFuncDiamAnchor();
             if (onHydraulicMachineDivCheckbox.checked) {
                 hasCuttingThreadDivCheckbox.checked = false;
             }
@@ -215,9 +217,7 @@
             var withBendDouble = document.getElementById("withBendDouble");
             var threadLength = document.getElementById("ThreadLength");
             var hasCuttingThreadDiv = document.getElementById("hasCuttingThreadDiv");
-            var hasCuttingThreadDivCheckbox = document.getElementById("hasCuttingThreadDivCheckbox");
             var onHydraulicMachineDiv = document.getElementById("onHydraulicMachineDiv");
-            var onHydraulicMachineDivCheckbox = document.getElementById("onHydraulicMachineDivCheckbox");
             if (hasThreadDivCheckbox.checked) {
                 threadLength.disabled = false;
                 threadLength.value = '';
@@ -261,12 +261,12 @@
                 data: formData,          
                 success: function (response)
                 {
-                    var ThreadDiameterValid = document.getElementById("ThreadDiameterValid");
                     if(response.success)
-                    {
+                    {   
                         ThreadDiameterValid.innerHTML = "";
                         BendLengthValid.innerHTML = "";
-                        ThreadDiameterValid.innerHTML = "";                   
+                        ThreadLengthValid.innerHTML = "";
+                        ThreadLengthSecondValid.innerHTML = "";
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svg_pdf").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svg_blank_pdf").innerHTML = response.anchorJS.svgElement;
@@ -360,7 +360,7 @@
                             console.log(response.errorMessageBendLen);
                         if(typeof response.errorMessageDiam !== "undefined")
                         {
-                           if(response.errorMessageDiam == "The value '' is invalid.")
+                           if(response.errorMessageThreadDiam == "The value '' is invalid.")
                            {
                              ThreadDiameterValid.innerHTML = "Поле обязательно для заполнения";
                            }
@@ -374,20 +374,40 @@
                            ThreadDiameterValid.innerHTML = "";
                         };
 
-                        if(typeof response.errorMessageBendLen !== "undefined")
-                        {  
-                           if(response.errorMessageBendLen == "The value '' is invalid.")
-                           {
+                        if (typeof response.errorMessageBendLen !== "undefined") {  
+                           if (response.errorMessageBendLen == "The value '' is invalid.") {
                              BendLengthValid.innerHTML = "Поле обязательно для заполнения";
                            }
-                           else
-                           {
+                           else{
                              BendLengthValid.innerHTML = response.errorMessageBendLen;
                            }                         
                         }
-                        else
-                        {
+                        else {
                            BendLengthValid.innerHTML = "";
+                        };
+
+                        if (typeof response.errorMessageThreadLen !== "undefined") {
+                            if (response.errorMessageThreadLen == "The value '' is invalid.") {
+                                ThreadLengthValid.innerHTML = "Поле обязательно для заполнения";
+                            }
+                        else {
+                                ThreadLengthValid.innerHTML = response.errorMessageThreadLen;
+                             }
+                        }
+                        else {
+                            ThreadLengthValid.innerHTML = "";
+                        };
+
+                        if (typeof response.errorMessageThreadSecondLen !== "undefined") {
+                            if (response.errorMessageThreadSecondLen == "The value '' is invalid.") {
+                                ThreadLengthSecondValid.innerHTML = "Поле обязательно для заполнения";
+                            }
+                        else {
+                                ThreadLengthSecondValid.innerHTML = response.errorMessageThreadSecondLen;
+                             }
+                        }
+                        else {
+                            ThreadLengthSecondValid.innerHTML = "";
                         };
                     }                  
                 }
@@ -464,7 +484,7 @@
                           if (!hasThreadDivCheckbox.checked) {
                                 ThreadDiameterInt = 0
                           } else {
-                                if ((inputThreadLengthValue > 100 || inputThreadLengthSecondValue > 100) && !onHydraulicMachineDivCheckbox.checked) {
+                                if (hasCuttingThreadDivCheckbox.checked) {
                                     if (diameterMaterial >= 6 && diameterMaterial < 10) {
                                         ThreadDiameterInt = 0;
                                     }
@@ -650,7 +670,6 @@
                                 }
                           } 
 
-                           
                           ThreadDiameterInput.value = ThreadDiameterInt;                    
                           changeFuncThreadStep(ThreadDiameterInt);
                           var BendRadius = document.getElementById("BendRadius");

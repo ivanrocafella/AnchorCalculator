@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using UI.AnchorCalculator.Extensions;
 using UI.AnchorCalculator.Services;
@@ -100,7 +101,7 @@ namespace UI.AnchorCalculator.Controllers
                 }
                 if (viewModel.ThreadDiameter == 0)
                     ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
-            }
+            }   
             if (!viewModel.HasThreadSecond)
                 ModelState.Remove(nameof(viewModel.ThreadLengthSecond));
             if (viewModel.Kind == Kind.BendDouble.ToString())
@@ -109,12 +110,10 @@ namespace UI.AnchorCalculator.Controllers
                 if (double.TryParse(viewModel.Diameter, out double diameterParse))
                     maxBendLength += diameterParse;
             }
-            if ((viewModel.Kind == Kind.Bend.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
-                ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
-            if ((viewModel.Kind == Kind.BendDouble.ToString() && viewModel.BendLength >= 0 && viewModel.BendLength < maxBendLength) || viewModel.BendLength > 500)
+            if (!(viewModel.Kind == Kind.Straight.ToString()) && viewModel.BendLength < maxBendLength || viewModel.BendLength > 500)
                 ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
             if (ModelState.IsValid)
-                {
+            {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
                 if (Anchor.Kind == Kind.Straight || Anchor.BendRadius == 0)
                 {
@@ -133,17 +132,12 @@ namespace UI.AnchorCalculator.Controllers
             }
             else
             {
-                if (ModelState.Root.Children[10].Errors.Count > 0 && ModelState.Root.Children[5].Errors.Count > 0)
-                    return Json(new { success = false
-                        , errorMessageDiam = ModelState.Root.Children[10].Errors[0].ErrorMessage
-                        , errorMessageBendLen = ModelState.Root.Children[5].Errors[0].ErrorMessage
-                    });
-                else if (ModelState.Root.Children[10].Errors.Count > 0)
-                    return Json(new { success = false, errorMessageDiam = ModelState.Root.Children[10].Errors[0].ErrorMessage });
-                else if (ModelState.Root.Children[5].Errors.Count > 0)
-                    return Json(new { success = false, errorMessageBendLen = ModelState.Root.Children[5].Errors[0].ErrorMessage });
-                else
-                    return Json(new { succes = false });
+                return Json(new { success = false
+                    , errorMessageThreadDiam = ModelState["ThreadDiameter"].Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageBendLen = ModelState["BendLength"].Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageThreadLen = ModelState["ThreadLength"].Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageThreadSecondLen = ModelState["ThreadLengthSecond"].Errors.FirstOrDefault()?.ErrorMessage
+                });
             }    
         }
 

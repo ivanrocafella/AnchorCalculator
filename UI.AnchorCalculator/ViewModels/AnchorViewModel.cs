@@ -3,6 +3,8 @@ using Core.AnchorCalculator.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Sockets;
+using UI.AnchorCalculator.ValidationAttributes;
 
 namespace UI.AnchorCalculator.ViewModels
 {
@@ -24,12 +26,10 @@ namespace UI.AnchorCalculator.ViewModels
         public int BendLength { get; set; }
         [Display(Name = "Радиус загиба, мм:")]
         public int BendRadius { get; set; }
-        [Range(50, 300, ErrorMessage = "Укажите длину от 50 до 300")]
-        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [CheckThreadLength("Diameter", "HasCuttingThread", "OnHydraulicMachine")]       
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLength { get; set; }
-        [Range(50, 300, ErrorMessage = "Укажите длину от 50 до 300")]
-        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [CheckThreadLength("Diameter", "HasCuttingThread", "OnHydraulicMachine")]
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLengthSecond { get; set; }
         public bool HasThreadSecond { get; set; }
