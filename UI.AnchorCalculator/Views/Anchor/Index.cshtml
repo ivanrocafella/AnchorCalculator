@@ -38,7 +38,7 @@
                <label asp-for="Length" class="col-sm-4 col-form-label"></label>
                <div class="col-sm-8">
                  <input asp-for="Length" type="text" class="form-control" id="Length">
-                 <span asp-validation-for="Length" class="text-danger"></span>
+                  <span id="LengthValid" class="text-danger"></span>
                </div>
              </div>
               <div class="row mb-3">
@@ -267,6 +267,7 @@
                         BendLengthValid.innerHTML = "";
                         ThreadLengthValid.innerHTML = "";
                         ThreadLengthSecondValid.innerHTML = "";
+                        LengthValid.innerHTML = "";
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svg_pdf").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svg_blank_pdf").innerHTML = response.anchorJS.svgElement;
@@ -408,6 +409,18 @@
                         }
                         else {
                             ThreadLengthSecondValid.innerHTML = "";
+                        };
+
+                        if (typeof response.errorMessageLen !== "undefined") {
+                            if (response.errorMessageLen == "The value '' is invalid.") {
+                                LengthValid.innerHTML = "Поле обязательно для заполнения";
+                            }
+                            else {
+                                LengthValid.innerHTML = response.errorMessageLen;
+                            }
+                        }
+                        else {
+                            LengthValid.innerHTML = "";
                         };
                     }                  
                 }

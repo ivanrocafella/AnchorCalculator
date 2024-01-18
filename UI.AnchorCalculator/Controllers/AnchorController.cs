@@ -133,10 +133,11 @@ namespace UI.AnchorCalculator.Controllers
             else
             {
                 return Json(new { success = false
-                    , errorMessageThreadDiam = ModelState["ThreadDiameter"].Errors.FirstOrDefault()?.ErrorMessage
-                    , errorMessageBendLen = ModelState["BendLength"].Errors.FirstOrDefault()?.ErrorMessage
-                    , errorMessageThreadLen = ModelState["ThreadLength"].Errors.FirstOrDefault()?.ErrorMessage
-                    , errorMessageThreadSecondLen = ModelState["ThreadLengthSecond"].Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageThreadDiam = ModelState["ThreadDiameter"]?.Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageBendLen = ModelState["BendLength"]?.Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageThreadLen = ModelState["ThreadLength"]?.Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageThreadSecondLen = ModelState["ThreadLengthSecond"]?.Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageLen = ModelState["Length"]?.Errors.FirstOrDefault()?.ErrorMessage
                 });
             }    
         }

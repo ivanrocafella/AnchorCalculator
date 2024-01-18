@@ -11,7 +11,6 @@ namespace UI.AnchorCalculator.ValidationAttributes
         private readonly string _diameterMaterialPropertyName;
         private readonly string _hasCuttingThreadlPropertyName;
         private readonly string _onHydraulicMachinelPropertyName;
-        private string errorMessage;
 
         public CheckThreadLength(string diameterMaterialPropertyName, string hasCuttingThreadlPropertyName, string onHydraulicMachinelPropertyName)
         {
@@ -41,44 +40,29 @@ namespace UI.AnchorCalculator.ValidationAttributes
                         if (diameterMaterialPropertyVal <= 32)
                         {
                             if (treadLength < 50 || treadLength > 300)
-                            {
-                                errorMessage = "Укажите длину от 50 до 300";
-                                return new ValidationResult(errorMessage);
-                            }
+                                return new ValidationResult("Укажите длину от 50 до 300");
                         }
                         else if (diameterMaterialPropertyVal > 32 && diameterMaterialPropertyVal <= 36)
                         {
-                            if (treadLength < 50 || treadLength > 250)
-                            {
-                                errorMessage = "Укажите длину от 50 до 250";    
-                                return new ValidationResult(errorMessage);
-                            }
+                            if (treadLength < 50 || treadLength > 250)   
+                                return new ValidationResult("Укажите длину от 50 до 250");
                         }
                         else
                         {
                             if (treadLength < 50 || treadLength > 150)
-                            {
-                                errorMessage = "Укажите длину от 50 до 150";
-                                return new ValidationResult(errorMessage);
-                            }
+                                return new ValidationResult("Укажите длину от 50 до 150");
                         }
                     }
                     else
                     {
                         if (treadLength < 50 || treadLength > 150)
-                        {
-                            errorMessage = "Укажите длину от 50 до 150";
-                            return new ValidationResult(errorMessage);
-                        }
+                            return new ValidationResult("Укажите длину от 50 до 150");
                     }
                 }
                 else
                 {
                     if (treadLength < 50 || treadLength > 300)
-                    {
-                        errorMessage = "Укажите длину от 50 до 300";
-                        return new ValidationResult(errorMessage);
-                    }
+                         return new ValidationResult("Укажите длину от 50 до 300");
                 }
             }               
             return ValidationResult.Success;

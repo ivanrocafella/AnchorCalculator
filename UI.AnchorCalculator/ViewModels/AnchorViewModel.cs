@@ -11,7 +11,7 @@ namespace UI.AnchorCalculator.ViewModels
     public class AnchorViewModel 
     {
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [Range(400,6000,ErrorMessage = "Укажите длину от 400 до 6000")]
+        [CheckLength("OnHydraulicMachine")] // min 1000 for hydraulic , 400 for rolling and cutting
         [Display(Name = "Длина, мм:")]
         public int Length { get; set; }
         [Required(ErrorMessage = "Выберите материал")]
