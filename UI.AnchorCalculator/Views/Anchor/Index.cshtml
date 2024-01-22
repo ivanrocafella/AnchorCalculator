@@ -338,6 +338,8 @@
                                                                                               '<input id="timeProductionBendToDB" type="hidden" value="' + response.anchorJS.timeProductionBend + '">' +
                                                                                               '<input id="timeProductionBandSawToDB" type="hidden" value="' + response.anchorJS.timeProductionBandSaw + '">' +
                                                                                               '<input id="lengthFullToDB" type="hidden" value="' + response.anchorJS.lengthFull + '">' +
+                                                                                              '<input id="hasCuttingThreadToDB" type="hidden" value="' + response.anchorJS.hasCuttingThread + '">' +
+                                                                                              '<input id="onHydraulicMachineToDB" type="hidden" value="' + response.anchorJS.onHydraulicMachine + '">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
                                                                                               '<button type="button" id="btn_drawing_pdf" class="btn btn-secondary" disabled>Чертеж</button>' +
@@ -882,6 +884,9 @@
 
              var lengthFullToDB = document.getElementById("lengthFullToDB").value
 
+             var hasCuttingThreadToDB = document.getElementById("hasCuttingThreadToDB").value
+
+             var onHydraulicMachineToDB = document.getElementById("onHydraulicMachineToDB").value
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
@@ -915,7 +920,9 @@
                         'timeProductionThread': timeProductionThreadToDB,
                         'timeProductionBend': timeProductionBendToDB,
                         'timeProductionBandSaw': timeProductionBandSawToDB,
-                        'lengthFull': lengthFullToDB
+                        'lengthFull': lengthFullToDB,
+                        'hasCuttingThread': hasCuttingThreadToDB,
+                        'onHydraulicMachine': onHydraulicMachineToDB
                         },
                         success: function(response)
                         {

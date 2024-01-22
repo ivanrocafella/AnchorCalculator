@@ -13,18 +13,16 @@ namespace UI.AnchorCalculator.Services
         const int viewHeight = 1200;
         const int Width = 900;
         const int Height = 900;
+        const int lengthMax = 700; // max length of anchor
+        const int bendLengthMax = 300; // max length of anchor's bend
         public void GetSvgStraightAnchor(Anchor anchor)
         {
             string iconDiameter = anchor.Material.TypeId == 1 ? "Арм" : "⌀";
-
-            int lengthMax = 800; // max length of anchor
-            int bendLengthMax = 300; // max length of anchor's bend
 
             if (anchor.BendLength <= bendLengthMax)
                 X_InitCoord += anchor.BendLength; // X origin
             else
                 X_InitCoord += bendLengthMax; // X origin
-
             int gap = 20; // gap in out of max length  of anchor
             int outPartHorSize = 45; // length output part of horizontal size
             int outPartRadSize = 45; // length of shelf of radius size
@@ -942,9 +940,6 @@ namespace UI.AnchorCalculator.Services
         public void GetSvgBendAnchor(Anchor anchor)
         {
             string iconDiameter = anchor.Material.TypeId == 1 ? "Арм" : "⌀";
-
-            int lengthMax = 800; // max length of anchor
-            int bendLengthMax = 300; // max length of anchor's bend
 
             if (anchor.BendLength <= bendLengthMax)
                 X_InitCoord += anchor.BendLength; // X origin
@@ -2435,9 +2430,6 @@ namespace UI.AnchorCalculator.Services
         public void GetSvgBendDoubleAnchor(Anchor anchor)
         {
             string iconDiameter = anchor.Material.TypeId == 1 ? "Арм" : "⌀";
-
-            int lengthMax = 800; // max length of anchor
-            int bendLengthMax = 300; // max length of anchor's bend
 
             if (anchor.BendLength <= bendLengthMax)
                 X_InitCoord += anchor.BendLength; // X origin

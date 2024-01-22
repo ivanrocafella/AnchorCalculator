@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,10 @@ namespace Core.AnchorCalculator.Entities
         public double TimeProductionBend { get; set; } // h
         public double TimeProductionBandSaw { get; set; } // h
         public double LengthFull { get; set; } // m
+        [NotMapped]
+        public bool HasCuttingThread { get; set; } // bool
+        [NotMapped]
+        public bool OnHydraulicMachine { get; set; } // bool
 
 
         public int? MaterialId { get; set; }
