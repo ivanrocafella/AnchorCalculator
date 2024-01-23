@@ -34,7 +34,7 @@
         <p class="card-text">Цена мат-ла на @Model.Anchor.Quantity шт: @Math.Round(Model.Anchor.BatchPriceMaterial, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text" id="material">Материал: @Model.MaterialName</p>
         <p class="card-text" id="author">Исполнитель: @Model.UserName</p>
-        @if (Model.Anchor.ProductionId == 0)
+        @if (Model.Anchor.ProductionId != 0)
         {
             <p class="card-text">Накатка/нарезка резьбы: @Math.Round(Model.Anchor.TimeProductionThread, 2) ч</p>
             <p class="card-text">Гибка: @Math.Round(Model.Anchor.TimeProductionBend, 2) ч</p>

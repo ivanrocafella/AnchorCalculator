@@ -284,13 +284,13 @@
                         if (dif > 14){
                                 warn_Update = 'Стоимость материала не обновлялась ' + dif + ' дней!';
                         }
-                        if (response.anchorJS.productionId == 1)
+                        if (response.anchorJS.productionId == 0)
                         {
                                 warn_Production = 'Анкер изгототавливается на токарном станке';
                         }
                             console.log(response.anchorJS);
                                 if(response.isAuthen){
-                                    if(response.anchorJS.productionId == 0){
+                                    if(response.anchorJS.productionId != 0){
                                         time_Production = '<p class="card-text">Накатка/нарезка резьбы: ' + response.anchorJS.timeProductionThread.toFixed(2) + ' ч</p>' +
                                             '<p class="card-text">Гибка: ' + response.anchorJS.timeProductionBend.toFixed(2) + ' ч</p>' +
                                             '<p class="card-text">Лентопил: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>';

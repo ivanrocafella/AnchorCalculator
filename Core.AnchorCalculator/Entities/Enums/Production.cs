@@ -8,7 +8,8 @@ namespace Core.AnchorCalculator.Entities.Enums
 {
     public enum Production
     {
-        RollingThread, // rolling thread 
-        CuttingThread,  // cutting thread 
+        CuttingThread,  // cutting thread on lathe
+        RollingThreadMech, // rolling thread on mechanic machine
+        RollingThreadHydr // rolling thread on hydraulic machine  
     }
 }

@@ -63,7 +63,13 @@ namespace UI.AnchorCalculator.Services
             List<Kind> kinds = Enum.GetValues(typeof(Kind)).Cast<Kind>().ToList();
             var threadStep = float.Parse(viewModel.ThreadStep, CultureInfo.InvariantCulture);
             var diameter = float.Parse(viewModel.Diameter, CultureInfo.InvariantCulture);
-
+            int prodId;
+            if (viewModel.HasCuttingThread)
+                prodId = (int)Production.CuttingThread;
+            else if (viewModel.OnHydraulicMachine)
+                prodId = (int)Production.RollingThreadHydr;
+            else
+                prodId = (int)Production.RollingThreadMech;
             Anchor anchor = new()
             {
                 MaterialId = viewModel.MaterialId,
@@ -78,9 +84,7 @@ namespace UI.AnchorCalculator.Services
                 Material = await MService.GetMaterialById(viewModel.MaterialId),
                 KindId = (int)kinds.FirstOrDefault(e => e.ToString() == viewModel.Kind),
                 ThreadLengthSecond = viewModel.ThreadLengthSecond,
-                ProductionId = viewModel.HasCuttingThread
-                ? (int)Production.CuttingThread 
-                : (int)Production.RollingThread,
+                ProductionId = prodId,
                 TimeProductionThread = viewModel.TimeProductionThread,
                 TimeProductionBend = viewModel.TimeProductionBend,
                 TimeProductionBandSaw = viewModel.TimeProductionBandSaw,

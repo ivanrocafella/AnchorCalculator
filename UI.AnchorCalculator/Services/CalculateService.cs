@@ -65,7 +65,7 @@ namespace UI.AnchorCalculator.Services
                     priceThreadRolling = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.PnrRollingThread; // price of threadrolling in $
                     priceThreadCutting = anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective) * costWork.AreaLockSmith
                              + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
-                    if (anchor.Production == 0)
+                    if (anchor.ProductionId != 0)
                     {
                         timeProduction += anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / costWork.LengthEffective);
                         timeProduction += costWork.TimeSetThreadRolling / anchor.Quantity;
@@ -83,7 +83,7 @@ namespace UI.AnchorCalculator.Services
                     priceThreadRolling = anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.PnrRollingThread; // price of threadrolling in $ 
                     priceThreadCutting = anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective) * costWork.AreaLockSmith
                         + anchor.Material.Cutter * costWork.PriceCutter + anchor.Material.Plashka * costWork.PricePlashka; // price of threadcutting in $ 
-                    if (anchor.Production == 0)
+                    if (anchor.ProductionId != 0)
                     {
                         timeProduction += anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                         timeProduction += costWork.TimeSetThreadRolling / anchor.Quantity;
@@ -113,7 +113,7 @@ namespace UI.AnchorCalculator.Services
             }
 
             double costWorkInterm;
-            if (anchor.Production == 0)
+            if (anchor.ProductionId != 0)
                 costWorkInterm = (priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity
                      + costWork.TimeSetThreadRolling * costWork.PnrRollingThread + setBend;
             else 

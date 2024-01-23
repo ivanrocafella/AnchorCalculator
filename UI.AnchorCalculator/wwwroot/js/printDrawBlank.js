@@ -6,7 +6,7 @@
             data: { 'id': id },
             success: function (response) {
                 if (response.success) {
-                    console.log(response.anchor)
+                    console.log(response.anchor, 'production ' + response.anchor.productionId + '')
                     var firstName = 'Шпилька';  
                     var form;                             
                     var executor = response.anchor.user.userName;
@@ -18,15 +18,18 @@
                     var threadLength = response.anchor.threadLength;
                     var materialFullName = response.anchor.material.fullName;
                     var dateNow = new Date();
-                    var date = dateNow.getDate().toString().padStart(2, '0');;
+                    var date = dateNow.getDate().toString().padStart(2, '0');
                     var month = (dateNow.getMonth() + 1).toString().padStart(2, '0');
                     var year = dateNow.getFullYear().toString();
                     var lengthBeforeEndPathRoller = Math.round(response.anchor.lengthBeforeEndPathRoller);
                     var productionStr = '';
-                    if (response.anchor.productionId == 0) {
+                    if (response.anchor.productionId === 0) {
+                        productionStr = 'Изготовить на токарном станке';
+                        console.log('production ' + response.anchor.productionId + '');
+                    } else if (response.anchor.productionId === 1) {
                         productionStr = 'Изготовить на резьбонакатном станке';
                     } else {
-                        productionStr = 'Изготовить на токарном станке';
+                        productionStr = 'Изготовить на гидравлическом станке';
                     }
                     console.log(date);
                     console.log(month);
