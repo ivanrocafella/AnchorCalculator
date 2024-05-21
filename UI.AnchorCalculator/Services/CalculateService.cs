@@ -119,12 +119,12 @@ namespace UI.AnchorCalculator.Services
             else 
                 costWorkInterm = (priceBend + priceThreadCutting + priceBandSaw) * anchor.Quantity + setBend;
 
-            anchor.BatchSebes = (costWorkInterm + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar; // sebes of anchor in som
-            anchor.Sebes = anchor.BatchSebes / anchor.Quantity;            
-            anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar;
+            anchor.BatchSebes = (costWorkInterm + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar * 1.1; // sebes of bath anchor in som
+            anchor.Sebes = anchor.BatchSebes / anchor.Quantity; // sebes of 1 anchor in som         
+            anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar; // total amount
             if (anchor.Quantity < 50)
                 anchor.Amount *= 2;
-            anchor.Price = anchor.Amount / anchor.Quantity;
+            anchor.Price = anchor.Amount / anchor.Quantity; // amount of 1 anchor
             anchor.PriceMaterial = priceMaterialAnchor * costWork.ExchangeDollar; // price of anchor's material in som
             anchor.BatchPriceMaterial = anchor.PriceMaterial * anchor.Quantity; // price of anchor's material batch in som
             anchor.TimeProductionThread = timeProductionThread * anchor.Quantity; // time of anchor's thread production in hours
