@@ -11,14 +11,12 @@ namespace UI.AnchorCalculator.ValidationAttributes
         private readonly string _onHydraulicMachinelPropertyName;
         private readonly string _hasThreadName;
         private readonly string _bendRadiusName;
-        private readonly string _diameterName;
 
-        public CheckLength(string onHydraulicMachinelPropertyName, string hasThreadName, string bendRadiusName, string diameterName)
+        public CheckLength(string onHydraulicMachinelPropertyName, string hasThreadName, string bendRadiusName)
         {
             _onHydraulicMachinelPropertyName = onHydraulicMachinelPropertyName;
             _hasThreadName = hasThreadName;
             _bendRadiusName = bendRadiusName;
-            _diameterName = diameterName;
         }
 
         //https://makolyte.com/aspnetcore-client-side-custom-validation-attributes/
@@ -30,9 +28,7 @@ namespace UI.AnchorCalculator.ValidationAttributes
             var hasThreadPropertyVal = Convert.ToBoolean(hasThreadPropertyInfo.GetValue(validationContext.ObjectInstance));
             var bendRadiusNamePropertyInfo = validationContext.ObjectType.GetProperty(_bendRadiusName);
             var bendRadiusPropertyVal = Convert.ToDouble(bendRadiusNamePropertyInfo.GetValue(validationContext.ObjectInstance));
-            var diameterNamePropertyInfo = validationContext.ObjectType.GetProperty(_diameterName);
-            var diameterPropertyVal = Convert.ToDouble(diameterNamePropertyInfo.GetValue(validationContext.ObjectInstance));
-            double diamWithBendRadius = bendRadiusPropertyVal + diameterPropertyVal;
+            double bendRadiusMax = bendRadiusPropertyVal + 60;
             if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
                 return null;
             else
@@ -45,15 +41,15 @@ namespace UI.AnchorCalculator.ValidationAttributes
                         if (length < 1000 || length > 6000)
                             return new ValidationResult("Укажите длину от 1000 до 6000");
                     }
-                    else
+                    else 
                     {
                         if (length < 400 || length > 6000)
-                            return new ValidationResult("Укажите длину от 400 до 6000");
+                            return new ValidationResult("Укажите длину от 400 до 6000");                  
                     }
                 }
                 else
-                    if (length < diamWithBendRadius || length > 6000)
-                        return new ValidationResult($"Укажите длину от {diamWithBendRadius} до 6000");
+                    if (length < bendRadiusMax || length > 6000)
+                        return new ValidationResult($"Укажите длину от {bendRadiusMax} до 6000");
                 
             }               
             return ValidationResult.Success;

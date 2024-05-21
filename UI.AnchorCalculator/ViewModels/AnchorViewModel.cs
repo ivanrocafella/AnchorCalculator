@@ -11,7 +11,7 @@ namespace UI.AnchorCalculator.ViewModels
     public class AnchorViewModel 
     {
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [CheckLength("OnHydraulicMachine", "HasThread", "BendRadius", "Diameter")] // min 1000 for hydraulic , 400 for rolling and cutting, min bendRadius + diameter for nonThread
+        [CheckLength("OnHydraulicMachine", "HasThread", "BendRadius")] // min 1000 for hydraulic , 400 for rolling and cutting, min bendRadius + 60 for nonThread
         [Display(Name = "Длина, мм:")]
         public int Length { get; set; }
         [Required(ErrorMessage = "Выберите материал")]
