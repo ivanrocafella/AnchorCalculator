@@ -84,7 +84,7 @@ namespace UI.AnchorCalculator.Controllers
             ModelState.Remove(nameof(viewModel.HasThreadSecond));
             ModelState.Remove(nameof(viewModel.HasCuttingThread));
             ModelState.Remove(nameof(viewModel.OnHydraulicMachine));
-            double maxBendLength = 60 + viewModel.BendRadius;            
+            double minBendLength = 60 + viewModel.BendRadius;            
             if (!viewModel.HasThread)
             {
                 ModelState.Remove(nameof(viewModel.ThreadDiameter));
@@ -95,7 +95,7 @@ namespace UI.AnchorCalculator.Controllers
             {
                 if (double.TryParse(viewModel.Diameter, out double diameterParse))
                 {
-                    maxBendLength += diameterParse;
+                    minBendLength += diameterParse;
                     if (viewModel.ThreadDiameter > diameterParse)
                         ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
                 }
@@ -106,12 +106,12 @@ namespace UI.AnchorCalculator.Controllers
                 ModelState.Remove(nameof(viewModel.ThreadLengthSecond));
             if (viewModel.Kind == Kind.BendDouble.ToString())
             {
-                maxBendLength += viewModel.BendRadius;
+                minBendLength += viewModel.BendRadius;
                 if (double.TryParse(viewModel.Diameter, out double diameterParse))
-                    maxBendLength += diameterParse;
+                    minBendLength += diameterParse;
             }
-            if (!(viewModel.Kind == Kind.Straight.ToString()) && viewModel.BendLength < maxBendLength || viewModel.BendLength > 500)
-                ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {maxBendLength} до 500");
+            if (!(viewModel.Kind == Kind.Straight.ToString()) && viewModel.BendLength < minBendLength)
+                ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {minBendLength}");
             if (ModelState.IsValid)
             {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
