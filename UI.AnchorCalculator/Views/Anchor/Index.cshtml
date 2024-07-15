@@ -221,10 +221,10 @@
             if (hasThreadDivCheckbox.checked) {
                 threadLength.disabled = false;
                 threadLength.value = '';
+                hasCuttingThreadDiv.style.display = "block";
+                onHydraulicMachineDiv.style.display = "block";
                 if (straight.checked) { 
-                    threadLengthSecondDiv.style.display = "block";
-                    hasCuttingThreadDiv.style.display = "block";
-                    onHydraulicMachineDiv.style.display = "block";
+                    threadLengthSecondDiv.style.display = "block";  
                 }
             } else { 
                 threadLengthSecondDiv.style.display = "none";                
@@ -268,6 +268,8 @@
                         ThreadLengthValid.innerHTML = "";
                         ThreadLengthSecondValid.innerHTML = "";
                         LengthValid.innerHTML = "";
+                        console.log('ThreadDiameterValid.innerHTML' + ThreadDiameterValid.innerHTML +'')
+                        console.log('BendLengthValid.innerHTML' + BendLengthValid.innerHTML + '')
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svg_pdf").innerHTML = response.anchorJS.svgElement;
                         document.getElementById("svg_blank_pdf").innerHTML = response.anchorJS.svgElement;
@@ -360,21 +362,20 @@
                         }
                         
                     } else {
+                            console.log(response);
                             console.log(response.errorMessageBendLen);
-                        if(typeof response.errorMessageDiam !== "undefined")
-                        {
-                           if(response.errorMessageThreadDiam == "The value '' is invalid.")
-                           {
-                             ThreadDiameterValid.innerHTML = "Поле обязательно для заполнения";
-                           }
-                           else
-                           {
-                             ThreadDiameterValid.innerHTML = response.errorMessageDiam;
-                           }                           
+                            console.log(response.errorMessageThreadDiam);
+                            
+                        if (typeof response.errorMessageThreadDiam !== "undefined") {
+                            if (response.errorMessageThreadDiam == "The value '' is invalid.") {
+                                ThreadDiameterValid.innerHTML = "Поле обязательно для заполнения";
+                            }
+                            else {
+                                ThreadDiameterValid.innerHTML = response.errorMessageThreadDiam
+                            }
                         }
-                        else
-                        {
-                           ThreadDiameterValid.innerHTML = "";
+                        else {
+                            ThreadDiameterValid.innerHTML = "";
                         };
 
                         if (typeof response.errorMessageBendLen !== "undefined") {  
@@ -382,7 +383,7 @@
                              BendLengthValid.innerHTML = "Поле обязательно для заполнения";
                            }
                            else{
-                             BendLengthValid.innerHTML = response.errorMessageBendLen;
+                             BendLengthValid.innerHTML = response.errorMessageBendLen
                            }                         
                         }
                         else {
@@ -500,8 +501,21 @@
                                 ThreadDiameterInt = 0
                           } else {
                                 if (hasCuttingThreadDivCheckbox.checked) {
-                                    if (diameterMaterial >= 6 && diameterMaterial < 10) {
-                                        ThreadDiameterInt = 0;
+
+                                    if (diameterMaterial >= 6 && diameterMaterial < 8) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 6;
+                                        } else {
+                                            ThreadDiameterInt = 5;
+                                        }
+                                    }
+                                    else if (diameterMaterial >= 8 && diameterMaterial < 10) {
+                                        if (typeMaterial == 0) {
+                                            ThreadDiameterInt = 8;
+                                        }
+                                        else {
+                                            ThreadDiameterInt = 8;
+                                        }
                                     }
                                     else if (diameterMaterial >= 10 && diameterMaterial < 12) {
                                         if (typeMaterial == 0) {

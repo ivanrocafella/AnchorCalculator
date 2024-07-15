@@ -84,7 +84,9 @@ namespace UI.AnchorCalculator.Controllers
             ModelState.Remove(nameof(viewModel.HasThreadSecond));
             ModelState.Remove(nameof(viewModel.HasCuttingThread));
             ModelState.Remove(nameof(viewModel.OnHydraulicMachine));
-            double minBendLength = 60 + viewModel.BendRadius;            
+            double minBendLength = 60 + viewModel.BendRadius;
+            if (double.TryParse(viewModel.Diameter, out double diameterParse))
+                minBendLength += diameterParse;
             if (!viewModel.HasThread)
             {
                 ModelState.Remove(nameof(viewModel.ThreadDiameter));
@@ -93,12 +95,8 @@ namespace UI.AnchorCalculator.Controllers
             }
             else
             {
-                if (double.TryParse(viewModel.Diameter, out double diameterParse))
-                {
-                    minBendLength += diameterParse;
-                    if (viewModel.ThreadDiameter > diameterParse)
-                        ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
-                }
+                if (viewModel.ThreadDiameter > diameterParse)
+                    ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
                 if (viewModel.ThreadDiameter == 0)
                     ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
             }   
@@ -107,8 +105,7 @@ namespace UI.AnchorCalculator.Controllers
             if (viewModel.Kind == Kind.BendDouble.ToString())
             {
                 minBendLength += viewModel.BendRadius;
-                if (double.TryParse(viewModel.Diameter, out double diameterParse))
-                    minBendLength += diameterParse;
+                minBendLength += diameterParse;
             }
             if (!(viewModel.Kind == Kind.Straight.ToString()) && viewModel.BendLength < minBendLength)
                 ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {minBendLength}");
