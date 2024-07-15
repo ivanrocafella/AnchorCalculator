@@ -17,12 +17,14 @@
                     var length = response.anchor.length;
                     var threadLength = response.anchor.threadLength;
                     var materialFullName = response.anchor.material.fullName;
+                    var withoutBindThreadDiamMatetial = response.anchor.withoutBindThreadDiamMatetial;
                     var dateNow = new Date();
                     var date = dateNow.getDate().toString().padStart(2, '0');
                     var month = (dateNow.getMonth() + 1).toString().padStart(2, '0');
                     var year = dateNow.getFullYear().toString();
                     var lengthBeforeEndPathRoller = Math.round(response.anchor.lengthBeforeEndPathRoller);
                     var productionStr = '';
+                    var withoutBindThreadDiamMatetialInfo = '';
                     if (response.anchor.productionId === 0) {
                         productionStr = 'Изготовить на токарном станке';
                         console.log('production ' + response.anchor.productionId + '');
@@ -107,7 +109,10 @@
                         firstName = 'Хомут';
                         form = 'прямоугольный';
                     }
-
+                    if (withoutBindThreadDiamMatetial) {
+                        console.log('withoutBindThreadDiamMatetialInfo - ' + withoutBindThreadDiamMatetialInfo + '');
+                        withoutBindThreadDiamMatetialInfo = '<p class="card-text">' + (productionNum + 1) + '. Проточить до диаметра резьбы на токарном станке</p>';
+                    }
                     var notes;
                     if (threadLength > 0) {
                             notes =
@@ -117,7 +122,7 @@
                             '<p class="card-text">' + toleranceNum + '. Поле допуска на диаметр резьбы 8q по ГОСТ 16093</p>' +
                             '<p class="card-text"' +
                             tooling + '</p>' +
-                            '<p class="card-text" > ' + productionNum + '. ' + productionStr + '</p></div > ';
+                            '<p class="card-text" > ' + productionNum + '. ' + productionStr + '</p>' + withoutBindThreadDiamMatetialInfo +'</div > ';
                     } else {
                             notes =
                             '<div><p class="card-text fw-bold">Кол - во: ' + quantity + ' шт.</p>' +
@@ -163,7 +168,6 @@
                 }
             }
         })
-
 }
 
 

@@ -90,7 +90,7 @@ namespace UI.AnchorCalculator.Services
                 TimeProductionBandSaw = viewModel.TimeProductionBandSaw,
                 LengthFull = viewModel.LengthFull,
                 HasCuttingThread = viewModel.HasCuttingThread,
-                OnHydraulicMachine = viewModel.OnHydraulicMachine
+                WithoutBindThreadDiamMatetial = viewModel.WithoutBindThreadDiamMatetial
             };
             return anchor;
         }
@@ -229,7 +229,8 @@ namespace UI.AnchorCalculator.Services
                     TimeProductionThread = viewModel.TimeProductionThread,
                     TimeProductionBend = viewModel.TimeProductionBend,
                     TimeProductionBandSaw = viewModel.TimeProductionBandSaw,
-                    LengthFull = viewModel.LengthFull
+                    LengthFull = viewModel.LengthFull,
+                    WithoutBindThreadDiamMatetial = viewModel.WithoutBindThreadDiamMatetial
                 };
                 await applicationDbContext.Anchors.AddAsync(anchor);
                 await applicationDbContext.SaveChangesAsync();

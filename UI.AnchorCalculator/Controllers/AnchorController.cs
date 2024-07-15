@@ -84,6 +84,7 @@ namespace UI.AnchorCalculator.Controllers
             ModelState.Remove(nameof(viewModel.HasThreadSecond));
             ModelState.Remove(nameof(viewModel.HasCuttingThread));
             ModelState.Remove(nameof(viewModel.OnHydraulicMachine));
+            ModelState.Remove(nameof(viewModel.WithoutBindThreadDiamMatetial));
             double minBendLength = 60 + viewModel.BendRadius;
             if (double.TryParse(viewModel.Diameter, out double diameterParse))
                 minBendLength += diameterParse;

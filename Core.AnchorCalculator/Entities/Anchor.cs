@@ -60,6 +60,7 @@ namespace Core.AnchorCalculator.Entities
         public bool HasCuttingThread { get; set; } // bool
         [NotMapped]
         public bool OnHydraulicMachine { get; set; } // bool
+        public bool WithoutBindThreadDiamMatetial { get; set; } // bool
 
 
         public int? MaterialId { get; set; }

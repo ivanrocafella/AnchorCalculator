@@ -101,6 +101,10 @@
                  <input checked class="form-check-input" asp-for="HasThread" type="checkbox" id="hasThreadDivCheckbox" onchange="unableDisableThreadInput()">
                  <label class="form-check-label" for="hasThreadDivCheckbox">Есть резьба</label>
              </div>
+             <div id="withoutBindThreadDiamMatetialDiv" class="form-check form-check-inline w-75 mb-3">
+                 <input class="form-check-input" asp-for="WithoutBindThreadDiamMatetial" type="checkbox" id="withoutBindThreadDiamMatetialDivCheckbox" onchange="onWithoutBindThreadDiamMatetial()">
+                 <label class="form-check-label" for="withoutBindThreadDiamMatetialDivCheckbox">Без привязки резьбы к материалу</label>
+             </div>
              <div id="hasCuttingThreadDiv" class="form-check form-check-inline w-75 mb-3">
                  <input class="form-check-input" asp-for="HasCuttingThread" type="checkbox" id="hasCuttingThreadDivCheckbox" onchange="onCheckThreadCutter()">
                  <label class="form-check-label" for="hasCuttingThreadDivCheckbox">Резьба на токарном станке</label>
@@ -186,6 +190,9 @@
 
         let hasCuttingThreadDivCheckbox = document.getElementById("hasCuttingThreadDivCheckbox");
         let onHydraulicMachineDivCheckbox = document.getElementById("onHydraulicMachineDivCheckbox");
+        let withoutBindThreadDiamMatetialDivCheckbox = document.getElementById("withoutBindThreadDiamMatetialDivCheckbox");
+        let threadDiameterInput = document.getElementById("ThreadDiameter");
+        let hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
 
         function onCheckThreadCutter() {
             changeFuncDiamAnchor();
@@ -207,9 +214,18 @@
             }
         }
 
+        function onWithoutBindThreadDiamMatetial() {
+            if (withoutBindThreadDiamMatetialDivCheckbox.checked) {
+                threadDiameterInput.readOnly = false;
+            }
+            else {
+                threadDiameterInput.readOnly = true;
+                changeFuncDiamAnchor();
+            }
+            }
+
         function unableDisableThreadInput() {
             changeFuncDiamAnchor();
-            var hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
             var threadLengthSecondDivCheckbox = document.getElementById("threadLengthSecondDivCheckbox");
             var threadLengthSecondDiv = document.getElementById("threadLengthSecondDiv");
             var straight = document.getElementById("straight");
@@ -218,11 +234,13 @@
             var threadLength = document.getElementById("ThreadLength");
             var hasCuttingThreadDiv = document.getElementById("hasCuttingThreadDiv");
             var onHydraulicMachineDiv = document.getElementById("onHydraulicMachineDiv");
+            var withoutBindThreadDiamMatetialDiv = document.getElementById("withoutBindThreadDiamMatetialDiv");
             if (hasThreadDivCheckbox.checked) {
                 threadLength.disabled = false;
                 threadLength.value = '';
                 hasCuttingThreadDiv.style.display = "block";
                 onHydraulicMachineDiv.style.display = "block";
+                withoutBindThreadDiamMatetialDiv.style.display = "block";
                 if (straight.checked) { 
                     threadLengthSecondDiv.style.display = "block";  
                 }
@@ -236,6 +254,9 @@
                 hasCuttingThreadDivCheckbox.checked = false;
                 onHydraulicMachineDiv.style.display = "none";
                 onHydraulicMachineDivCheckbox.checked = false;
+                withoutBindThreadDiamMatetialDiv.style.display = "none";
+                withoutBindThreadDiamMatetialDivCheckbox.checked = false;
+                threadDiameterInput.readOnly = true;
             }
         }
 
@@ -342,6 +363,7 @@
                                                                                               '<input id="lengthFullToDB" type="hidden" value="' + response.anchorJS.lengthFull + '">' +
                                                                                               '<input id="hasCuttingThreadToDB" type="hidden" value="' + response.anchorJS.hasCuttingThread + '">' +
                                                                                               '<input id="onHydraulicMachineToDB" type="hidden" value="' + response.anchorJS.onHydraulicMachine + '">' +
+                                                                                              '<input id="withoutBindThreadDiamMatetialToDB" type="hidden" value="' + response.anchorJS.withoutBindThreadDiamMatetial + '">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
                                                                                               '<button type="button" id="btn_drawing_pdf" class="btn btn-secondary" disabled>Чертеж</button>' +
@@ -440,7 +462,6 @@
                 inputValue = inputValue.slice(0, maxCharacters);
                 input.value = inputValue;
             }
-
             // Integer value constraints
             inputValue = inputValue.trim();
             if (/^[0-9]*$/.test(inputValue)) {
@@ -460,7 +481,9 @@
         inputThreadLength.addEventListener('input', (event) => {
             inputMask(inputThreadLength, 3, 999, 0);           
             inputThreadLengthValue = event.target.value;
-            changeFuncDiamAnchor();
+            // if (!withoutBindThreadDiamMatetialDivCheckbox.checked) {
+            //     changeFuncDiamAnchor();
+            // }
         });
 
         let inputThreadLengthSecond = document.getElementById('ThreadLengthSecond');
@@ -471,8 +494,19 @@
             if (inputThreadLengthSecondValue > 0)
             {
                 console.log(inputThreadLengthSecondValue)
-                changeFuncDiamAnchor();
+                // if (!withoutBindThreadDiamMatetialDivCheckbox.checked) {
+                //     changeFuncDiamAnchor();
+                // }
             }            
+        });
+
+        let threadDiameterValue;
+        threadDiameterInput.addEventListener('input', (event) => {
+            if (!threadDiameterInput.readOnly) {
+                inputMask(threadDiameterInput, 2, 99, 0);
+                threadDiameterValue = event.target.value;
+                changeFuncThreadStep(threadDiameterValue);
+            }
         });
 
          function changeFuncDiamAnchor() {          
@@ -907,6 +941,8 @@
              var hasCuttingThreadToDB = document.getElementById("hasCuttingThreadToDB").value
 
              var onHydraulicMachineToDB = document.getElementById("onHydraulicMachineToDB").value
+
+             var withoutBindThreadDiamMatetialToDB = document.getElementById("withoutBindThreadDiamMatetialToDB").value
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
@@ -942,7 +978,8 @@
                         'timeProductionBandSaw': timeProductionBandSawToDB,
                         'lengthFull': lengthFullToDB,
                         'hasCuttingThread': hasCuttingThreadToDB,
-                        'onHydraulicMachine': onHydraulicMachineToDB
+                        'onHydraulicMachine': onHydraulicMachineToDB,
+                        'withoutBindThreadDiamMatetial': withoutBindThreadDiamMatetialToDB
                         },
                         success: function(response)
                         {

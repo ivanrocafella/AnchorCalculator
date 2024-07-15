@@ -59,8 +59,9 @@ namespace UI.AnchorCalculator.ViewModels
         public string? UserName { get; set; }
         public string? Kind { get; set; }
         public int ProductionId { get; set; }
-        public bool HasCuttingThread { get; set; }
-        public bool OnHydraulicMachine { get; set; }
+        public bool WithoutBindThreadDiamMatetial { get; set; }
+        public bool HasCuttingThread { get; set; }   
+        public bool OnHydraulicMachine { get; set; }    
         public double TimeProductionThread { get; set; }
         public double TimeProductionBend { get; set; }
         public double TimeProductionBandSaw { get; set; }
