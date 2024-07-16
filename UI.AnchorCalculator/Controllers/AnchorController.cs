@@ -98,8 +98,8 @@ namespace UI.AnchorCalculator.Controllers
             {
                 if (viewModel.ThreadDiameter > diameterParse)
                     ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы должен быть меньше или равен диаметру анкера");
-                if (viewModel.ThreadDiameter == 0)
-                    ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть равен 0");
+                if (viewModel.ThreadDiameter < 6)
+                    ModelState.AddModelError(nameof(viewModel.ThreadDiameter), "Диаметр резьбы не может быть меньше 6");
             }   
             if (!viewModel.HasThreadSecond)
                 ModelState.Remove(nameof(viewModel.ThreadLengthSecond));

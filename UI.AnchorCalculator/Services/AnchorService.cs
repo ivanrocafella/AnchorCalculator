@@ -90,6 +90,7 @@ namespace UI.AnchorCalculator.Services
                 TimeProductionBandSaw = viewModel.TimeProductionBandSaw,
                 LengthFull = viewModel.LengthFull,
                 HasCuttingThread = viewModel.HasCuttingThread,
+                OnHydraulicMachine = viewModel.OnHydraulicMachine,
                 WithoutBindThreadDiamMatetial = viewModel.WithoutBindThreadDiamMatetial
             };
             return anchor;

@@ -160,22 +160,45 @@
                     stamp_pdf.innerHTML = stamp;
 
                     console.log(drawing_pdf);
-                    drawing_pdf.style.display = "block";
-                    $('#drawing_pdf').printThis();
-                    setTimeout(() => {
-                        drawing_pdf.style.display = "none";
-                    }, 500)
+                    PrintPdf("drawing_pdf");
+                    //drawing_pdf.style.display = "block";
+                    //$('#drawing_pdf').printThis();
+                    //setTimeout(() => {
+                    //    drawing_pdf.style.display = "none";
+                    //}, 500)
                 }
             }
         })
 }
 
-
 function PrintBlank() {
-    var blank_pdf = document.getElementById("blank_pdf");
-    blank_pdf.style.display = "block";
-    $('#blank_pdf').printThis();
+    PrintPdf("blank_pdf");
+    //var blank_pdf = document.getElementById("blank_pdf");
+    //blank_pdf.style.display = "block";
+    //$('#blank_pdf').printThis();
+    //setTimeout(() => {
+    //    blank_pdf.style.display = "none";
+    //}, 500)
+}
+
+function PrintPdf(id) {
+    var pdf = document.getElementById(''+id+'');
+    pdf.style.display = "block";
+
+    // Apply scaling
+    pdf.style.transform = "scale(1)"; // Adjust the scale factor as needed
+    pdf.style.transformOrigin = "top left";
+
+    $('#' + id + '').printThis({
+        afterPrint: function () {
+            // Remove scaling and hide the element after printing
+            pdf.style.transform = "";
+            pdf.style.transformOrigin = "";
+            pdf.style.display = "none";
+        }
+    });
+
     setTimeout(() => {
-        blank_pdf.style.display = "none";
-    }, 500)
+        pdf.style.display = "none";
+    }, 500)  
 }
