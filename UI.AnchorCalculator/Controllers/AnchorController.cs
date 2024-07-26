@@ -85,6 +85,7 @@ namespace UI.AnchorCalculator.Controllers
             ModelState.Remove(nameof(viewModel.HasCuttingThread));
             ModelState.Remove(nameof(viewModel.OnHydraulicMachine));
             ModelState.Remove(nameof(viewModel.WithoutBindThreadDiamMatetial));
+            ModelState.Remove(nameof(viewModel.WithoutBindRadiusBendDiamMatetial));
             double minBendLength = 60 + viewModel.BendRadius;
             if (double.TryParse(viewModel.Diameter, out double diameterParse))
                 minBendLength += diameterParse;
@@ -108,8 +109,15 @@ namespace UI.AnchorCalculator.Controllers
                 minBendLength += viewModel.BendRadius;
                 minBendLength += diameterParse;
             }
-            if (!(viewModel.Kind == Kind.Straight.ToString()) && viewModel.BendLength < minBendLength)
-                ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {minBendLength}");
+            if (!(viewModel.Kind == Kind.Straight.ToString()))
+            { 
+                if(viewModel.BendLength < minBendLength)
+                    ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {minBendLength}");
+                if (viewModel.BendRadius < diameterParse)
+                    ModelState.AddModelError(nameof(viewModel.BendRadius), "Радиус гиба не может быть меньше диаметра анкера");
+            }
+            else
+                ModelState.Remove(nameof(viewModel.BendRadius));
             if (ModelState.IsValid)
             {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
@@ -136,6 +144,7 @@ namespace UI.AnchorCalculator.Controllers
                     , errorMessageThreadLen = ModelState["ThreadLength"]?.Errors.FirstOrDefault()?.ErrorMessage
                     , errorMessageThreadSecondLen = ModelState["ThreadLengthSecond"]?.Errors.FirstOrDefault()?.ErrorMessage
                     , errorMessageLen = ModelState["Length"]?.Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageRad = ModelState["BendRadius"]?.Errors.FirstOrDefault()?.ErrorMessage
                 });
             }    
         }

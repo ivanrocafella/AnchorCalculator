@@ -54,6 +54,8 @@ namespace UI.AnchorCalculator.Services
             double timeProductionBend = 0;
             double timeProductionBandSaw = 0;
             double timeProduction = 0;
+            double additPriceCutWithoutBindThreadMaterial = 0; // additional costwork if is it neccessary cutting diameter material before thread diameter
+            double timeCutWithoutBindThreadMaterial = 0;
 
             timeProduction += costWork.TimeBend * quantityBend;
             timeProductionBend += costWork.TimeBend * quantityBend;
@@ -77,6 +79,8 @@ namespace UI.AnchorCalculator.Services
                         timeProduction += anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective);
                         timeProductionThread += anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective);
                     }
+                    if (anchor.WithoutBindThreadDiamMatetial)
+                        timeCutWithoutBindThreadMaterial = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / (costWork.LengthEffective / anchor.Quantity));
                 }
                 else
                 {
@@ -95,7 +99,11 @@ namespace UI.AnchorCalculator.Services
                         timeProduction += anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                         timeProductionThread += anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                     }
-                }                
+                    if (anchor.WithoutBindThreadDiamMatetial)
+                        timeCutWithoutBindThreadMaterial = anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / (costWork.LengthEffective * anchor.Quantity));
+                }
+                if (anchor.WithoutBindThreadDiamMatetial)
+                    additPriceCutWithoutBindThreadMaterial = priceThreadCutting;
             }
 
             double priceBandSaw = anchor.Material.TimeBandSaw * costWork.PnrBandSaw + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
@@ -114,10 +122,10 @@ namespace UI.AnchorCalculator.Services
 
             double costWorkInterm;
             if (anchor.ProductionId != 0)
-                costWorkInterm = (priceBend + priceThreadRolling + priceBandSaw) * anchor.Quantity
+                costWorkInterm = (priceBend + priceThreadRolling + priceBandSaw + additPriceCutWithoutBindThreadMaterial) * anchor.Quantity
                      + costWork.TimeSetThreadRolling * costWork.PnrRollingThread + setBend;
             else 
-                costWorkInterm = (priceBend + priceThreadCutting + priceBandSaw) * anchor.Quantity + setBend;
+                costWorkInterm = (priceBend + priceThreadCutting + priceBandSaw + additPriceCutWithoutBindThreadMaterial) * anchor.Quantity + setBend;
 
             anchor.BatchSebes = (costWorkInterm + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar * 1.1; // sebes of bath anchor in som
             anchor.Sebes = anchor.BatchSebes / anchor.Quantity; // sebes of 1 anchor in som         
@@ -127,11 +135,11 @@ namespace UI.AnchorCalculator.Services
             anchor.Price = anchor.Amount / anchor.Quantity; // amount of 1 anchor
             anchor.PriceMaterial = priceMaterialAnchor * costWork.ExchangeDollar; // price of anchor's material in som
             anchor.BatchPriceMaterial = anchor.PriceMaterial * anchor.Quantity; // price of anchor's material batch in som
-            anchor.TimeProductionThread = timeProductionThread * anchor.Quantity; // time of anchor's thread production in hours
+            anchor.TimeProductionThread = (timeProductionThread + timeCutWithoutBindThreadMaterial) * anchor.Quantity; // time of anchor's thread production in hours
             anchor.TimeProductionBend = timeProductionBend * anchor.Quantity; // time of anchor's bend production in hours
             anchor.TimeProductionBandSaw = timeProductionBandSaw * anchor.Quantity; // time of anchor's bandSaw production in hours
         }
-
+            
         static double GetLengthBillet(Anchor anchor)
         {
             double lengthBillet;

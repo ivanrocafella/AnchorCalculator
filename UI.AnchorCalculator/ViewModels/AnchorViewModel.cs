@@ -60,6 +60,7 @@ namespace UI.AnchorCalculator.ViewModels
         public string? Kind { get; set; }
         public int ProductionId { get; set; }
         public bool WithoutBindThreadDiamMatetial { get; set; }
+        public bool WithoutBindRadiusBendDiamMatetial { get; set; }
         public bool HasCuttingThread { get; set; }   
         public bool OnHydraulicMachine { get; set; }    
         public double TimeProductionThread { get; set; }

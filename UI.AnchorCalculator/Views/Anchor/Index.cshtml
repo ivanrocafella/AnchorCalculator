@@ -92,8 +92,9 @@
                 <div class="row mb-3">
                          <label asp-for="BendRadius" class="col-sm-4 col-form-label"></label>
                     <div class="col-sm-8">
-                         <input asp-for="BendRadius" type="number" class="form-control" id="BendRadius" step="1" readonly>
-                         <span asp-validation-for="BendRadius" class="text-danger"></span>
+                         <input asp-for="BendRadius" type="text" class="form-control" id="BendRadius" readonly>
+                         <span id="BendRadiusValid" class="text-danger"></span>
+                      @*    <span asp-validation-for="BendRadius" class="text-danger"></span> *@
                     </div>
                 </div>               
              </div>
@@ -105,6 +106,10 @@
                  <input class="form-check-input" asp-for="WithoutBindThreadDiamMatetial" type="checkbox" id="withoutBindThreadDiamMatetialDivCheckbox" onchange="onWithoutBindThreadDiamMatetial()">
                  <label class="form-check-label" for="withoutBindThreadDiamMatetialDivCheckbox">Без привязки резьбы к материалу</label>
              </div>
+             <div id="withoutBindRadiusBendDiamMatetialDiv" class="form-check form-check-inline w-75 mb-3" style="display:none">
+                 <input class="form-check-input" asp-for="WithoutBindRadiusBendDiamMatetial" type="checkbox" id="withoutBindRadiusBendDiamMatetialDivCheckbox" onchange="onWithoutBindRadiusBendDiamMatetial()">
+                 <label class="form-check-label" for="withoutBindRadiusBendDiamMatetialDivCheckbox">Без привязки радиуса гиба к материалу</label>
+             </div>
              <div id="hasCuttingThreadDiv" class="form-check form-check-inline w-75 mb-3">
                  <input class="form-check-input" asp-for="HasCuttingThread" type="checkbox" id="hasCuttingThreadDivCheckbox" onchange="onCheckThreadCutter()">
                  <label class="form-check-label" for="hasCuttingThreadDivCheckbox">Резьба на токарном станке</label>
@@ -113,7 +118,8 @@
                  <input class="form-check-input" asp-for="OnHydraulicMachine" type="checkbox" id="onHydraulicMachineDivCheckbox" onchange="onCheckHydraylicMachine()">
                  <label class="form-check-label" for="onHydraulicMachineDivCheckbox">Резьба на гидравлическом станке</label>
              </div>
-             <div id="threadLengthSecondDiv" class="form-check form-check-inline w-75 mb-3">
+             <div id="threadLengthSecondDiv" class="form-check form-check-inline w-75 mb-3"
+             >
                  <input class="form-check-input" asp-for="HasThreadSecond" type="checkbox" id="threadLengthSecondDivCheckbox" onchange="showthreadLengthSecondDivInp()">
                  <label class="form-check-label" for="threadLengthSecondDivCheckbox">Резьба на втором конце</label>
              </div>
@@ -192,6 +198,8 @@
         let onHydraulicMachineDivCheckbox = document.getElementById("onHydraulicMachineDivCheckbox");
         let withoutBindThreadDiamMatetialDivCheckbox = document.getElementById("withoutBindThreadDiamMatetialDivCheckbox");
         let threadDiameterInput = document.getElementById("ThreadDiameter");
+        let withoutBindRadiusBendDiamMatetialDivCheckbox = document.getElementById("withoutBindRadiusBendDiamMatetialDivCheckbox");
+        let bendRadiusInput = document.getElementById("BendRadius");
         let hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
 
         function onCheckThreadCutter() {
@@ -223,6 +231,16 @@
                 changeFuncDiamAnchor();
             }
             }
+
+        function onWithoutBindRadiusBendDiamMatetial() {
+            if (withoutBindRadiusBendDiamMatetialDivCheckbox.checked) {
+                bendRadiusInput.readOnly = false;
+            }
+            else {
+                bendRadiusInput.readOnly = true;
+                changeFuncDiamAnchor();
+            }
+        }
 
         function unableDisableThreadInput() {
             changeFuncDiamAnchor();
@@ -289,6 +307,7 @@
                         ThreadLengthValid.innerHTML = "";
                         ThreadLengthSecondValid.innerHTML = "";
                         LengthValid.innerHTML = "";
+                        BendRadiusValid.innerHTML = "";
                         console.log('ThreadDiameterValid.innerHTML' + ThreadDiameterValid.innerHTML +'')
                         console.log('BendLengthValid.innerHTML' + BendLengthValid.innerHTML + '')
                         document.getElementById("containSvg").innerHTML = response.anchorJS.svgElement;
@@ -384,6 +403,7 @@
                         }
                         
                     } else {
+                            document.getElementById("descriptAnchor").style.display = "none";
                             console.log(response);
                             console.log(response.errorMessageBendLen);
                             console.log(response.errorMessageThreadDiam);
@@ -447,6 +467,18 @@
                         else {
                             LengthValid.innerHTML = "";
                         };
+
+                            if (typeof response.errorMessageRad !== "undefined") {
+                                if (response.errorMessageRad == "The value '' is invalid.") {
+                                    BendRadiusValid.innerHTML = "Поле обязательно для заполнения";
+                                }
+                                else {
+                                    BendRadiusValid.innerHTML = response.errorMessageRad;
+                                }
+                            }
+                            else {
+                                BendRadiusValid.innerHTML = "";
+                            };
                     }                  
                 }
             }
@@ -500,12 +532,11 @@
             }            
         });
 
-        let threadDiameterValue;
-        threadDiameterInput.addEventListener('input', (event) => {
-            if (!threadDiameterInput.readOnly) {
-                inputMask(threadDiameterInput, 2, 99, 0);
-                threadDiameterValue = event.target.value;
-                changeFuncThreadStep(threadDiameterValue);
+        let bendRadiusValue;
+        bendRadiusInput.addEventListener('input', (event) => {
+            if (!bendRadiusInput.readOnly) {
+                inputMask(bendRadiusInput, 2, 99, 0);
+                bendRadiusValue = event.target.value;
             }
         });
 
@@ -789,19 +820,17 @@
                  var threadLengthSecondDivInp = document.getElementById("threadLengthSecondDivInp");
                  var ThreadLengthSecond = document.getElementById("ThreadLengthSecond");
                  var hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
-                 if (withBend.checked) {
+                 var withoutBindRadiusBendDiamMatetialDiv = document.getElementById("withoutBindRadiusBendDiamMatetialDiv");
+                 var withoutBindRadiusBendDiamMatetialDivCheckbox = document.getElementById("withoutBindRadiusBendDiamMatetialDivCheckbox");
+                 if (withBend.checked || withBendDouble.checked) {
                    subForm.style.display = "block";
                    threadLengthSecondDiv.style.display = "none"
                    threadLengthSecondDivCheckbox.checked = false
                    threadLengthSecondDivInp.style.display = "none"
                    ThreadLengthSecond.value = 0
-                 } else if (withBendDouble.checked) {
-                   subForm.style.display = "block";
-                   threadLengthSecondDiv.style.display = "none"
-                   threadLengthSecondDivCheckbox.checked = false
-                   threadLengthSecondDivInp.style.display = "none"
-                ThreadLengthSecond.value = 0
-                 } else {
+                   withoutBindRadiusBendDiamMatetialDiv.style.display = "block"
+                 }
+                 else {
                      subForm.style.display = "none";
                      document.getElementById("BendLength").value = 0;
                      if (!hasThreadDivCheckbox.checked) {
@@ -810,6 +839,9 @@
                      } else {                                                  
                          threadLengthSecondDiv.style.display = "block"
                      }
+                     withoutBindRadiusBendDiamMatetialDiv.style.display = "none"
+                     withoutBindRadiusBendDiamMatetialDivCheckbox.checked = false
+                     bendRadiusInput.readOnly = true;
                  }
                }
 
