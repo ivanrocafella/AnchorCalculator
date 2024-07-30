@@ -113,8 +113,8 @@ namespace UI.AnchorCalculator.Controllers
             { 
                 if(viewModel.BendLength < minBendLength)
                     ModelState.AddModelError(nameof(viewModel.BendLength), $"Длина загиба должна быть от {minBendLength}");
-                if (viewModel.BendRadius < diameterParse)
-                    ModelState.AddModelError(nameof(viewModel.BendRadius), "Радиус гиба не может быть меньше диаметра анкера");
+                if (viewModel.BendRadius < diameterParse || viewModel.BendRadius == 0)
+                    ModelState.AddModelError(nameof(viewModel.BendRadius), "Радиус гиба не может быть меньше диаметра анкера или равен 0");
             }
             else
                 ModelState.Remove(nameof(viewModel.BendRadius));

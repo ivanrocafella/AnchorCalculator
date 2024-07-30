@@ -79,7 +79,7 @@ namespace UI.AnchorCalculator.Services
                         timeProduction += anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective);
                         timeProductionThread += anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective);
                     }
-                    if (anchor.WithoutBindThreadDiamMatetial)
+                    if (anchor.WithoutBindThreadDiamMatetial && anchor.ThreadDiameter < anchor.Diameter - 1)
                         timeCutWithoutBindThreadMaterial = anchor.Material.TimeThreadRolling * (2 * anchor.ThreadLength / (costWork.LengthEffective / anchor.Quantity));
                 }
                 else
@@ -99,10 +99,10 @@ namespace UI.AnchorCalculator.Services
                         timeProduction += anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                         timeProductionThread += anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                     }
-                    if (anchor.WithoutBindThreadDiamMatetial)
+                    if (anchor.WithoutBindThreadDiamMatetial && anchor.ThreadDiameter < anchor.Diameter - 1)
                         timeCutWithoutBindThreadMaterial = anchor.Material.TimeThreadRolling * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / (costWork.LengthEffective * anchor.Quantity));
                 }
-                if (anchor.WithoutBindThreadDiamMatetial)
+                if (anchor.WithoutBindThreadDiamMatetial && anchor.ThreadDiameter < anchor.Diameter - 1)
                     additPriceCutWithoutBindThreadMaterial = priceThreadCutting;
             }
 
