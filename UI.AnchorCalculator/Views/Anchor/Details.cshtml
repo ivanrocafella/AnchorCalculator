@@ -34,11 +34,14 @@
         <p class="card-text">Цена мат-ла на @Model.Anchor.Quantity шт: @Math.Round(Model.Anchor.BatchPriceMaterial, MidpointRounding.AwayFromZero) сом</p>
         <p class="card-text" id="material">Материал: @Model.MaterialName</p>
         <p class="card-text" id="author">Исполнитель: @Model.UserName</p>
+        <p class="card-text">Цена накатки/нарезки резьбы: @Math.Round(Model.Anchor.BatchPriceProductionThread, MidpointRounding.AwayFromZero) сом</p>
+        <p class="card-text">Цена гибки: @Math.Round(Model.Anchor.BatchPriceProductionBend, MidpointRounding.AwayFromZero) сом</p>
+        <p class="card-text">Цена лентопила: @Math.Round(Model.Anchor.BatchPriceProductionBandSaw, MidpointRounding.AwayFromZero) сом</p>
         @if (Model.Anchor.ProductionId != 0)
         {
-            <p class="card-text">Накатка/нарезка резьбы: @Math.Round(Model.Anchor.TimeProductionThread, 2) ч</p>
-            <p class="card-text">Гибка: @Math.Round(Model.Anchor.TimeProductionBend, 2) ч</p>
-            <p class="card-text">Лентопил: @Math.Round(Model.Anchor.TimeProductionBandSaw, 2) ч</p>
+            <p class="card-text">Время накатки/нарезки резьбы: @Math.Round(Model.Anchor.TimeProductionThread, 2) ч</p>
+            <p class="card-text">Время гибки: @Math.Round(Model.Anchor.TimeProductionBend, 2) ч</p>
+            <p class="card-text">Время лентопила: @Math.Round(Model.Anchor.TimeProductionBandSaw, 2) ч</p>
         }
         <p class="card-text">Общая длина: @Math.Round(Model.Anchor.LengthFull, 1) м</p>
         <p class="card-text"><small class="text-muted">Дата создания: @Model.Anchor.DateCreate</small></p></div>     

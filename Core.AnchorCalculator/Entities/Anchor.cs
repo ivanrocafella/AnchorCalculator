@@ -48,8 +48,15 @@ namespace Core.AnchorCalculator.Entities
         }
         public Production Production { get; set; }
         public double PricePerMetr { get; set; }
-        public double PriceMaterial { get; set; }
+        [NotMapped]
+        public double PriceMaterial { get => BatchPriceMaterial / Quantity; }
         public double BatchPriceMaterial { get; set; }
+        public double PriceProductionThread { get => BatchPriceProductionThread / Quantity; }
+        public double BatchPriceProductionThread { get; set; }
+        public double PriceProductionBend { get => BatchPriceProductionBend / Quantity; }
+        public double BatchPriceProductionBend { get; set; }
+        public double PriceProductionBandSaw { get => BatchPriceProductionBandSaw / Quantity; }
+        public double BatchPriceProductionBandSaw { get; set; }
         public double LengthPathRoller { get; set; } // мм
         public double LengthBeforeEndPathRoller { get; set; } // мм
         public double TimeProductionThread { get; set; } // h

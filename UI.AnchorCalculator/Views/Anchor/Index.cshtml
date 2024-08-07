@@ -321,6 +321,7 @@
                         var warn_Update = '';
                         var warn_Production = '';
                         var time_Production = '';
+                        var price_Production = '';
                         if (dif > 14){
                                 warn_Update = 'Стоимость материала не обновлялась ' + dif + ' дней!';
                         }
@@ -329,10 +330,13 @@
                                 warn_Production = 'Анкер изгототавливается на токарном станке';
                         }
                                 if(response.isAuthen){
+                                    price_Production = '<p class="card-text">Цена накатки/нарезки резьбы: ' + Math.round(response.anchorJS.batchPriceProductionThread) + ' сом</p>' +
+                                                                     '<p class="card-text">Цена гибки: ' + Math.round(response.anchorJS.batchPriceProductionBend) + ' сом</p>' +
+                                                                     '<p class="card-text">Цена лентопила: ' + Math.round(response.anchorJS.batchPriceProductionBandSaw) + ' сом</p>';
                                     if(response.anchorJS.productionId != 0){
-                                        time_Production = '<p class="card-text">Накатка/нарезка резьбы: ' + response.anchorJS.timeProductionThread.toFixed(2) + ' ч</p>' +
-                                            '<p class="card-text">Гибка: ' + response.anchorJS.timeProductionBend.toFixed(2) + ' ч</p>' +
-                                            '<p class="card-text">Лентопил: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>';
+                                        time_Production = '<p class="card-text">Время накатки/нарезки резьбы: ' + response.anchorJS.timeProductionThread.toFixed(2) + ' ч</p>' +
+                                            '<p class="card-text">Время гибки: ' + response.anchorJS.timeProductionBend.toFixed(2) + ' ч</p>' +
+                                            '<p class="card-text">Время лентопила: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>';
                                     }
                                 Descript_to_blank = '<div id="Descript_to_blank"><h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
                                     '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
@@ -343,7 +347,7 @@
                                     '<p class="card-text">Вес 1 шт: ' + response.anchorJS.weight.toFixed(2) + ' кг</p>' +
                                     '<p class="card-text">Вес ' + response.anchorJS.quantity + ' шт: ' + response.anchorJS.batchWeight.toFixed(1) + ' кг</p>' +
                                     '<p class="card-text">Материал: ' + response.anchorJS.material.fullName + '</p>' +
-                                    '<p class="card-text">Исполнитель: @User.Identity.Name</p>' + time_Production +
+                                    '<p class="card-text">Исполнитель: @User.Identity.Name</p>' + price_Production + time_Production +
                                     '<p class="card-text">Общая длина: ' + response.anchorJS.lengthFull.toFixed(1) + ' м</p>' +
                                     '<p class="card-text text-danger">' + warn_Update + '</p></div>' +
                                     '<p class="card-text text-success">' + warn_Production + '</p></div>';
@@ -368,7 +372,9 @@
                                                                                               '<input id="weighttoDB" type="hidden" value="'+ response.anchorJS.weight +'">' +
                                                                                               '<input id="batchWeighttoDB" type="hidden" value="'+ response.anchorJS.batchWeight +'">' +
                                                                                               '<input id="kindToDB" type="hidden" value="'+ response.anchorJS.kind +'">' +
-                                                                                              '<input id="priceMaterialtoDB" type="hidden" value="' + response.anchorJS.priceMaterial + '">' +
+                                                                                              '<input id="batchPriceProductionThreadToDB" type="hidden" value="' + response.anchorJS.batchPriceProductionThread + '">' +
+                                                                                              '<input id="batchPriceProductionBendToDB" type="hidden" value="' + response.anchorJS.batchPriceProductionBend + '">' +
+                                                                                              '<input id="batchPriceProductionBandSawToDB" type="hidden" value="' + response.anchorJS.batchPriceProductionBandSaw + '">' +
                                                                                               '<input id="batchPriceMaterialToDB" type="hidden" value="' + response.anchorJS.batchPriceMaterial + '">' +
                                                                                               '<input id="lengthPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthPathRoller.toFixed(1) + '">' +
                                                                                               '<input id="lengthBeforeEndPathRollerToDB" type="hidden" value="' + response.anchorJS.lengthBeforeEndPathRoller.toFixed(1) + '">' +
@@ -993,9 +999,13 @@
 
              var kindToDB = document.getElementById("kindToDB").value;
 
-             var priceMaterialtoDB = document.getElementById("priceMaterialtoDB").value
-
              var batchPriceMaterialToDB = document.getElementById("batchPriceMaterialToDB").value
+
+             var batchPriceProductionThreadToDB = document.getElementById("batchPriceProductionThreadToDB").value
+
+             var batchPriceProductionBendToDB = document.getElementById("batchPriceProductionBendToDB").value
+
+             var batchPriceProductionBandSawToDB = document.getElementById("batchPriceProductionBandSawToDB").value
 
              var lengthPathRollerToDB = document.getElementById("lengthPathRollerToDB").value
 
@@ -1041,7 +1051,9 @@
                         'sebes': sebestoDB,
                         'batchSebes': batchSebestoDB,
                         'kind' : kindToDB,
-                        'priceMaterial' : priceMaterialtoDB,
+                        'batchPriceProductionThread' : batchPriceProductionThreadToDB,
+                        'batchPriceProductionBend' : batchPriceProductionBendToDB,
+                        'batchPriceProductionBandSaw' : batchPriceProductionBandSawToDB,
                         'batchPriceMaterial': batchPriceMaterialToDB,
                         'lengthPathRoller': lengthPathRollerToDB,
                         'lengthBeforeEndPathRoller': lengthBeforeEndPathRollerToDB,

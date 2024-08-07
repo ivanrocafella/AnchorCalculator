@@ -32,7 +32,9 @@ namespace UI.AnchorCalculator.ViewModels
         [CheckThreadLength("Diameter", "HasCuttingThread", "OnHydraulicMachine")]
         [Display(Name = "Длина резьбы, мм:")]
         public int ThreadLengthSecond { get; set; }
+        [ValidateNever]
         public bool HasThreadSecond { get; set; }
+        [ValidateNever]
         public bool HasThread { get; set; }
         [Display(Name = "Диаметр резьбы, мм:")]
         public int ThreadDiameter { get; set; }
@@ -50,8 +52,10 @@ namespace UI.AnchorCalculator.ViewModels
         public string? SvgElement { get; set; }
         public string? BatchWeight { get; set; }
         public string? BilletLength { get; set; }
-        public double PriceMaterial { get; set; }
         public double BatchPriceMaterial { get; set; }
+        public double BatchPriceProductionThread { get; set; }
+        public double BatchPriceProductionBend { get; set; }
+        public double BatchPriceProductionBandSaw { get; set; }
         public double LengthPathRoller { get; set; }
         public double LengthBeforeEndPathRoller { get; set; }
         public string? Sebes { get; set; }
@@ -59,9 +63,13 @@ namespace UI.AnchorCalculator.ViewModels
         public string? UserName { get; set; }
         public string? Kind { get; set; }
         public int ProductionId { get; set; }
+        [ValidateNever]
         public bool WithoutBindThreadDiamMatetial { get; set; }
+        [ValidateNever]
         public bool WithoutBindRadiusBendDiamMatetial { get; set; }
-        public bool HasCuttingThread { get; set; }   
+        [ValidateNever]
+        public bool HasCuttingThread { get; set; }
+        [ValidateNever]
         public bool OnHydraulicMachine { get; set; }    
         public double TimeProductionThread { get; set; }
         public double TimeProductionBend { get; set; }

@@ -22,13 +22,15 @@ namespace UI.AnchorCalculator.Services
         private readonly UserManager<User> _userManager;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly LoggerManager _loggerManager;
+        private readonly IWebHostEnvironment appEnvironment;
 
-        public AnchorService(ApplicationDbContext applicationDbContext, MaterialService mService, UserManager<User> userManager, LoggerManager loggerManager)
+        public AnchorService(ApplicationDbContext applicationDbContext, MaterialService mService, UserManager<User> userManager, LoggerManager loggerManager, IWebHostEnvironment appEnvironment)
         {
             this.applicationDbContext = applicationDbContext;
             MService = mService;
             _userManager = userManager;
             _loggerManager = loggerManager;
+            this.appEnvironment = appEnvironment;
         }
 
 
@@ -70,6 +72,17 @@ namespace UI.AnchorCalculator.Services
                 prodId = (int)Production.RollingThreadHydr;
             else
                 prodId = (int)Production.RollingThreadMech;
+            CostWork costWork = new();
+            try
+            {
+                costWork = await costWork.GetCostWork(appEnvironment);
+            }
+            catch (Exception ex)
+            {
+                string exception = $"Error:{ex.Message}";
+                logger.Debug(exception);
+                throw;
+            }
             Anchor anchor = new()
             {
                 MaterialId = viewModel.MaterialId,
@@ -222,8 +235,10 @@ namespace UI.AnchorCalculator.Services
                     UserJson = userJson,
                     MaterialJson = materialJson,
                     KindId = int.Parse(viewModel.Kind),
-                    PriceMaterial = viewModel.PriceMaterial,
                     BatchPriceMaterial = viewModel.BatchPriceMaterial,
+                    BatchPriceProductionThread = viewModel.BatchPriceProductionThread,
+                    BatchPriceProductionBend = viewModel.BatchPriceProductionBend,
+                    BatchPriceProductionBandSaw = viewModel.BatchPriceProductionBandSaw,
                     LengthPathRoller = viewModel.LengthPathRoller,
                     LengthBeforeEndPathRoller = viewModel.LengthBeforeEndPathRoller,
                     ProductionId = viewModel.ProductionId,
