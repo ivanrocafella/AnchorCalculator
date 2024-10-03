@@ -160,28 +160,19 @@
                     stamp_pdf.innerHTML = stamp;
 
                     console.log(drawing_pdf);
-                    PrintPdf("drawing_pdf");
-                    //drawing_pdf.style.display = "block";
-                    //$('#drawing_pdf').printThis();
-                    //setTimeout(() => {
-                    //    drawing_pdf.style.display = "none";
-                    //}, 500)
+                    PrintPdf("drawing_pdf", 'Чертёж_'+ id +'');
                 }
             }
         })
 }
 
-function PrintBlank() {
-    PrintPdf("blank_pdf");
-    //var blank_pdf = document.getElementById("blank_pdf");
-    //blank_pdf.style.display = "block";
-    //$('#blank_pdf').printThis();
-    //setTimeout(() => {
-    //    blank_pdf.style.display = "none";
-    //}, 500)
+function PrintBlank(id) {
+    PrintPdf("blank_pdf", 'Просчёт_' + id + '');
 }
 
-function PrintPdf(id) {
+function PrintPdf(id, name) {
+    var title = document.getElementById("title");
+    title.innerText = name;
     var pdf = document.getElementById(''+id+'');
     pdf.style.display = "block";
 
@@ -195,7 +186,7 @@ function PrintPdf(id) {
             pdf.style.transform = "";
             pdf.style.transformOrigin = "";
             pdf.style.display = "none";
-        }
+        },
     });
 
     setTimeout(() => {

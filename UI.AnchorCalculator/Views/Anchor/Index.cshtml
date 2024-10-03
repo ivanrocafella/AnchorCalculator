@@ -4,7 +4,6 @@
 <head>
     <link rel="stylesheet" href="~/css/anchor_page.css" asp-append-version="true" />
 </head>
-
 <div class="row">
     <div class="col-lg-6">
         <div class="card mb-3" align="left" style="max-width: 600px; float:left">
@@ -1078,6 +1077,7 @@
                                 var btn_blank_pdf = document.getElementById("btn_blank_pdf");
                                 btn_blank_pdf.className = 'btn btn-dark';
                                 btn_blank_pdf.disabled = false;
+                                btn_blank_pdf.setAttribute('onclick', 'PrintBlank(' + response.id + ')')
 
                                 document.getElementById("liveToastBtn").disabled = true;
                                 var toastTrigger = document.getElementById('liveToastBtn')
