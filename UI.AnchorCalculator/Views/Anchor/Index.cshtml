@@ -203,7 +203,7 @@
         let DiametrInput = document.getElementById("Diameter");
 
         function onCheckThreadCutter() {
-            changeFuncDiamAnchor();
+            setBendAndThread()
             if (hasCuttingThreadDivCheckbox.checked) {
                 onHydraulicMachineDivCheckbox.checked = false;
             }
@@ -213,7 +213,7 @@
         }
 
         function onCheckHydraylicMachine() {
-            changeFuncDiamAnchor();
+            setBendAndThread()
             if (onHydraulicMachineDivCheckbox.checked) {
                 hasCuttingThreadDivCheckbox.checked = false;
             }
@@ -512,9 +512,6 @@
         inputThreadLength.addEventListener('input', (event) => {
             inputMask(inputThreadLength, 3, 999, 0);           
             inputThreadLengthValue = event.target.value;
-            // if (!withoutBindThreadDiamMatetialDivCheckbox.checked) {
-            //     changeFuncDiamAnchor();
-            // }
         });
 
         let inputThreadLengthSecond = document.getElementById('ThreadLengthSecond');
@@ -526,9 +523,6 @@
             if (inputThreadLengthSecondValue > 0)
             {
                 console.log(inputThreadLengthSecondValue)
-                // if (!withoutBindThreadDiamMatetialDivCheckbox.checked) {
-                //     changeFuncDiamAnchor();
-                // }
             }            
         });
 
@@ -565,12 +559,31 @@
                     }
                 }})}
 
-         function changeFuncDiamAnchor() {          
-          var selectBox = document.getElementById("selectBox");
-          var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-          setThreadDiameter(getMaterialJsonResult)
-          setBenRadius(getMaterialJsonResult);
+        function changeFuncDiamAnchor() {
+             getMaterialJsonResult(function (materialJs) {
+                console.log(materialJs)
+                var diameterMaterial
+                 if (materialJs != null) {
+                     diameterMaterial = materialJs.size;
+                     if (diameterMaterial >= 8 && diameterMaterial <= 12){ 
+                          hasCuttingThreadDivCheckbox.checked = true;
+                          onHydraulicMachineDivCheckbox.checked = false;
+                          onHydraulicMachineDivCheckbox.disabled = true;
+                     } else {
+                          onHydraulicMachineDivCheckbox.disabled = false;
+                     }
+                 }
+                 else { 
+                     console.log("Материал не выбран"); 
+                 }
+             })
+            setBendAndThread()
            }
+        
+        function setBendAndThread() {
+            setThreadDiameter(getMaterialJsonResult)
+            setBenRadius(getMaterialJsonResult);
+        }
 
         function setBenRadius(callBack) {
             callBack(function (materialJs) { 
