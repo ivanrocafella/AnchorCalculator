@@ -59,11 +59,6 @@ namespace UI.AnchorCalculator.ValidationAttributes
                             return new ValidationResult("Укажите длину от 50 до 150");
                     }
                 }
-                else
-                {
-                    if (treadLength < 50 || treadLength > 300)
-                         return new ValidationResult("Укажите длину от 50 до 300");
-                }
             }               
             return ValidationResult.Success;
         }
