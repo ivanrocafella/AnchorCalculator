@@ -17,7 +17,6 @@ namespace UI.AnchorCalculator.Services
         const int bendLengthMax = 300; // max length of anchor's bend
         float scaledThreadLength;
         float scaledSecondThreadLength;
-        float scaledLength;
 
         public void GetSvgStraightAnchor(Anchor anchor)
         {
@@ -4508,10 +4507,25 @@ namespace UI.AnchorCalculator.Services
                     scaledThreadLength /= 2;
                     scaledSecondThreadLength /= 2;
                 }
-                else if (threadLength > 600)
+                else if (threadLength > 600 && threadLength <= 1000)
                 {
                     scaledThreadLength /= 3f;
                     scaledSecondThreadLength /= 3f;
+                }
+                else if (threadLength > 1000 && threadLength <= 2500)
+                {
+                    scaledThreadLength /= 8f;
+                    scaledSecondThreadLength /= 8f;
+                }
+                else if (threadLength > 2500 && threadLength <= 4000)
+                {
+                    scaledThreadLength /= 10f;
+                    scaledSecondThreadLength /= 10f;
+                }
+                else if (threadLength > 4000 && threadLength <= 6000)
+                {
+                    scaledThreadLength /= 15f;
+                    scaledSecondThreadLength /= 15f;
                 }
             }
         }

@@ -68,8 +68,6 @@ namespace UI.AnchorCalculator.Services
             int prodId;
             if (viewModel.HasCuttingThread)
                 prodId = (int)Production.CuttingThread;
-            else if (viewModel.OnHydraulicMachine)
-                prodId = (int)Production.RollingThreadHydr;
             else
                 prodId = (int)Production.RollingThreadMech;
             CostWork costWork = new();
@@ -103,7 +101,6 @@ namespace UI.AnchorCalculator.Services
                 TimeProductionBandSaw = viewModel.TimeProductionBandSaw,
                 LengthFull = viewModel.LengthFull,
                 HasCuttingThread = viewModel.HasCuttingThread,
-                OnHydraulicMachine = viewModel.OnHydraulicMachine,
                 WithoutBindThreadDiamMatetial = viewModel.WithoutBindThreadDiamMatetial
             };
             return anchor;

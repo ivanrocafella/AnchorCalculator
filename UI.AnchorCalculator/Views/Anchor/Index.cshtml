@@ -113,10 +113,6 @@
                  <input class="form-check-input" asp-for="HasCuttingThread" type="checkbox" id="hasCuttingThreadDivCheckbox" onchange="onCheckThreadCutter()">
                  <label class="form-check-label" for="hasCuttingThreadDivCheckbox">Резьба на токарном станке</label>
              </div>
-             <div id="onHydraulicMachineDiv" class="form-check form-check-inline w-75 mb-3">
-                 <input class="form-check-input" asp-for="OnHydraulicMachine" type="checkbox" id="onHydraulicMachineDivCheckbox" onchange="onCheckHydraylicMachine()">
-                 <label class="form-check-label" for="onHydraulicMachineDivCheckbox">Резьба на гидравлическом станке</label>
-             </div>
              <div id="threadLengthSecondDiv" class="form-check form-check-inline w-75 mb-3"
              >
                  <input class="form-check-input" asp-for="HasThreadSecond" type="checkbox" id="threadLengthSecondDivCheckbox" onchange="showthreadLengthSecondDivInp()">
@@ -194,33 +190,12 @@
     <script>
 
         let hasCuttingThreadDivCheckbox = document.getElementById("hasCuttingThreadDivCheckbox");
-        let onHydraulicMachineDivCheckbox = document.getElementById("onHydraulicMachineDivCheckbox");
         let withoutBindThreadDiamMatetialDivCheckbox = document.getElementById("withoutBindThreadDiamMatetialDivCheckbox");
         let threadDiameterInput = document.getElementById("ThreadDiameter");
         let withoutBindRadiusBendDiamMatetialDivCheckbox = document.getElementById("withoutBindRadiusBendDiamMatetialDivCheckbox");
         let bendRadiusInput = document.getElementById("BendRadius");
         let hasThreadDivCheckbox = document.getElementById("hasThreadDivCheckbox");
         let DiametrInput = document.getElementById("Diameter");
-
-        function onCheckThreadCutter() {
-            setBendAndThread()
-            if (hasCuttingThreadDivCheckbox.checked) {
-                onHydraulicMachineDivCheckbox.checked = false;
-            }
-            else {
-                hasCuttingThreadDivCheckbox.checked = false;
-            }
-        }
-
-        function onCheckHydraylicMachine() {
-            setBendAndThread()
-            if (onHydraulicMachineDivCheckbox.checked) {
-                hasCuttingThreadDivCheckbox.checked = false;
-            }
-            else {
-                onHydraulicMachineDivCheckbox.checked = false;
-            }
-        }
 
         function onWithoutBindThreadDiamMatetial() {
             if (withoutBindThreadDiamMatetialDivCheckbox.checked) {
@@ -251,13 +226,11 @@
             var withBendDouble = document.getElementById("withBendDouble");
             var threadLength = document.getElementById("ThreadLength");
             var hasCuttingThreadDiv = document.getElementById("hasCuttingThreadDiv");
-            var onHydraulicMachineDiv = document.getElementById("onHydraulicMachineDiv");
             var withoutBindThreadDiamMatetialDiv = document.getElementById("withoutBindThreadDiamMatetialDiv");
             if (hasThreadDivCheckbox.checked) {
                 threadLength.disabled = false;
                 threadLength.value = '';
                 hasCuttingThreadDiv.style.display = "block";
-                onHydraulicMachineDiv.style.display = "block";
                 withoutBindThreadDiamMatetialDiv.style.display = "block";
                 if (straight.checked) { 
                     threadLengthSecondDiv.style.display = "block";  
@@ -270,8 +243,6 @@
                 showthreadLengthSecondDivInp();
                 hasCuttingThreadDiv.style.display = "none";
                 hasCuttingThreadDivCheckbox.checked = false;
-                onHydraulicMachineDiv.style.display = "none";
-                onHydraulicMachineDivCheckbox.checked = false;
                 withoutBindThreadDiamMatetialDiv.style.display = "none";
                 withoutBindThreadDiamMatetialDivCheckbox.checked = false;
                 threadDiameterInput.readOnly = true;
@@ -383,7 +354,6 @@
                                                                                               '<input id="timeProductionBandSawToDB" type="hidden" value="' + response.anchorJS.timeProductionBandSaw + '">' +
                                                                                               '<input id="lengthFullToDB" type="hidden" value="' + response.anchorJS.lengthFull + '">' +
                                                                                               '<input id="hasCuttingThreadToDB" type="hidden" value="' + response.anchorJS.hasCuttingThread + '">' +
-                                                                                              '<input id="onHydraulicMachineToDB" type="hidden" value="' + response.anchorJS.onHydraulicMachine + '">' +
                                                                                               '<input id="withoutBindThreadDiamMatetialToDB" type="hidden" value="' + response.anchorJS.withoutBindThreadDiamMatetial + '">' +
                                                                                               '<div class="btn-group mt-2" role="group" aria-label="Basic mixed styles example">' +
                                                                                               '<button type="button" id="liveToastBtn" class="btn btn-dark" onclick="Add();">Сохранить</button>' +
@@ -510,7 +480,7 @@
         let inputThreadLengthValue;
 
         inputThreadLength.addEventListener('input', (event) => {
-            inputMask(inputThreadLength, 3, 999, 0);           
+            inputMask(inputThreadLength, 4, 9999, 0);           
             inputThreadLengthValue = event.target.value;
         });
 
@@ -518,7 +488,7 @@
         let inputThreadLengthSecondValue;
 
         inputThreadLengthSecond.addEventListener('input', (event) => {
-            inputMask(inputThreadLengthSecond, 3, 999, 0);
+            inputMask(inputThreadLengthSecond, 4, 9999, 0);
             inputThreadLengthSecondValue = event.target.value;
             if (inputThreadLengthSecondValue > 0)
             {
@@ -567,10 +537,6 @@
                      diameterMaterial = materialJs.size;
                      if (diameterMaterial >= 8 && diameterMaterial <= 12){ 
                           hasCuttingThreadDivCheckbox.checked = true;
-                          onHydraulicMachineDivCheckbox.checked = false;
-                          onHydraulicMachineDivCheckbox.disabled = true;
-                     } else {
-                          onHydraulicMachineDivCheckbox.disabled = false;
                      }
                  }
                  else { 
@@ -1035,8 +1001,6 @@
 
              var hasCuttingThreadToDB = document.getElementById("hasCuttingThreadToDB").value
 
-             var onHydraulicMachineToDB = document.getElementById("onHydraulicMachineToDB").value
-
              var withoutBindThreadDiamMatetialToDB = document.getElementById("withoutBindThreadDiamMatetialToDB").value
             $.ajax(
                     {
@@ -1075,7 +1039,6 @@
                         'timeProductionBandSaw': timeProductionBandSawToDB,
                         'lengthFull': lengthFullToDB,
                         'hasCuttingThread': hasCuttingThreadToDB,
-                        'onHydraulicMachine': onHydraulicMachineToDB,
                         'withoutBindThreadDiamMatetial': withoutBindThreadDiamMatetialToDB
                         },
                         success: function(response)
