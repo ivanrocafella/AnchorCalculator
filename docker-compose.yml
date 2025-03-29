@@ -1,0 +1,50 @@
+services:
+  ui.anchorcalculator:
+    build:
+      context: .
+      dockerfile: UI.AnchorCalculator/Dockerfile
+    image: ui-anchor-calculator
+    container_name: ui-anchor-calculator
+    ports:
+      - "8080:80"
+    depends_on:
+      db-anchor-calculator:
+        condition: service_healthy  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=db-anchor-calculator;port=3306;Database=AnchorCalculatorDB;user=IvanKobtsev;password=901321Kobcev;
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+    networks:
+      - app-network
+
+  db-anchor-calculator:
+    image: mysql:8.0
+    container_name: db-anchor-calculator
+    environment:
+      MYSQL_ROOT_PASSWORD: 901321Kobcev
+      MYSQL_DATABASE: AnchorCalculatorDB
+      MYSQL_USER: IvanKobtsev
+      MYSQL_PASSWORD: 901321Kobcev 
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init-user.sql:/docker-entrypoint-initdb.d/init-user.sql
+      - ./AnchorCalculatorDB_dump.sql:/docker-entrypoint-initdb.d/AnchorCalculatorDB_dump.sql
+    ports:
+      - "3307:3306"
+    networks:
+      - app-network
+    healthcheck:
+      test: "mysql --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD --execute \"SHOW DATABASES;\" || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge

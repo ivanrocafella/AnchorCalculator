@@ -35,11 +35,12 @@ namespace UI.AnchorCalculator.Services
 
 
         //Method for getting AnchorViewModel
-        public AnchorViewModel GetAnchorViewModel()
+        public async Task<AnchorViewModel> GetAnchorViewModel()
         {
+            var materials = await MService.GetAllMaterials();
             AnchorViewModel anchorViewModel = new()
             {
-                Materials = MService.GetAllMaterials().Result.OrderBy(x => x.Name).ThenBy(x => x.Size).ToList()
+                Materials = materials.OrderBy(x => x.Name).ThenBy(x => x.Size).ToList()
             };
             return anchorViewModel;
         }

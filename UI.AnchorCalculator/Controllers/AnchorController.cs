@@ -34,9 +34,9 @@ namespace UI.AnchorCalculator.Controllers
         }
 
         // GET: AnchorController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            AnchorViewModel viewModel = _AService.GetAnchorViewModel();
+            AnchorViewModel viewModel = await _AService.GetAnchorViewModel();
             return View(viewModel);
         }
 
