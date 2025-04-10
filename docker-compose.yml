@@ -6,7 +6,7 @@ services:
     image: ui-anchor-calculator
     container_name: ui-anchor-calculator
     ports:
-      - "8080:80"
+      - "5000:80"
     depends_on:
       db-anchor-calculator:
         condition: service_healthy  
