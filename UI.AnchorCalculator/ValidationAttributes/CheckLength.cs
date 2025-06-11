@@ -32,15 +32,18 @@ namespace UI.AnchorCalculator.ValidationAttributes
                 var length = (int)value;
                 if (hasThreadPropertyVal)
                 {
-                    if (length < 400 || length > 6000)
-                        return new ValidationResult("Укажите длину от 400 до 6000");
+                    //if (length < 400 || length > 6000)
+                    //    return new ValidationResult("Укажите длину от 400 до 6000");
+                    if (length < 400)
+                        return new ValidationResult("Укажите длину от 400");
                 }
                 else
-                { 
-                    if (length < bendRadiusMax || length > 6000)
-                        return new ValidationResult($"Укажите длину от {bendRadiusMax} до 6000");
+                {
+                    //if (length < bendRadiusMax || length > 6000)
+                    //    return new ValidationResult($"Укажите длину от {bendRadiusMax} до 6000");
+                    if (length < bendRadiusMax)
+                        return new ValidationResult($"Укажите длину от {bendRadiusMax}");
                 }
-                
             }               
             return ValidationResult.Success;
         }

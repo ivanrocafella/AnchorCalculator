@@ -72,7 +72,6 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 
-//app.UsePathBase("/anchor");
 app.UseRouting();
 app.MapControllers();
 
