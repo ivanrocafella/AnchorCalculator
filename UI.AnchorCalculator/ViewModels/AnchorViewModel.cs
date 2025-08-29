@@ -14,6 +14,10 @@ namespace UI.AnchorCalculator.ViewModels
         [CheckLength("HasThread", "BendRadius")] // min 1000 for hydraulic , 400 for rolling and cutting, min bendRadius + 60 for nonThread
         [Display(Name = "Длина, мм:")]
         public int Length { get; set; }
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [CheckLength("HasThread", "BendRadius")] // min 1000 for hydraulic , 400 for rolling and cutting, min bendRadius + 60 for nonThread
+        [Display(Name = "Длина вторая, мм:")]
+        public int LengthSecond { get; set; }
         [Required(ErrorMessage = "Выберите материал")]
         [Display(Name = "Диаметр, мм:")]
         public string Diameter { get; set; }
@@ -68,7 +72,9 @@ namespace UI.AnchorCalculator.ViewModels
         [ValidateNever]
         public bool WithoutBindRadiusBendDiamMatetial { get; set; }
         [ValidateNever]
-        public bool HasCuttingThread { get; set; }  
+        public bool HasCuttingThread { get; set; }
+        [ValidateNever]
+        public bool HasVariableLength { get; set; }
         public double TimeProductionThread { get; set; }
         public double TimeProductionBend { get; set; }
         public double TimeProductionBandSaw { get; set; }

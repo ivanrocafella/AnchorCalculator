@@ -112,6 +112,11 @@ namespace UI.AnchorCalculator.Controllers
             }
             else
                 ModelState.Remove(nameof(viewModel.BendRadius));
+            if (!viewModel.HasVariableLength) {
+                ModelState.Remove(nameof(viewModel.LengthSecond));
+                if (viewModel.Kind == Kind.BendDouble.ToString())
+                    viewModel.LengthSecond = viewModel.Length;
+            }
             if (ModelState.IsValid)
             {
                 Anchor Anchor = await _AService.GetAnchor(viewModel);
@@ -138,7 +143,8 @@ namespace UI.AnchorCalculator.Controllers
                     , errorMessageThreadLen = ModelState["ThreadLength"]?.Errors.FirstOrDefault()?.ErrorMessage
                     , errorMessageThreadSecondLen = ModelState["ThreadLengthSecond"]?.Errors.FirstOrDefault()?.ErrorMessage
                     , errorMessageLen = ModelState["Length"]?.Errors.FirstOrDefault()?.ErrorMessage
-                    , errorMessageRad = ModelState["BendRadius"]?.Errors.FirstOrDefault()?.ErrorMessage
+                    , errorMessageRad = ModelState["BendRadius"]?.Errors.FirstOrDefault()?.ErrorMessage                    
+                    , errorMessageLenSecond = ModelState["LengthSecond"]?.Errors.FirstOrDefault()?.ErrorMessage
                 });
             }    
         }

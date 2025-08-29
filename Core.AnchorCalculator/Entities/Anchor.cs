@@ -12,6 +12,7 @@ namespace Core.AnchorCalculator.Entities
     public class Anchor : Entity
     {
         public int Length { get; set; }
+        public int LengthSecond { get; set; }
         public float Diameter { get; set; }
         public double Weight { get; set; }
         public double Sebes { get; set; }        
