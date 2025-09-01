@@ -314,11 +314,9 @@
                                     price_Production = '<p class="card-text">Цена накатки/нарезки резьбы: ' + Math.round(response.anchorJS.batchPriceProductionThread) + ' сом</p>' +
                                                                      '<p class="card-text">Цена гибки: ' + Math.round(response.anchorJS.batchPriceProductionBend) + ' сом</p>' +
                                                                      '<p class="card-text">Цена лентопила: ' + Math.round(response.anchorJS.batchPriceProductionBandSaw) + ' сом</p>';
-                                    if(response.anchorJS.productionId != 0){
                                         time_Production = '<p class="card-text">Время накатки/нарезки резьбы: ' + response.anchorJS.timeProductionThread.toFixed(2) + ' ч</p>' +
                                             '<p class="card-text">Время гибки: ' + response.anchorJS.timeProductionBend.toFixed(2) + ' ч</p>' +
-                                            '<p class="card-text">Время лентопила: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>';
-                                    }
+                                            '<p class="card-text">Время лентопила: ' + response.anchorJS.timeProductionBandSaw.toFixed(2) + ' ч</p>';                                    
                                 Descript_to_blank = '<div id="Descript_to_blank"><h5 class="card-title">Результаты расчёта</h5><p class="card-text">Кол-во: ' + response.anchorJS.quantity + ' шт</p>' +
                                     '<p class="card-text">Цена: ' + Math.round(response.anchorJS.price) + ' сом</p>' +
                                     '<p class="card-text">Общая стоимость: ' + Math.round(response.anchorJS.amount) + ' сом</p>' +

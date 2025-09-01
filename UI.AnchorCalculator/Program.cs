@@ -1,6 +1,7 @@
 
 using Core.AnchorCalculator.Entities;
 using DAL.AnchorCalculator;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
                                              "àáâãäå¸æçèéêëìíîïğñòóôõö÷øùúûüışÿÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß";
 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+builder.Services.AddDataProtection()
+    .PersistKeysToDbContext<ApplicationDbContext>()
+    .SetApplicationName("AnchorCalculator");
 builder.Services.AddSingleton<LoggerManager>();
 builder.Services.AddControllersWithViews();
 
