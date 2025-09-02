@@ -1,5 +1,6 @@
 ﻿using Core.AnchorCalculator.Entities;
 using GrapeCity.Documents.Svg;
+using Microsoft.Extensions.ObjectPool;
 using System.Drawing;
 using System.Text;
 
@@ -14,6 +15,7 @@ namespace UI.AnchorCalculator.Services
         const int Width = 900;
         const int Height = 900;
         const int lengthMax = 700; // max length of anchor
+        const int lengthSecondMax = 500; // max length of second part anchor
         const int bendLengthMax = 300; // max length of anchor's bend
         float scaledThreadLength;
         float scaledSecondThreadLength;
@@ -2451,7 +2453,14 @@ namespace UI.AnchorCalculator.Services
             int gap = 20; // gap in out of max length  of anchor
             int outPartHorSize = 45; // length output part of horizontal size
             int outPartRadSize = 45; // length of shelf of radius size
-
+            int offsetVert = 0; // vertical offset of second part upper end 
+            if (anchor.Length <= lengthMax)
+                offsetVert = anchor.Length - anchor.LengthSecond;
+            else
+            { 
+                if (anchor.Length != anchor.LengthSecond)
+                    offsetVert = lengthMax - lengthSecondMax;                                   
+            }
             var svgDoc = new GcSvgDocument();
             svgDoc.RootSvg.Width = new SvgLength(Width, SvgLengthUnits.Pixels);
             svgDoc.RootSvg.Height = new SvgLength(Height, SvgLengthUnits.Pixels);
@@ -2505,7 +2514,7 @@ namespace UI.AnchorCalculator.Services
                 if (anchor.BendLength <= bendLengthMax)
                 {
                     rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - anchor.BendLength + anchor.Diameter,
-                    Y_InitCoord,
+                    Y_InitCoord + offsetVert,
                     anchor.ThreadDiameter,
                     scaledThreadLength,
                     Color.Transparent,
@@ -2516,7 +2525,7 @@ namespace UI.AnchorCalculator.Services
                     svgElements.Add(rectThreadBodyAnchorSecond);
 
                     rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - anchor.BendLength + anchor.Diameter,
-                    Y_InitCoord,
+                    Y_InitCoord + offsetVert,
                     anchor.ThreadDiameter - anchor.ThreadStep,
                     scaledThreadLength,
                     Color.Transparent,
@@ -2527,19 +2536,19 @@ namespace UI.AnchorCalculator.Services
                     svgElements.Add(rectThreadStepBodyAnchorSecond);
 
                     threadAxialLineSecond = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
-                                      Y_InitCoord - outPartHorSize,
+                                      Y_InitCoord - outPartHorSize + offsetVert,
                                       X_InitCoord + anchor.ThreadDiameter / 2 - anchor.BendLength + anchor.Diameter,
                                       Y_InitCoord + scaledThreadLength,
                                       Color.Black,
                                       0.15f,
-                                      SvgLengthUnits.Pixels);
+                                      SvgLengthUnits.Pixels); 
 
                     svgElements.Add(threadAxialLineSecond); // Make top left part of axial thread's line of anchor
                 }
                 else
                 {
                     rectThreadBodyAnchorSecond = GetSvgRectElement(X_InitCoord - bendLengthMax,
-                                    Y_InitCoord,
+                                    Y_InitCoord + offsetVert,
                                     anchor.ThreadDiameter,
                                     scaledThreadLength,
                                     Color.Transparent,
@@ -2550,7 +2559,7 @@ namespace UI.AnchorCalculator.Services
                     svgElements.Add(rectThreadBodyAnchorSecond);
 
                     rectThreadStepBodyAnchorSecond = GetSvgRectElement(X_InitCoord + anchor.ThreadStep / 2 - bendLengthMax,
-                                    Y_InitCoord,
+                                    Y_InitCoord + offsetVert,
                                     anchor.ThreadDiameter - anchor.ThreadStep,
                                     scaledThreadLength,
                                     Color.Transparent,
@@ -2561,12 +2570,12 @@ namespace UI.AnchorCalculator.Services
                     svgElements.Add(rectThreadStepBodyAnchorSecond); // Make top left part of axial thread's line of anchor
 
                     threadAxialLineSecond = GetSvgLineElement(X_InitCoord + anchor.ThreadDiameter / 2 - bendLengthMax,
-                                    Y_InitCoord - outPartHorSize,
+                                    Y_InitCoord - outPartHorSize + offsetVert,
                                     X_InitCoord + anchor.ThreadDiameter / 2 - bendLengthMax,
                                     Y_InitCoord + scaledThreadLength,
                                     Color.Black,
                                     0.15f,
-                                    SvgLengthUnits.Pixels);
+                                    SvgLengthUnits.Pixels); // -- 
 
                     svgElements.Add(threadAxialLineSecond); // Make top left part of axial thread's line of anchor
                 }

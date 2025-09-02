@@ -10,11 +10,13 @@ namespace UI.AnchorCalculator.ValidationAttributes
     {
         private readonly string _hasThreadName;
         private readonly string _bendRadiusName;
+        private readonly string _firstLengthName;
 
-        public CheckLength(string hasThreadName, string bendRadiusName)
+        public CheckLength(string hasThreadName, string bendRadiusName, string firstLengthName)
         {
             _hasThreadName = hasThreadName;
             _bendRadiusName = bendRadiusName;
+            _firstLengthName = firstLengthName;
         }
 
         //https://makolyte.com/aspnetcore-client-side-custom-validation-attributes/
@@ -25,11 +27,19 @@ namespace UI.AnchorCalculator.ValidationAttributes
             var bendRadiusNamePropertyInfo = validationContext.ObjectType.GetProperty(_bendRadiusName);
             var bendRadiusPropertyVal = Convert.ToDouble(bendRadiusNamePropertyInfo.GetValue(validationContext.ObjectInstance));
             double bendRadiusMax = bendRadiusPropertyVal + 60;
+            double firstLengthPropertyVal;
+            var firstLengthPropertyInfo = validationContext.ObjectType.GetProperty(_firstLengthName);
+            if (firstLengthPropertyInfo != null)
+                firstLengthPropertyVal = Convert.ToDouble(firstLengthPropertyInfo.GetValue(validationContext.ObjectInstance));
+            else
+                return new ValidationResult($"Unknown property: {_firstLengthName}");
             if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
                 return null;
             else
             {
                 var length = (int)value;
+                if (length > firstLengthPropertyVal)
+                    return new ValidationResult($"Длина второго конца должна быть меньше или равна длине первого");
                 if (hasThreadPropertyVal)
                 {
                     //if (length < 400 || length > 6000)
