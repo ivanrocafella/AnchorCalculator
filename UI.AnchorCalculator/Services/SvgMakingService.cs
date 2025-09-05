@@ -2452,6 +2452,7 @@ namespace UI.AnchorCalculator.Services
 
             int gap = 20; // gap in out of max length  of anchor
             int outPartHorSize = 45; // length output part of horizontal size
+            int outPartShortHorSize = 40; // short length output part of horizontal size
             int outPartRadSize = 45; // length of shelf of radius size
             int offsetVert = 0; // vertical offset of second part upper end 
             if (anchor.Length <= lengthMax)
@@ -2753,6 +2754,16 @@ namespace UI.AnchorCalculator.Services
             SvgLineElement lineHorBotSizeLengthOfAnchorWithoutRadius;
             SvgLineElement lineVertSizeLengthOfAnchorWithoutRadius;
 
+            //Make objects of sizes anchor's second length
+
+            SvgLineElement lineHorTopSizeLengthSecondOfAnchor;
+            SvgLineElement lineHorBotSizeLengthSecondOfAnchor;
+            SvgLineElement lineVertSizeLengthSecondOfAnchor;
+
+            SvgLineElement lineHorTopSizeLengthSecondOfAnchorWithoutRadius;
+            SvgLineElement lineHorBotSizeLengthSecondOfAnchorWithoutRadius;
+            SvgLineElement lineVertSizeLengthSecondOfAnchorWithoutRadius;
+
             //Make object bending part without radius
 
             SvgRectElement rectBendAnchor;
@@ -2850,13 +2861,72 @@ namespace UI.AnchorCalculator.Services
                     //Draw second basic part without thread and bend 
 
                     rectBasicBodyAnchorSecond = GetSvgRectElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendLength + anchor.Diameter,
-                        Y_InitCoord + scaledThreadLength,
+                        Y_InitCoord + scaledThreadLength + offsetVert,
                         anchor.Diameter,
-                        anchor.Length - (scaledThreadLength + anchor.BendRadius + anchor.Diameter),
+                        anchor.Length - (scaledThreadLength + anchor.BendRadius + anchor.Diameter) - offsetVert,
                         Color.Transparent,
                         Color.Black,
                         1.5f,
                         SvgLengthUnits.Pixels);
+                    
+                    // Size of anchors's second length
+
+                    lineHorTopSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorTopSizeLengthSecondOfAnchor);
+
+
+                    lineHorBotSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (anchor.BendRadius + anchor.Diameter) - anchor.BendLength,
+                                     Y_InitCoord + anchor.Length,
+                                     X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - anchor.BendLength,
+                                     Y_InitCoord + anchor.Length,
+                                     Color.Black,
+                                     0.5f,
+                                     SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorBotSizeLengthSecondOfAnchor);
+
+                    lineVertSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + anchor.Length,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineVertSizeLengthSecondOfAnchor);
+
+                    var lineSerifTopSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifTopSizeLengthSecondOfAnchor);
+
+                    var lineSerifBotSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + anchor.Length,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + anchor.Length,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifBotSizeLengthSecondOfAnchor);
+
+                    svgElements.Add(GetSvgTextElement($"{anchor.LengthSecond}",
+                              X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - 2 - anchor.BendLength,
+                              Y_InitCoord + (anchor.Length + offsetVert) / 2 + 10,
+                              -90,
+                              SvgLengthUnits.Pixels));    // Make text of size's value second length of anchor
 
                     //Draw bending part without radius
 
@@ -3074,13 +3144,72 @@ namespace UI.AnchorCalculator.Services
                     //Draw second basic part without thread and bend 
 
                     rectBasicBodyAnchorSecond = GetSvgRectElement(X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
-                        Y_InitCoord + scaledThreadLength,
+                        Y_InitCoord + scaledThreadLength + offsetVert,
                         anchor.Diameter,
-                        anchor.Length - (scaledThreadLength + anchor.BendRadius + anchor.Diameter),
+                        anchor.Length - (scaledThreadLength + anchor.BendRadius + anchor.Diameter) - offsetVert,
                         Color.Transparent,
                         Color.Black,
                         1.5f,
                         SvgLengthUnits.Pixels);
+
+                    // Size of anchors's second length
+
+                    lineHorTopSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorTopSizeLengthSecondOfAnchor);
+
+
+                    lineHorBotSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (anchor.BendRadius + anchor.Diameter) - bendLengthMax,
+                                     Y_InitCoord + anchor.Length,
+                                     X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - bendLengthMax,
+                                     Y_InitCoord + anchor.Length,
+                                     Color.Black,
+                                     0.5f,
+                                     SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorBotSizeLengthSecondOfAnchor);
+
+                    lineVertSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + anchor.Length,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineVertSizeLengthSecondOfAnchor);
+
+                    var lineSerifTopSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifTopSizeLengthSecondOfAnchor);
+
+                    var lineSerifBotSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + anchor.Length,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + anchor.Length,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifBotSizeLengthSecondOfAnchor);
+
+                    svgElements.Add(GetSvgTextElement($"{anchor.LengthSecond}",
+                              X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - 2 - bendLengthMax,
+                              Y_InitCoord + (anchor.Length + offsetVert) / 2 + 10,
+                              -90,
+                              SvgLengthUnits.Pixels));    // Make text of size's value second length of anchor
 
                     //Draw bending part without radius 
 
@@ -3391,8 +3520,6 @@ namespace UI.AnchorCalculator.Services
                     0,
                     SvgLengthUnits.Pixels));    // Make text of size's value radius of anchor
 
-
-
                 svgElements.Add(rectBasicBodyAnchor);
 
                 // Size of anchors's length
@@ -3453,7 +3580,7 @@ namespace UI.AnchorCalculator.Services
                           Y_InitCoord + anchor.Length / 2 + 10,
                           -90,
                           SvgLengthUnits.Pixels));    // Make text of size's value length of anchor
-
+                
                 // Size of anchors's length without radius
 
                 lineHorTopSizeLengthOfAnchorWithoutRadius = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2,
@@ -3771,7 +3898,7 @@ namespace UI.AnchorCalculator.Services
 
                     pbHalfTopBasicBodySecondAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendLength + anchor.Diameter,
                         Y_InitCoord + scaledThreadLength + (lengthMax / 2 - gap));
-                    pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + scaledThreadLength);
+                    pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + scaledThreadLength + offsetVert);
                     pbHalfTopBasicBodySecondAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - anchor.BendLength + 2 * anchor.Diameter);
                     pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + scaledThreadLength + (lengthMax / 2 - gap));
 
@@ -3809,6 +3936,65 @@ namespace UI.AnchorCalculator.Services
                              SvgLengthUnits.Pixels); // drawing of axial line in middle
 
                     svgElements.Add(middleAxialLine);
+
+                    // Size of anchors's second length
+
+                    lineHorTopSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorTopSizeLengthSecondOfAnchor);
+
+
+                    lineHorBotSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (anchor.BendRadius + anchor.Diameter) - anchor.BendLength,
+                                     Y_InitCoord + scaledThreadLength + lengthMax,
+                                     X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - anchor.BendLength,
+                                     Y_InitCoord + scaledThreadLength + lengthMax,
+                                     Color.Black,
+                                     0.5f,
+                                     SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorBotSizeLengthSecondOfAnchor);
+
+                    lineVertSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + scaledThreadLength + lengthMax,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineVertSizeLengthSecondOfAnchor);
+
+                    var lineSerifTopSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + offsetVert,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifTopSizeLengthSecondOfAnchor);
+
+                    var lineSerifBotSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + scaledThreadLength + lengthMax,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - anchor.BendLength,
+                                Y_InitCoord + scaledThreadLength + lengthMax,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifBotSizeLengthSecondOfAnchor);
+
+                    svgElements.Add(GetSvgTextElement($"{anchor.LengthSecond}",
+                              X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - 2 - anchor.BendLength,
+                              Y_InitCoord + (scaledThreadLength + lengthMax + offsetVert) / 2 + 10,
+                              -90,
+                              SvgLengthUnits.Pixels));    // Make text of size's value second length of anchor
 
                     //Draw bending part without radius
 
@@ -4063,7 +4249,7 @@ namespace UI.AnchorCalculator.Services
 
                     pbHalfTopBasicBodySecondAnchor.AddMoveTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax,
                         Y_InitCoord + scaledThreadLength + (lengthMax / 2 - gap));
-                    pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + scaledThreadLength);
+                    pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + scaledThreadLength + offsetVert);
                     pbHalfTopBasicBodySecondAnchor.AddHorizontalLineTo(false, X_InitCoord - (anchor.Diameter - anchor.ThreadDiameter) / 2 - bendLengthMax + anchor.Diameter);
                     pbHalfTopBasicBodySecondAnchor.AddVerticalLineTo(false, Y_InitCoord + scaledThreadLength + (lengthMax / 2 - gap));
 
@@ -4171,6 +4357,65 @@ namespace UI.AnchorCalculator.Services
                     pathgapLeft.StrokeWidth = new SvgLength(0.5f);
 
                     svgElements.Add(pathgapLeft);
+
+                    // Size of anchors's second length
+
+                    lineHorTopSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorTopSizeLengthSecondOfAnchor);
+
+
+                    lineHorBotSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord + (anchor.ThreadDiameter + anchor.Diameter) / 2 + (anchor.BendRadius + anchor.Diameter) - bendLengthMax,
+                                     Y_InitCoord + scaledThreadLength + lengthMax,
+                                     X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartHorSize - bendLengthMax,
+                                     Y_InitCoord + scaledThreadLength + lengthMax,
+                                     Color.Black,
+                                     0.5f,
+                                     SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineHorBotSizeLengthSecondOfAnchor);
+
+                    lineVertSizeLengthSecondOfAnchor = GetSvgLineElement(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + scaledThreadLength + lengthMax,
+                                Color.Black,
+                                0.5f,
+                                SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineVertSizeLengthSecondOfAnchor);
+
+                    var lineSerifTopSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + offsetVert,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifTopSizeLengthSecondOfAnchor);
+
+                    var lineSerifBotSizeLengthSecondOfAnchor = GetSerif(X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + scaledThreadLength + lengthMax,
+                                X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - bendLengthMax,
+                                Y_InitCoord + scaledThreadLength + lengthMax,
+                          Color.Black,
+                          0.5f,
+                          SvgLengthUnits.Pixels);
+
+                    svgElements.Add(lineSerifBotSizeLengthSecondOfAnchor);
+
+                    svgElements.Add(GetSvgTextElement($"{anchor.LengthSecond}",
+                              X_InitCoord - (anchor.ThreadDiameter + anchor.Diameter) / 2 - outPartShortHorSize - 2 - bendLengthMax,
+                              Y_InitCoord + (scaledThreadLength + lengthMax + offsetVert) / 2 + 10,
+                              -90,
+                              SvgLengthUnits.Pixels));    // Make text of size's value second length of anchor
 
                     //Size of bending part 
 
