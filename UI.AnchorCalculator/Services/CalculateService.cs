@@ -171,10 +171,10 @@ namespace UI.AnchorCalculator.Services
                     + (anchor.BendLength - (anchor.Diameter + anchor.BendRadius)));
             }
             else if (anchor.Kind == Kind.BendDouble)
-            {
-                lengthBillet = 2 * (anchor.Length - anchor.BendRadius - anchor.Diameter
-                    + (Math.PI * (anchor.BendRadius + kFactor * anchor.Diameter) * 1 / 2))
-                    + anchor.BendLength - 2 * (anchor.Diameter + anchor.BendRadius);
+            {               
+                lengthBillet = anchor.Length + anchor.LengthSecond
+                    - 2 * (anchor.BendRadius + anchor.Diameter - (Math.PI * (anchor.BendRadius + kFactor * anchor.Diameter) * 1 / 2))
+                    + anchor.BendLength - 2 * (anchor.Diameter + anchor.BendRadius);                
             }
             else
                 lengthBillet = anchor.Length;    
