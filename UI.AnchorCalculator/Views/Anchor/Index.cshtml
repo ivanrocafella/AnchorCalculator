@@ -336,6 +336,7 @@
                                                                                               '<input id="materialIdtoDB" type="hidden" value="'+ response.anchorJS.materialId +'">' + 
                                                                                               '<input id="diametertoDB" type="hidden" value="'+ response.anchorJS.diameter +'">' +
                                                                                               '<input id="lengthtoDB" type="hidden" value="'+ response.anchorJS.length +'">' +
+                                                                                              '<input id="lengthSecondtoDB" type="hidden" value="'+ response.anchorJS.lengthSecond +'">' +
                                                                                               '<input id="threadDiametertoDB" type="hidden" value="'+ response.anchorJS.threadDiameter +'">' +
                                                                                               '<input id="threadLengthtoDB" type="hidden" value="'+ response.anchorJS.threadLength +'">' +
                                                                                               '<input id="threadLengthSecondtoDB" type="hidden" value="' + response.anchorJS.threadLengthSecond + '">' +
@@ -1040,6 +1041,8 @@
              var hasCuttingThreadToDB = document.getElementById("hasCuttingThreadToDB").value
 
              var withoutBindThreadDiamMatetialToDB = document.getElementById("withoutBindThreadDiamMatetialToDB").value
+
+             var lengthSecondtoDB = document.getElementById("lengthSecondtoDB").value
             $.ajax(
                     {
                         url: '@Url.Action("Add","Anchor")',
@@ -1077,7 +1080,8 @@
                         'timeProductionBandSaw': timeProductionBandSawToDB,
                         'lengthFull': lengthFullToDB,
                         'hasCuttingThread': hasCuttingThreadToDB,
-                        'withoutBindThreadDiamMatetial': withoutBindThreadDiamMatetialToDB
+                        'withoutBindThreadDiamMatetial': withoutBindThreadDiamMatetialToDB,
+                        'lengthSecond': lengthSecondtoDB
                         },
                         success: function(response)
                         {
