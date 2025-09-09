@@ -21,6 +21,7 @@ namespace UI.AnchorCalculator.Extensions
         public double TimeBend { get; set; } // unity of measure = ч
         public double TimeSetBend { get; set; } // unity of measure = ч
         public double Margin { get; set; } // unity of measure = %
+        public double MarginFB { get; set; } // unity of measure = % margin for anchors from diameter 30mm and more
         public double AreaLockSmith { get; set; } // unity of measure = $
         public double PricePlashka { get; set; } // unity of measure = $ стоимость плашки
         public double PriceCutter { get; set; } // unity of measure = $ стоимость резца

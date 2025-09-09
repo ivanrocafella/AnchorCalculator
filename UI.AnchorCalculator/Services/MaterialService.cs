@@ -146,6 +146,7 @@ namespace UI.AnchorCalculator.Services
                 TimeBend = materialsAndCostWorkViewModel.CostWork.TimeBend,
                 TimeSetBend = materialsAndCostWorkViewModel.CostWork.TimeSetBend,
                 Margin = materialsAndCostWorkViewModel.CostWork.Margin,
+                MarginFB = materialsAndCostWorkViewModel.CostWork.MarginFB,
                 AreaLockSmith = materialsAndCostWorkViewModel.CostWork.AreaLockSmith,
                 PricePlashka = materialsAndCostWorkViewModel.CostWork.PricePlashka,
                 PriceCutter = materialsAndCostWorkViewModel.CostWork.PriceCutter

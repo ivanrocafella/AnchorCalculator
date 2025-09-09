@@ -138,7 +138,10 @@ namespace UI.AnchorCalculator.Services
             anchor.BatchPriceMaterial = priceMaterialAnchor * costWork.ExchangeDollar * anchor.Quantity * 1.1; // price of anchor's material batch in som
             anchor.BatchPriceProductionBend = (priceBend * anchor.Quantity + setBend) * costWork.ExchangeDollar * (1 + costWork.Margin) * 1.1; // sebes of batch anchor's bend production in som        
             anchor.BatchPriceProductionBandSaw = priceBandSaw * anchor.Quantity * costWork.ExchangeDollar * (1 + costWork.Margin) * 1.1; // sebes of batch anchor's bandSaw production in som
-            anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar * 1.1; // total amount in som
+            if (anchor.ThreadDiameter < 30)
+                anchor.Amount = (costWorkInterm * (1 + costWork.Margin) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar * 1.1; // total amount in som
+            else
+                anchor.Amount = (costWorkInterm * (1 + costWork.MarginFB) + priceMaterialAnchor * anchor.Quantity) * costWork.ExchangeDollar * 1.1; // total amount in som            
             //if (anchor.Quantity < 50)
             //{ 
             //    anchor.Amount *= 2;

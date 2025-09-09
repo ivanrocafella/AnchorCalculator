@@ -1,1 +1,1 @@
-{"ExchangeDollar":90,"PnrRollingThread":7,"PnrBendingAnchor":5.5,"PnrBandSaw":4,"LengthEffective":100,"PriceBandSaw":25.36,"TimeSetThreadRolling":0,"TimeBend":0.0055,"TimeSetBend":0.25,"Margin":1,"AreaLockSmith":11.92,"PricePlashka":4.29,"PriceCutter":3.27}
+{"ExchangeDollar":90,"PnrRollingThread":15,"PnrBendingAnchor":15,"PnrBandSaw":7,"LengthEffective":100,"PriceBandSaw":25.36,"TimeSetThreadRolling":1,"TimeBend":0.01,"TimeSetBend":0.25,"Margin":1,"MarginFB":0,"AreaLockSmith":8.5,"PricePlashka":4.29,"PriceCutter":3.27}

@@ -8,5 +8,6 @@ namespace UI.AnchorCalculator.ViewModels
         public List<Material>? Materials { get; set; }
         public CostWork? CostWork { get; set; }
         public double MarginPercent { get { return CostWork.Margin * 100; } set { CostWork.Margin = value / 100; } }
+        public double MarginFBPercent { get { return CostWork.MarginFB * 100; } set { CostWork.MarginFB = value / 100; } }
     }
 }

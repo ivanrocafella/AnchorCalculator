@@ -76,7 +76,7 @@ namespace UI.AnchorCalculator.Controllers
         // POST: MaterialController/Edit
         [HttpPost]
         public async Task<JsonResult> EditCostWork(MaterialsAndCostWorkViewModel materialsAndCost)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 await _MService.EditCostWork(materialsAndCost);

@@ -108,7 +108,11 @@
                         </div>
                          <label for="Margin" class="col-sm-9 col-form-label ml-0 pl-0">Наценка,%:</label>
                <div class="col-sm-3 mb-1">
-                            <input asp-for="MarginPercent" type="text" class="form-control" id="Margin" value="@Model.MarginPercent">           
+                            <input asp-for="MarginPercent" type="text" class="form-control" id="Margin" value="@Model.MarginPercent">
+                        </div>
+                         <label for="MarginFB" class="col-sm-9 col-form-label ml-0 pl-0">Наценка для > М30,%:</label>
+               <div class="col-sm-3 mb-1">
+                            <input asp-for="MarginFBPercent" type="text" class="form-control" id="MarginFB" value="@Model.MarginFBPercent">            
                          </div>
              </div>
              <button id="liveToastBtn" type="submit" class="btn btn-dark mt-2">Изменить</button>
@@ -276,10 +280,25 @@
             allowMinus: false,
             digits: 0,
             max: 999
-        });});
+        });
+        $("#MarginFB").inputmask({
+            alias: 'numeric',
+            allowMinus: false,
+            digits: 0,
+            max: 999
+        });
+        });
 
         var costWorkForm = document.getElementById("CostWorkForm");
         costWorkForm.addEventListener("submit", function formSubmit(event){
+            let inputMargin = document.getElementById("Margin");
+            let inputMarginFB = document.getElementById("MarginFB");
+            if (inputMargin.value.trim() === "") {
+                inputMargin.value = 0;
+            }
+            if (inputMarginFB.value.trim() === "") {
+                inputMarginFB.value = 0;
+            }
             event.preventDefault();    
             var formData = new FormData(costWorkForm)
             $.ajax(
