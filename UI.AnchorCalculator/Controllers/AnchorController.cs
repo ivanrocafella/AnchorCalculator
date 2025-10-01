@@ -176,6 +176,8 @@ namespace UI.AnchorCalculator.Controllers
                 ModelState.Remove(nameof(viewModel.ThreadLength));
             if (viewModel.ThreadLengthSecond == 0)
                 ModelState.Remove(nameof(viewModel.ThreadLengthSecond));
+            if (viewModel.Kind != Kind.BendDouble.ToString())
+                ModelState.Remove(nameof(viewModel.LengthSecond));
             if (ModelState.IsValid)
             {
                 User user = await CurrentUser.Get(_userManager, User.Identity.Name);
