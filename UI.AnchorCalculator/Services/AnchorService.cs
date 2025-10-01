@@ -102,9 +102,10 @@ namespace UI.AnchorCalculator.Services
                 TimeProductionBandSaw = viewModel.TimeProductionBandSaw,
                 LengthFull = viewModel.LengthFull,
                 HasCuttingThread = viewModel.HasCuttingThread,
-                WithoutBindThreadDiamMatetial = viewModel.WithoutBindThreadDiamMatetial,                
-                LengthSecond = viewModel.HasVariableLength ? viewModel.LengthSecond : viewModel.Length
-            };            
+                WithoutBindThreadDiamMatetial = viewModel.WithoutBindThreadDiamMatetial                
+            };
+            if (viewModel.Kind == Kind.BendDouble.ToString())
+                anchor.LengthSecond = viewModel.HasVariableLength ? viewModel.LengthSecond : viewModel.Length;
             return anchor;
         }
 

@@ -75,7 +75,7 @@ namespace UI.AnchorCalculator.Services
                         timeProductionThread += costWork.TimeSetThreadRolling / anchor.Quantity;
                     }
                     else
-                    { 
+                    {
                         timeProduction += anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective);
                         timeProductionThread += anchor.Material.TimeThreadCutting * (2 * anchor.ThreadLength / costWork.LengthEffective);
                     }
@@ -95,7 +95,7 @@ namespace UI.AnchorCalculator.Services
                         timeProductionThread += costWork.TimeSetThreadRolling / anchor.Quantity;
                     }
                     else
-                    { 
+                    {
                         timeProduction += anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                         timeProductionThread += anchor.Material.TimeThreadCutting * ((anchor.ThreadLength + anchor.ThreadLengthSecond) / costWork.LengthEffective);
                     }
@@ -104,6 +104,11 @@ namespace UI.AnchorCalculator.Services
                 }
                 if (anchor.WithoutBindThreadDiamMatetial && anchor.ThreadDiameter < anchor.Diameter - 1)
                     additPriceCutWithoutBindThreadMaterial = priceThreadCutting;
+            }
+            else
+            {
+                costWork.TimeSetThreadRolling = 0;
+                costWork.PnrRollingThread = 0;
             }
 
             double priceBandSaw = anchor.Material.TimeBandSaw * costWork.PnrBandSaw + anchor.Material.LengthBladeBandSaw * costWork.PriceBandSaw; // price of band saw in $
